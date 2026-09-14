@@ -3,9 +3,9 @@
   "pages": [
     "index",
     "quick-start",
-    "tutorials",
-    "troubleshooting",
+    "app-guide",
+    "faq",
     "changelog",
-    "support"
+    "contact"
   ]
 }
