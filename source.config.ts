@@ -20,6 +20,10 @@ export const docs = defineDocs({
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {
-    // MDX options
+    // 图片不做构建期静态导入：译文统一引用 /images/<语言>/...，本地化图片
+    // 不存在时由 next.config 的 afterFiles rewrite 回退到 /images/common/，
+    // 因此构建期不能要求文件存在（useImport:false + onError:'ignore'）。
+    // 文件存在时仍会附带 width/height，减少布局偏移。
+    remarkImageOptions: { useImport: false, onError: 'ignore' },
   },
 });

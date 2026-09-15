@@ -29,6 +29,7 @@ npm start              # 运行生产构建
 - 所有语言的目录结构和文件名**必须与 zh 完全一致**；`meta.json` 的 `pages` 数组跨语言一致，仅 `title` 本地化。
 - **翻译过期检测**：每篇译文 frontmatter 有 `sourceHash`（中文源 sha256 前 12 位），中文修改后 hash 不匹配即报错，需重跑 `/translate-docs`。相关脚本：`scripts/check-content.mjs`（校验）、`scripts/update-sourcehash.mjs`（同步 hash）。
 - 术语表与分语言风格注意点在 `.claude/skills/translate-docs/glossary.json`（品牌名永不翻译、各语言固定译法）。
+- **图片引用**：`zh/` 源直引 `/images/common/...`；译文统一引用 `/images/<语言>/...`，本地化图不存在时由 `next.config.mjs` 的 afterFiles rewrite 自动回退到 `common`——本地化一张图只需把文件放进 `public/images/<语言>/`，无需改 MDX。图片不做构建期静态导入（`source.config.ts` 的 `remarkImageOptions`），且已从 `src/proxy.ts` 的 middleware matcher 中排除（图片不做语言协商）。
 - 默认语言 `en` 的 URL **不带前缀**：`/docs` 内部 rewrite 到 `/en/docs`，`/en/docs` 会 301 到 `/docs`，`/zh/docs` 等保持原样（`hideLocale: 'default-locale'`）。
 - 内容检查：`npm run check:content`（结构对齐 + meta.json + 过期检测 + 死链），CI 中在 types:check 之前运行。
 - 新增语言：修改 `src/lib/i18n.ts`、`scripts/check-content.mjs`、`scripts/update-sourcehash.mjs` 的语言列表，补充 glossary.json，再跑 `/translate-docs`。

@@ -42,7 +42,7 @@ description: 将 content/docs/zh/ 下新增或修改的中文文档翻译为目�
 
 1. 通读全文，理解上下文（同一栏目内术语、语气保持一致）；
 2. 翻译正文与 frontmatter 的 `title`、`description`；
-3. **保护优先**：代码块、行内代码、URL、图片路径、邮箱、HTML/MDX 标签结构一律原样保留；不确定的词优先查术语表而不是猜；
+3. **保护优先**：代码块、行内代码、URL、邮箱、HTML/MDX 标签结构一律原样保留；图片路径按术语表 `universalRules` 的规则把 `/images/common/` 机械替换为 `/images/<目标语言>/`（缺失图片由 rewrite 自动回退）；不确定的词优先查术语表而不是猜；
 4. 写入 `content/docs/<目标语言>/<path>.mdx`（目录结构和文件名必须与中文完全一致，目录不存在则创建）。
 
 批量翻译时可用并行子 agent 按语言分派（每个 agent 负责一种语言，发给它：本 SKILL 的流程说明、glossary.json 路径、文件清单）。

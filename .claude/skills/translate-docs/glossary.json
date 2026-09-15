@@ -21,7 +21,8 @@
     "HDR", "CLIP", "MD5", "HTTP", "HTTPS", "WebSocket", "IP", "OTA", "MDX"
   ],
   "universalRules": [
-    "URL、邮箱地址、图片路径、锚点一律保持原样",
+    "URL、邮箱地址、锚点一律保持原样",
+    "图片路径需机械替换：正文中的 /images/common/ 一律改为 /images/<目标语言>/（如 /images/ja/）。缺失的本地化图片由 next.config 的 rewrite 自动回退到 common，不得改动替换规则",
     "MDX 组件标签及其属性名不译，仅翻译属性值中的文案（如 <Card title=\"...\"> 中的 title 值需要翻译）",
     "代码块（``` 围栏与 ` 行内代码）内容一律不译",
     "frontmatter 中仅翻译 title 和 description，sourceHash 字段由流程生成，不得翻译或删除",

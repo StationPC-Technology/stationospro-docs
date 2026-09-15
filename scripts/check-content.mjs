@@ -210,6 +210,41 @@ for (const locale of [SOURCE_LOCALE, ...TARGET_LOCALES]) {
   }
 }
 
+// ---------- 检查 5：图片引用存在性 ----------
+//
+// 译文统一引用 /images/<语言>/...，缺失的本地化图片由 next.config 的
+// afterFiles rewrite 自动回退到 /images/common/。此处校验引用的图片
+// 至少在 <语言>/ 或 common/ 之一中存在，两个位置都没有即死图。
+
+function imageExists(locale, imagePath) {
+  // imagePath 形如 /images/<lang>/quick-start/.../x.png
+  const rel = imagePath.replace(/^\/+/, ''); // images/<lang>/...
+  if (existsSync(join(ROOT, 'public', rel))) return true;
+  const commonRel = rel.replace(`images/${locale}/`, 'images/common/');
+  return existsSync(join(ROOT, 'public', commonRel));
+}
+
+const mdImageRe = /!\[[^\]]*\]\(([^)\s]+)\)/g;
+
+for (const locale of [SOURCE_LOCALE, ...TARGET_LOCALES]) {
+  for (const f of files[locale]) {
+    const text = readFileSync(join(CONTENT, locale, `${f}.mdx`), 'utf8');
+    const cleaned = text.replace(/```[\s\S]*?```/g, ''); // 代码块中的图片不算引用
+    let m;
+    while ((m = mdImageRe.exec(cleaned)) !== null) {
+      const src = m[1];
+      if (/^[a-z]+:\/\//i.test(src)) continue; // 外链图
+      if (!src.startsWith('/images/')) {
+        warn(`[图片] ${locale}/${f}.mdx 引用了 /images/ 之外的路径: "${src}"`);
+        continue;
+      }
+      if (!imageExists(locale, src)) {
+        err(`[图片] ${locale}/${f}.mdx 死图: "${src}"（${locale}/ 与 common/ 下均不存在）`);
+      }
+    }
+  }
+}
+
 // ---------- 输出 ----------
 
 console.log(`扫描完成: ${[SOURCE_LOCALE, ...TARGET_LOCALES].map((l) => `${l} ${files[l].length} 篇`).join(' / ')}`);

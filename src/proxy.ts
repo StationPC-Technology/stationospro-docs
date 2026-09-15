@@ -63,8 +63,10 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  // Ignore `/_next/`, `/api/`, and top-level route handlers that don't need
-  // locale handling. Note: `.md` doc requests (e.g. `/docs.md`) MUST stay in
-  // the matcher so the markdown rewrite above can handle them.
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|llms.txt|llms-full.txt).*)'],
+  // Ignore `/_next/`, `/api/`, `/images/` (locale fallback is handled by
+  // next.config rewrites, images must not go through locale negotiation),
+  // and top-level route handlers that don't need locale handling.
+  // Note: `.md` doc requests (e.g. `/docs.md`) MUST stay in the matcher
+  // so the markdown rewrite above can handle them.
+  matcher: ['/((?!api|images|_next/static|_next/image|favicon.ico|llms.txt|llms-full.txt).*)'],
 };
