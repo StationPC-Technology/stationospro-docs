@@ -1,0 +1,92 @@
+---
+sourceHash: 10ad7551cda5
+title: 'Systemupdate 2026.08.26'
+---
+
+## Bitte vor dem Update lesen
+Gültige Produkte
+Dieses Update gilt für Produkte, auf denen das Betriebssystem StationOS Pro läuft. Führen Sie vor dem Upgrade anhand der Produktbezeichnung eine Bestätigung der jeweiligen Prozessorarchitektur durch.
+
+● DA-Serie: DA400-Serie
+
+Update-Hinweise
+1. Um die in diesem Artikel beschriebenen Funktionen nutzen zu können, aktualisieren Sie bitte die System-Firmware, die App-Suite oder den Client auf die entsprechende oder eine höhere Version.
+2. Einige neue Funktionen der App-Suite erfordern eine bestimmte Version der System-Firmware. Liegt die Version der System-Firmware unter der niedrigsten kompatiblen Version, werden App-Updates möglicherweise nicht per Push zugestellt oder die entsprechenden Funktionen können nicht ordnungsgemäß genutzt werden.
+
+## StationOS Pro System-Firmware
+### Versionsinformationen
+Version der System-Firmware: v0.32.2.11
+
+Dieses Update beinhaltet Anpassungen an Schnittstellen. Um die ordnungsgemäße Funktion sicherzustellen, empfehlen wir, die Firmware, den Client sowie die zugehörigen Anwendungen auf die jeweils neueste Version zu aktualisieren.
+
+### Speicherverwaltung
+- Behoben: Problem mit abnormalen Speicherbereichen nach dem Ziehen der SSD-Cache-Platte
+- Behoben: Speicheranomalien nach Neustart während der RAID5-Synchronisierung sowie abnormale NVMe-Speicherbereiche nach dem Zurücksetzen
+- Behoben: Anzeige des Festplatten-Integritätszustands stimmte nicht mit SMART überein
+
+### Externer Speicher
+- Neu: Einheitliche Benennung externer Geräte, konsistente Anzeige in allen Modulen, leicht unterscheidbar
+- Neu: Anzeige der Anschlusszeit, des Nur-Lese-Status und des Nicht-Eingehängt-Status
+- Behoben: Fehlgeschlagene sicherer Entfernen von nicht eingehängten USB-Geräten, fehlende Listenaktualisierung nach der Formatierung sowie ungenaue Anzeige der Partitions­kapazität
+- Behoben: Fälschliche Warnung über unzureichende Kapazität beim Upload großer Dateien sowie Rücksprung zum Listenanfang beim Doppelklick auf einen Ordner
+
+### Dateiverwaltung
+- Behoben: Abnormale Fortschrittsanzeige beim Fortsetzen nach pausierten Aufgaben sowie inkonsistente Anzeige der Aufgabenanzahl
+- Behoben: Fehlende Miniaturansichten im Album nach dem Umbenennen eines Ordners
+
+### Video-Codec
+- Neu: Anzeige von Videoinformationen wie Audiospurspezifikationen, HDR und Bildrate; adaptive Parameter für die Audio-Transkodierung
+- Verbessert: Transkodierungs-Cache wird nun auf dem Speichervolume abgelegt, um ein Auffüllen des Systemspeichers zu vermeiden
+- Behoben: Bei fehlgeschlagener Transkodierung hing die Anzeige endlos – es erscheint nun eine klare Fehlermeldung
+
+### Docker
+- Neu: Vorabprüfung vor dem Wechsel des Speicherbereichs, Bestätigung bei Überschreiben alter Daten sowie Anzeige des Migrationsfortschritts
+- Behoben: Verlust des Status nach dem Schließen des Migrationsdialogs sowie automatisches Anhalten des Dienstes
+- Behoben: Doppelte Anfragen an die Image-Registry und gestapelte Fehlermeldungen
+
+### App-Zentrale
+- Neu: MD5-Prüfung der Installationspakete für eine zuverlässigere Installation
+- Neu: geräteübergreifende Synchronisierung des Aktivierungs-/Deaktivierungsstatus von Anwendungen
+- Verbessert: Verwaltung des Lebenszyklus von Compose-Anwendungen
+- Behoben: Fehlalarme bei Community-Anwendungen beim Fernzugriff sowie abnormale Hinweise bei Installation und Deaktivierung
+
+### KI-Assistent
+- Behoben: Fehlgeschlagenes Laden lokaler Modelle nach dem Zurücksetzen sowie Endlosschleife bei CLIP-Indexabfragen
+- Verbessert: Hinweis bei unzureichendem Indexspeicherplatz und Migrationsführung
+
+### Backup
+- Behoben: Verlust der Aufnahmezeit von Fotos sowie abnormale Aktualisierung der Liste externer Geräte
+
+### Ressourcenüberwachung
+- Behoben: Vereinheitlichung der Messgrößen für Überwachungsdaten sowie abnormale Anzeige am linken Ende des Liniendiagramms
+
+## Client
+### iOS- & Android-Client
+App-Version: v0.32.0
+
+#### Neue Funktionen
+
+- Neue Funktion zur Speichermigration von Docker-Containern mit Verfolgung des Migrationsstatus, Bestätigungsablauf sowie automatische Aktualisierung von Konfiguration und Speicherliste nach abgeschlossener Migration
+- Neue Fortschrittsanzeige für intelligente Album-Klassifizierung und die Erkennung ähnlicher Fotos, inklusive schrittweisem Fortschritt, Statusanimationen und Symbolen
+
+#### Verbesserungen des Nutzungserlebnisses
+
+- Die IP-Anmeldung unterstützt die automatische Umleitung auf Standardports (HTTP 80 / HTTPS 443); der Port kann beim Login weggelassen werden
+- Die App-Zentrale unterstützt die Echtzeit-Synchronisierung des Anwendungsstatus „Aktiviert / Deaktiviert“ und reduziert dadurch Flackern und Fehlbeurteilungen während der Bedienung
+- Die Detailseite für externe Festplatten wurde um Dateisystem, Hersteller und Seriennummer ergänzt; bei Nicht-Eingehängt-Zustand erscheint nun ein Kompatibilitätshinweis
+- Optimierte Anordnung der SSD-Cache-Seite sowie verbesserte Darstellung des Leerzustands, wenn keine SSD verfügbar ist
+- Bei zu großer Abweichung der manuell eingestellten Zeit von der Standardzeit erscheint nun eine erneute Bestätigung, um versehentliche Fehlbedienungen zu vermeiden
+- Vereinheitlichte Gestaltung von Eingabefeldern und Dialogen im Einstellungsbereich; behobene Anzeigefehler beim Passwortfeld für entfernte Einhängepunkte
+- Die Backup-Fortschrittsanzeige des Albums erhielt einen monotonie­schützenden Mechanismus, damit die Fortschrittszahl nicht zurückspringt
+- Der Protokollbericht wurde um Seriennummer, Name, Modell und Firmware-Version des aktuellen NAS ergänzt
+- Vereinheitlichte Spezifikation der Symbolschaltflächen in Kopfzeilen außerhalb der Startseite und vergrößerte Klickflächen
+
+#### Behobene Probleme
+
+- Behoben: Auf dem iPad wurden Dialoge durch Zeigerereignisse versehentlich geschlossen; auf Geräten mit großem Bildschirm füllen Dialoge nun die gesamte Breite
+- Behoben: Die Meldung bei fehlgeschlagener Geräteverbindung wurde nicht internationalisiert; die Übersetzungen in sechs Sprachen wurden ergänzt
+- Behoben: Ausnahme auf der SSD-Cache-Detailseite, die durch den Zugriff auf ein Objekt nach dem Zerstören der Seite verursacht wurde
+- Behoben: Schließlogik des Dialogs beim Abschluss der Aufgabe zur intelligenten Klassifizierung
+- Der Hinweistext des Dialogs zum Zurücksetzen auf Werkseinstellungen wurde korrigiert
+- In der Release-Version wird der Upload im Backend standardmäßig auf „Nicht veröffentlicht“ gesetzt, damit keine automatische Veröffentlichung vor der Freigabe erfolgt
+- Die Anzeigenamen externer Speicherpfade wurden vereinheitlicht

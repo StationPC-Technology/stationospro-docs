@@ -1,70 +1,62 @@
 # 多语言文档维护工作流
 
-本项目使用 [GitLocalize](https://gitlocalize.com/) 管理文档翻译。GitLocalize 直接连接 GitHub 仓库，译者在网页端翻译仓库中的 MDX 文件，完成后以 Pull Request 的形式提交回本仓库，合并后即发布。
-
-这种方案没有本地生成步骤、无需维护翻译交换文件，也不需要自托管翻译服务。
+本项目使用 **LLM 翻译流程**（Claude Code skill）将中文文档翻译为 7 种目标语言，替代了早期的 GitLocalize 方案。
 
 ## 基本原则
 
 - `content/docs/zh/` 是唯一人工编写的文档源（源语言：简体中文）。
-- `content/docs/en/` 由 GitLocalize 翻译生成，译者不应直接在本地编辑英文内容。
-- 两种语言的目录结构和文件名必须一致（例如 `quick-start/da400-install.mdx`），GitLocalize 才能正确映射源文件与译文文件。
-- GitLocalize 完成翻译后自动创建 PR，由维护者审核合并后发布。
+- 其余 7 种语言均由翻译流程生成，**不要直接手改译文**（修改会被下次翻译覆盖）：
 
-## 首次配置
+  | 语言 id | 目录 | 语言 |
+  |---|---|---|
+  | `zh-Hant` | `content/docs/zh-Hant/` | 繁體中文 |
+  | `en` | `content/docs/en/` | English（默认语言，URL 无前缀） |
+  | `ja` | `content/docs/ja/` | 日本語 |
+  | `ko` | `content/docs/ko/` | 한국어 |
+  | `de` | `content/docs/de/` | Deutsch |
+  | `fr` | `content/docs/fr/` | Français |
+  | `es` | `content/docs/es/` | Español |
 
-在 GitLocalize 上配置一次：
-
-1. 使用 GitHub 账号登录 [GitLocalize](https://gitlocalize.com/)，连接本仓库。
-2. 创建项目，选择 **File-based** 翻译方式。
-3. 源语言选择 **Chinese (Simplified)**，目标语言选择 **English**。
-4. 添加文件路径映射：
-
-   | 源文件 | 目标文件 |
-   | --- | --- |
-   | `content/docs/zh/**/*.mdx` | `content/docs/en/**/*.mdx` |
-
-   `meta.json` 由维护者人工维护（标题翻译），不交给 GitLocalize，避免 `pages` 数组中的文件名被误译。
-5. 开启 Markdown 的“不翻译代码块/行内代码”保护，确保代码、组件标签结构、URL 和图片路径不会被误译。
-6. 为 GitLocalize 机器人配置仓库写权限，翻译提交使用专用分支（如 `gitlocalize/`），并启用 Pull Request 工作流。
+- 所有语言的目录结构和文件名必须与 `zh/` 完全一致。
+- 每篇译文的 frontmatter 记录 `sourceHash`（中文源内容的 sha256 前 12 位）。中文源一旦修改，hash 不再匹配，`check:content` 会判定该译文**过期**并报错——这是防止译文悄悄烂掉的核心机制。
+- 语言配置集中在 `src/lib/i18n.ts`（`localeConfigs` / `languages` / `sourceLanguage`）。
 
 ## 日常流程
 
-中文作者修改或新增 MDX 后，直接提交并合并到 `main`：
+写完中文后，执行翻译 skill：
 
-```bash
-git add content/docs/zh
-git commit -m "docs: update ..."
-git push
+```
+/translate-docs
 ```
 
-GitLocalize 会检测源文件变化，在平台上标记过期的翻译片段。译者完成翻译后创建 PR，维护者审核时重点确认：
+skill 会自动完成：识别改动文件 → 按术语表翻译 → 创建/更新各语言 meta.json → 同步 sourceHash → 运行 `npm run check:content` 终检。
 
-- 代码块、行内代码、URL 和图片路径未被翻译；
-- 组件属性（如 `<Card title="...">`）中的文本翻译正确，结构未被破坏；
-- `meta.json` 的 `pages` 文件名保持不变。
+全部绿了再 commit / push。
 
-合并 PR 后英文文档即更新，无需任何本地生成步骤。
+## 质量防线
 
-## 本地校验
+1. **`npm run check:content`**（CI 中运行）：中英结构对齐、meta.json 一致性、sourceHash 过期检测、内部死链。任何一项失败都会阻塞合并。
+2. **术语表**：`.claude/skills/translate-docs/glossary.json` 维护了品牌名（永不翻译）、各语言固定译法、技术缩写和分语言风格注意点（如繁中的词汇改写、日语敬体、德语 Sie 称呼）。发现译法不统一时，先更新术语表再重翻。
+3. **`npm run types:check` + `npm run build`**：确认 MDX 结构未被破坏。
 
-翻译相关没有额外的本地脚本。提交前运行常规检查：
+## 译文过期（check:content 报"已过期"）怎么处理
+
+中文源修改后未重新翻译时必然出现。处理方式：
 
 ```bash
-npm run types:check
-npm run build
+git diff --name-only -- content/docs/zh   # 看哪些中文文件改过
+# 然后运行 /translate-docs 增量翻译
 ```
 
 ## 新增语言
 
-在 GitLocalize 项目中添加目标语言，同时：
-
 1. 在 `src/lib/i18n.ts` 的 `localeConfigs` 和 `languages` 中增加对应语言；
-2. 在 `content/docs/` 下创建对应语言目录（可由 GitLocalize 首次翻译时生成）；
-3. 为 RTL 语言额外检查布局；
-4. 更新 GitLocalize 的路径映射以覆盖新语言。
+2. 在 `scripts/check-content.mjs` 和 `scripts/update-sourcehash.mjs` 的语言列表中增加该语言；
+3. 在 `.claude/skills/translate-docs/glossary.json` 中补充该语言的 `fixed` 固定译法和 `notes` 风格注意点，并在 SKILL.md 的语言表中登记；
+4. 运行 `/translate-docs` 全量翻译生成 `content/docs/<lang>/`；
+5. 在 GitLocalize 时代已无其他配置需求；RTL 语言需额外检查布局。
 
 ## 运维要求
 
 - 部署文档站时设置 `NEXT_PUBLIC_SITE_URL`，确保 canonical、Open Graph 和 `hreflang` 使用生产域名。
-- 内容或导航变更后，检查 `/docs`、`/zh/docs`、搜索、内部链接和移动端布局。
+- 内容或导航变更后，检查各语言 `/docs`、搜索、内部链接和移动端布局。

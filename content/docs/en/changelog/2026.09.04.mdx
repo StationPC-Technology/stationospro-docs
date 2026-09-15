@@ -1,89 +1,89 @@
 ---
+sourceHash: 6ce77297763f
 title: '2026.09.04 System Update Notes'
 ---
 
-## Please Read Before Updating
+## Read Before Updating
 
-### Applicable Products
-This update applies to products running the StationOS Pro system. Before upgrading, please confirm the corresponding processor architecture according to
-the product model.
+Applicable products
+This update applies to products running StationOS Pro. Before upgrading, confirm the processor architecture for your product model.
 
-- DA Series: DA400 Series
+● DA Series: DA400 Series
 
-### Upgrade Notice
-1. If you need to use the features described in this document, please upgrade the system firmware, application suite, or client to the corresponding
-version or later.
-2. Some new features in the application suite require a specified system firmware version. If the system firmware version is lower than the minimum
-compatible version, application update notifications may not be received, or related features may not function properly.
+Update reminders
+1. To use the features described in this article, upgrade the system firmware, app suites, or clients to the corresponding version or later.
+2. Some new features in app suites require a specific system firmware version. If the system firmware is below the minimum compatible version, you may not receive app update notifications or be able to use the related features.
 
 ## StationOS Pro System Firmware
 
 ### Version Information
+
 System firmware version: v0.33.0.8
 
-This update includes interface changes. To ensure proper functionality, we recommend upgrading the firmware, client, and related applications to the
-latest versions.
+This update involves interface adjustments. To ensure everything works properly, it is recommended to upgrade the firmware, clients, and related apps to the latest versions.
 
 ### System
 - Added AI accelerator card monitoring and desktop widgets.
-- Improved AI accelerator thermal control, fan debounce, and dynamic monitoring data collection.
-- Refined process CPU monitoring metrics for better accuracy.
-- Kept SSH enabled state on startup and improved device model suffix display.
-- Fixed occasional shutdown failure and the missing update banner during system update refresh.
-- Hid Beta update options and added an update details documentation entry.
+- Improved AI accelerator card thermal control, fan anti-oscillation, and dynamic monitoring data collection.
+- Improved process CPU monitoring metrics for better accuracy.
+- The SSH enabled state is now preserved across reboots, and device model suffix display is refined.
+- Fixed occasional shutdown failures and the system update refresh banner not showing.
+- Hid the Beta update entry and added an entry to the update details documentation.
 
 ### Storage
-- Supported mounting during RAID sync to keep storage space available.
-- Added storage-space creation stage events and progress dialogs.
-- Decoupled storage-pool status from storage-space status and improved creation flow.
-- Added classification for unknown filesystem errors and improved external storage mount error messages.
-- Reported structured external storage mount failure reasons for better error differentiation.
-- Fixed degraded-array misjudgment and abnormal external storage mount status issues.
+- Mounting is now supported during RAID sync, improving storage space availability.
+- Added event notifications and progress dialogs for storage space creation stages.
+- Decoupled storage pool status from storage space status and streamlined the creation flow.
+- Added error classification for unknown file systems and improved external storage mount error messages.
+- Reports the cause of external storage mount failures for finer-grained error distinction.
+- Fixed degraded array misjudgment and abnormal external storage mount status.
 
 ### Files
-- Added folder upload precheck support and improved the upload flow.
-- Improved large-batch uploads, progress synchronization, and task scheduling.
-- Fixed filename sorting, duplicate file checking, and EXIF jump icon issues.
-- Improved external storage pagination, thumbnail loading, and uploaded image thumbnail display.
-- Unified file-management header and status bar behavior for more consistent list interactions.
+- Added pre-checks for folder uploads and streamlined the upload flow.
+- Improved large-batch file uploads, upload progress sync, and task scheduling.
+- Fixed file name sorting, duplicate file detection, and the EXIF jump icon in preview.
+- Improved pagination of external storage file lists, image thumbnail loading, and upload thumbnail display.
+- Unified table headers and status bar display in File Manager for more consistent list interactions.
 
 ### Backup
-- Improved album backup thumbnail processing.
-- Added one-touch backup publishing for hot-plugged external disks.
-- Tightened the one-touch backup button trigger logic to reduce false triggers.
-- Fixed retry handling for failed one-touch disk insertion publishing.
+- Improved album backup thumbnail handling.
+- Supports one-tap backup launch after hot-plugging an external drive.
+- Tightened one-tap backup button trigger logic to reduce accidental triggers.
+- Fixed retry failures of the one-tap drive-insert backup launch.
 
 ### App Store / Docker
-- Supported host-path mapping for data-volume configuration and expanded app-access path settings.
-- Fixed desktop app status desynchronization after reboot.
-- Improved Compose deployment terminal logs and live log display.
-- Fixed Docker search layout issues, overly long network names, and storage migration progress handling.
-- Added circular progress indicators and badges for app install/download states.
+- Supports configuring host mount paths for data volumes and expanded configurable app access paths.
+- Fixed desktop app status not syncing after reboot.
+- Improved Compose deployment terminal logs and real-time log display.
+- Fixed Docker search box layout, overly long network names being covered, and storage migration progress.
+- Added circular progress bars and badge hints for app install/download status.
 
 ### AI / Station AI
 - Improved local model loading, download progress, on-demand loading, and idle unloading.
-- Tuned Station AI routing and vector models to reduce memory usage and improve match accuracy.
-- Fixed routing issues for network queries, missing numeric parameters, summary output, and false service-availability errors.
-- Improved multilingual examples, skill declarations, and safety controls.
+- Adjusted on-device AI routing and vector models to reduce memory usage and improve hit accuracy.
+- Fixed network query routing, missing numeric parameters, summary output, and false service-availability warnings.
+- Improved multilingual positive examples, skill declarations, and safety policies.
 
-### Notifications / Device
-- Passed through peripheral notification action types and plug/unplug event types.
-- Reduced system log noise by suppressing some debug output.
-- Fixed network error prompts after shutdown, storage-space creation debug logs, and related issues.
+### Notifications / Devices
+- Passes through peripheral notification action types and plug/unplug event types.
+- Reduced system log noise and suppressed some debug output.
+- Fixed network error prompts after shutting down from Resource Manager and storage space creation debug logs.
 
-## Client
-## iOS & Android Client
+## Clients
+
+### iOS & Android Client
+
 App version: v0.33.0
 
-- Added AI accelerator monitoring, with a Home widget and resource-monitoring details for the model, utilization, memory, temperature, and runtime status.
-- Added independent control for showing or hiding the AI accelerator widget, with improved real-time updates and status alerts.
-- Improved memory, disk, and device-health monitoring with clearer explanations for abnormal states.
-- Improved SSD cache status handling for damaged and degraded states, with failure details and repair guidance.
-- Improved external-storage capacity display and storage-space recognition to reduce stale or misleading data.
-- Enhanced one-touch backup task, source-device, partition, status, and file-count display, with clearer SD card and USB priority guidance.
-- Improved photo-backup progress, speed, and list refresh after the device resumes from screen-off.
-- Improved photo synchronization scans and similar-photo indexing progress to reduce duplicate checks and inaccurate totals.
-- Added real-time file-thumbnail updates and improved image zoom behavior after original-image loading.
-- Improved HTTPS connections, redirects, foreground recovery, and WebSocket reconnection for greater connection stability.
-- Improved App update prompts, update badges, OTA and system-reset progress messages, with fewer repeated prompts and better localization.
-- Improved first-device setup, AI Assistant storage warnings, two-factor authentication, avatar updates, and App Store screenshot display.
+- Added AI accelerator card monitoring with a home-screen widget, plus model, utilization, memory, temperature, and running status in Resource Monitoring.
+- Independently control the visibility of the AI accelerator card widget, with improved real-time data updates and abnormal status hints.
+- Improved memory, disk, and device health displays in Resource Monitoring with clearer explanations of issues.
+- Improved SSD cache damage and degraded status displays, with fault details and repair guidance.
+- Improved external storage capacity display and storage space detection to reduce misjudgments from delayed data refresh.
+- Improved one-tap backup task, source device, partition info, backup status, and file count displays, clarifying SD card vs. USB backup priority.
+- Improved album backup progress, speed, and list refresh after waking the screen, making backup more visible.
+- Improved album sync scanning and similar photo index progress display, reducing duplicate checks and inaccurate statistics.
+- Added real-time file thumbnail updates and improved image zoom after loading originals.
+- Improved HTTPS connections, redirects, foreground/background recovery, and WebSocket reconnection for more stable device connections.
+- Improved app update dialogs, update badges, OTA, and system reset progress prompts, reducing duplicate reminders and improving multilingual display.
+- Improved new-device setup guidance, AI assistant storage space hints, two-factor authentication, avatar changes, and App Store screenshot display.

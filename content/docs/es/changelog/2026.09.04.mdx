@@ -1,0 +1,84 @@
+---
+sourceHash: 6ce77297763f
+title: 'Notas de la actualización del sistema del 04.09.2026'
+---
+
+## Lea antes de actualizar
+Productos aplicables
+Esta actualización es aplicable a los productos que ejecutan el sistema StationOS Pro. Antes de actualizar, confirme la arquitectura del procesador correspondiente según el modelo del producto.
+
+● Serie DA: serie DA400
+
+Recordatorios de actualización
+1. Si desea utilizar las funciones descritas en este documento, actualice el firmware del sistema, la suite de aplicaciones o el cliente a la versión correspondiente o a una superior.
+2. Algunas de las nuevas funciones de la suite de aplicaciones requieren una versión específica del firmware del sistema. Si la versión del firmware del sistema es inferior a la versión mínima compatible, es posible que no reciba las notificaciones de actualización de las aplicaciones o que las funciones relacionadas no funcionen con normalidad.
+
+## Firmware del sistema StationOS Pro
+### Información de la versión
+Versión del firmware del sistema: v0.33.0.8
+
+Esta actualización implica ajustes en las interfaces; para garantizar el funcionamiento correcto de las funciones, se recomienda actualizar el firmware, el cliente y las aplicaciones relacionadas a la última versión.
+
+### Sistema
+- Nueva monitorización de la tarjeta aceleradora de IA y nuevo widget de escritorio.
+- Optimización del control de temperatura de la tarjeta aceleradora de IA, de la estabilización del ventilador y de la recogida dinámica de datos de monitorización.
+- Optimización del criterio de monitorización de CPU por proceso, mejorando la precisión de las estadísticas.
+- Se conserva el estado de activación de SSH al arrancar y se optimiza la visualización del sufijo del modelo del dispositivo.
+- Corregidos problemas como el fallo ocasional al apagar y el banner de actualización que no se mostraba tras la actualización del sistema.
+- Se ocultan los elementos de actualización en versión Beta y se añade un acceso al documento de detalles de la actualización.
+
+### Almacenamiento
+- Se admite el montaje durante la sincronización de RAID, mejorando la disponibilidad del espacio de almacenamiento.
+- Se añade el envío de eventos durante la fase de creación del espacio de almacenamiento y la ventana emergente de progreso.
+- Se desacoplan el estado del pool de almacenamiento y el estado del espacio de almacenamiento, optimizando el flujo de creación.
+- Se amplía la clasificación de los errores de sistemas de archivos desconocidos y se mejoran los avisos de error de montaje del almacenamiento externo.
+- Se envía el motivo del fallo de montaje del almacenamiento externo, lo que permite distinguir errores con mayor granularidad.
+- Corregidos problemas como la identificación errónea de matrices degradadas y el estado de montaje anómalo del almacenamiento externo.
+
+### Archivos
+- Se admite la verificación previa de la subida de carpetas, optimizando el flujo de subida.
+- Optimización de la subida de grandes lotes de archivos, de la sincronización del progreso de subida y de la programación de tareas.
+- Corregidos problemas como la ordenación de nombres de archivo, la detección de archivos duplicados y el icono de salto al previsualizar EXIF.
+- Optimización de la paginación de la lista de archivos del almacenamiento externo, de la carga de miniaturas de imágenes y de la visualización de las miniaturas de las imágenes subidas.
+- Unificación de la visualización del encabezado de la tabla y de la barra de estado en la administración de archivos, mejorando la coherencia de la interacción con las listas.
+
+### Copia de seguridad
+- Optimización del procesamiento de miniaturas en la copia de seguridad del Álbum.
+- Se admite la publicación de la copia de seguridad con un clic tras la conexión en caliente de un disco externo.
+- Se restringe la lógica de activación del botón de copia de seguridad con un clic, reduciendo la probabilidad de activaciones por error.
+- Corregido el problema de publicación al insertar el disco con un clic cuando fallaba el reintento.
+
+### App Store / Docker
+- Se admite la configuración de la ruta de montaje del host para los volúmenes de datos y se amplía la configuración de las rutas accesibles por las aplicaciones.
+- Corregido el problema de desincronización del estado de las aplicaciones de escritorio tras el reinicio.
+- Optimización de la visualización de los registros de la terminal de despliegue de Compose y de los registros en tiempo real.
+- Corregidos problemas como la distribución del cuadro de búsqueda de Docker, el ocultamiento por nombres de red demasiado largos y el progreso de la migración de almacenamiento.
+- Se añade una barra de progreso circular y un aviso tipo badge para el estado de instalación/descarga de las aplicaciones.
+
+### IA / Station AI
+- Optimización de la carga de modelos locales, del progreso de descarga, de la carga bajo demanda y de la descarga en reposo.
+- Se ajustan el enrutamiento de la IA del sitio y el modelo de vectores, reduciendo el uso de memoria y mejorando la precisión de las coincidencias.
+- Corregidos problemas de enrutamiento de preguntas de red, omisión de parámetros numéricos, salida de resúmenes y falsos avisos de disponibilidad del servicio.
+- Se perfeccionan los ejemplos positivos multilingües, las declaraciones de habilidades y las estrategias de protección de seguridad.
+
+### Notificaciones / Dispositivo
+- Se transmiten el tipo de operación y el tipo de evento de conexión/desconexión de las notificaciones de periféricos.
+- Se reduce el ruido de los registros del sistema y se bloquean parte de las salidas de depuración.
+- Corregidos problemas como el aviso de error de red tras apagar desde la administración de recursos y los registros de depuración de la creación del espacio de almacenamiento.
+
+## Cliente
+### Cliente iOS y Android
+Versión de la aplicación: v0.33.0
+
+- Nueva monitorización de la tarjeta aceleradora de IA, con posibilidad de ver el widget en la página de inicio y consultar en la monitorización de recursos el modelo, la utilización, la memoria, la temperatura y el estado de funcionamiento.
+- Se admite el control independiente de la visualización y el ocultamiento del widget de la tarjeta aceleradora de IA, optimizando la actualización de datos en tiempo real y los avisos de estados anómalos.
+- Se perfecciona la visualización de la memoria, del disco y del estado de salud del dispositivo en la monitorización de recursos, con explicaciones más claras de las causas de las anomalías.
+- Optimización de la visualización de estados como SSD caché dañado o degradado, con detalles del fallo y una guía de reparación.
+- Mejora de la visualización de la capacidad del almacenamiento externo y del proceso de reconocimiento del espacio de almacenamiento, reduciendo las interpretaciones erróneas debidas a una actualización de datos tardía.
+- Se perfecciona la visualización de las tareas de copia de seguridad con un clic, del dispositivo de origen, de la información de partición, del estado de la copia de seguridad y del número de archivos, y se aclara la prioridad de copia de seguridad entre la tarjeta SD y USB.
+- Optimización del progreso, la velocidad y la actualización de la lista de la copia de seguridad del Álbum tras reactivar la pantalla, mejorando la visibilidad del proceso de copia de seguridad.
+- Mejora del escaneo de sincronización del Álbum y de la visualización del progreso del índice de fotos similares, reduciendo las comprobaciones repetidas y las estadísticas inexactas.
+- Nueva actualización en tiempo real de las miniaturas de archivos y optimización de la experiencia de zoom de las imágenes tras cargar la imagen original.
+- Optimización de la conexión HTTPS, de la redirección, de la reactivación desde segundo plano y de la reconexión de WebSocket, mejorando la estabilidad de la conexión con el dispositivo.
+- Optimización de la ventana emergente de actualización de la App, del punto rojo de actualización, de OTA y de los avisos de progreso del restablecimiento del sistema, reduciendo los recordatorios repetidos y mejorando la visualización multilingüe.
+- Optimización de la guía de configuración de dispositivos nuevos, del aviso de espacio de almacenamiento del asistente de IA, de la autenticación de dos factores, del cambio de avatar y de la visualización de las capturas de pantalla en la tienda de aplicaciones.

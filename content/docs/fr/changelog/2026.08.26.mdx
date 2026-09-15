@@ -1,0 +1,92 @@
+---
+sourceHash: 10ad7551cda5
+title: 'Notes de mise à jour du système du 26.08.2026'
+---
+
+## À lire avant la mise à jour
+Produits concernés
+Cette mise à jour s'applique aux produits fonctionnant sous le système StationOS Pro. Avant la mise à niveau, vérifiez l'architecture du processeur correspondant à votre modèle de produit.
+
+● Série DA : série DA400
+
+Rappels avant la mise à niveau
+1. Pour utiliser les fonctionnalités décrites dans cet article, veuillez mettre à niveau le micrologiciel du système, la suite d'applications ou le client vers la version correspondante ou une version supérieure.
+2. Les nouvelles fonctionnalités de certaines suites d'applications nécessitent une version spécifique du micrologiciel du système. Si la version du micrologiciel est inférieure à la version minimale compatible, il se peut que vous ne receviez pas les notifications de mise à jour des applications ou que les fonctionnalités concernées ne fonctionnent pas correctement.
+
+## Micrologiciel du système StationOS Pro
+### Informations de version
+Version du micrologiciel du système : v0.32.2.11
+
+Cette mise à jour implique des ajustements d'interfaces. Afin de garantir le bon fonctionnement des fonctionnalités, il est recommandé de mettre à niveau le micrologiciel, le client et les applications concernées vers la dernière version.
+
+### Gestion du stockage
+- Correction : espace de stockage anormal après le retrait du disque de cache SSD
+- Correction : stockage anormal après redémarrage pendant la synchronisation RAID5, et espace de stockage NVMe anormal après réinitialisation
+- Correction : affichage de l'état de santé des disques durs incohérent avec SMART
+
+### Stockage externe
+- Ajout : dénomination unifiée des périphériques externes, avec un affichage cohérent dans tous les modules pour une meilleure identification
+- Ajout : affichage de l'heure d'insertion, de l'état lecture seule et de l'état non monté
+- Correction : échec d'éjection des périphériques USB non montés, liste non actualisée après formatage, capacité de partition affichée de façon inexacte
+- Correction : message erroné de capacité insuffisante lors du téléversement de fichiers volumineux, retour au début de la liste lors du double-clic sur un dossier
+
+### Gestionnaire de fichiers
+- Correction : progression anormale à la reprise d'une tâche en pause, nombre de tâches affiché de façon incohérente
+- Correction : miniatures non affichées dans l'Album après le renommage d'un dossier
+
+### Codage-décodage vidéo
+- Ajout : affichage des informations vidéo telles que les spécifications des pistes audio, le HDR et la fréquence d'images ; adaptation automatique des paramètres de transcodage des pistes audio
+- Amélioration : le cache de transcodage est désormais stocké sur le volume de stockage, afin d'éviter de saturer le stockage système
+- Correction : blocage permanent en cas d'échec de transcodage ; un message d'échec explicite est désormais affiché
+
+### Docker
+- Ajout : contrôle préalable avant le changement d'espace de stockage, confirmation d'écrasement des anciennes données et affichage de la progression de la migration
+- Correction : perte d'état après fermeture de la fenêtre de migration et arrêt automatique du service
+- Correction : requêtes en double vers le registre d'images et empilement des messages d'erreur
+
+### Centre d'applications
+- Ajout : vérification MD5 des paquets d'installation pour une installation plus fiable
+- Ajout : synchronisation multi-appareils de l'état d'activation/désactivation des applications
+- Amélioration : gestion du cycle de vie des applications Compose
+- Correction : fausses alertes pour les applications communautaires lors de l'accès à distance et messages d'installation/désactivation anormaux
+
+### Assistant IA
+- Correction : échec de chargement des modèles locaux après réinitialisation et boucle infinie de requêtes sur l'index CLIP
+- Amélioration : message d'espace d'index insuffisant et guide de migration
+
+### Sauvegarde
+- Correction : perte de la date de prise de vue des photos et actualisation anormale de la liste des périphériques
+
+### Surveillance des ressources
+- Correction : harmonisation des référentiels de données de surveillance et affichage anormal de l'extrémité gauche des graphiques linéaires
+
+## Client
+### Client iOS et Android
+Version de l'application : v0.32.0
+
+#### Nouvelles fonctionnalités
+
+- Ajout de la fonction de migration du stockage des conteneurs Docker, avec suivi de l'état de migration, processus de confirmation, ainsi qu'actualisation automatique de la configuration et de la liste de stockage une fois la migration terminée
+- Ajout de l'affichage de la progression des tâches de classement intelligent et de détection de photos similaires dans l'Album, comprenant une progression par étapes, des animations d'état et des icônes
+
+#### Améliorations de l'expérience
+
+- La connexion par IP prend en charge la redirection automatique vers le port par défaut (HTTP 80 / HTTPS 443), permettant de se connecter sans saisir le port
+- Le Centre d'applications prend en charge la synchronisation en temps réel de l'état des applications « Activée / Désactivée », réduisant les clignotements et les erreurs d'interprétation pendant les opérations
+- La page de détails des disques externes complète désormais les informations sur le système de fichiers, le fabricant et le numéro de série, avec un avertissement de compatibilité lorsque le disque n'est pas monté
+- Optimisation de la mise en page de la page de cache SSD et de l'affichage de l'état vide lorsqu'aucun SSD n'est disponible
+- Ajout d'une confirmation secondaire lorsque l'écart entre l'heure définie manuellement et l'heure standard est trop important, afin d'éviter les erreurs de manipulation
+- Harmonisation du style des champs de saisie et des fenêtres contextuelles du module de paramètres, et correction de l'affichage anormal du champ de mot de passe des montages distants
+- Ajout d'une protection de progression monotone pour la sauvegarde de l'Album, afin d'éviter tout retour en arrière du chiffre de progression
+- Les rapports de journaux incluent désormais le numéro de série, le nom, le modèle et la version du micrologiciel du NAS actuel
+- Harmonisation des spécifications des boutons d'icônes d'en-tête hors page d'accueil et agrandissement des zones cliquables
+
+#### Corrections de problèmes
+
+- Correction du problème de fermeture accidentelle des fenêtres contextuelles sur iPad due aux événements de pointeur ; les fenêtres contextuelles sur grands écrans occupent désormais toute la largeur
+- Correction du problème de non-internationalisation des messages d'échec de connexion aux appareils, avec ajout des traductions dans les six langues
+- Correction de l'anomalie sur la page de détails du cache SSD causée par l'accès à un objet après la destruction de la page
+- Correction de la logique de fermeture des fenêtres contextuelles à la fin des tâches de classement intelligent
+- Correction du texte du message de la fenêtre contextuelle de réinitialisation aux paramètres d'usine
+- Les paquets officiels téléversés sont désormais définis par défaut sur « non publié » en arrière-plan, afin d'éviter une mise en ligne automatique avant validation de la révision
+- Harmonisation des noms affichés pour les chemins de stockage externe

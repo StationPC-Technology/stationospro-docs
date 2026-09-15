@@ -1,20 +1,103 @@
 ---
-title: How to Install
-description: This guide will walk you through the installation
+sourceHash: 0a1f5ef5995f
+title: DA400 Installation Guide
+description: This guide walks you through the installation
 ---
 
-## Prerequisites
+## What's in the Box
 
-Before you begin, make sure your environment meets the following requirements.
+Besides the device itself, we have prepared all the necessary accessories so you can get started quickly. You should find the following items:
+![package-contents](/images/common/quick-start/da400-install-img/package-contents.png)
 
-## Installation Steps
+## Product Overview
 
-Follow these steps to complete the installation.
+Before getting started, take a moment to get to know the device.
+The DA400 is a high-performance NAS device. Let's first briefly explore the functions of its various ports.
 
-## Verify the Installation
+### Front and Rear Panels
+![product-overview](/images/common/quick-start/da400-install-img/product-overview.png)
 
-Once installed, run the following command to verify the installation.
+### Accessory Overview
 
-```bash
-station --version
-```
+Each accessory serves a specific purpose to ensure a smooth setup and optimized use of your DA400.
+- Power adapter: provides sufficient power for your DA400, drives, and accessories for the best performance.
+- Ethernet cable: used to connect the DA400 to your network.
+Screws of various types:
+- 6-32 ✕ 6mm cross-recessed flat head screws: for securing 3.5-inch drives.
+- M3 ✕ 4mm cross-recessed flat head screws: for securing 2.5-inch drives.
+
+<Callout title="Important" type="warn">
+- Do not hot-swap drives or other components while the device is powered on. Before removing or installing drives or servicing the device, make sure it is powered off to avoid drive damage or data loss.
+- New drives are recommended. Drives will be formatted when inserted into the device. If you use old drives, be sure to back up their data beforehand.
+- Do not mix drive mounting screws. 3.5-inch and 2.5-inch drives use different screw specifications. Install with the specified screws; mismatched size or length may strip threads, leave drives loosely secured, or damage drives with overly long screws.
+- To build a "RAID array", use drives of identical capacity so the space can be fully utilized and the risk of data loss reduced.
+</Callout>
+
+## Installing Drives
+
+### Drive Tray Installation
+
+Remove the drive tray
+1. Remove the top cover of the unit.
+2. Press the clip at the top of the tray and pull it out of the unit.
+![](/images/common/quick-start/da400-install-img/removing-the-hard-drive-tray.png)
+
+### Installing a 3.5-Inch Drive
+1. Insert the drive: make sure the drive's screw holes align with the four holes on the side of the tray.
+2. Secure the drive: insert the supplied screws and tighten them.
+3. Finish: place the tray back into the NAS unit and put the top cover back on.
+![](/images/common/quick-start/da400-install-img/Installing-a-3.5-inch-Hard-Drive-01.png)
+![](/images/common/quick-start/da400-install-img/Installing-a-3.5-inch-Hard-Drive-02.png)
+
+### Installing a 2.5-Inch Drive
+1. Place the drive: align the drive with the four screw holes on the back of the tray and insert it.
+2. Secure the drive: flip the tray over, insert the supplied screws and tighten them.
+3. Finish: place the tray back into the NAS unit and put the top cover back on.
+![](/images/common/quick-start/da400-install-img/Installing-a-2.5-inch-Hard-Drive-01.png)
+![](/images/common/quick-start/da400-install-img/Installing-a-2.5-inch-Hard-Drive-02.png)
+![](/images/common/quick-start/da400-install-img/Installing-a-2.5-inch-Hard-Drive-03.png)
+
+### M.2 SSD Installation
+1. With the device powered off, remove the small panel on the bottom.
+2. Insert the SSD at an angle, tighten the screw, and put the panel back on.
+![](/images/common/quick-start/da400-install-img/Installing-a-ssd.png)
+
+## Connecting the Power Adapter and Network Cable
+
+### Powering On
+1. Use an Ethernet cable to connect the device to the LAN port of a router or switch.
+2. Use the power adapter to connect the device to a power outlet.
+3. Short-press the power button to start the device (to shut down, press and hold the power button for about 5 seconds).
+<Callout title="Note:" type="warn">
+- For the best data transfer performance, use a router or switch with 10GbE or faster LAN ports and connect the device with the supplied cable.
+- After startup, install and sign in to the [StationNAS] app > [System Settings] > [Hardware & Power] to enable power-on restore.
+</Callout>
+![](/images/common/quick-start/da400-install-img/device-poweron.png)
+
+## Sign In
+
+### Discover the Device via Its Screen
+- Once the device joins the network, its screen displays the IP address.
+- Open a web browser and go to the device's IP address.
+
+### Discover the Device via Browser
+
+Open a web browser and visit https://find.stationpc.com — the system will automatically search for and display devices on your local network.
+Note: make sure the device is powered on and connected to the internet, and that your computer is on the same local network.
+
+## Download the Client
+- Option 1: download from the web. Visit https://www.stationpc.com/pages/app-download, choose the client you need, then download and install it.
+- Option 2: download from an app store. Search for "StationNAS" in the app store on your phone/tablet and install the [StationNAS] client.
+- Option 3: scan the QR code. Use your phone or tablet camera to scan the QR code below, choose the app that matches your device system, and complete the download and installation.
+![](/images/common/app.png)
+
+## Get Started!
+
+Welcome to StationOS Pro.
+
+With these simple steps done, you are now ready to start using the DA400 and explore everything it offers. We hope this guide made the setup smooth and easy so you can fully enjoy the convenience and power of the DA400.
+
+![](/images/common/login.png)
+![](/images/common/index.png)
+
+If you have any further questions or need additional support, contact service@stationipc.com — our team is always here to help.

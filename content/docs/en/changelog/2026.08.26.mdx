@@ -1,108 +1,97 @@
 ---
+sourceHash: 10ad7551cda5
 title: '2026.08.26 System Update Notes'
 ---
 
-## Please Read Before Updating
+## Read Before Updating
 
-### Applicable Products
-This update applies to products running the StationOS Pro system. Before upgrading, please confirm the corresponding processor architecture according to
-the product model.
+Applicable products
+This update applies to products running StationOS Pro. Before upgrading, confirm the processor architecture for your product model.
 
-- DA Series: DA400 Series
+● DA Series: DA400 Series
 
-### Upgrade Notice
-1. If you need to use the features described in this document, please upgrade the system firmware, application suite, or client to the corresponding
-version or later.
-2. Some new features in the application suite require a specified system firmware version. If the system firmware version is lower than the minimum
-compatible version, application update notifications may not be received, or related features may not function properly.
+Update reminders
+1. To use the features described in this article, upgrade the system firmware, app suites, or clients to the corresponding version or later.
+2. Some new features in app suites require a specific system firmware version. If the system firmware is below the minimum compatible version, you may not receive app update notifications or be able to use the related features.
 
 ## StationOS Pro System Firmware
 
 ### Version Information
+
 System firmware version: v0.32.2.11
 
-This update includes interface changes. To ensure proper functionality, we recommend upgrading the firmware, client, and related applications to the
-latest versions.
+This update involves interface adjustments. To ensure everything works properly, it is recommended to upgrade the firmware, clients, and related apps to the latest versions.
 
-### Storage
-
-- Added: Progress display and interruption recovery for Docker storage migration
-- Improved: Faster disk list loading; background refresh no longer wakes sleeping HDDs
-- Fixed: Series of storage errors after SSD cache disk removal/reboot
-- Fixed: RAID5 storage error after reboot during sync; NVMe space error after reset
-- Fixed: Disk health status inconsistent with SMART
+### Storage Management
+- Fixed: abnormal storage space after an SSD cache drive was unplugged
+- Fixed: storage anomalies after restarting during RAID5 sync, and abnormal NVMe storage space after reset
+- Fixed: drive health status display inconsistent with S.M.A.R.T
 
 ### External Storage
+- New: unified naming for external devices, shown consistently across modules for easy identification
+- New: display of insertion time, read-only status, and unmounted status
+- Fixed: unmount failure for unmounted USB devices, list not refreshing after formatting, inaccurate partition capacity display
+- Fixed: false "insufficient capacity" warning for large file uploads, and double-clicking a folder jumping back to the top of the list
 
-- Added: Unified device naming across all modules, easier to identify
-- Added: Insertion time, read-only and unmounted status display
-- Fixed: Safe removal failure for unmounted USB; list not refreshed after format; wrong partition capacity display
-- Fixed: Large upload falsely reporting insufficient capacity; folder double-click jumping back to list
+### File Management
+- Fixed: abnormal progress when resuming a paused task, inconsistent task count display
+- Fixed: album thumbnails not displayed after renaming a folder
 
-### Files
-
-- Fixed: Progress error when resuming paused tasks; task count inconsistency
-- Fixed: Thumbnails missing after renaming album folder
-
-### Cinema / Video
-
-- Added: Audio track specs, HDR, frame rate in video info; adaptive audio transcoding
-- Improved: Transcoding cache moved to storage volume; smoother playback switching
-- Fixed: Transcoding stuck on failure — now shows clear error
+### Video Codec
+- New: video info now shows audio track specs, HDR, frame rate, etc., with adaptive audio transcoding parameters
+- Improved: transcoding cache now stored on the storage volume to avoid filling up system storage
+- Fixed: transcoding failure hanging forever; it now clearly reports the failure
 
 ### Docker
-
-- Added: Migration pre-check, overwrite confirmation and progress display
-- Fixed: Migration state lost after dialog close; service auto-stopping
-- Fixed: Duplicate registry requests and stacked error toasts
+- New: pre-checks before changing storage space, confirmation before overwriting old data, and migration progress display
+- Fixed: state loss after closing the migration dialog, service stopping automatically
+- Fixed: duplicate registry requests and stacked error messages
 
 ### App Center
-
-- Added: Package MD5 verification for reliable installation
-- Added: Multi-client sync of app enable/disable status
-- Improved: Managed Compose app lifecycle
-- Fixed: Community app false error over remote access; install/disable prompt issues
+- New: MD5 verification of installation packages for more reliable installation
+- New: multi-device sync of app enabled/disabled status
+- Improved: lifecycle management of Compose apps
+- Fixed: false warnings for community apps during remote access, abnormal install/disable prompts
 
 ### AI Assistant
-
-- Fixed: Local model loading failure after reset; CLIP index query hang
-- Improved: Index low-space hint and migration guide
+- Fixed: local model failing to load after reset, CLIP index query infinite loop
+- Improved: low index space warnings and migration guidance
 
 ### Backup
+- Fixed: loss of photo capture time, abnormal peripheral list refresh
 
-- Fixed: Photo capture time loss; external device list refresh issue
+### Resource Monitoring
+- Fixed: unified monitoring data metrics, abnormal display at the left edge of line charts
 
-### Monitor
+## Clients
 
-- Fixed: Unified metrics; line chart left-edge display error
+### iOS & Android Client
 
-## Client
-## iOS & Android Client
 App version: v0.32.0
 
-### New Features
+#### New Features
 
-- Added Docker container storage migration, with migration state tracking, confirmation flow, and automatic refresh of configuration and storage list after completion
-- Added task progress display for Photos smart categorization and similar-photo detection, including staged progress, animations, and icons
+- Added Docker container storage migration with migration status tracking, confirmation flow, and automatic refresh of configuration and storage lists after migration
+- Added task progress display for album smart classification and similar photo detection, including staged progress, status animations, and icons
 
-### Improvements
+#### Experience Improvements
 
-- IP login now supports automatic default-port redirect (HTTP 80 / HTTPS 443), allowing login without entering a port
-- App Center now syncs app "enabling / disabling" status in real time, reducing flicker and misjudgment during operations
-- External drive details now include filesystem, vendor, and serial number, with a compatibility warning when the drive is not mounted
-- Improved SSD cache page layout and the empty state when no SSD is available
-- Added a confirmation dialog when manually set time deviates significantly from standard time
-- Unified settings input fields and dialog styles, and fixed the remote mount password field display
-- Added monotonic protection to photo backup progress to prevent the numbers from rolling back
-- Log upload now includes the current NAS device serial number, name, model, and firmware version
-- Unified non-home header icon button specs and enlarged the tap area
+- IP login supports automatic default port redirection (HTTP 80 / HTTPS 443) so you can sign in without specifying a port
+- App Center syncs the "Enabled / Disabled" status of apps in real time, reducing flicker and misjudgment during operations
+- External drive details page now shows file system, vendor, and serial number, plus a compatibility hint when unmounted
+- Improved SSD cache page layout and empty-state display when no SSD is available
+- Added a second confirmation when the manually set time deviates too far from standard time to prevent mistakes
+- Unified input field and popup styles in Settings; fixed display issue with the remote mount password field
+- Added monotonic protection to album backup progress to prevent the percentage going backwards
+- Log reporting now includes the current NAS device serial number, name, model, and firmware version
+- Unified header icon button specs on non-home pages and enlarged tap targets
 
-### Bug Fixes
+#### Bug Fixes
 
-- Fixed dialogs being accidentally closed by pointer events on iPad; dialogs now span full width on large-screen devices
-- Fixed the device connection failure message not being localized, and completed translations for six languages
-- Fixed an exception caused by accessing an object after the SSD cache detail page was destroyed
-- Fixed the dialog close logic when a smart categorization task finishes
-- Fixed the factory reset confirmation dialog text
-- Production builds now default to "offline" when uploaded, preventing them from going live before review approval
-- Unified external storage path display names
+- Fixed popups on iPad being accidentally dismissed by pointer events; popups on large screens now span full width
+- Fixed untranslated device connection failure messages and completed translations in six languages
+- Fixed an exception where the SSD cache details page accessed deallocated objects
+- Fixed popup dismissal logic when smart classification tasks end
+- Corrected the factory reset confirmation message
+- Release builds uploaded to the backend now default to "Unpublished" to prevent going live before review approval
+- Unified the display names of external storage paths

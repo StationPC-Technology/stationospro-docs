@@ -1,0 +1,84 @@
+---
+sourceHash: 6ce77297763f
+title: 'Systemupdate 2026.09.04'
+---
+
+## Bitte vor dem Update lesen
+Gültige Produkte
+Dieses Update gilt für Produkte, auf denen das Betriebssystem StationOS Pro läuft. Führen Sie vor dem Upgrade anhand der Produktbezeichnung eine Bestätigung der jeweiligen Prozessorarchitektur durch.
+
+● DA-Serie: DA400-Serie
+
+Update-Hinweise
+1. Um die in diesem Artikel beschriebenen Funktionen nutzen zu können, aktualisieren Sie bitte die System-Firmware, die App-Suite oder den Client auf die entsprechende oder eine höhere Version.
+2. Einige neue Funktionen der App-Suite erfordern eine bestimmte Version der System-Firmware. Liegt die Version der System-Firmware unter der niedrigsten kompatiblen Version, werden App-Updates möglicherweise nicht per Push zugestellt oder die entsprechenden Funktionen können nicht ordnungsgemäß genutzt werden.
+
+## StationOS Pro System-Firmware
+### Versionsinformationen
+Version der System-Firmware: v0.33.0.8
+
+Dieses Update beinhaltet Anpassungen an Schnittstellen. Um die ordnungsgemäße Funktion sicherzustellen, empfehlen wir, die Firmware, den Client sowie die zugehörigen Anwendungen auf die jeweils neueste Version zu aktualisieren.
+
+### System
+- Neue Überwachung der KI-Beschleunigerkarte und Desktop-Widgets.
+- Verbesserte Temperatursteuerung der KI-Beschleunigerkarte, Lüfter-Entprellung und dynamische Überwachungsdatenerfassung.
+- Optimierte Messgrößen der Prozess-CPU-Überwachung für genauere Statistiken.
+- Der SSH-Aktivierungsstatus beim Start wird nun beibehalten; die Anzeige des Gerätemodell-Suffixes wurde verbessert.
+- Behoben: Gelegentliches Fehlschlagen beim Herunterfahren sowie nicht angezeigter Aktualisierungsbanner bei Systemupdates.
+- Beta-Updateeinträge werden ausgeblendet; ein Einstieg in das Update-Detaildokument wurde hinzugefügt.
+
+### Speicher
+- Unterstützung des Einhängens während der RAID-Synchronisierung zur Verbesserung der Verfügbarkeit von Speicherbereichen.
+- Ereignis-Push und Fortschrittsdialog für die Erstellungsphase von Speicherbereichen hinzugefügt.
+- Entkopplung des Speicherpool-Status vom Speicherbereichs-Status und optimierter Erstellungsablauf.
+- Ergänzte Fehlerklassifizierung für unbekannte Dateisysteme und verbesserte Fehlerhinweise beim Einhängen externer Speicher.
+- Die Ursachen fehlgeschlagener Einhängungen externer Speicher werden gemeldet und ermöglichen eine feinere Fehlerunterscheidung.
+- Behoben: Fehlbeurteilung degradierter Arrays sowie abnormale Einhängestatus externer Speicher.
+
+### Dateien
+- Unterstützung einer Vorabprüfung für Ordner-Uploads und optimierter Upload-Ablauf.
+- Optimierte Uploads großer Dateimengen, Synchronisierung des Upload-Fortschritts und Aufgabenplanung.
+- Behoben: Dateinamen-Sortierung, Datei-Duplikatsuche sowie Sprungsymbol bei der EXIF-Vorschau.
+- Optimierte Seitennumerierung der Dateiliste externer Speicher, das Laden von Bild-Miniaturansichten und die Anzeige von Miniaturansichten hochgeladener Bilder.
+- Vereinheitlichte Darstellung von Tabellenkopf und Statusleiste in der Dateiverwaltung für eine konsistentere Listenbedienung.
+
+### Backup
+- Optimierte Verarbeitung von Miniaturansichten beim Album-Backup.
+- Unterstützung der One-Click-Backup-Veröffentlichung nach dem Hot-Plug externer Laufwerke.
+- Die Auslöselogik der One-Click-Backup-Taste wurde verschärft, um versehentliche Auslösungen zu reduzieren.
+- Behoben: Problem, dass eine fehlgeschlagene One-Click-Backup-Veröffentlichung beim Einstecken einer Platte nicht wiederholt wurde.
+
+### App Store / Docker
+- Unterstützung der Konfiguration von Host-Mount-Pfaden für Datenvolumes sowie erweiterte Konfiguration zugänglicher Anwendungspfade.
+- Behoben: Nicht synchronisierter Status von Desktop-Anwendungen nach dem Neustart.
+- Optimierte Anzeige der Terminal-Protokolle und Echtzeitprotokolle bei Compose-Bereitstellungen.
+- Behoben: Layout des Docker-Suchfelds, Verdeckung bei zu langen Netzwerknamen sowie Fortschrittsanzeige der Speichermigration.
+- Kreisförmiger Fortschrittsbalken und Badge-Hinweise für den Installations-/Download-Status von Anwendungen hinzugefügt.
+
+### KI / Station AI
+- Optimierte lokales Modell-Laden, Download-Fortschritt, Laden bei Bedarf und Entladen im Leerlauf.
+- Angepasste In-Site-KI-Routing- und Vektormodelle, um den Speicherverbrauch zu senken und die Treffergenauigkeit zu erhöhen.
+- Behoben: Netzwerk-Routing von Anfragen, fehlende numerische Parameter, Zusammenfassungsausgabe und Fehlalarme zur Dienstverfügbarkeit.
+- Verbesserte mehrsprachige Positivbeispiele, Skill-Deklarationen und Sicherheitsrichtlinien.
+
+### Benachrichtigungen / Geräte
+- Weiterleitung von operations- und Plug-and-Play-Ereignistypen für Peripheriegeräte.
+- Reduzierung des Systemprotokoll-Rauschens und Ausblendung ausgewählter Debug-Ausgaben.
+- Behoben: Netzwerkfehlermeldung der Ressourcenverwaltung nach dem Herunterfahren sowie Debug-Protokolle bei der Erstellung von Speicherbereichen.
+
+## Client
+### iOS- & Android-Client
+App-Version: v0.33.0
+
+- Neue Überwachung der KI-Beschleunigerkarte mit Widget auf der Startseite sowie Anzeige von Modell, Auslastung, Arbeitsspeicher, Temperatur und Betriebsstatus in der Ressourcenüberwachung.
+- Unabhängiges Ein- und Ausblenden des KI-Beschleunigerkarten-Widgets wird unterstützt; die Echtzeit-Datenaktualisierung und Hinweise zu Fehlerzuständen wurden verbessert.
+- Die Darstellung von Arbeitsspeicher, Datenträgern und Geräte-Integritätszustand in der Ressourcenüberwachung wurde verbessert, mit klareren Erklärungen der Fehlerursachen.
+- Optimierte Darstellung von Zuständen wie beschädigtem oder degradiertem SSD-Cache, inklusive Fehlerdetails und Reparaturhinweisen.
+- Verbesserte Kapazitätsanzeige externer Speicher und optimierter Erkennungsprozess von Speicherbereichen, um Fehlbeurteilungen durch verzögerte Datenaktualisierung zu vermeiden.
+- Verbesserte Darstellung von One-Click-Backup-Aufgaben, Quellgeräten, Partitionsinformationen, Backup-Status und Dateianzahl; klare Priorisierung von SD-Karten- und USB-Backups.
+- Optimierte Fortschritts-, Geschwindigkeits- und Listenaktualisierung des Album-Backups nach dem Aufwachen aus dem Ruhezustand für mehr Transparenz während des Backups.
+- Verbesserte Anzeige des Fortschritts bei der Album-Synchronisierung und der Indexierung ähnlicher Fotos, wodurch doppelte Prüfungen und ungenaue Statistiken reduziert werden.
+- Neue Echtzeit-Aktualisierung von Datei-Miniaturansichten und optimiertes Bild-Zoom-Erlebnis nach dem Laden des Originalbilds.
+- Optimierte HTTPS-Verbindungen, Weiterleitungen, Fortsetzung nach Hintergrund/Vordergrund-Wechsel und WebSocket-Wiederverbindung für eine stabilere Geräteverbindung.
+- Optimierte App-Update-Dialoge, Update-Hinweispunkte, OTA- und System-Reset-Fortschrittsanzeigen, mit weniger doppelten Erinnerungen und verbesserter mehrsprachiger Darstellung.
+- Optimierte Einrichtungsführung für neue Geräte, Hinweis zum Speicherbereich des KI-Assistenten, Zwei-Faktor-Authentifizierung, Profilbild-Änderung und Screenshot-Anzeige im App Store.

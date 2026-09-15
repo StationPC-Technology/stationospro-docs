@@ -1,0 +1,84 @@
+---
+sourceHash: 6ce77297763f
+title: 'Notes de mise à jour du système du 04.09.2026'
+---
+
+## À lire avant la mise à jour
+Produits concernés
+Cette mise à jour s'applique aux produits fonctionnant sous le système StationOS Pro. Avant la mise à niveau, vérifiez l'architecture du processeur correspondant à votre modèle de produit.
+
+● Série DA : série DA400
+
+Rappels avant la mise à niveau
+1. Pour utiliser les fonctionnalités décrites dans cet article, veuillez mettre à niveau le micrologiciel du système, la suite d'applications ou le client vers la version correspondante ou une version supérieure.
+2. Les nouvelles fonctionnalités de certaines suites d'applications nécessitent une version spécifique du micrologiciel du système. Si la version du micrologiciel est inférieure à la version minimale compatible, il se peut que vous ne receviez pas les notifications de mise à jour des applications ou que les fonctionnalités concernées ne fonctionnent pas correctement.
+
+## Micrologiciel du système StationOS Pro
+### Informations de version
+Version du micrologiciel du système : v0.33.0.8
+
+Cette mise à jour implique des ajustements d'interfaces. Afin de garantir le bon fonctionnement des fonctionnalités, il est recommandé de mettre à niveau le micrologiciel, le client et les applications concernées vers la dernière version.
+
+### Système
+- Ajout de la surveillance de la carte accélératrice IA et d'un widget de bureau.
+- Amélioration de la régulation thermique de la carte accélératrice IA, de l'anti-oscillation des ventilateurs et de la collecte dynamique des données de surveillance.
+- Amélioration du référentiel de surveillance du CPU par processus, pour des statistiques plus précises.
+- Conservation de l'état d'activation du SSH au démarrage et amélioration de l'affichage du suffixe du modèle de l'appareil.
+- Correction de l'échec occasionnel de l'arrêt du système et de la non-affichage de la bannière d'actualisation lors de la mise à jour du système.
+- Masquage des éléments de mise à jour Beta et ajout d'un lien vers la documentation détaillée des mises à jour.
+
+### Stockage
+- Prise en charge du montage pendant la synchronisation RAID, pour une meilleure disponibilité de l'espace de stockage.
+- Ajout de la notification d'événements et d'une fenêtre de progression lors de la phase de création de l'espace de stockage.
+- Découplage de l'état du pool de stockage et de celui de l'espace de stockage, avec optimisation du processus de création.
+- Ajout de la classification des erreurs de systèmes de fichiers inconnus et amélioration des messages d'erreur de montage du stockage externe.
+- Signalement des causes d'échec de montage du stockage externe, avec distinction des erreurs plus fine.
+- Correction de l'identification erronée des matrices dégradées et des anomalies d'état de montage du stockage externe.
+
+### Fichiers
+- Prise en charge du contrôle préalable du téléversement de dossiers, avec optimisation du processus de téléversement.
+- Optimisation du téléversement de grands lots de fichiers, de la synchronisation de la progression et de la planification des tâches.
+- Correction du tri par nom de fichier, de la recherche de doublons et de l'icône de saut de l'aperçu EXIF.
+- Optimisation de la pagination des listes de fichiers du stockage externe, du chargement des miniatures d'images et de l'affichage des miniatures des images téléversées.
+- Harmonisation de l'affichage des en-têtes de tableau et de la barre d'état du Gestionnaire de fichiers, pour une meilleure cohérence des interactions de liste.
+
+### Sauvegarde
+- Optimisation du traitement des miniatures de la sauvegarde de l'Album.
+- Prise en charge du lancement d'une sauvegarde en un clic après le branchement à chaud d'un disque externe.
+- Restriction de la logique de déclenchement du bouton de sauvegarde en un clic, afin de réduire les déclenchements accidentels.
+- Correction du problème de publication d'une sauvegarde en un clic après l'échec d'une nouvelle tentative.
+
+### App Store / Docker
+- Prise en charge de la configuration du chemin de montage de l'hôte pour les volumes de données, et élargissement des chemins accessibles aux applications.
+- Correction du problème de non-synchronisation de l'état des applications de bureau après redémarrage.
+- Optimisation de l'affichage des journaux du terminal de déploiement Compose et des journaux en temps réel.
+- Correction de la mise en page du champ de recherche Docker, du masquage des noms de réseau trop longs et de la progression de la migration de stockage.
+- Ajout d'une barre de progression circulaire et d'un badge d'état pour l'installation et le téléchargement des applications.
+
+### IA / Station AI
+- Optimisation du chargement des modèles locaux, de la progression du téléchargement, du chargement à la demande et du déchargement en veille.
+- Ajustement du routage IA interne et des modèles de vecteurs, afin de réduire l'occupation mémoire et d'améliorer la précision des correspondances.
+- Correction du routage des questions réseau, de l'omission de paramètres numériques, de la sortie des résumés et des fausses alertes de disponibilité des services.
+- Amélioration des exemples positifs multilingues, des déclarations de compétences et des stratégies de protection de sécurité.
+
+### Notifications / Appareil
+- Transmission transparente des types d'opérations de notification des périphériques et des types d'événements de branchement/débranchement.
+- Réduction du bruit des journaux système et masquage de certaines sorties de débogage.
+- Correction du message d'erreur réseau après l'arrêt dans la gestion des ressources et des journaux de débogage de la création d'espace de stockage.
+
+## Client
+### Client iOS et Android
+Version de l'application : v0.33.0
+
+- Ajout de la surveillance de la carte accélératrice IA, avec possibilité d'afficher un widget sur la page d'accueil et de consulter le modèle, le taux d'utilisation, la mémoire, la température et l'état de fonctionnement dans la surveillance des ressources.
+- Prise en charge du contrôle indépendant de l'affichage et du masquage du widget de la carte accélératrice IA, avec optimisation de la mise à jour des données en temps réel et des messages d'état anormal.
+- Amélioration de l'affichage de la mémoire, des disques et de l'état de santé de l'appareil dans la surveillance des ressources, avec des explications plus claires des causes d'anomalie.
+- Optimisation de l'affichage des états du cache SSD tels qu'endommagé ou dégradé, avec des détails de panne et un guide de réparation.
+- Amélioration de l'affichage de la capacité du stockage externe et du processus d'identification de l'espace de stockage, afin de réduire les erreurs d'interprétation dues à un actualisation tardive des données.
+- Amélioration de l'affichage des tâches de sauvegarde en un clic, des appareils sources, des informations de partition, de l'état de sauvegarde et du nombre de fichiers, avec clarification de la priorité entre sauvegarde SD et USB.
+- Optimisation de la progression, de la vitesse et de l'actualisation de la liste de la sauvegarde de l'Album après le réveil de l'écran, pour une meilleure visibilité du processus de sauvegarde.
+- Amélioration de l'affichage de la progression du balayage de synchronisation de l'Album et de l'indexation des photos similaires, afin de réduire les vérifications en double et les statistiques inexactes.
+- Ajout de la mise à jour en temps réel des miniatures de fichiers et optimisation de l'expérience de zoom des images après le chargement de l'original.
+- Optimisation des connexions HTTPS, des redirections, de la reprise après passage en arrière-plan et de la reconnexion WebSocket, pour une connexion plus stable aux appareils.
+- Optimisation de la fenêtre de mise à jour de l'application, du point rouge de mise à jour, des notifications de progression OTA et de la réinitialisation du système, avec moins de rappels répétitifs et un meilleur affichage multilingue.
+- Optimisation du guide de configuration des nouveaux appareils, du message d'espace de stockage de l'assistant IA, de l'authentification à deux facteurs, de la modification de l'avatar et de l'affichage des captures d'écran de la boutique d'applications.

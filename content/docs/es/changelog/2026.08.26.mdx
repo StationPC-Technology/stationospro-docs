@@ -1,0 +1,92 @@
+---
+sourceHash: 10ad7551cda5
+title: 'Notas de la actualización del sistema del 26.08.2026'
+---
+
+## Lea antes de actualizar
+Productos aplicables
+Esta actualización es aplicable a los productos que ejecutan el sistema StationOS Pro. Antes de actualizar, confirme la arquitectura del procesador correspondiente según el modelo del producto.
+
+● Serie DA: serie DA400
+
+Recordatorios de actualización
+1. Si desea utilizar las funciones descritas en este documento, actualice el firmware del sistema, la suite de aplicaciones o el cliente a la versión correspondiente o a una superior.
+2. Algunas de las nuevas funciones de la suite de aplicaciones requieren una versión específica del firmware del sistema. Si la versión del firmware del sistema es inferior a la versión mínima compatible, es posible que no reciba las notificaciones de actualización de las aplicaciones o que las funciones relacionadas no funcionen con normalidad.
+
+## Firmware del sistema StationOS Pro
+### Información de la versión
+Versión del firmware del sistema: v0.32.2.11
+
+Esta actualización implica ajustes en las interfaces; para garantizar el funcionamiento correcto de las funciones, se recomienda actualizar el firmware, el cliente y las aplicaciones relacionadas a la última versión.
+
+### Administración de almacenamiento
+- Corregido: problema de espacio de almacenamiento anómalo tras extraer el disco de caché SSD
+- Corregido: almacenamiento anómalo tras reiniciar durante la sincronización de RAID5, y espacio de almacenamiento NVMe anómalo tras el restablecimiento
+- Corregido: el estado de salud del disco duro mostrado no coincidía con SMART
+
+### Almacenamiento externo
+- Nuevo: nomenclatura unificada de los dispositivos externos, con visualización coherente en todos los módulos para diferenciarlos fácilmente
+- Nuevo: visualización de la hora de conexión, el estado de solo lectura y el estado de no montado
+- Corregido: fallo al expulsar USB no montado, lista que no se actualizaba tras el formateo y capacidad de la partición mostrada de forma inexacta
+- Corregido: aviso erróneo de capacidad insuficiente al subir archivos grandes y salto al inicio de la lista al hacer doble clic en una carpeta
+
+### Administrador de archivos
+- Corregido: progreso anómalo al reanudar una tarea pausada y número de tareas mostrado de forma incoherente
+- Corregido: las miniaturas no se mostraban tras renombrar una carpeta en el Álbum
+
+### Códec de vídeo
+- Nuevo: la información del vídeo muestra especificaciones de la pista de audio, HDR, velocidad de fotogramas, etc., con adaptación automática de los parámetros de transcodificación de la pista de audio
+- Optimizado: la caché de transcodificación se guarda ahora en el volumen de almacenamiento para evitar que el almacenamiento del sistema se llene
+- Corregido: la transcodificación fallida se quedaba bloqueada indefinidamente; ahora se muestra un aviso claro del fallo
+
+### Docker
+- Nuevo: verificación previa antes de cambiar el espacio de almacenamiento, confirmación para sobrescribir datos antiguos y visualización del progreso de la migración
+- Corregido: pérdida de estado tras cerrar la ventana emergente de migración y parada automática del servicio
+- Corregido: solicitudes duplicadas al repositorio de imágenes y superposición de mensajes de error
+
+### Centro de aplicaciones
+- Nuevo: verificación MD5 del paquete de instalación para una instalación más fiable
+- Nuevo: sincronización del estado de activación/desactivación de las aplicaciones entre varios dispositivos
+- Optimizado: gestión del ciclo de vida de las aplicaciones Compose
+- Corregido: falsos avisos de aplicaciones de la comunidad durante el acceso remoto y aviso anómalo de desactivación de la instalación
+
+### Asistente de IA
+- Corregido: fallo al cargar el modelo local tras el restablecimiento y bucle infinito en las consultas del índice CLIP
+- Optimizado: aviso de espacio insuficiente del índice y guía de migración
+
+### Copia de seguridad
+- Corregido: pérdida de la hora de captura de las fotos y actualización anómala de la lista de periféricos
+
+### Monitorización de recursos
+- Corregido: unificación del criterio de los datos de monitorización y visualización anómala en el extremo izquierdo del gráfico de líneas
+
+## Cliente
+### Cliente iOS y Android
+Versión de la aplicación: v0.32.0
+
+#### Nuevas funciones
+
+- Nueva función de migración del almacenamiento de contenedores Docker, con seguimiento del estado de la migración, flujo de confirmación y actualización automática de la configuración y de la lista de almacenamiento al finalizar la migración
+- Nueva visualización del progreso de las tareas de clasificación inteligente del Álbum y de detección de fotos similares, con progreso por fases, animaciones de estado e iconos
+
+#### Mejoras de experiencia
+
+- El inicio de sesión por IP admite la redirección automática del puerto predeterminado (HTTP 80 / HTTPS 443), por lo que se puede iniciar sesión directamente sin indicar el puerto
+- El centro de aplicaciones admite la sincronización en tiempo real del estado de las aplicaciones «activada / desactivada», reduciendo los parpadeos y las interpretaciones erróneas durante la operación
+- La página de detalles del disco duro externo incorpora información del sistema de archivos, del proveedor y del número de serie, y añade un aviso de compatibilidad cuando no está montado
+- Optimización de la distribución de la página de caché SSD y de la pantalla de estado vacío cuando no hay SSD disponibles
+- Se añade una confirmación adicional cuando la hora configurada manualmente se desvía demasiado de la hora estándar, para evitar operaciones por error
+- Unificación del estilo de los campos de entrada y de las ventanas emergentes del módulo de configuración, y corrección de la visualización anómala del campo de contraseña del montaje remoto
+- La visualización del progreso de la copia de seguridad del Álbum incorpora protección monótona para evitar que la cifra de progreso retroceda
+- Los informes de registro incorporan el número de serie, el nombre, el modelo y la versión del firmware del NAS actual
+- Unificación de las especificaciones de los botones con icono de la cabecera fuera de la página de inicio y ampliación de la zona de pulsación
+
+#### Corrección de problemas
+
+- Corregido el problema por el que las ventanas emergentes se cerraban por error en el iPad debido a eventos de puntero; en dispositivos de pantalla grande las ventanas emergentes ocupan ahora todo el ancho
+- Corregido el problema de que el aviso de fallo de conexión del dispositivo no estaba internacionalizado, y se han completado las traducciones en seis idiomas
+- Corregido el error de la página de detalles de la caché SSD que seguía accediendo al objeto después de la destrucción de la página
+- Corregida la lógica de cierre de la ventana emergente al finalizar la tarea de clasificación inteligente
+- Corregido el texto del aviso de la ventana emergente de restablecimiento a los ajustes de fábrica
+- Los paquetes oficiales subidos quedan de forma predeterminada en estado «no publicado», para evitar que se publiquen automáticamente antes de superar la revisión
+- Unificación del nombre mostrado de las rutas del almacenamiento externo
