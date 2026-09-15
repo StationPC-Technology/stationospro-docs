@@ -16,8 +16,9 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(ROOT, 'content/docs');
-const SOURCE_LOCALE = 'zh';
-const TARGET_LOCALES = ['zh-Hant', 'en', 'ja', 'ko', 'de', 'fr', 'es'];
+// 语言清单单一来源：locales.json
+const { source: SOURCE_LOCALE, languages } = JSON.parse(readFileSync(join(ROOT, 'locales.json'), 'utf8'));
+const TARGET_LOCALES = languages.filter((l) => l !== SOURCE_LOCALE);
 
 const locales = process.argv.slice(2).length ? process.argv.slice(2) : TARGET_LOCALES;
 for (const locale of locales) {

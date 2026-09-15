@@ -18,9 +18,11 @@ import { join, relative } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const CONTENT = join(ROOT, 'content/docs');
-const SOURCE_LOCALE = 'zh'; // 与 src/lib/i18n.ts 的 sourceLanguage 保持一致
-const TARGET_LOCALES = ['zh-Hant', 'en', 'ja', 'ko', 'de', 'fr', 'es'];
-const DEFAULT_LOCALE = 'en'; // 与 src/lib/i18n.ts 的 defaultLanguage 保持一致
+// 语言清单单一来源：locales.json
+const { source: SOURCE_LOCALE, default: DEFAULT_LOCALE, languages } = JSON.parse(
+  readFileSync(join(ROOT, 'locales.json'), 'utf8'),
+);
+const TARGET_LOCALES = languages.filter((l) => l !== SOURCE_LOCALE);
 
 const errors = [];
 const warnings = [];

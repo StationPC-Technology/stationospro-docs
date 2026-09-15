@@ -1,0 +1,6 @@
+{
+  "$comment": "站点语言清单的唯一数据源。新增语言只改本文件 + src/lib/i18n.ts 的 localeConfigs 元数据（displayName/search）+ .claude/skills/translate-docs/glossary.json。source 为唯一人工编写的源语言，其余语言由 /translate-docs 生成。default 为默认语言（URL 不带前缀）。",
+  "source": "zh",
+  "default": "en",
+  "languages": ["zh", "zh-Hant", "en", "ja", "ko", "de", "fr", "es"]
+}

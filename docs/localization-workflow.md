@@ -54,7 +54,7 @@ git diff --name-only -- content/docs/zh   # 看哪些中文文件改过
 2. 在 `scripts/check-content.mjs` 和 `scripts/update-sourcehash.mjs` 的语言列表中增加该语言；
 3. 在 `.claude/skills/translate-docs/glossary.json` 中补充该语言的 `fixed` 固定译法和 `notes` 风格注意点，并在 SKILL.md 的语言表中登记；
 4. 运行 `/translate-docs` 全量翻译生成 `content/docs/<lang>/`；
-5. 在 GitLocalize 时代已无其他配置需求；RTL 语言需额外检查布局。
+5. 无其他平台配置需求；RTL 语言需额外检查布局。
 
 ## 运维要求
 

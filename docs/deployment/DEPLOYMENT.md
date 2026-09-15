@@ -26,8 +26,8 @@ GitHub（公开仓库 StationPC/StationNAS-Docs）
 
 | 变更 | 操作 | 效果 |
 |---|---|---|
-| 中文内容 | 编辑 `content/docs/zh/**` → push `main` | 自动构建发布 |
-| 英文内容 | GitLocalize 翻译 → 自动开 PR → 合并 PR | 自动构建发布 |
+| 中文内容 | 编辑 `content/docs/zh/**` | — |
+| 7 种译文 | 编辑 zh 后执行 `/translate-docs`（LLM 翻译流程，见 `docs/localization-workflow.md`）→ 中文与译文一起 push `main` | 自动构建发布 |
 | 应急重新部署 | Actions → Deploy → Run workflow | 手动触发 |
 
 ## 前置条件

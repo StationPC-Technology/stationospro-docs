@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-StationOS Pro 帮助中心（StationPC NAS 设备操作系统的官方文档站），线上地址 https://docs.stationpc.com。基于 **Next.js 16 + React 19 + Fumadocs** 构建的**中英双语**文档站点，**必须以 Node.js 服务端形式部署**（依赖 `/api/search`、动态 OG 图、`llms.txt` 和语言中间件，不能纯静态托管）。
+StationOS Pro 帮助中心（StationPC NAS 设备操作系统的官方文档站），线上地址 https://docs.stationpc.com。基于 **Next.js 16 + React 19 + Fumadocs** 构建的**八语**（zh / zh-Hant / en / ja / ko / de / fr / es）文档站点，**必须以 Node.js 服务端形式部署**（依赖 `/api/search`、动态 OG 图、`llms.txt` 和语言中间件，不能纯静态托管）。
 
 ## 常用命令
 
