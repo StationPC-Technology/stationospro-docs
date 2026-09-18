@@ -17,7 +17,12 @@ npm start              # 运行生产构建
 ```
 
 - 包管理器用 **npm**（lockfile 为 `package-lock.json`）。
-- **没有自动化测试框架**。提交前必须运行 `npm run types:check` 和 `npm run build` 作为验证。
+- **没有自动化测试框架**。提交前必须运行 `npm run check:content`、`npm run types:check` 和 `npm run build` 作为验证。
+- 本地生产模式验证（standalone 输出不能用 `npm start`）：
+  ```bash
+  cp -r public/. .next/standalone/public/ && PORT=3458 node .next/standalone/server.js
+  ```
+  测本地端口 curl 需加 `--noproxy '*'`（本机 shell 配置了 http_proxy，否则 502）。
 - 内容/导航改动后，还需在浏览器中人工验证 `/docs`（英文）、`/zh/docs`（中文）、搜索功能、内部链接和移动端布局。
 
 ## 架构要点
@@ -29,10 +34,10 @@ npm start              # 运行生产构建
 - 所有语言的目录结构和文件名**必须与 zh 完全一致**；`meta.json` 的 `pages` 数组跨语言一致，仅 `title` 本地化。
 - **翻译过期检测**：每篇译文 frontmatter 有 `sourceHash`（中文源 sha256 前 12 位），中文修改后 hash 不匹配即报错，需重跑 `/translate-docs`。相关脚本：`scripts/check-content.mjs`（校验）、`scripts/update-sourcehash.mjs`（同步 hash）。
 - 术语表与分语言风格注意点在 `.claude/skills/translate-docs/glossary.json`（品牌名永不翻译、各语言固定译法）。
-- **图片引用**：`zh/` 源直引 `/images/common/...`；译文统一引用 `/images/<语言>/...`，本地化图不存在时由 `next.config.mjs` 的 afterFiles rewrite 自动回退到 `common`——本地化一张图只需把文件放进 `public/images/<语言>/`，无需改 MDX。图片不做构建期静态导入（`source.config.ts` 的 `remarkImageOptions`），且已从 `src/proxy.ts` 的 middleware matcher 中排除（图片不做语言协商）。
+- **图片引用**：`zh/` 源直引 `/images/common/...`；译文统一引用 `/images/<语言>/...`。**本地化一张图 = 把文件放进 `public/images/<语言>/`，永远不需要改 MDX**（缺失图由 `next.config.mjs` 的 afterFiles rewrite 回退到 common）。图片不做构建期静态导入（`source.config.ts`），不参与语言协商（已从 `src/proxy.ts` matcher 排除）。
 - 默认语言 `en` 的 URL **不带前缀**：`/docs` 内部 rewrite 到 `/en/docs`，`/en/docs` 会 301 到 `/docs`，`/zh/docs` 等保持原样（`hideLocale: 'default-locale'`）。
 - 内容检查：`npm run check:content`（结构对齐 + meta.json + 过期检测 + 死链），CI 中在 types:check 之前运行。
-- 新增语言：修改 `src/lib/i18n.ts`、`scripts/check-content.mjs`、`scripts/update-sourcehash.mjs` 的语言列表，补充 glossary.json，再跑 `/translate-docs`。
+- 新增语言：语言清单单一来源是根目录 `locales.json`（站点脚本与 next.config 均从它派生），另需补充 `src/lib/i18n.ts` 的 localeConfigs 元数据和 glossary.json，再跑 `/translate-docs`。
 
 ### 路由与中间件
 
