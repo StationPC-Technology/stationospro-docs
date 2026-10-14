@@ -48,6 +48,6 @@ Then open <http://localhost:3000/docs> (English) or <http://localhost:3000/zh/do
 For writers and contributors, see:
 
 - [Fumadocs components writing guide](./docs/fumadocs-components.md)
-- [Localization workflow](./docs/localization-workflow.md)
+- [Writing & publishing workflow](./docs/writing-workflow.md)
 
 Before submitting changes, run `npm run types:check` and `npm run build`. Quality checks run automatically on push and pull requests.

@@ -48,6 +48,6 @@ npm run dev
 文档编写人员可参考：
 
 - [Fumadocs 常用内置组件编写指南](./docs/fumadocs-components.md)
-- [多语言文档维护工作流](./docs/localization-workflow.md)
+- [文档编写与发布工作流](./docs/writing-workflow.md)
 
 提交前请运行 `npm run types:check` 和 `npm run build`。推送及创建 Pull Request 时会自动执行质量检查。
