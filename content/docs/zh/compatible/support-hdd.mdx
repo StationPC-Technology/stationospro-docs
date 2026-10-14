@@ -1,41 +1,34 @@
 ---
-title: 机械硬盘
-description: DA400 经 StationPC 实验室实测验证的机械硬盘兼容列表
+title: 3.5 英寸机械硬盘兼容性列表
 ---
 
-DA400 的存储扩展包括 4 个 SATA 硬盘位和 1 个 M.2 固态硬盘插槽：
-
-- **4 个硬盘位**：安装 3.5 英寸或 2.5 英寸 SATA 机械硬盘（本页面），也可安装 2.5 英寸 SATA 固态硬盘（详见 [固态硬盘](./support-ssd.mdx)）。
-- **1 个 M.2 插槽**：位于设备底部，安装 1 条 M.2 固态硬盘（详见 [固态硬盘](./support-ssd.mdx)）。
-
-本页面列出了 StationPC 实验室针对 DA400 实测验证的机械硬盘型号，供您选购硬盘时参考。
-
-<Callout title="兼容性说明" type="info">
-- 下表所列型号均经过 StationPC 实验室实测验证，可放心使用。
-- DA400 本身可兼容市面上绝大多数硬盘型号，未列入列表不代表不支持。
-- 兼容列表会不定期更新，我们将持续测试并补充更多硬盘型号。
-</Callout>
-
 ## 硬件兼容说明
-
-1. **盘位与接口**：DA400 配备 4 个 SATA 硬盘位，支持 3.5 英寸及 2.5 英寸机械硬盘，也支持 2.5 英寸 SATA 固态硬盘；暂不支持 SAS 接口硬盘。
+下表所列型号均经过 StationPC 实验室验证，可放心使用。DA400 系列产品本身可兼容市面上绝大多数硬盘型号，未列入列表不代表不支持。兼容列表会不定期更新，我们将持续测试并补充更多硬盘型号。
+1. **盘位与接口**：DA400 配备 4 个 SATA 硬盘位，支持 3.5 英寸机械硬盘，也支持 2.5 英寸 SATA 固态硬盘；暂不支持 SAS 接口硬盘。
 2. **单盘容量**：最小支持约 100GB（对应市售标注容量 120GB 及以上的硬盘），最大支持 32TB。
 3. **避免叠瓦式（SMR）硬盘**：SMR 硬盘写入性能不稳定，尤其不建议用于组建 RAID 1 / RAID 5。硬盘是否为叠瓦式，可咨询经销商或根据具体型号在网上查询。
 4. **RAID 建议**：组建 RAID 5 时，建议选用企业级硬盘或 NAS 硬盘，否则潜在数据风险较高。
 5. **品牌定制硬盘**：不建议使用某些品牌定制的硬盘，可能出现无法识别或莫名异常。
 6. **推荐硬盘**：建议使用大品牌 NAS 级硬盘，如希捷酷狼（IronWolf）系列、西部数据红盘（Red）Plus / Pro 系列。
 
-## 兼容列表
-
-| 品牌                     | 型号                                 | 尺寸     | 协议 | 容量 |
-| ------------------------ | ------------------------------------ | -------- | ---- | ---- |
-| 希捷 Seagate             | ST4000VN006（酷狼 IronWolf）         | 3.5 英寸 | SATA | 4TB  |
-| 希捷 Seagate             | ST8000VN004（酷狼 Pro IronWolf Pro） | 3.5 英寸 | SATA | 8TB  |
-| 西部数据 Western Digital | WD40EFPX（红盘 Red Plus）            | 3.5 英寸 | SATA | 4TB  |
-| 西部数据 Western Digital | WD80EFZZ（红盘 Red Plus）            | 3.5 英寸 | SATA | 8TB  |
-| 东芝 Toshiba             | HDWG480（N300）                      | 3.5 英寸 | SATA | 8TB  |
-| 希捷 Seagate             | ST2000LM015（BarraCuda）             | 2.5 英寸 | SATA | 2TB  |
-
 <Callout title="提示" type="idea">
 3.5 英寸与 2.5 英寸硬盘使用不同规格的固定螺丝，安装方法请参考 [DA400 安装指南](../quick-start/da400-install.mdx)。
 </Callout>
+
+## 兼容列表
+
+| 品牌                     | 型号                                  | 尺寸     | 协议 | 容量  |
+| ------------------------ | ------------------------------------- | -------- | ---- | ----- |
+| 希捷 Seagate             | ST32000VE000（酷狼 Pro IronWolf Pro） | 3.5 英寸 | SATA | 32TB  |
+| 希捷 Seagate             | ST2000LM015（BarraCuda）              | 2.5 英寸 | SATA | 2TB   |
+| 希捷 Seagate             | ST1000DM003                           | 3.5 英寸 | SATA | 1TB   |
+| 希捷 Seagate             | ST1000VX005（酷鹰 SkyHawk）           | 3.5 英寸 | SATA | 1TB   |
+| 西部数据 Western Digital | HUS726T4TALA6L4（Ultrastar HC310）    | 3.5 英寸 | SATA | 4TB   |
+| 西部数据 Western Digital | WD40EZAX                              | 3.5 英寸 | SATA | 4TB   |
+| 西部数据 Western Digital | WD20EFPX-68C4TN0（红盘 Red Plus）     | 3.5 英寸 | SATA | 2TB   |
+| 西部数据 Western Digital | WD2003FYYS                            | 3.5 英寸 | SATA | 2TB   |
+| 西部数据 Western Digital | WD10EZEX（蓝盘 Blue）                 | 3.5 英寸 | SATA | 1TB   |
+| 西部数据 Western Digital | WD5000AAKX（蓝盘 Blue）               | 3.5 英寸 | SATA | 500GB |
+| 西部数据 Western Digital | WD5000AAKS（蓝盘 Blue）               | 3.5 英寸 | SATA | 500GB |
+| 西部数据 Western Digital | WD1600AAJS（蓝盘 Blue）               | 3.5 英寸 | SATA | 160GB |
+| 东芝 Toshiba             | HDWG480（N300）                       | 3.5 英寸 | SATA | 8TB   |
