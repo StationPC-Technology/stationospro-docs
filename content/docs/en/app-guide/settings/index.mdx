@@ -1,0 +1,59 @@
+---
+title: Settings
+description: Settings overview and module-specific guides
+---
+
+Settings is the control center of StationOS Pro. It centralizes device identity, users, storage, networking, remote access, security policy, hardware and power behavior, and system update/recovery. Most modules require an administrator account. Available options can vary by model, firmware, and installed hardware, so the device interface is authoritative.
+
+## Open Settings
+
+1. Sign in to the StationOS Pro desktop.
+2. Open **Settings** from the Dock or app launcher.
+3. Select a module in the left tab bar.
+
+![Settings window](/images/common/app-guide/settings-img/device-info.png)
+
+The left tab bar contains 14 modules:
+
+| Module | Primary use | Typical scenario |
+| --- | --- | --- |
+| Device Info | View device name, Station ID, version, hardware, serial number, and network addresses | Identify a device, troubleshoot connectivity, or prepare support information |
+| Users | Manage local users, roles, status, groups, and storage quotas | Create accounts and allocate space for family or team members |
+| Storage | Manage volumes, RAID, hot spares, and SSD cache | Initialize disks, expand capacity, or improve performance |
+| Disk | View disk information and health, format disks, or safely eject them | Inspect, replace, or troubleshoot drives |
+| File Sharing Protocol | Configure SMB, WebDAV, FTP, NFS, and Time Machine | Access NAS files from computers, phones, and other clients |
+| AI Models | Manage AI capabilities, local models, and index storage locations | Enable face/OCR/file/visual recognition and control model storage |
+| Network Settings | Configure gateways, DNS, interfaces, bridges, and link aggregation | Change IP settings or build redundant/high-throughput links |
+| Remote Access | Configure Station ID access and DDNS | Reach the device from the internet or through your own domain |
+| SSH | Enable or disable SSH/SFTP access | Perform command-line maintenance and control remote access |
+| Security | Configure ports, two-step verification, IP protection, firewall, certificates, and analytics | Reduce exposure, block suspicious clients, and enable HTTPS |
+| Notification Settings | Configure email notifications and notification language | Receive verification codes and security notices |
+| Hardware & Power | Manage buzzer, fan, memory compression, power schedules, and disk sleep | Balance noise, cooling, uptime, and power consumption |
+| Time & Time Zone | Set time zone, NTP synchronization, or manual time | Keep logs, certificates, and scheduled tasks accurate |
+| Update & Restore | Check and install updates, review logs, factory reset, or reset network | Upgrade firmware or recover system/network configuration |
+
+<Callout title="Operation tip" type="info">
+  Storage creation, RAID changes, formatting, firewall rules, port changes, factory reset, and network reset can affect data or connectivity. Review the impact and keep backups before changing them.
+</Callout>
+
+## Function groups and operation risk
+
+| Group | Modules | Main risk |
+| --- | --- | --- |
+| Read-only information | Device Info | Low risk; renaming changes identification. |
+| Accounts and authorization | Users | Deleting a user deletes personal data; administrators gain broad control. |
+| Data structures | Storage, Disk | Creating, modifying, formatting, or replacing disks can erase data or reduce redundancy. |
+| Service entry points | File Sharing Protocol, SSH, Security | Enabling services or ports increases exposure; incorrect firewall or port settings can disconnect management. |
+| Network and remote access | Network Settings, Remote Access | IP, bridge, aggregation, or DDNS changes can disconnect the current session. |
+| System maintenance | Hardware & Power, Time & Time Zone, Update & Restore | Reboots, resets, incorrect time, or interrupted updates affect availability. |
+
+## Administrator checklist
+
+Before a high-risk operation:
+
+1. Keep an independent, restorable backup of important data.
+2. Confirm a LAN or console recovery path exists; do not depend only on the connection being changed.
+3. Confirm volumes are healthy and not degraded, damaged, or read-only.
+4. Ask users to stop file, backup, download, container, and indexing writes.
+5. Keep power stable; do not force power loss during HDD, SSD cache, or update operations.
+6. Record the original IP, ports, DNS, firewall rules, Station ID, and version.

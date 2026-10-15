@@ -1,0 +1,15 @@
+{
+  "title": "App Guide",
+  "defaultOpen": true,
+  "pages": [
+    "overview",
+    "app-center",
+    "files",
+    "backup",
+    "docker",
+    "log-center",
+    "monitor",
+    "settings",
+    "station-ai"
+  ]
+}

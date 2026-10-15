@@ -1,0 +1,69 @@
+---
+title: Update & Restore
+description: Install firmware updates and perform system or network reset
+---
+
+Update & Restore contains **System update** and **Restore & Reset** tabs.
+
+## System update
+
+![System Update](/images/common/app-guide/settings-img/update.png)
+
+| Feature | Description |
+| --- | --- |
+| Current version | Shows the installed version, such as `v1.1.0.17`. |
+| Check for updates | Manually queries the update service. |
+| Automatic updates | Downloads and installs updates automatically. When disabled, update notices still appear, but **Restart & Upgrade** must be selected manually. |
+| Manual installation | Selects a downloaded firmware file; the package must pass format, checksum, and version checks. |
+| Update log | Opens release notes with version and change details. |
+
+Before updating, stop write-heavy backup/sync/download/index/container tasks where possible and keep power stable. Do not power off or force-close the page during installation.
+
+## Restore & Reset
+
+![Restore and Reset](/images/common/app-guide/settings-img/restore.png)
+
+| Action | Effect |
+| --- | --- |
+| Factory Reset | Restores system settings to defaults while preserving hard-drive data. Requires administrator verification and an automatic restart. |
+| Reset Network | Restores network-connection and firewall settings to defaults. Requires at least one wired network and may disconnect the current session. |
+
+<Callout title="Danger" type="error">
+  Both operations interrupt services and require recovery planning. Record network parameters, back up configuration, and confirm a local access path before continuing.
+</Callout>
+
+## Online update flow
+
+1. Select **Check for updates**.
+2. Review version, package size, and release notes.
+3. Stop high-risk write tasks.
+4. Start the update.
+5. Resolve any blocking tasks reported by the update-readiness check.
+6. Wait for download, installation, and restart.
+7. Sign in again and verify version, storage, apps, and networking.
+
+## Update readiness
+
+The system may block or warn about backups, sync/download jobs, container writes, database services, indexing/model tasks, RAID synchronization/repair, formatting, or other sustained disk writes. Resolve them before continuing.
+
+## Beta updates
+
+If **Beta Updates** appears, enabling it allows prerelease testing. Beta firmware may be incomplete or less stable. Avoid it on devices with important data, production deployments, or unmanned systems.
+
+## Manual-install rules
+
+- Only `.zip` firmware packages are accepted.
+- Package version must be higher than the current version.
+- Upload can be paused, resumed, or canceled.
+- The system validates the file after upload.
+- Do not remove power, refresh the system, or shut down during installation.
+
+## Factory reset versus network reset
+
+| Item | Factory Reset | Reset Network |
+| --- | --- | --- |
+| System settings | Restore defaults | Network/firewall defaults |
+| Disk data | Preserved | Preserved |
+| Admin verification | Required | Required |
+| Network | IP may change | IP/connection likely changes |
+| Fit | Handoff or reinitialization | Unrecoverable network misconfiguration |

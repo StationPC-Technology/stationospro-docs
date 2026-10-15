@@ -1,0 +1,142 @@
+---
+title: Security
+description: Configure ports, two-step verification, protection, firewall, certificates, and analytics
+---
+
+Security contains **Port Settings**, **Account Security**, **Protection**, **Firewall**, **Certificate**, and **Device Analytics** tabs.
+
+## Port settings
+
+![Port Settings](/images/common/app-guide/settings-img/security-port-settings.png)
+
+| Setting | Description |
+| --- | --- |
+| HTTP port | Required 1–65535 port; default 9500. Cannot equal the HTTPS port. |
+| HTTPS port | Required 1–65535 port; default 9501. |
+| Force HTTPS | Redirects HTTP connections to HTTPS. |
+| Redirect ports 80 and 443 | Redirects 80 to HTTP and 443 to HTTPS so users can omit the port. When enabled, HTTP/HTTPS ports cannot be 80 or 443. |
+
+<Callout title="Caution" type="warn">
+  Reopen the admin site with the new port after saving, and update firewall or router forwarding rules.
+</Callout>
+
+## Account security
+
+![Account Security](/images/common/app-guide/settings-img/security-account-security.png)
+
+| Option | Description |
+| --- | --- |
+| Require Two-Step Verification | Forces selected users to complete OTP verification at sign-in. |
+| All users | Applies to every account. |
+| Admins only | Applies to administrators. |
+| Specified users | Applies to selected users or groups; use the selector to edit targets. |
+
+Two-step verification depends on the email notification service. Configure email first.
+
+## Protection
+
+![Protection](/images/common/app-guide/settings-img/security-protection.png)
+
+| Rule | Default/range |
+| --- | --- |
+| Login attempts | 10 times; valid range 1–100. |
+| Within | 5 minutes; valid range 1–10080 minutes. |
+| Automatic unblock | 30 minutes, 1 hour, 1 day, 7 days, 30 days, or permanent. |
+
+If failed attempts reach the threshold in the time window, the client IP is blocked automatically.
+
+### Allowlist and blocklist
+
+| List | Effect |
+| --- | --- |
+| Allowlist | Always permits connection/login, bypasses blocking rules, and takes priority over the blocklist. |
+| Blocklist | Always restricts connection/login. |
+
+Entries support one or more IPv4/IPv6 addresses or CIDR blocks separated by newlines or commas. Records show client IP, last access, expiry for block entries, and a remark of up to 180 characters. Add or delete entries from either list.
+
+## Firewall
+
+![Firewall](/images/common/app-guide/settings-img/security-firewall.png)
+
+| Feature | Description |
+| --- | --- |
+| Firewall switch | Applies inbound and outbound rules. |
+| Work mode | Auto prefers XDP native; Generic uses the traditional kernel network stack. |
+| LAN default allow | Permits LAN traffic by default. |
+| Inbound/outbound rules | Fields include network, port, protocol, source/destination IP, allow/deny, status, and remark. |
+| Rule order | Drag to reorder; earlier rules have higher priority. |
+| Default policy | Allow or deny access when no rule matches. |
+
+<Callout title="Danger" type="error">
+  Incorrect rules can block the admin UI, remote access, or applications. Keep the current management session open and allow management, SSH, and LAN traffic before applying strict rules.
+</Callout>
+
+## Certificate
+
+![Certificate](/images/common/app-guide/settings-img/security-certificate.png)
+
+Certificates show name, type, issuer, alternative domains, validity, auto-renew state, and status. Actions include edit, update, download, and delete.
+
+Add methods:
+
+| Method | Description |
+| --- | --- |
+| Import certificate | Upload or select a certificate, private key, and optional intermediate certificate. |
+| Get certificate | Request a free Let's Encrypt certificate with an email and DDNS/custom domain. It renews automatically before expiry. |
+
+Let's Encrypt has rate limits and may require port 80 forwarding for HTTP validation or provider support for DNS validation. **Service Config** assigns certificates to FTPS, WebDAV, and remote access.
+
+## Device analytics
+
+![Device Analytics](/images/common/app-guide/settings-img/security-device-analytics.png)
+
+| Switch | Description |
+| --- | --- |
+| Device Analytics Improvement Program | Collects certain usage data to improve stability and features; can be turned off anytime. |
+| webfind service | Allows Station OS devices to be discovered on the LAN; collects IP and port information for this service. |
+
+Both descriptions link to the privacy policy.
+
+## Port strategy
+
+| Scenario | Recommendation |
+| --- | --- |
+| Home LAN | HTTP/HTTPS can remain, but save sign-in only on trusted devices. |
+| Public/shared network | Enable HTTPS/Force HTTPS. |
+| Omit port in URL | Enable 80/443 redirection and synchronize router/firewall rules. |
+| Change default ports | Choose an unused 1024–65535 port and avoid SMB/FTP/SSH conflicts. |
+| Internet access | Prefer Station ID or VPN over exposing the admin port. |
+
+## Two-step policy comparison
+
+| Scope | Advantage | Fit |
+| --- | --- | --- |
+| All users | Highest baseline. | Sensitive files or multi-user devices. |
+| Admins only | Balances security and convenience. | Family devices or lower-privilege users. |
+| Specified users | Precise control. | Backup, finance, or operations accounts. |
+
+Ensure email service works before enforcing the policy.
+
+## IP-protection design
+
+Use the allowlist for fixed office, home, VPN, or bastion addresses. Use the blocklist for repeat offenders and known scanning sources. Tighter thresholds suit home devices; shared proxies may need larger thresholds. Longer unblock durations suit critical systems.
+
+## Firewall design workflow
+
+1. Allow management, SSH, and LAN traffic first.
+2. Identify required inbound services and ports.
+3. Create minimum-scope rules by source IP, protocol, and port.
+4. Add deny rules for unnecessary sources.
+5. Drag rules into priority order; earlier rules match first.
+6. Set the default policy only after testing.
+7. Keep one management session open until the new rules are proven.
+
+## Certificate troubleshooting
+
+| Problem | Check |
+| --- | --- |
+| Domain mismatch | Compare the accessed domain with certificate alternative names. |
+| Let's Encrypt failure | DNS, port 80 forwarding, API permissions, and rate limits. |
+| HTTPS unreachable | HTTPS port, firewall, and service certificate assignment. |
+| No auto renewal | System time, DNS, and 80/443 reachability. |
+| Client untrusted | Missing intermediate certificate or self-signed certificate. |

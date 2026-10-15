@@ -1,0 +1,59 @@
+---
+title: SSH
+description: Manage SSH port, duration, encryption, and SFTP
+---
+
+SSH controls remote command-line access to the device.
+
+![SSH](/images/common/app-guide/settings-img/ssh.png)
+
+| Setting | Description |
+| --- | --- |
+| Enable | Turns SSH on or off. |
+| Port | Listening port; default is 22. |
+| Duration | 10 minutes, 30 minutes, 1/3/6 hours, or permanent. Short durations suit temporary troubleshooting. |
+| Advanced Settings | Encryption strength, access restriction, and SFTP. |
+| Apply | Saves changed settings. |
+
+Advanced options:
+
+| Option | Description |
+| --- | --- |
+| Encryption Algorithm | Low, medium, or high. Keep high unless an old client cannot connect. |
+| Local Network Only | Blocks SSH from outside the LAN. |
+| SFTP | Enables file transfer through the SSH channel. |
+
+Connect with `ssh user@device-ip -p port`, or choose SFTP in a client and enter the same IP/port.
+
+<Callout title="Security" type="warn">
+  Avoid exposing SSH permanently to the internet. Use a short duration, LAN-only mode, or VPN; avoid default ports and weak passwords. Unknown commands can damage system state or data.
+</Callout>
+
+## Usage patterns
+
+| Scenario | Recommendation |
+| --- | --- |
+| Temporary support | 10/30 minutes, LAN only. |
+| Routine internal maintenance | Permanent, LAN only, high encryption. |
+| Remote support | Use VPN or Station ID to reach the LAN, then enable short-term SSH. |
+| File transfer | Enable SFTP with a controlled account and directory. |
+| Legacy client | Confirm credentials/port first; lower encryption only temporarily if necessary. |
+
+## Workflow
+
+1. Confirm command-line maintenance is necessary.
+2. Set a non-default port and short duration.
+3. Keep encryption high.
+4. Enable Local Network Only; enable SFTP as needed.
+5. Apply and test.
+6. Disable SSH after maintenance.
+
+## Troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| Connection refused | SSH disabled, wrong port, or service not listening. |
+| Timeout | Firewall, routing, LAN-only restriction, unreachable IP. |
+| Authentication failed | Wrong username/password, disabled user, or insufficient permission. |
+| Algorithm negotiation failure | Old client or incompatible encryption algorithm. |
+| SFTP cannot write | Directory permission, read-only volume, or exhausted quota. |

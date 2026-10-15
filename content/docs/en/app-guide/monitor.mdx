@@ -1,0 +1,63 @@
+---
+title: Monitor
+description: Monitor app user guide
+---
+
+The Monitor app tracks hardware resources and service processes in real time, helping you understand system status and locate performance bottlenecks.
+
+## Status Monitoring
+
+The **Status** page provides overview and per-resource views. The top sub-tabs include:
+
+- **Overview**
+- **CPU**
+- **VPU**
+- **Memory**
+- **Networks**
+- **NPU**
+- **AI Module Expansion**
+
+### Overview
+
+The overview page shows in real time:
+
+- **Fan speed**: current fan RPM;
+- **CPU**: processor temperature and utilization;
+- **Memory**: available capacity and usage;
+- **Networks**: send and receive speeds;
+- **NPU**: utilization of the AI processing unit;
+- **Hard disk**: read and write speeds.
+
+Click **Details** in the upper-right corner of a card to view live charts and more information for that resource.
+
+![Monitor Status](/images/common/app-guide/monitor-img/status.png)
+
+### Hard Drive Information
+
+The **Hard Drive Information** table at the bottom lists each disk's number, built-in name, temperature, busy rate, read/write speeds, and purpose (the storage volume it belongs to) — a quick way to check disk health and load.
+
+## Process Manager
+
+The **Process Manager** page has two sub-tabs:
+
+### Service
+
+Displays system services (such as Log Center, Settings, App Center, Docker, Monitor, and Storage) and their child processes in a tree, showing:
+
+- **CPU Occupancy**
+- **Running Time**
+- **Memory**
+
+Click a column header to sort. Expand a service to inspect its child processes.
+
+![Process Service](/images/common/app-guide/monitor-img/process-service.png)
+
+### Process
+
+Lists all system processes with PID, name, CPU, memory, and running time to further pinpoint resource usage.
+
+![Process List](/images/common/app-guide/monitor-img/process-list.png)
+
+<Callout title="Caution" type="warn">
+  Terminating critical system processes may cause service failures or data corruption. When in doubt, restart the service instead or contact technical support.
+</Callout>

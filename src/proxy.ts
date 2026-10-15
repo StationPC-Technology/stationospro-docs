@@ -66,5 +66,5 @@ export const config = {
   // Ignore `/_next/`, `/api/`, and top-level route handlers that don't need
   // locale handling. Note: `.md` doc requests (e.g. `/docs.md`) MUST stay in
   // the matcher so the markdown rewrite above can handle them.
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|llms.txt|llms-full.txt).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|images|llms.txt|llms-full.txt).*)'],
 };

@@ -1,0 +1,72 @@
+---
+title: Device Info
+description: View and manage device identity, hardware, and network information
+---
+
+Device Info confirms a device's identity and running state. You can view the system version, hardware specifications, serial number, and addresses for each interface, rename the device, or copy its Station ID and IP addresses.
+
+## Device basics
+
+| Field/action | Description |
+| --- | --- |
+| Device Name | Current name. Select the edit icon to rename it. Supports 1–15 letters, digits, and `-`; `-` cannot be first or last. |
+| Station ID | Remote-access identifier generated after Remote Access is enabled. Copy it or select it to change the ID. |
+| System Version | Current firmware version, such as `v1.1.0.17`. |
+| System Run Time | Elapsed time since the latest boot. |
+| Last Startup Time | Most recent boot time. |
+
+![Device Info](/images/common/app-guide/settings-img/device-info.png)
+
+## Hardware information
+
+| Section | Fields | Use |
+| --- | --- | --- |
+| CPU | Model, clock speed, cores, threads | Evaluate processor and parallel workload capability |
+| Memory | Capacity | Estimate space for apps, containers, indexing, and AI workloads |
+| AI Module Expansion | Module model and compute, such as RK1828, 20 TOPS INT8 | Confirm AI acceleration hardware and compute level |
+
+## Device details
+
+| Field | Description |
+| --- | --- |
+| Device Model | Product model, such as DA400. |
+| Serial Number | Unique device identifier; copy it for registration or support. |
+
+## Network information
+
+| Field | Description |
+| --- | --- |
+| Network Name | Interface name such as `enP2p33s0`. |
+| Network Settings Info | Duplex and MTU, such as Full-duplex, MTU1500. |
+| IPv4 Address / status | Current IPv4 address and connection state; addresses can be copied. |
+| IPv6 Address / status | Current IPv6 address and connection state, or `-`. |
+
+<Callout title="Tip" type="info">
+  A multi-interface device can have several valid IPs. If the listed address differs from your current browser address, use the interface on your client subnet or inspect detailed gateway and DNS settings in Network Settings.
+</Callout>
+
+## Field-use guidance
+
+| Scenario | Check |
+| --- | --- |
+| Browser cannot reach the device | IPv4/IPv6 addresses and status for each interface. |
+| Client cannot add the device remotely | Station ID, system version, and Remote Access state. |
+| Evaluate AI or container workloads | CPU cores/threads, memory, and AI module compute. |
+| Contact support or warranty | Model, serial number, version, and uptime. |
+| Investigate reboots | Last startup time, uptime, and System-user logs. |
+| Confirm multi-NIC links | Addresses, duplex, MTU, and status for each interface. |
+
+## Status interpretation
+
+| State | Meaning | Suggested action |
+| --- | --- | --- |
+| IPv4 works but IPv6 is `-` | IPv6 is not assigned; IPv4 may still be normal. | Check router SLAAC/DHCPv6 only if IPv6 is required. |
+| Interface disconnected | Cable, switch port, or link negotiation failed. | Replace the cable/port and inspect Network Settings. |
+| Uptime is short | The device recently booted or restarted unexpectedly. | Filter System-user logs for shutdown, restart, and update events. |
+| New-version notice | The update service returned a newer firmware. | Review release notes in Update & Restore and back up first. |
+
+## FAQ
+
+- **Does renaming the device affect file access?** It mainly changes identification. Clients using the hostname must reconnect with the new name; IP access is usually unaffected.
+- **Why do multiple interfaces have IPs?** Multi-NIC devices can connect to multiple links independently. Use the address on the client subnet.
+- **Is Station ID an account?** No. It identifies the device for remote access; sign-in still requires a local username and password.

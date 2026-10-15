@@ -1,0 +1,83 @@
+---
+title: Docker
+description: Docker app user guide
+---
+
+The Docker app is StationOS Pro's container management platform. Manage containers, Compose projects, images, and networks graphically — no command line required for common deployment and operations tasks.
+
+## Enabling the Docker Service
+
+When you open the Docker app for the first time, complete the initial setup:
+
+1. Choose the storage space for Docker data under **Storage Location**.
+2. Configure **Auto-start on Boot** as needed:
+   - **Auto Start**: start the Docker service automatically when the device boots;
+   - **Do Not Start**: start it manually when needed.
+3. Click **Start Docker**. The system prepares the storage and starts the service.
+
+![Docker Setup](/images/common/app-guide/docker-img/setup.png)
+
+<Callout title="Caution" type="warn">
+  Starting the Docker service creates a Docker data directory in the selected storage space. Do not power off during this process.
+</Callout>
+
+## Overview
+
+After the service starts, the overview page shows the runtime status at a glance:
+
+- **Service Status**: whether the service is running normally;
+- **Project**: running / total number of Compose projects;
+- **Container**: running / total number of containers;
+- **Local Images**: used / total number of images;
+- **Data Size**: disk space used by Docker data.
+
+![Docker Overview](/images/common/app-guide/docker-img/overview.png)
+
+## Container Management
+
+The **Container** page lists all containers with name, image, status, and CPU/memory usage. You can:
+
+- Search containers;
+- Click **Create Container** to launch the wizard and configure image, ports, mount points, environment variables, and more;
+- Start, stop, restart, or remove containers;
+- View container logs and resource details.
+
+![Containers](/images/common/app-guide/docker-img/containers.png)
+
+## Project Management (Compose)
+
+The **Project** page deploys apps using Docker Compose:
+
+1. Click create project and enter a project name.
+2. Edit the `docker-compose.yml` or import one from a file.
+3. Save the project. The system pulls images automatically and starts all services defined in it.
+
+The project list shows project status and contained services, and lets you start, stop, or rebuild projects.
+
+![Docker Project](/images/common/app-guide/docker-img/project.png)
+
+## Image Management
+
+The **Images** page has two views:
+
+- **Image Repository**: search and pull images online, including tag selection;
+- **Local Images**: manage images already pulled to the device — view, delete, or create containers from them.
+
+![Docker Images](/images/common/app-guide/docker-img/images.png)
+
+<Callout title="Tip" type="info">
+  Pulling images online requires network access to the image repository. If pulling fails, check the network connection or configure an available registry mirror in Docker settings.
+</Callout>
+
+## Network Management
+
+The **Networks** page lists Docker networks (such as `bridge` and `host` by default) and supports:
+
+- **Refresh**: reload the network list;
+- **Add Network**: create a custom network for inter-container communication.
+
+![Docker Networks](/images/common/app-guide/docker-img/networks.png)
+
+## Docker Settings
+
+The **Settings** page manages global options such as the Docker storage location and auto-start on boot. Some changes take effect only after the Docker service restarts.

@@ -1,0 +1,83 @@
+---
+title: Docker
+description: Docker 应用使用指南
+---
+
+Docker 应用是 StationOS Pro 的容器化管理平台，支持以图形化方式管理容器、项目（Compose）、镜像与网络，无需命令行即可完成常见容器化应用的部署与运维。
+
+## 启用 Docker 服务
+
+首次打开 Docker 应用时，需要完成初始配置：
+
+1. 在 **存储位置** 中选择用于存放 Docker 数据的存储空间。
+2. 根据需要选择 **开机自启动**：
+   - **自动启动**：设备开机后自动启动 Docker 服务；
+   - **不启动**：需要时手动启动。
+3. 点击 **启动 Docker**，系统将准备存储并启动服务。
+
+![Docker Setup](/images/common/app-guide/docker-img/setup.png)
+
+<Callout title="注意" type="warn">
+  启动 Docker 服务会在所选存储空间中创建 Docker 数据目录，过程中请勿断电或强制关机。
+</Callout>
+
+## 总览
+
+服务启动后进入总览页面，可快速了解 Docker 运行状态：
+
+- **服务状态**：显示服务是否正常；
+- **项目**：运行中/全部项目数量；
+- **容器**：运行中/全部容器数量；
+- **本地镜像**：已使用/全部镜像数量；
+- **数据大小**：Docker 数据占用空间。
+
+![Docker Overview](/images/common/app-guide/docker-img/overview.png)
+
+## 容器管理
+
+进入 **容器** 页面，可查看全部容器的名称、镜像、状态、CPU/内存占用等信息，并支持：
+
+- 搜索容器；
+- 点击 **创建容器**，通过向导配置镜像、端口、挂载目录、环境变量等参数并创建容器；
+- 启动、停止、重启或删除容器；
+- 查看容器日志与资源占用详情。
+
+![Containers](/images/common/app-guide/docker-img/containers.png)
+
+## 项目管理
+
+**项目** 页面支持以 Docker Compose 的方式部署应用：
+
+1. 点击创建项目，填写项目名称。
+2. 编辑 `docker-compose.yml` 或从文件导入编排内容。
+3. 保存后系统将自动拉取镜像并启动项目内定义的全部服务。
+
+项目列表中可查看项目运行状态、包含的服务，并对项目执行启动、停止、重建等操作。
+
+![Docker Project](/images/common/app-guide/docker-img/project.png)
+
+## 镜像管理
+
+**镜像** 页面分为两个视图：
+
+- **镜像仓库**：在线搜索并拉取所需镜像，支持选择 Tag；
+- **本地镜像**：管理已拉取到本地的镜像，支持查看、删除、用镜像创建容器等操作。
+
+![Docker Images](/images/common/app-guide/docker-img/images.png)
+
+<Callout title="提示" type="info">
+  在线拉取镜像需要设备能够访问镜像仓库网络。如拉取失败，请检查网络连接或在 Docker 设置中配置可用的镜像加速地址。
+</Callout>
+
+## 网络管理
+
+**网络** 页面展示 Docker 的网络列表（默认提供 `bridge`、`host` 等网络），并支持：
+
+- **刷新**：刷新网络列表；
+- **添加网络**：创建自定义网络，用于容器间通信。
+
+![Docker Networks](/images/common/app-guide/docker-img/networks.png)
+
+## Docker 设置
+
+**设置** 页面可修改 Docker 的存储位置、开机自启动等全局配置，部分配置修改后需要重启 Docker 服务才能生效。

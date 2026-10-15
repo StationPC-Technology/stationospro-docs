@@ -1,0 +1,93 @@
+---
+title: Disk
+description: View disk details, check health, and maintain disks
+---
+
+Disk lists internal and external drives. You can inspect capacity, interface, temperature, and power-on time; run S.M.A.R.T tests; or format, stop, and safely eject supported disks.
+
+## Disk list
+
+| Tab | Description |
+| --- | --- |
+| All | Internal and external disks, grouped when applicable. |
+| Internal | Only drives installed inside the device. |
+| External | Only USB or other external drives. |
+
+![Disk](/images/common/app-guide/settings-img/disk.png)
+
+## Disk card
+
+| Field | Description |
+| --- | --- |
+| Disk name | System identifier such as DiskA or Disknvme0n1. |
+| Use / volume | Shows unused, not mounted, associated volume, or cache pool. |
+| Total capacity / type | Capacity and HDD/SSD type. |
+| Health status | Normal, abnormal, warning, or unknown. |
+| Model / supplier | Drive model and vendor. |
+| Interface | SATA, NVMe, USB, and similar. |
+| Serial number | Unique drive ID; copy it for support. |
+| Temperature | Current drive temperature. |
+| Power-on time | Cumulative powered time. |
+| Partition | Partition details where applicable. |
+
+## Disk actions
+
+| Action | Description |
+| --- | --- |
+| Format | Erase an unused disk or selected partition and create exFAT or EXT4. exFAT suits Windows/macOS cross-platform use; EXT4 suits Linux/NAS workloads. |
+| Safe eject | Stop an external drive before removal. |
+| Health details | Open S.M.A.R.T health information and tests. |
+| Stop disk | Remove a supported internal disk from its associated volume; this can reduce redundancy. |
+| Read-only | Write operations such as formatting are disabled for read-only disks. |
+
+<Callout title="Danger" type="error">
+  Formatting deletes all data on the target disk or partition and cannot be stopped after it starts. Do not power off or disconnect the drive during formatting.
+</Callout>
+
+## Health details
+
+![Disk Health](/images/common/app-guide/settings-img/disk-health.png)
+
+| Test | Time | Description |
+| --- | --- | --- |
+| Quick detection | About 2 minutes | Basic mechanical and electrical diagnostics for routine checks. |
+| Full detection | About 2 hours 30 minutes | Full scan with more accurate results. Tests do not affect normal disk use. |
+
+The health page also shows test progress, current result, and S.M.A.R.T attributes such as number, indicator, result, current value, worst value, threshold/reference, and raw data. Vendor thresholds define critical values.
+
+<Callout title="Maintenance" type="warn">
+  If health is abnormal, temperature remains high, or several values approach thresholds, back up the drive and associated volume immediately, then replace the drive.
+</Callout>
+
+## Health and use indicators
+
+| Indicator | Meaning | Action |
+| --- | --- | --- |
+| Normal | Health check passed. | Continue routine checks and backups. |
+| Warning | Suspicious attributes or high temperature. | Back up and monitor closely. |
+| Abnormal/Serious | Health check failed. | Stop nonessential writes and replace the disk. |
+| Unknown | Health data unavailable or unsupported. | Check connection details and disk information. |
+| Storage volume N | Disk belongs to that volume. | Check volume state and redundancy before acting. |
+| Cache pool | Disk is SSD cache. | Remove the cache in Storage before removing the disk. |
+| Unused | Disk is not occupied. | Available for a volume or cache. |
+| Not mounted | External drive is not mounted. | Check file system, connection, and health. |
+| Read-only | Writes are protectively disabled. | Back up before repair or formatting. |
+| Formatting | Format is running. | Wait; do not power off or eject. |
+
+## Format decisions
+
+| Goal | Recommendation |
+| --- | --- |
+| Direct Windows/macOS cross-platform use | exFAT. |
+| Stable NAS-only storage | EXT4. |
+| Previously abnormal disk | Test health and back up before formatting. |
+| Clear one partition only | Select partition formatting, not whole disk. |
+| System or RAID member data | Do not format until its purpose is confirmed. |
+
+## S.M.A.R.T focus
+
+Watch attributes such as reallocated sectors, current pending sectors, offline uncorrectable errors, temperature, and power-on time. Raw encoding varies by vendor, so trends are often more useful than a single value.
+
+<Callout title="Testing" type="info">
+  Quick detection suits routine checks. Use full detection before disk replacement, after volume degradation, or after frequent I/O errors. Detection does not block normal use, but heavy workloads can influence results.
+</Callout>

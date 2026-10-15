@@ -1,0 +1,56 @@
+---
+title: Station AI
+description: Station AI assistant user guide
+---
+
+Station AI is the built-in AI assistant of StationOS Pro. Powered by a locally deployed large language model (Qwen3-8B by default), it supports natural language chat, knowledge base Q&A, document translation, and document summarization, and can query device status or perform system actions through conversation.
+
+## Interface Overview
+
+The left side of the Station AI window is the navigation area:
+
+- **New Chat**: start a new conversation;
+- **Knowledge Base**: manage and search knowledge bases;
+- **History**: review past conversations;
+- **Settings**: configure models and conversation options.
+
+![Station AI Chat](/images/common/app-guide/station-ai-img/chat.png)
+
+## Chatting with AI
+
+1. Type your question in the input box and click send (or press `Enter`).
+2. The AI replies using the built-in model, automatically invoking system capabilities when device status or actions are involved.
+
+The new chat page offers quick prompts — click one to get started:
+
+- **Introduce NAS features**: describe what the NAS can do;
+- **Restart my NAS**: restart the device;
+- **Shut down my NAS**: power off the device;
+- **Get current device disk information and status**: query disk information and status.
+
+Below the input box you will also find:
+
+- **Add**: attach files as conversation context;
+- **Model selector**: shows the active model (for example, Qwen3-8B);
+- **Document Translation**: upload a document for translation;
+- **Document Summary**: upload a document to generate a summary.
+
+<Callout title="Caution" type="warn">
+  Before using AI to perform sensitive actions such as restart or shutdown, make sure no important tasks are running on the device to avoid data loss.
+</Callout>
+
+## Knowledge Base
+
+Knowledge bases let you import documents into the NAS, index them, and get precise answers from AI:
+
+1. Switch to the **Knowledge Base** tab.
+2. Click **Create Knowledge Base**.
+3. Upload document files (common formats are supported). The system parses and indexes them automatically.
+4. The knowledge base list shows the name, size, and file count. Click **Chat** to start a Q&A session on that knowledge base.
+
+![Knowledge Base](/images/common/app-guide/station-ai-img/knowledge-base.png)
+
+<Callout title="Tip" type="info">
+  - Indexing large or numerous files takes time. Please be patient.
+  - Models can be viewed and managed under "Settings → AI Models". Local inference consumes NPU/CPU resources, so process large batches when the device is idle.
+</Callout>

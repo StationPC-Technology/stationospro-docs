@@ -1,0 +1,103 @@
+---
+title: Users
+description: Manage user accounts, roles, groups, and storage quotas
+---
+
+Users contains **Users** and **User Groups** tabs. Administrators can create local accounts, control login state, assign roles and accessible volumes, and organize members with groups.
+
+## Users tab
+
+- **Left list**: All users with search, avatar, username, role, and status.
+- **Right detail pane**: Basic information, accessible storage, and groups.
+- **Add**: Create a local account.
+
+![Users](/images/common/app-guide/settings-img/users.png)
+
+### Roles and status
+
+| Option | Value | Effect |
+| --- | --- | --- |
+| Role | Administrator | Can open Settings and manage system configuration, users, storage, security, and apps. |
+| Role | Regular User | Uses authorized files and apps but cannot manage Settings. |
+| Status | Enabled / Disabled | Enables or temporarily blocks sign-in without deleting the account. |
+
+### Create or edit a user
+
+| Field/action | Description |
+| --- | --- |
+| Username | Supported letters, digits, and `-`; `-` cannot be first or last. Reserved names may be rejected. |
+| Avatar | Upload or replace an avatar within format and size limits. |
+| Password/New password | 6–30 letters, digits, and `@#*-_`; must contain both letters and digits. |
+| Confirm password | Must match the password exactly. |
+| Edit user information | Change avatar, username, role, status, and related data. |
+| Change password | Set a new login password. |
+| Set as administrator | Promote a user after confirmation. |
+| Disable/Enable | Block or restore login. |
+| Delete user | Deletes the account and data in the personal folder; irreversible. |
+
+### Accessible storage
+
+| Field | Description |
+| --- | --- |
+| Storage volume | Shows volume name, used capacity, total capacity, and the user's maximum available capacity. |
+| Max Available | `Unlimited` or a specific quota that cannot exceed available capacity. |
+| Save | Applies the user's writable range immediately. |
+
+<Callout title="Caution" type="warn">
+  Deleting a user also deletes data in the personal folder. Migrate team files, back up personal data, and check dependent tasks and shares first.
+</Callout>
+
+## User Groups tab
+
+| Field/action | Description |
+| --- | --- |
+| Group list | Shows groups, member counts, and search. Built-in groups should not be deleted. |
+| Group detail | Shows name, remarks, members, and roles. |
+| Add user group / members | Create a custom group or add existing users. |
+| Edit | Change group name, remarks, or membership. |
+| Delete | Remove a custom group; group-based access changes but member accounts remain. |
+
+<Callout title="Best practice" type="info">
+  Grant repeated permissions to groups instead of individual accounts so later membership changes update access automatically.
+</Callout>
+
+## Complete user-creation flow
+
+| Step | Action | Check |
+| --- | --- | --- |
+| 1 | Select **Add user** | Open the user creation wizard. |
+| 2 | Enter basic information | Username and password format; both passwords match. |
+| 3 | Set an avatar | Image file no larger than 2 MB. |
+| 4 | Select role | Prefer regular users for daily work. |
+| 5 | Configure accessible storage | Define writable volumes and quotas. |
+| 6 | Assign groups | Add the user to department, family-role, or project groups. |
+| 7 | Confirm creation | Review role, quota, and deletion warnings. |
+
+## Permission and data effects
+
+| Action | Immediate effect | Data effect | Recovery |
+| --- | --- | --- | --- |
+| Change password | Signs the account out of all devices. | No deletion. | Can change again. |
+| Disable user | Blocks sign-in. | Data retained. | Can enable again. |
+| Set as administrator | Grants Settings and system control. | No deletion, but much broader permission. | Can remove admin rights. |
+| Remove from group | Group-based permissions change. | Personal folder retained. | Can rejoin the group. |
+| Delete user | Account cannot sign in. | All data in the personal folder is deleted. | Irreversible. |
+| Delete group | Members are disbanded. | Member accounts remain, but group permissions are lost. | Recreate and reauthorize. |
+
+## Quota suggestions
+
+- **Family**: Set quotas per member so personal media cannot fill the shared volume.
+- **Teams**: Standardize quotas by department or project, then handle exceptions.
+- **Backup accounts**: Reserve headroom based on source data growth.
+- **App accounts**: Apply quotas so logs and caches cannot grow without limit.
+
+A quota limits the user's writable capacity. Existing files, team data, and system data may be counted separately; trust the actual storage statistics shown on the page.
+
+## Troubleshooting
+
+| Problem | Check |
+| --- | --- |
+| Cannot sign in | Disabled state, changed password, or IP blocked by Protection. |
+| Shared directory missing | Accessible storage, group membership, and protocol visible-folder scope. |
+| Write reports no space | User quota, volume free space, and read-only/degraded state. |
+| Group permission not effective | Client/session cache; sign in again or reconnect the file service. |
