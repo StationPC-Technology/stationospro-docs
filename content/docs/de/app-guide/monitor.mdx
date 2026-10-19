@@ -1,0 +1,64 @@
+---
+sourceHash: e559d242bbe6
+title: Ressourcenverwaltung
+description: Anleitung zur Verwendung der Ressourcenverwaltung
+---
+
+Die Anwendung „Ressourcenverwaltung“ dient der Echtzeitüberwachung der Hardware-Ressourcen und Dienstprozesse des Geräts. Sie hilft Ihnen, den Systembetrieb im Blick zu behalten und Leistungsengpässe zu erkennen.
+
+## Statusüberwachung
+
+Die Seite **Status** bietet eine Übersicht sowie kategorisierte Überwachungsansichten. Die Unterregisterkarten oben umfassen:
+
+- **Übersicht**
+- **CPU**
+- **VPU**
+- **Arbeitsspeicher**
+- **Netzwerk**
+- **NPU**
+- **KI-Erweiterungsmodul**
+
+### Übersicht
+
+Die Übersichtsseite zeigt in Echtzeit:
+
+- **Lüfterdrehzahl**: Aktuelle Lüfterdrehzahl in U/min;
+- **CPU**: Prozessortemperatur und Auslastung;
+- **Arbeitsspeicher**: Verfügbare Kapazität und Auslastung;
+- **Netzwerk**: Sende- und Empfangsrate;
+- **NPU**: Auslastung der KI-Recheneinheit;
+- **Festplatte**: Lese- und Schreibgeschwindigkeit.
+
+Durch Klicken auf **Details** oben rechts in den jeweiligen Karten können Sie Echtzeitkurven und weitere Informationen zur entsprechenden Ressource anzeigen.
+
+![Monitor Status](/images/de/app-guide/monitor-img/status.png)
+
+### Festplatteninformationen
+
+Die Tabelle **Festplatteninformationen** im unteren Bereich der Seite listet für jede Festplatte Nummer, Name der internen Festplatte, Temperatur, Auslastung, Lese- und Schreibgeschwindigkeit sowie Verwendung (zugehöriges Speichervolume) auf. So erhalten Sie schnell einen Überblick über Zustand und Belastung der Festplatten.
+
+## Prozessverwaltung
+
+Die Seite **Prozessverwaltung** enthält zwei Unterregisterkarten:
+
+### Dienste
+
+Zeigt Systemdienste (z. B. Protokollzentrum, Einstellungen, App Center, Docker, Ressourcenverwaltung und Speicher) sowie deren Unterprozesse in einer Baumstruktur an und blendet Folgendes ein:
+
+- **CPU-Auslastung**
+- **Laufzeit**
+- **Arbeitsspeicherbelegung**
+
+Durch Klicken auf die Spaltenüberschrift können Sie sortieren; durch Aufklappen eines Dienstes werden dessen untergeordnete Prozesse angezeigt.
+
+![Process Service](/images/de/app-guide/monitor-img/process-service.png)
+
+### Prozesse
+
+Zeigt alle Systemprozesse in Listenform mit PID, Name, CPU, Arbeitsspeicher und Laufzeit an. Dies hilft, die Quelle der Ressourcenauslastung genauer zu ermitteln.
+
+![Process List](/images/de/app-guide/monitor-img/process-list.png)
+
+<Callout title="Hinweis" type="warn">
+  Das Beenden wichtiger Systemprozesse kann zu Dienststörungen oder Datenbeschädigung führen. Gehen Sie daher vorsichtig vor; wenn Sie unsicher sind, starten Sie vorzugsweise den entsprechenden Dienst neu oder wenden Sie sich an den technischen Support.
+</Callout>

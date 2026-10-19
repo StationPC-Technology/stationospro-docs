@@ -1,0 +1,158 @@
+---
+sourceHash: 60a796a6b4e6
+title: Modelos de IA
+description: Gestionar las capacidades básicas de IA, los modelos locales grandes y el almacenamiento de los datos de índice
+---
+
+La página Modelos de IA se divide en tres pestañas: **Capacidades básicas**, **Gestión de modelos** y **Ubicación de almacenamiento**. Aquí se controlan las capacidades de reconocimiento local utilizadas por la búsqueda global y Station AI, los archivos de modelos de lenguaje grandes y la ubicación de almacenamiento en disco de los modelos y de los datos de índice.
+
+## Capacidades básicas
+
+La página Capacidades básicas gestiona los módulos de capacidad de IA necesarios para la búsqueda global y el reconocimiento de contenido.
+
+![AI Basic Capabilities](/images/es/app-guide/settings-img/ai-models.png)
+
+### Módulos de capacidad
+
+| Capacidad | Función | Efecto de desactivarla |
+| --- | --- | --- |
+| Reconocimiento facial | Identifica personas y las agrupa; admite la búsqueda de rostros y álbumes inteligentes. | La búsqueda de rostros, la agrupación de personas y otras capacidades dejan de estar disponibles. |
+| Reconocimiento de texto | Reconoce el texto de las imágenes y permite localizar contenido de imágenes mediante palabras clave. | Se limitan el OCR de imágenes y la búsqueda de texto en imágenes. |
+| Reconocimiento de archivos | Indexa los nombres, las rutas, el contenido de los documentos y la semántica para mejorar la búsqueda global. | Se limitan la búsqueda de contenido de documentos y la búsqueda semántica. |
+| Reconocimiento de contenido visual | Reconoce escenas y objetos en imágenes y vídeos y los utiliza para la búsqueda por coincidencia de contenido. | Se limitan la búsqueda por imagen, la búsqueda de escenas y la búsqueda de objetos. |
+
+### Estado e información del índice
+
+Los módulos de reconocimiento de texto, reconocimiento de archivos y reconocimiento de contenido visual muestran:
+
+| Campo | Descripción |
+| --- | --- |
+| Archivos reconocidos | El número de archivos que ya se han indexado. |
+| Errores de indexación | El número de archivos cuyo índice no se pudo crear. Puede deberse a archivos dañados, formatos no compatibles, anomalías de permisos o almacenamiento temporalmente no disponible. |
+| Hora de la última indexación | La última vez que se completó una indexación. |
+| Estado de la capacidad | Normal, desactivada, instalando, actualizando, reconstruyendo, migrando, anomalía, en pausa por falta de espacio, etc. |
+| Operaciones de mantenimiento | Permite instalar, actualizar, activar/desactivar, reparar o reconstruir el índice según la capacidad. |
+
+<Callout title="Consejo" type="info">
+  Tras activar una capacidad por primera vez, es necesario crear el índice; el tiempo necesario depende del número de archivos, del tipo de documento y del rendimiento del almacenamiento. Durante la indexación puede seguir utilizando el dispositivo, aunque es posible que los resultados de búsqueda sean incompletos.
+</Callout>
+
+## Gestión de modelos
+
+La página Gestión de modelos permite descargar, activar, actualizar y desinstalar modelos locales grandes, así como gestionar el acceso a la API compatible con OpenAI.
+
+![AI Model Management](/images/es/app-guide/settings-img/ai-model-management.png)
+
+### Tarjetas de modelo
+
+Cada modelo muestra:
+
+| Campo | Descripción |
+| --- | --- |
+| Nombre del modelo | Por ejemplo, Qwen3.5-0.8B, Qwen3-8B, Gemma4-E4B, etc. |
+| Tipo | Tipos de capacidad del modelo, como Text Generation o Any-to-Any. |
+| Tamaño | El espacio que se prevé que ocupe el archivo del modelo. |
+| Estado | No descargado, descargando, descargado, en uso, etc. |
+| Activar/Desactivar | Controla si el modelo aparece en la lista de modelos disponibles. |
+| Desinstalar/Eliminar | Elimina el archivo del modelo local; si es necesario, puede volver a descargarlo después de eliminarlo. |
+| Configurar modelo | Consulta o modifica la configuración relacionada con el modelo. |
+
+### Acceso a la API
+
+Haga clic en **API Access** para gestionar el acceso a la interfaz compatible con OpenAI:
+
+| Función | Descripción |
+| --- | --- |
+| Dirección de la API | Muestra la dirección de acceso del modelo o servicio local. |
+| API Key | Crea, consulta, actualiza o elimina claves de acceso. |
+| Instrucciones de uso | Puede utilizarse en aplicaciones de terceros o scripts de desarrollo compatibles con la API de OpenAI. |
+
+<Callout title="Atención" type="warn">
+  Eliminar un modelo local borra de forma permanente todos sus archivos locales. Si el modelo está en uso, el sistema podría cambiar a otro modelo disponible o a la API compatible con OpenAI.
+</Callout>
+
+## Ubicación de almacenamiento
+
+La página Ubicación de almacenamiento gestiona la ubicación en disco de los modelos locales y de los datos de índice, y ofrece protección en caso de bajo espacio.
+
+![AI Storage](/images/es/app-guide/settings-img/ai-model-storage.png)
+
+### Almacenamiento de modelos locales
+
+| Campo/Operación | Descripción |
+| --- | --- |
+| Volumen actual | Muestra el nombre del volumen, el tipo de RAID y la capacidad disponible. |
+| Cambiar almacenamiento | Migra los archivos de los modelos locales grandes a otro volumen de almacenamiento. Durante la migración, los modelos locales no están disponibles temporalmente. |
+| Estado | Normal, espacio bajo, solo lectura, no disponible, migrando, etc. |
+
+### Almacenamiento de datos de índice
+
+| Campo | Descripción |
+| --- | --- |
+| Estado | Estado de salud general del grupo de índices. |
+| Índice de archivos | Espacio ocupado por índices básicos como nombres de archivo y rutas. |
+| Contenido de texto | Espacio ocupado por datos de OCR y texto/vectores de documentos. |
+| Contenido de imágenes | Espacio ocupado por datos de vectores visuales de imágenes. |
+| Espacio disponible | Espacio restante del almacenamiento de índices actual. |
+| Umbral de bajo espacio | El umbral de espacio que activa la protección; en el ejemplo actual, las tareas se pausan cuando el espacio es inferior a 10 GB. |
+| Cambiar almacenamiento | Migra los datos de índice a otra ubicación de almacenamiento. |
+
+### Protección en caso de bajo espacio
+
+Una vez activada, cuando el espacio disponible sea inferior al umbral establecido, el sistema pausará automáticamente las tareas de descarga de modelos y de reconstrucción de índices para evitar que el almacenamiento se llene y provoque anomalías en el servicio. Una vez recuperado el espacio, puede reanudar las tareas manualmente.
+
+<Callout title="Recomendación" type="info">
+  Los modelos grandes y los datos de índice aumentan a medida que crece el número de archivos. Se recomienda colocar los modelos y los índices en volúmenes de almacenamiento SSD con capacidad suficiente y en buen estado de salud, y mantener activada la protección en caso de bajo espacio.
+</Callout>
+
+## Estados de las capacidades y tratamiento
+
+| Estado | Significado | Recomendación |
+| --- | --- | --- |
+| Normal | La capacidad está disponible. | Mantener los modelos actualizados y reconstruir el índice periódicamente. |
+| Desactivada | El administrador o el usuario ha desactivado la capacidad. | Volver a activarla cuando sea necesario. |
+| Instalando/Actualizando | Se están descargando o actualizando dependencias y modelos. | Mantener disponibles la red y el almacenamiento. |
+| Reconstruyendo | Se están reconstruyendo los datos de índice. | Esperar a que finalice y evitar mover muchos archivos. |
+| Migrando | El modelo o el índice se está trasladando a un nuevo volumen. | Es posible que los modelos locales no estén disponibles temporalmente. |
+| En pausa por bajo espacio | El espacio restante es inferior al umbral. | Liberar espacio o migrar a un volumen mayor. |
+| Solo lectura | La ubicación de almacenamiento es de solo lectura. | Comprobar el estado del volumen y cambiar la ubicación de almacenamiento. |
+| Anomalía/Fallo | Anomalía en las dependencias, el almacenamiento o el servicio. | Consultar el Centro de registros e intentar reparar o reconstruir. |
+
+## Recomendaciones de mantenimiento del índice
+
+| Operación | Situación aplicable |
+| --- | --- |
+| Instalar/Actualizar todo | Primera activación de la capacidad o nueva versión de la capacidad. |
+| Reparar | Estado del índice anómalo o algunos archivos no se pueden buscar. |
+| Reconstruir índice | Resultados incompletos tras mover muchos archivos o migrar el almacenamiento del índice. |
+| Desactivar capacidad | Cuando no se necesita reconocimiento facial, OCR, semántica de documentos ni búsqueda visual. |
+| Migrar almacenamiento | Cuando el volumen actual no tiene espacio suficiente o se sustituye por un SSD más rápido. |
+
+<Callout title="Alcance del índice" type="info">
+  El índice solo se aplica a los archivos que el sistema puede leer y a los que tiene permiso de acceso. Los archivos cifrados, los formatos aún no compatibles, los archivos dañados o los directorios sin permisos suficientes pueden aparecer en las estadísticas de errores de indexación.
+</Callout>
+
+## Selección y mantenimiento de modelos
+
+| Elemento | Recomendación |
+| --- | --- |
+| Modelos con pocos parámetros | Ocupan menos y responden más rápido; son adecuados para preguntas y respuestas ligeras y dispositivos de gama baja. |
+| Modelos con muchos parámetros | Tienen mayor capacidad de comprensión y generación, pero ocupan más memoria/almacenamiento y pueden responder más lentamente. |
+| Modelos Any-to-Any | Adecuados para escenarios que requieren varias formas de entrada y salida; el tamaño de descarga suele ser mayor. |
+| Modelos locales | Los datos no salen del dispositivo, lo que resulta adecuado para escenarios de privacidad; están limitados por la capacidad de cálculo del hardware. |
+| API compatible con OpenAI | Permite integrar servicios externos; es necesario configurar la Base URL, el nombre del modelo y la API Key. |
+| Eliminar modelo | Libera espacio; puede volver a descargarse posteriormente, pero consume ancho de banda y tiempo. |
+
+## Notas sobre el uso de API Access
+
+- La API Key solo guarda las credenciales necesarias; no la incluya en repositorios de código ni la comparta públicamente.
+- La dirección de invocación solo debe exponerse a clientes de confianza de la red interna o a clientes restringidos mediante un proxy inverso o un cortafuegos.
+- Si la Key se filtra, elimínela o actualícela de inmediato.
+- Las llamadas externas siguen dependiendo de la carga del dispositivo, del estado del modelo y del espacio de almacenamiento.
+
+## Notas sobre la migración de almacenamiento
+
+1. Antes de migrar, confirme que la capacidad del volumen de destino sea mayor que el tamaño total de los modelos y los datos de índice, y reserve espacio para el crecimiento.
+2. Durante la migración, no modifique la configuración de los modelos ni reinicie el dispositivo.
+3. Antes de que finalice la migración de los modelos locales, es posible que la función de chat no esté disponible temporalmente.
+4. Tras migrar el índice, se recomienda realizar una búsqueda de verificación y reconstruir el índice si es necesario.

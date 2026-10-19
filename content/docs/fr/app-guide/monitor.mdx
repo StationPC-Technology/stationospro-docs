@@ -1,0 +1,64 @@
+---
+sourceHash: e559d242bbe6
+title: Gestion des ressources
+description: Guide d'utilisation de la Gestion des ressources
+---
+
+L'application Gestion des ressources permet de surveiller en temps réel les ressources matérielles de l'appareil et les processus des services. Elle vous aide à suivre l'état de fonctionnement du système et à identifier les goulots d'étranglement de performance.
+
+## Surveillance de l'état
+
+La page **État** propose une vue d'ensemble et des vues de surveillance par catégorie. Les sous-onglets supérieurs sont les suivants :
+
+- **Vue d'ensemble**
+- **CPU**
+- **VPU**
+- **Mémoire**
+- **Réseau**
+- **NPU**
+- **Module d'extension IA**
+
+### Vue d'ensemble
+
+La page de vue d'ensemble affiche en temps réel :
+
+- **Vitesse du ventilateur** : régime actuel du ventilateur en tr/min ;
+- **CPU** : température et taux d'occupation du processeur ;
+- **Mémoire** : capacité disponible et taux d'occupation ;
+- **Réseau** : débits d'émission et de réception ;
+- **NPU** : taux d'occupation de l'unité de calcul IA ;
+- **Disques durs** : débits de lecture et d'écriture.
+
+Cliquez sur **Détails** en haut à droite de chaque carte pour consulter les courbes en temps réel et davantage d'informations sur la ressource correspondante.
+
+![Monitor Status](/images/fr/app-guide/monitor-img/status.png)
+
+### Informations sur les disques
+
+Le tableau **Informations sur les disques** situé en bas de la page liste, pour chaque disque dur, son numéro, le nom du disque interne, la température, le taux d'occupation, les débits de lecture/écriture et l'utilisation (volume de stockage auquel il appartient), afin de connaître rapidement l'état de santé et la charge des disques.
+
+## Gestion des processus
+
+La page **Gestion des processus** comporte deux sous-onglets :
+
+### Services
+
+Affiche sous forme d'arborescence les services système (par exemple Centre des journaux, Paramètres, Centre d'applications, Docker, Gestion des ressources, Stockage, etc.) et leurs processus enfants, avec :
+
+- **Taux d'occupation CPU**
+- **Durée d'exécution**
+- **Occupation mémoire**
+
+Cliquez sur l'en-tête d'une colonne pour trier ; dépliez un service pour consulter le détail de ses processus subordonnés.
+
+![Process Service](/images/fr/app-guide/monitor-img/process-service.png)
+
+### Processus
+
+Affiche sous forme de liste le PID, le nom, l'utilisation CPU, la mémoire et la durée d'exécution de tous les processus du système, afin d'identifier plus précisément l'origine de l'occupation des ressources.
+
+![Process List](/images/fr/app-guide/monitor-img/process-list.png)
+
+<Callout title="Attention" type="warn">
+  Mettre fin à un processus système critique peut provoquer des anomalies de service ou une corruption des données. Agissez avec prudence ; en cas de doute, redémarrez d'abord le service concerné ou contactez le support technique.
+</Callout>

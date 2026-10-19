@@ -1,0 +1,60 @@
+---
+sourceHash: 47989e45f467
+title: Paramètres système
+description: Vue d'ensemble des paramètres système et guide d'utilisation de chaque module
+---
+
+Les Paramètres système sont le centre de contrôle de StationOS Pro. Ils gèrent de manière centralisée les configurations essentielles : informations de l'appareil, utilisateurs, stockage, réseau, accès à distance, stratégies de sécurité, matériel et alimentation, mises à jour système, etc. Cette application nécessite généralement des privilèges administrateur ; selon le modèle, la version du micrologiciel et le matériel installé, les options visibles peuvent varier. Fiez-vous à l'interface réelle de l'appareil.
+
+## Accéder aux paramètres système
+
+1. Connectez-vous au bureau de StationOS Pro.
+2. Ouvrez **Paramètres système** depuis le Dock ou le lanceur d'applications.
+3. Dans la barre d'onglets de gauche, sélectionnez le module à configurer.
+
+![Settings window](/images/fr/app-guide/settings-img/device-info.png)
+
+La barre d'onglets de gauche est organisée en 14 modules fonctionnels :
+
+| Module | Utilisation principale | Scénario d'utilisation |
+| --- | --- | --- |
+| Informations sur l'appareil | Consulter le nom de l'appareil, le Station ID, la version, le matériel, le numéro de série et les informations réseau | Confirmer l'identité de l'appareil, diagnostiquer les connexions, contacter le service après-vente |
+| Gestion des utilisateurs | Gérer les utilisateurs locaux, les rôles, les états, les groupes d'utilisateurs et les quotas de stockage | Attribuer des comptes et de l'espace aux membres de la famille ou de l'équipe |
+| Espace de stockage | Créer et gérer les volumes de stockage, le RAID, les disques de secours et le cache SSD | Initialiser les disques, étendre la capacité, améliorer les performances de lecture/écriture |
+| Disques durs | Consulter les détails et l'état de santé des disques, formater ou éjecter les disques en toute sécurité | Contrôle des disques, remplacement, dépannage |
+| Protocoles de partage de fichiers | Configurer SMB, WebDAV, FTP, NFS et Time Machine | Permettre aux ordinateurs, téléphones, boîtiers TV, etc. d'accéder aux fichiers du NAS |
+| Modèles IA | Gérer les capacités IA de base, les modèles locaux et l'emplacement de stockage des données d'index | Activer la reconnaissance faciale/textuelle/de fichiers/visuelle et contrôler l'espace des modèles |
+| Paramètres réseau | Configurer la passerelle, le DNS, les cartes réseau, le pont réseau et l'agrégation de liens | Modifier l'IP, répartir la charge multi-ports, assurer une redondance réseau |
+| Accès à distance | Configurer l'accès à distance par Station ID et le DDNS | Accéder à l'appareil depuis Internet ou via votre propre nom de domaine |
+| SSH | Activer ou désactiver le service de terminal distant SSH/SFTP | Maintenance à distance, administration en ligne de commande, contrôle de sécurité |
+| Sécurité | Configurer les ports d'accès, la double authentification, la protection IP, le pare-feu, les certificats et l'analyse de l'appareil | Renforcer les points d'entrée du système, bloquer les accès suspects, activer HTTPS |
+| Paramètres de notification | Configurer le service de notification e-mail et la langue des notifications | Recevoir les codes de vérification, les réinitialisations de mot de passe et les notifications système |
+| Matériel et alimentation | Gérer le buzzer, le ventilateur, la compression mémoire, les plans d'alimentation et la veille des disques | Contrôler le bruit, le refroidissement, la mise sous/hors tension automatique et la consommation |
+| Date et heure | Définir le fuseau horaire, la synchronisation NTP automatique ou l'heure manuelle | Garantir l'exactitude de l'heure des journaux, des certificats et des tâches planifiées |
+| Mise à jour et restauration | Vérifier/installer les mises à jour système, consulter le journal des modifications, restaurer les paramètres d'usine ou réinitialiser le réseau | Mettre à niveau le système, réparer la configuration réseau, restaurer les paramètres par défaut |
+
+<Callout title="Recommandations d'utilisation" type="info">
+  Les opérations touchant aux volumes de stockage, au RAID, au formatage, au pare-feu, aux ports, à la restauration d'usine et à la réinitialisation du réseau peuvent affecter les données ou les connexions. Avant toute modification, évaluez l'impact sur vos activités et conservez une sauvegarde des données importantes.
+</Callout>
+
+## Regroupement fonctionnel et risques opérationnels
+
+| Catégorie | Modules | Risques principaux |
+| --- | --- | --- |
+| Informations en lecture seule | Informations sur l'appareil | Risque quasi nul ; la modification du nom de l'appareil affecte son mode d'identification. |
+| Comptes et autorisations | Gestion des utilisateurs | La suppression d'un utilisateur supprime ses données personnelles ; promouvoir un administrateur étend le contrôle du système. |
+| Structures de données | Espace de stockage, Disques durs | La création, la modification, le formatage ou le remplacement de disques peut supprimer des données ou réduire la redondance. |
+| Points d'entrée des services | Protocoles de partage de fichiers, SSH, Sécurité | L'activation de protocoles ou de ports augmente la surface d'exposition ; une erreur de pare-feu/port peut couper la connexion d'administration. |
+| Réseau et accès à distance | Paramètres réseau, Accès à distance | La modification de l'IP, du pont, de l'agrégation ou du DDNS peut interrompre la connexion actuelle. |
+| Maintenance système | Matériel et alimentation, Date et heure, Mise à jour et restauration | Un redémarrage, une réinitialisation, une heure erronée ou une mise à jour interrompue peut affecter la disponibilité des services. |
+
+## Liste de contrôle pour les administrateurs
+
+Avant d'effectuer une opération à haut risque, vérifiez :
+
+1. Les données importantes disposent d'une sauvegarde indépendante et restaurable.
+2. Un chemin de récupération via le réseau local ou la console est disponible, sans dépendre uniquement de la connexion distante en cours de modification.
+3. Le volume de stockage est en bon état, sans alerte de dégradation, de corruption ou de lecture seule.
+4. Les utilisateurs concernés ont été informés d'arrêter les écritures de fichiers, les sauvegardes, les téléchargements, les conteneurs et les tâches d'indexation.
+5. L'alimentation de l'appareil est stable ; ne coupez pas brutalement l'alimentation pendant les opérations sur les disques mécaniques, le cache SSD ou les mises à jour système.
+6. Notez l'IP, le port, le DNS, les règles de pare-feu, le Station ID et le numéro de version avant modification.

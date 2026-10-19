@@ -1,0 +1,117 @@
+---
+sourceHash: df67dd5198ab
+title: Administrador de archivos
+description: Guía de uso del Administrador de archivos
+---
+
+El Administrador de archivos es la aplicación principal de StationOS Pro y se utiliza para gestionar de forma centralizada todos los archivos del dispositivo. Puede subir y descargar archivos, gestionar directorios, compartir con permisos, restaurar desde la papelera y limpiar archivos duplicados desde el navegador. También puede configurar servicios de archivos como SMB, WebDAV, FTP y NFS para que ordenadores y teléfonos accedan directamente a los archivos del NAS.
+
+## Interfaz
+
+La parte superior del Administrador de archivos se divide en las siguientes pestañas por función:
+
+| Pestaña | Descripción |
+| --- | --- |
+| Mis archivos | Espacio de archivos personales del usuario actual |
+| Archivos de equipo | Espacio compartido del equipo, accesible para colaboración entre varias personas |
+| Almacenamiento externo | Gestión de archivos de dispositivos externos como unidades USB y discos duros portátiles |
+| Montaje remoto | Montaje de directorios compartidos de un NAS o servidor remoto |
+| Archivos de aplicaciones | Consulta de los archivos de datos generados por cada aplicación |
+| Mis favoritos | Acceso rápido a los archivos y carpetas favoritos |
+| Enlaces compartidos | Gestión de los enlaces de compartición externos creados |
+| Papelera | Restauración o eliminación definitiva de los archivos eliminados |
+| Archivos duplicados | Análisis y limpieza de archivos duplicados para liberar espacio de almacenamiento |
+| Vista de administrador | El administrador puede consultar todos los archivos por usuario (solo visible para administradores) |
+
+La lista de archivos permite alternar entre la vista de lista y la vista de cuadrícula, y muestra información como el nombre, el tamaño, el tipo, la hora de modificación, la ubicación de almacenamiento, la hora de creación y el propietario. Haga clic en el encabezado de una columna para ordenar.
+
+![My Files](/images/es/app-guide/files-img/my-files.png)
+
+## Operaciones básicas con archivos
+
+La barra de herramientas ofrece las siguientes operaciones habituales:
+
+- **Subir**: sube archivos o carpetas completas;
+- **Nueva carpeta**: crea un nuevo directorio;
+- **Ordenar**: ordena por nombre, tamaño, fecha, etc.;
+- **Cambiar vista**: alterna entre la vista de lista y la vista de cuadrícula.
+
+### Nueva carpeta
+
+1. Entre en el directorio de destino y haga clic en **Nueva carpeta** en la barra de herramientas.
+2. Introduzca el nombre de la carpeta (máximo 180 caracteres).
+3. Seleccione la ubicación de almacenamiento donde se encontrará la carpeta (por ejemplo, Espacio de almacenamiento 1).
+4. Haga clic en **Confirmar** para completar la creación.
+
+![New Folder](/images/es/app-guide/files-img/new-folder.png)
+
+### Menú contextual
+
+Haga clic con el botón derecho sobre un archivo o una carpeta para realizar las siguientes operaciones:
+
+| Elemento del menú | Descripción |
+| --- | --- |
+| Abrir en una ventana nueva | Abre la carpeta en una ventana nueva |
+| Descargar | Descarga a su ordenador local |
+| Copiar a / Mover a | Copia o mueve a otro directorio |
+| Cortar / Copiar | Corta o copia |
+| Eliminar | Elimina (se envía a la papelera) |
+| Cambiar nombre | Cambia el nombre |
+| Favorito | Añade a favoritos |
+| Enlace compartido | Crea un enlace de compartición externo |
+| Detalles | Consulta los detalles del archivo |
+
+![Context Menu](/images/es/app-guide/files-img/context-menu.png)
+
+## Enlaces compartidos
+
+Los enlaces compartidos le permiten compartir archivos o carpetas con usuarios externos que no tienen una cuenta del NAS:
+
+1. Haga clic con el botón derecho sobre el archivo o la carpeta de destino y seleccione **Enlace compartido**.
+2. Configure los parámetros de compartición:
+   - **Nombre del recurso compartido**: nombre que se muestra en el enlace externo;
+   - **Período de validez**: válido de forma permanente o con una fecha límite personalizada;
+   - **Permitir descarga**: si se permite a los visitantes descargar los archivos;
+   - **Protección con contraseña**: establece una contraseña de acceso para el enlace;
+   - **Límite de accesos**: limita el número máximo de accesos al enlace.
+3. Haga clic en **Crear enlace** para generar el enlace de compartición.
+
+Los recursos compartidos creados se pueden gestionar de forma centralizada en la pestaña «Enlaces compartidos», incluida la consulta del enlace, la modificación de las reglas o la cancelación de la compartición.
+
+![Share Link](/images/es/app-guide/files-img/share-link.png)
+
+<Callout title="Aviso de seguridad" type="warn">
+  Al compartir archivos confidenciales, se recomienda activar la protección con contraseña y establecer un período de validez. Una vez finalizada la compartición, cierre a tiempo los enlaces que ya no utilice para evitar filtraciones de datos.
+</Callout>
+
+## Configuración de servicios de archivos
+
+Haga clic en **Configuración** en la esquina superior derecha del Administrador de archivos para configurar los servicios de archivos. La ventana de configuración contiene las siguientes pestañas:
+
+- **Protocolos de compartición de archivos**: configura por separado los servicios SMB, WebDAV, FTP y NFS;
+- **Reglas de archivos**: configura reglas como la nomenclatura de archivos;
+- **Montaje remoto**: configura los parámetros relacionados con el montaje remoto;
+- **Compartición externa**: configura las reglas globales de los enlaces compartidos.
+
+Tomando SMB como ejemplo, la página de configuración ofrece:
+
+- **Alcance de directorios visibles**: configura por separado la visibilidad de Mis archivos, Archivos de equipo y Archivos de aplicaciones a través del protocolo;
+- **Método de conexión**: ofrece instrucciones gráficas y la dirección de acceso para conectar Windows y macOS al NAS;
+- **Otra información de conexión**: muestra la dirección IP del dispositivo y el puerto predeterminado (445 para SMB), con posibilidad de copiarlos con un clic.
+
+![File Settings](/images/es/app-guide/files-img/settings.png)
+
+### Acceder a los archivos del NAS desde un ordenador
+
+- **macOS**: abra Finder → Ir → Conectarse al servidor, introduzca `smb://IP del dispositivo` y, a continuación, introduzca el usuario y la contraseña de la cuenta local del NAS para acceder.
+- **Windows**: pulse `Win + R`, introduzca `\\IP del dispositivo` y, a continuación, introduzca el usuario y la contraseña de la cuenta local del NAS para acceder.
+
+## Papelera
+
+Los archivos eliminados se envían a la papelera para evitar la pérdida de datos por eliminaciones accidentales:
+
+- **Restaurar**: restaura el archivo a su ubicación original anterior a la eliminación;
+- **Eliminar definitivamente**: elimina de forma permanente los archivos seleccionados, sin posibilidad de recuperación;
+- **Vaciar la papelera**: vacía con un clic todos los archivos de la papelera.
+
+La papelera distingue entre el contenido eliminado de Mis archivos y el de Archivos de equipo, es decir, entre el contenido personal y el del equipo. El administrador puede consultar las papeleras de todos los usuarios.

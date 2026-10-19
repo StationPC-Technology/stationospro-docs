@@ -1,0 +1,227 @@
+---
+sourceHash: cb1af2d8dfdf
+title: Sécurité
+description: Configurer les ports d'accès, la double authentification, la protection IP, le pare-feu, les certificats et l'analyse de l'appareil
+---
+
+La page Sécurité comporte six onglets : **Paramètres des ports**, **Sécurité du compte**, **Protection**, **Pare-feu**, **Certificats** et **Analyse de l'appareil**. Elle permet de renforcer les points d'entrée du système, de contrôler les sources d'accès, de chiffrer les transferts et de consulter les interrupteurs liés à la confidentialité.
+
+## Paramètres des ports
+
+![Port Settings](/images/fr/app-guide/settings-img/security-port-settings.png)
+
+### Informations actuelles
+
+La page affiche le port actuel de l'interface Web d'administration :
+
+| Champ | Valeur par défaut | Description |
+| --- | --- | --- |
+| Port HTTP | 9500 | Accéder à l'interface d'administration via HTTP. |
+| Port HTTPS | 9501 | Accéder à l'interface d'administration via HTTPS. |
+
+### Fenêtre de paramètres des ports
+
+| Option | Description |
+| --- | --- |
+| Numéro de port HTTP | Obligatoire, de 1 à 65535, différent du port HTTPS. |
+| Numéro de port HTTPS | Obligatoire, de 1 à 65535. Ne peut pas être 0 lorsque le forçage HTTPS ou la redirection des ports par défaut est activé. |
+| Forcer la connexion HTTPS | Rediriger les connexions HTTP vers HTTPS. |
+| Rediriger les ports 80 et 443 | Rediriger 80 vers le port HTTP et 443 vers le port HTTPS ; une fois activé, le numéro de port peut être omis pour accéder à l'appareil. |
+
+<Callout title="Attention" type="warn">
+  Lorsque la redirection des ports par défaut est activée, les ports HTTP/HTTPS ne peuvent pas être 80 ou 443. Après modification du port, rouvrez l'interface d'administration avec le nouveau port et vérifiez que les règles de redirection du pare-feu ou du routeur ont été mises à jour.
+</Callout>
+
+## Sécurité du compte
+
+La page Sécurité du compte contrôle la stratégie système de double authentification.
+
+![Account Security](/images/fr/app-guide/settings-img/security-account-security.png)
+
+| Option | Description |
+| --- | --- |
+| Imposer la double authentification | Une fois activé, les utilisateurs soumis à la stratégie doivent effectuer la seconde étape de vérification OTP lors de la connexion. |
+| Tous les utilisateurs | La stratégie s'applique à tous les utilisateurs. |
+| Administrateurs uniquement | Imposer la double authentification uniquement aux comptes administrateurs. |
+| Utilisateurs spécifiés | Imposer la double authentification uniquement aux utilisateurs ou groupes d'utilisateurs sélectionnés. |
+| Modifier les utilisateurs spécifiés | Ajouter ou retirer des objets de la stratégie dans le sélecteur d'utilisateurs/groupes. |
+
+<Callout title="Conditions préalables" type="info">
+  La double authentification dépend du service de notification par e-mail. Avant de l'activer, configurez l'adresse d'expédition dans « Paramètres système → Paramètres de notification ». Si le service e-mail est désactivé, les codes de vérification de la double authentification peuvent ne pas être envoyés.
+</Callout>
+
+## Protection
+
+La page Protection sert à bloquer automatiquement les IP de connexion anormales et à gérer les listes d'autorisation et de blocage.
+
+![Protection](/images/fr/app-guide/settings-img/security-protection.png)
+
+### Bloquer les IP anormales
+
+| Option | Description |
+| --- | --- |
+| Interrupteur du service | Une fois activé, le système intercepte les connexions d'IP anormales selon les règles. |
+| Modifier les règles | Configurer le seuil de blocage automatique, la période de comptage et la durée de déblocage. |
+
+### Règles de blocage automatique
+
+| Champ | Valeur par défaut | Plage | Description |
+| --- | --- | --- | --- |
+| Nombre de tentatives de connexion | 10 | 1 à 100 | Nombre d'échecs nécessaire pour déclencher le blocage. |
+| Dans un délai de | 5 minutes | 1 à 10080 minutes | Fenêtre de comptage des échecs. |
+| Règle de déblocage automatique | 1 heure | 30 minutes/1 heure/1 jour/7 jours/30 jours/permanent | Durée de déblocage de l'IP bloquée. |
+
+### Listes d'autorisation et de blocage
+
+| Liste | Priorité et rôle |
+| --- | --- |
+| Liste d'autorisation | Les IP/CIDR de la liste sont toujours autorisées à se connecter ; elles ne sont pas affectées par les règles de blocage et sont prioritaires sur la liste de blocage. |
+| Liste de blocage | Les IP/CIDR de la liste voient toujours leur connexion et leur authentification restreintes. |
+
+Le tableau des listes affiche l'IP client, la dernière heure d'accès, l'heure d'expiration (liste de blocage), l'indicateur permanent et une remarque. Opérations disponibles :
+
+| Opération | Description |
+| --- | --- |
+| Ajouter | Saisir une ou plusieurs IP/CIDR, séparées par des retours à la ligne ou des virgules ; une durée de déblocage peut être choisie pour la liste de blocage. |
+| Remarque | 180 caractères maximum, pour indiquer la source ou l'usage. |
+| Supprimer | Sélectionner un ou plusieurs enregistrements puis les supprimer, levant ainsi la restriction correspondante. |
+
+## Pare-feu
+
+La page Pare-feu contrôle le trafic réseau selon des règles entrantes et sortantes.
+
+![Firewall](/images/fr/app-guide/settings-img/security-firewall.png)
+
+### Paramètres de base
+
+| Option | Description |
+| --- | --- |
+| Interrupteur du pare-feu | Une fois activé, le système contrôle le trafic selon les règles entrantes/sortantes. |
+| Paramètres avancés | Configurer le mode de fonctionnement et l'autorisation par défaut du réseau local. |
+
+### Paramètres avancés
+
+| Option | Description |
+| --- | --- |
+| Mode de fonctionnement | Auto privilégie le mode XDP native ; Generic utilise la pile réseau traditionnelle du noyau. Basculez en cas de problème de compatibilité. |
+| Réseau local | Lorsque « Autoriser l'accès par défaut » est activé, le trafic du réseau local est autorisé par défaut, ce qui réduit le risque de blocage accidentel de l'interface d'administration. |
+
+### Règles entrantes et sortantes
+
+| Champ | Description |
+| --- | --- |
+| Connexion réseau | Toutes les interfaces ou une interface réseau spécifiée. |
+| Port | Port unique, ports séparés par des virgules ou plage, par exemple `80`, `443`, `1-65535`. |
+| Protocole | Tous, TCP, UDP, ICMP. |
+| IP source / IP de destination | IP ou CIDR personnalisée ; l'IP source est prise en compte en entrant, l'IP de destination en sortant. |
+| Permission | Autoriser ou refuser. |
+| État | Actif ou désactivé. |
+| Remarque | Description de l'usage de la règle. |
+| Ordre | Les règles peuvent être réorganisées par glisser-déposer ; plus une règle est en haut, plus sa priorité est élevée. |
+| Si aucune règle ci-dessous ne correspond | Définir l'autorisation par défaut ou le refus par défaut. |
+
+<Callout title="Opération dangereuse" type="error">
+  Une règle de pare-feu erronée peut rendre inaccessibles l'interface d'administration, l'accès à distance ou les services applicatifs. Avant toute configuration, conservez la connexion d'administration actuelle et autorisez en priorité le port d'administration, le port SSH et le réseau local.
+</Callout>
+
+## Certificats
+
+La page Certificats gère les certificats utilisés par HTTPS, FTPS, WebDAV et l'accès à distance.
+
+![Certificate](/images/fr/app-guide/settings-img/security-certificate.png)
+
+### Liste des certificats
+
+| Champ | Description |
+| --- | --- |
+| Nom du certificat | Nom reconnaissable par l'utilisateur. |
+| Type de certificat | Certificat auto-signé par le système, certificat Let's Encrypt ou certificat importé. |
+| Autorité de certification | Émetteur du certificat. |
+| Domaines alternatifs | Autres domaines couverts par le certificat ; `-` sinon. |
+| Validité | Date d'expiration. |
+| Renouvellement automatique | Les certificats système ou Let's Encrypt peuvent être renouvelés automatiquement avant expiration. |
+| État | Valide, bientôt expiré, expiré. |
+| Opération | Consulter/modifier les détails, mettre à jour, télécharger, supprimer. La suppression est irréversible. |
+
+### Ajouter un certificat
+
+| Méthode | Description |
+| --- | --- |
+| Importer un certificat | Téléverser depuis le local ou sélectionner sur le NAS le fichier de certificat, le fichier de clé privée et un éventuel certificat intermédiaire. Adapté aux utilisateurs disposant déjà d'un certificat émis par une AC. |
+| Obtenir un certificat | Obtenir un certificat gratuit auprès de Let's Encrypt, avec renouvellement automatique. Nécessite une adresse e-mail, ainsi que le choix d'un domaine DDNS ou d'un domaine personnalisé et du fournisseur. |
+
+### Précautions pour l'obtention d'un certificat Let's Encrypt
+
+- Les certificats gratuits sont soumis à des limites de fréquence et de nombre de demandes.
+- La validation HTTP nécessite la redirection du port 80 vers le NAS ; la validation DNS nécessite la prise en charge par le fournisseur.
+- Le nom de domaine doit pointer correctement vers l'IP publique actuelle.
+- Après une obtention réussie, le système renouvelle automatiquement le certificat avant expiration.
+
+### Configuration des services
+
+**Service Config** permet de sélectionner le certificat correspondant pour FTPS, WebDAV et l'accès à distance. Après confirmation, les services concernés utilisent le certificat choisi pour établir des connexions chiffrées.
+
+## Analyse de l'appareil
+
+La page Analyse de l'appareil contient deux interrupteurs liés à la confidentialité.
+
+![Device Analytics](/images/fr/app-guide/settings-img/security-device-analytics.png)
+
+| Option | Description |
+| --- | --- |
+| Rejoindre le programme d'amélioration de l'analyse de l'appareil | Le système collecte certaines données d'usage anonymes pour analyser l'utilisation du produit, améliorer la stabilité et enrichir les fonctionnalités. Vous pouvez vous retirer à tout moment. |
+| Activer le service webfind | Une fois activé, les appareils Station OS peuvent être découverts sur le réseau local. Le système collecte l'adresse IP et les informations de port pour fournir ce service. |
+
+Les deux descriptions renvoient à la politique de confidentialité. Si vous ne souhaitez pas participer à la collecte de données ni exposer la capacité de découverte sur le réseau local, vous pouvez désactiver les interrupteurs correspondants.
+
+<Callout title="Recommandations de base en matière de sécurité" type="info">
+  Il est recommandé d'activer HTTPS/le forçage HTTPS, la double authentification, la protection contre les IP anormales et le pare-feu ; de n'ouvrir que les ports nécessaires ; de configurer le renouvellement automatique des certificats ; et de privilégier le Station ID ou un VPN pour l'accès externe.
+</Callout>
+
+## Recommandations de stratégie de ports
+
+| Scénario | Recommandation |
+| --- | --- |
+| Réseau local domestique | HTTP/HTTPS peuvent être conservés ; n'enregistrez l'état de connexion que sur des appareils de confiance. |
+| Internet ou réseau partagé | Activer HTTPS/le forçage HTTPS pour éviter l'envoi de mots de passe en clair. |
+| Souhaite uniquement omettre le numéro de port | Activer la redirection 80/443, en veillant à la synchronisation des règles du routeur et du pare-feu. |
+| Changer le port par défaut | Choisir un port libre entre 1024 et 65535, sans conflit avec SMB/FTP/SSH. |
+| Accès à distance | Privilégier le Station ID ou un VPN ; ne pas exposer directement le port d'administration. |
+
+## Comparaison des stratégies de double authentification
+
+| Périmètre | Avantages | Cas d'application |
+| --- | --- | --- |
+| Tous les utilisateurs | Niveau de sécurité de base le plus élevé. | Appareils contenant des fichiers sensibles ou utilisés par plusieurs personnes. |
+| Administrateurs uniquement | Concilie sécurité et confort des utilisateurs ordinaires. | Appareils domestiques ou comptes ordinaires à faibles privilèges. |
+| Utilisateurs spécifiés | Contrôle précis des comptes à haut risque. | Comptes spéciaux dédiés aux sauvegardes, à la finance, à l'exploitation, etc. |
+
+Une fois la stratégie activée, les utilisateurs du périmètre concerné doivent configurer un authentificateur ou une vérification par e-mail dans leurs paramètres personnels ; l'administrateur doit d'abord vérifier que le service e-mail est disponible.
+
+## Recommandations de conception de la protection IP
+
+- **Liste d'autorisation** : réseau de bureau fixe, sortie domestique, sortie VPN, adresses de bastion.
+- **Liste de blocage** : sources de tentatives de connexion répétées, sous-réseaux compromis, sources de scan identifiées.
+- **Seuil** : un appareil domestique peut être plus strict ; évitez un seuil trop bas en environnement multi-utilisateurs ou derrière un proxy de sortie.
+- **Durée de déblocage** : plus longue pour les appareils critiques ; plus courte pour les réseaux temporaires afin de faciliter la récupération.
+- **Rappel VPN** : un changement d'IP de sortie affecte la détection ; si nécessaire, utilisez une sortie fixe ou une adresse de détection personnalisée.
+
+## Processus de conception des règles de pare-feu
+
+1. Autoriser d'abord le port d'administration, le port SSH et le sous-réseau local.
+2. Identifier les services entrants et leurs ports, par exemple HTTPS, WebDAV, FTPS.
+3. Créer des règles au périmètre minimal selon l'IP source, le protocole et le port.
+4. Utiliser des règles de refus pour bloquer les sources clairement non nécessaires.
+5. Réorganiser les priorités par glisser-déposer ; plus une règle est en haut, plus elle est évaluée tôt.
+6. Définir la stratégie par défaut ; si vous n'êtes pas à l'aise avec le pare-feu, conservez d'abord l'autorisation par défaut, puis resserrez après validation des règles.
+7. Conserver une session d'administration connectée jusqu'à confirmation de la fiabilité des nouvelles règles.
+
+## Dépannage des certificats
+
+| Problème | Vérification |
+| --- | --- |
+| Le navigateur signale une inadéquation du domaine du certificat | Le domaine d'accès correspond-il aux domaines alternatifs du certificat ? |
+| Échec de la demande Let's Encrypt | Résolution DNS, redirection du port 80, permissions API, limite de fréquence. |
+| HTTPS inaccessible | Port HTTPS, pare-feu, certificat sélectionné dans la configuration des services. |
+| Le certificat ne se renouvelle pas automatiquement | Heure système, résolution DNS, accessibilité des ports 80/443. |
+| Le client ne fait pas confiance au certificat importé | Certificat intermédiaire manquant ou certificat auto-signé. |

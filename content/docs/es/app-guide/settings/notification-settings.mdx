@@ -1,0 +1,111 @@
+---
+sourceHash: 2ecf6524f7ef
+title: Configuración de notificaciones
+description: Configurar el servicio de notificaciones por correo, el prefijo del asunto de los correos y el idioma de las notificaciones
+---
+
+La página Configuración de notificaciones se divide en **Correo electrónico** e **Idioma de las notificaciones**. El servicio de notificaciones por correo se utiliza para enviar correos de seguridad de la cuenta, como códigos de verificación urgentes de la verificación en dos pasos o correos de restablecimiento de contraseña; el idioma de las notificaciones determina el idioma utilizado en las notificaciones push por correo, SMS y otros canales.
+
+## Correo electrónico
+
+![Email Notification](/images/es/app-guide/settings-img/notifications.png)
+
+### Servicio de notificaciones por correo
+
+| Función/Campo | Descripción |
+| --- | --- |
+| Interruptor del servicio | Una vez activado, el sistema puede enviar correos de seguridad a través del servicio SMTP especificado. |
+| Correo del remitente | Muestra el correo del remitente actual; si no está configurado, se muestra «Sin configurar». |
+| Editar | Abre la ventana emergente de configuración de correo para configurar el proveedor, el correo del remitente y la información de autenticación. |
+| Prefijo del asunto de los correos | Establece el prefijo del asunto de los correos del sistema para identificar el dispositivo de origen en el buzón. |
+| Enviar correo de prueba | Envía un correo de prueba a la dirección de destino especificada para verificar si la configuración SMTP está disponible. |
+
+<Callout title="Dependencia de la verificación en dos pasos" type="warn">
+  La verificación en dos pasos requiere el servicio de notificaciones por correo. Si el sistema ya obliga a usar la verificación en dos pasos, desactivar directamente el servicio de correo puede impedir el envío de los códigos de verificación de inicio de sesión; la página le indicará que primero debe desactivar la verificación en dos pasos en la configuración de seguridad de la cuenta.
+</Callout>
+
+### Configuración del correo
+
+#### Correos predefinidos
+
+Al seleccionar Gmail, QQ Mail, 126 Mail o 163 Mail, es necesario configurar:
+
+| Campo | Obligatorio | Descripción |
+| --- | --- | --- |
+| Proveedor de correo | Sí | Selecciona el proveedor predefinido por el sistema. |
+| Correo del remitente | Sí | La dirección de correo utilizada para enviar los correos del sistema. |
+| Código de autorización | Sí | El código de autorización SMTP generado en el proveedor de correo; normalmente no es la contraseña de inicio de sesión del correo. |
+
+Los correos predefinidos suelen utilizar el puerto SSL 465. La página le recordará que debe asegurarse de que las reglas de salida del cortafuegos no bloqueen el puerto correspondiente.
+
+#### Correo personalizado
+
+Tras seleccionar un correo personalizado, es necesario configurar:
+
+| Campo | Obligatorio | Descripción |
+| --- | --- | --- |
+| Servidor SMTP | Sí | La dirección SMTP del proveedor de correo, por ejemplo, `smtp.example.com`. |
+| Puerto | Sí | Se completa según el servicio SMTP. Puertos predeterminados habituales: sin cifrar 25, SSL 465, TLS 587. |
+| Tipo de seguridad | Sí | Se puede elegir Ninguno, SSL o TLS. Se recomienda usar SSL o TLS. |
+| Nombre de usuario | Sí | El nombre de usuario de autenticación SMTP, normalmente la cuenta de correo. |
+| Contraseña | Sí | La contraseña SMTP o el código de autorización. |
+| Nombre del remitente | No | Se muestra en el nombre del remitente del correo. |
+| Correo del remitente | Sí | La dirección de correo real utilizada para enviar. |
+
+### Prefijo del asunto de los correos
+
+| Opción | Descripción |
+| --- | --- |
+| Usar el nombre del dispositivo | Utiliza automáticamente el nombre actual del dispositivo como prefijo del asunto del correo. |
+| Personalizado | Introduzca manualmente el prefijo; al seleccionar esta opción, el prefijo es obligatorio. |
+
+El prefijo del asunto de los correos es útil para distinguir rápidamente el dispositivo de origen cuando varias máquinas comparten un mismo buzón de recepción de notificaciones.
+
+### Enviar correo de prueba
+
+1. Confirme que el servicio de correo esté configurado y activado.
+2. Haga clic en **Enviar correo de prueba**.
+3. Introduzca el correo del destinatario.
+4. Haga clic en **Enviar**.
+5. Compruebe el correo de prueba en la bandeja de entrada; si no lo recibe, compruebe el código de autorización, el puerto SMTP, el tipo de seguridad y las reglas de salida del cortafuegos.
+
+## Idioma de las notificaciones
+
+![Notification Language](/images/es/app-guide/settings-img/notification-language.png)
+
+| Opción | Descripción |
+| --- | --- |
+| Idioma de las notificaciones | Controla el idioma del contenido de las notificaciones push por correo, SMS y otros canales. |
+| Idiomas disponibles | 简体中文, 繁體中文, English, 日本語, 한국어, Deutsch, Français, Español. |
+| Aplicar | Guarda los cambios de idioma. |
+
+<Callout title="Consejo" type="info">
+  El idioma de las notificaciones solo afecta al contenido de las notificaciones push del sistema y no cambia directamente el idioma de la interfaz del escritorio web. El idioma del escritorio se puede ajustar en la configuración personal.
+</Callout>
+
+## Solución de problemas de configuración del correo
+
+| Fenómeno | Comprobación |
+| --- | --- |
+| Error en el código de autorización | Si el proveedor ha activado SMTP, si el código de autorización se ha copiado completo y si se ha utilizado la contraseña de inicio de sesión en lugar del código de autorización. |
+| Tiempo de espera agotado al conectar con SMTP | Dirección SMTP, puerto, tipo de seguridad y reglas de salida del cortafuegos. |
+| Se usa un puerto SSL pero se selecciona TLS | Consulte la documentación del proveedor; los habituales son 465/SSL y 587/TLS. |
+| El correo llega a la carpeta de spam | Nombre del remitente, SPF/DKIM/DMARC y DNS del dominio personalizado. |
+| El correo de prueba se envía correctamente pero no se recibe el código de verificación | Carpeta de spam del buzón, idioma de las notificaciones, políticas de seguridad de la cuenta y retrasos del correo. |
+| Se bloquea el cierre del servicio de correo | El sistema detecta que la verificación en dos pasos depende del correo; es necesario desactivar primero la política correspondiente. |
+
+## Lista de comprobación de SMTP personalizado
+
+1. Si la dirección del servidor SMTP es la recomendada por el proveedor.
+2. Si el puerto coincide con el tipo de seguridad.
+3. Si el nombre de usuario es el correo completo o la cuenta exigida por el proveedor.
+4. Si la contraseña/código de autorización contiene espacios o saltos de línea.
+5. Si el correo del remitente coincide con la cuenta SMTP, o si el proveedor permite explícitamente un alias.
+6. Si el cortafuegos bloquea el puerto de salida correspondiente.
+7. Enviar un correo de prueba y comprobar la carpeta de spam.
+
+## Idioma y notificaciones de varios dispositivos
+
+- El idioma de las notificaciones se aplica al contenido de los correos o SMS enviados por el sistema.
+- Los correos históricos ya enviados no se vuelven a traducir tras modificaciones posteriores.
+- Si varios dispositivos utilizan el mismo correo de remitente, se recomienda establecer prefijos de asunto diferentes, por ejemplo, el nombre, la ubicación o el uso del dispositivo.

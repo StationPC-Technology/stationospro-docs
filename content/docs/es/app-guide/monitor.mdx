@@ -1,0 +1,64 @@
+---
+sourceHash: e559d242bbe6
+title: Gestión de recursos
+description: Guía de uso de la Gestión de recursos
+---
+
+La aplicación Gestión de recursos se utiliza para supervisar en tiempo real los recursos de hardware y los procesos de servicio del dispositivo, lo que le ayuda a conocer el estado de funcionamiento del sistema y a localizar cuellos de botella de rendimiento.
+
+## Supervisión del estado
+
+La página **Estado** ofrece una vista general y vistas de supervisión por categoría. Las subpestañas superiores incluyen:
+
+- **Resumen**
+- **CPU**
+- **VPU**
+- **Memoria**
+- **Red**
+- **NPU**
+- **Módulo de expansión de IA**
+
+### Resumen
+
+La página de resumen muestra en tiempo real:
+
+- **Velocidad del ventilador**: las RPM actuales del ventilador;
+- **CPU**: la temperatura y la tasa de uso del procesador;
+- **Memoria**: la capacidad disponible y la tasa de uso;
+- **Red**: las velocidades de envío y recepción;
+- **NPU**: la tasa de uso de la unidad de capacidad de cálculo de IA;
+- **Disco**: las velocidades de lectura y escritura.
+
+Haga clic en **Detalles** en la esquina superior derecha de cada tarjeta para consultar la curva en tiempo real y más información del recurso correspondiente.
+
+![Monitor Status](/images/es/app-guide/monitor-img/status.png)
+
+### Información de los discos
+
+La tabla **Información de los discos** situada en la parte inferior de la página enumera el número de cada disco, el nombre del disco interno, la temperatura, la tasa de actividad, las velocidades de lectura y escritura y el uso (el volumen de almacenamiento al que pertenece), lo que facilita conocer rápidamente la salud y la carga de los discos.
+
+## Gestión de procesos
+
+La página **Gestión de procesos** se divide en dos subpestañas:
+
+### Servicios
+
+Muestra en forma de árbol los servicios del sistema (como el Centro de registros, Configuración, el Centro de aplicaciones, Docker, la Gestión de recursos y el Almacenamiento) y sus procesos secundarios, e indica:
+
+- **Tasa de uso de CPU**
+- **Tiempo de ejecución**
+- **Uso de memoria**
+
+Haga clic en el encabezado de una columna para ordenar y expanda un servicio para consultar el detalle de sus procesos subordinados.
+
+![Process Service](/images/es/app-guide/monitor-img/process-service.png)
+
+### Procesos
+
+Muestra en forma de lista el PID, el nombre, la CPU, la memoria y el tiempo de ejecución de todos los procesos del sistema, lo que permite localizar con mayor precisión el origen del uso de recursos.
+
+![Process List](/images/es/app-guide/monitor-img/process-list.png)
+
+<Callout title="Atención" type="warn">
+  Finalizar procesos críticos del sistema puede provocar anomalías en los servicios o daños en los datos; actúe con prudencia. Si no está seguro, reinicie primero el servicio correspondiente o póngase en contacto con el soporte técnico.
+</Callout>

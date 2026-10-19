@@ -1,0 +1,57 @@
+---
+sourceHash: eccab6d7e528
+title: Station AI
+description: Guide d'utilisation de l'assistant intelligent Station AI
+---
+
+Station AI est l'assistant intelligent IA intégré à StationOS Pro. Il repose sur un grand modèle de langage déployé localement (Qwen3-8B par défaut) et prend en charge la conversation en langage naturel, les questions-réponses sur une base de connaissances, la traduction de documents et le résumé de documents. Il permet également d'interroger directement l'état de l'appareil et d'exécuter des opérations système par le biais de la conversation.
+
+## Présentation de l'interface
+
+La partie gauche de la fenêtre Station AI est la zone de navigation, qui comprend :
+
+- **Nouvelle conversation** : démarrer une nouvelle conversation ;
+- **Base de connaissances** : gérer et interroger la base de connaissances ;
+- **Historique** : consulter les conversations passées ;
+- **Paramètres** : configurer le modèle et les paramètres de conversation.
+
+![Station AI Chat](/images/fr/app-guide/station-ai-img/chat.png)
+
+## Dialoguer avec l'IA
+
+1. Saisissez votre question dans le champ de saisie, puis cliquez sur le bouton d'envoi (ou appuyez sur `Enter`).
+2. L'IA génère une réponse à partir du modèle intégré et fait appel automatiquement aux capacités système lorsqu'il s'agit de l'état de l'appareil ou d'une opération.
+
+La page de nouvelle conversation propose des commandes rapides fréquemment utilisées, que vous pouvez lancer d'un clic :
+
+- **Présenter les fonctions du NAS** : présenter les fonctions du NAS ;
+- **Redémarrer l'appareil** : redémarrer l'appareil ;
+- **Éteindre l'appareil** : éteindre l'appareil ;
+- **Consulter les informations et l'état des disques de l'appareil** : consulter les informations et l'état des disques.
+
+Sous le champ de saisie, les fonctions suivantes sont également disponibles :
+
+- **Ajouter** : téléverser un fichier comme contexte de conversation ;
+- **Sélection du modèle** : afficher le modèle actuellement utilisé (par exemple Qwen3-8B) ;
+- **Traduction de documents** : téléverser un document à traduire ;
+- **Résumé de documents** : téléverser un document pour générer automatiquement un résumé.
+
+<Callout title="Attention" type="warn">
+  Avant d'exécuter via l'IA des opérations sensibles telles qu'un redémarrage ou une extinction, vérifiez qu'aucune tâche importante n'est en cours sur l'appareil afin d'éviter toute perte de données.
+</Callout>
+
+## Base de connaissances
+
+La fonction de base de connaissances vous permet d'importer des documents sur le NAS, puis de laisser l'IA créer un index pour répondre précisément à vos questions :
+
+1. Basculez vers l'onglet **Base de connaissances**.
+2. Cliquez sur **Créer une base de connaissances**.
+3. Téléversez des fichiers de documents (les formats de documents courants sont pris en charge) ; le système les analyse automatiquement et crée l'index.
+4. La liste des bases de connaissances affiche le nom, la taille et le nombre de fichiers ; cliquez sur **Chat** pour lancer un échange de questions-réponses basé sur cette base de connaissances.
+
+![Knowledge Base](/images/fr/app-guide/station-ai-img/knowledge-base.png)
+
+<Callout title="Conseil" type="info">
+  - Si les fichiers de la base de connaissances sont volumineux ou nombreux, la création de l'index peut prendre un certain temps ; veuillez patienter.
+  - Le modèle peut être consulté et géré dans « Paramètres système → Modèles IA » ; l'inférence locale consomme des ressources NPU/CPU, il est donc recommandé de traiter les lots de documents importants pendant les périodes d'inactivité.
+</Callout>

@@ -1,0 +1,122 @@
+---
+sourceHash: a70df36b0680
+title: Update und Wiederherstellung
+description: Prüfen von Systemupdates, manuelles Installieren von Firmware, Anzeigen von Protokollen und Ausführen von Zurücksetzungen
+---
+
+Die Seite „Update und Wiederherstellung“ ist in **Systemupdate** und **Wiederherstellung und Zurücksetzen** unterteilt. Die Seite „Systemupdate“ dient der Online-Prüfung, dem Herunterladen und Installieren von Firmware oder der manuellen Installation lokaler Firmware; die Seite „Wiederherstellung und Zurücksetzen“ dient dem Wiederherstellen der Standardeinstellungen des Systems oder dem Zurücksetzen des Netzwerks.
+
+## Systemupdate
+
+![System Update](/images/de/app-guide/settings-img/update.png)
+
+### Informationen zur aktuellen Version
+
+| Feld | Beschreibung |
+| --- | --- |
+| Aktuelle Version | Aktuelle Systemversionsnummer, z. B. `v1.1.0.17`. |
+| Nach Update suchen | Manuelle Abfrage einer neuen Version beim Updateserver. Das Ergebnis zeigt an, ob bereits die neueste Version vorliegt. |
+| Zeitpunkt der letzten Prüfung | Bei einigen Versionen wird der Zeitpunkt der letzten Updateprüfung angezeigt. |
+
+### Automatisches Update
+
+| Option | Beschreibung |
+| --- | --- |
+| Updates automatisch installieren | Nach Aktivierung kann das System Updates automatisch herunterladen und installieren und bei Bedarf automatisch neu starten. Nach dem Deaktivieren werden weiterhin Hinweise auf neue Versionen angezeigt, die Aktualisierung erfolgt jedoch erst nach manuellem Klick auf „Neu starten und aktualisieren“. |
+
+<Callout title="Empfehlung" type="warn">
+  Updates beeinflussen Systemdienste und alle Anwendungsdienste. Es wird empfohlen, zuvor Backup-, Synchronisierungs-, Download-, Indexierungs- und Container-Schreibaufgaben zu stoppen und eine stabile Stromversorgung sicherzustellen. Unterbrechen Sie während des Updates weder die Stromversorgung noch laden Sie die Seite neu oder erzwingen Sie ein Herunterfahren.
+</Callout>
+
+### Manuelle Installation
+
+| Option | Beschreibung |
+| --- | --- |
+| Click to select | Auswahl einer bereits lokal heruntergeladenen Firmwaredatei. Die aktuelle Oberfläche verlangt ein Firmwarepaket, das höher als die aktuelle Version ist. |
+| Dateiformat | Laden Sie die unterstützten Firmwareformate gemäß den Systemhinweisen hoch; nach dem Upload berechnet das System den Prüfwert und prüft die Version. |
+| Versionsprüfung | Ist die Paketversion niedriger oder gleich der aktuellen Version, blockiert das System die Installation oder zeigt an, dass sie nicht möglich ist. |
+| Installationsablauf | Firmware hochladen → Prüfen → Updatehinweis bestätigen → Installation und Neustart des Systems abwarten. |
+
+### Änderungsprotokoll
+
+| Funktion | Beschreibung |
+| --- | --- |
+| View details | Öffnet die Versionshistorie. Angezeigt werden Versionsnummer, Versionstyp, Veröffentlichungsdatum sowie Funktions- und Fehlerbehebungsinhalte. |
+
+## Wiederherstellung und Zurücksetzen
+
+![Restore and Reset](/images/de/app-guide/settings-img/restore.png)
+
+### Wiederherstellung der Werkseinstellungen
+
+| Punkt | Beschreibung |
+| --- | --- |
+| Auswirkung | Die Systemeinstellungen werden auf die Werkseinstellungen zurückgesetzt; Festplattendaten bleiben erhalten. |
+| Verifizierung | Eine Administratorverifizierung ist erforderlich. |
+| Neustart | Das Gerät startet automatisch neu; unterbrechen Sie während der Wiederherstellung nicht die Stromversorgung. |
+| Netzwerk/IP | Wenn nach dem Zurücksetzen kein Zugriff über die ursprüngliche IP möglich ist, prüfen Sie die neue IP auf dem Bildschirm des physischen Geräts und registrieren Sie es erneut. |
+| Kontoverknüpfung aufheben | Soll die Kontoverknüpfung aufgehoben werden, folgen Sie den Hinweisen zum StationCloud-Kontocenter. |
+
+### Netzwerk zurücksetzen
+
+| Punkt | Beschreibung |
+| --- | --- |
+| Auswirkung | Alle Netzwerkverbindungs- und Firewall-Einstellungen werden auf den Ausgangszustand zurückgesetzt. |
+| Voraussetzung | Stellen Sie sicher, dass mindestens eine kabelgebundene Netzwerkverbindung verfügbar ist. |
+| Auswirkung auf die Verbindung | Während und nach dem Zurücksetzen kann die aktuelle Verbindung unterbrochen werden; möglicherweise muss die IP erneut bezogen werden. |
+| Verifizierung | Eine Administratorverifizierung ist erforderlich. |
+
+<Callout title="Gefährlicher Vorgang" type="error">
+  Die Wiederherstellung der Werkseinstellungen und das Zurücksetzen des Netzwerks unterbrechen Systemdienste und erfordern einen Neustart. Notieren Sie vor der Ausführung die Netzwerkparameter, sichern Sie die Konfiguration und stellen Sie sicher, dass ein lokaler Zugriffsweg zur Wiederherstellung der Verbindung besteht.
+</Callout>
+
+## Ablauf des Online-Updates
+
+1. Klicken Sie auf **Nach Update suchen**.
+2. Wird eine neue Version gefunden, prüfen Sie Versionsnummer, Paketgröße und Updatebeschreibung.
+3. Lesen Sie die Updatehinweise und bestätigen Sie das Stoppen risikoreicher Schreibaufgaben.
+4. Klicken Sie auf „Jetzt aktualisieren“ oder „Update fortsetzen“.
+5. Das System prüft die Updatebedingungen; blockierende Aufgaben müssen zuvor behandelt werden.
+6. Warten Sie Download, Installation und automatischen Neustart ab.
+7. Melden Sie sich nach Abschluss des Updates erneut an und prüfen Sie Version, Speicher, Anwendungen und Netzwerkstatus.
+
+## Updatebedingungen und blockierende Aufgaben
+
+Das System prüft vor dem Update möglicherweise laufende Aufgaben. Einige Aufgaben blockieren das Update direkt, andere sollten vorher gestoppt werden:
+
+- Backup-, Synchronisierungs- und Downloadaufgaben;
+- Container-Schreibvorgänge oder Datenbankdienste;
+- Dateiindizierung oder Aufgaben für KI-Modelle;
+- Synchronisierung, Reparatur oder Formatierung von Speichervolumes;
+- sonstige Dienste, die kontinuierlich auf die Festplatte schreiben.
+
+Durch die Behandlung der blockierenden Punkte vor dem Fortsetzen des Updates lassen sich Datenrisiken durch eine Unterbrechung der Aktualisierung verringern.
+
+## Beta-Versionen
+
+Wird auf der Seite **Beta-Version-Update** angezeigt, kann nach Aktivierung am Test von Vorabversionen teilgenommen werden, um unvollständige Funktionen vorab kennenzulernen. Testversionen können Stabilitäts-, Kompatibilitäts- und Funktionsprobleme aufweisen:
+
+- Auf Geräten mit wichtigen Daten wird die Aktivierung nicht empfohlen;
+- in Produktionsumgebungen oder auf unbeaufsichtigten Geräten wird die Aktivierung nicht empfohlen;
+- vor dem Update sollte eine vollständige Sicherung erfolgen;
+- Probleme können über das Protokollzentrum und Feedbackkanäle gemeldet werden.
+
+## Detaillierte Regeln zur manuellen Installation
+
+- Es werden nur `.zip`-Firmwarepakete unterstützt.
+- Die Paketversion muss höher als die aktuelle Version sein; eine niedrigere oder gleiche Version wird abgelehnt.
+- Während des Uploads kann pausiert, fortgesetzt oder abgebrochen werden.
+- Nach Abschluss des Uploads berechnet das System den Prüfwert und liest die Firmwareinformationen aus.
+- Nach der Bestätigung folgen die Prüfung der Updatebedingungen und die Aktualisierungsbestätigung.
+- Schalten Sie während des Updates weder den Browser noch die Stromversorgung aus und laden Sie das System nicht neu.
+
+## Vergleich von Wiederherstellung und Zurücksetzen
+
+| Vorgang | Werkseinstellungen wiederherstellen | Netzwerk zurücksetzen |
+| --- | --- | --- |
+| Systemeinstellungen | Auf Standard zurücksetzen | Netzwerk- und Firewall-Einstellungen auf Standard zurücksetzen |
+| Festplattendaten | Bleiben erhalten | Bleiben erhalten |
+| Administratorverifizierung | Erforderlich | Erforderlich |
+| Netzwerk | IP kann sich ändern | IP/Verbindung kann sich zwangsläufig ändern |
+| Anwendungskonfiguration | Auf Standard zurücksetzen oder erneut konfigurieren | Betrifft in der Regel nur netzwerkbezogene Konfigurationen |
+| Geeignetes Szenario | Konfiguration löschen und Gerät übergeben/neu initialisieren | Netzwerkkonfiguration ist gestört und nicht wiederherstellbar |

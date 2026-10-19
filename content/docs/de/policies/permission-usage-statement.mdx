@@ -1,0 +1,63 @@
+---
+sourceHash: a85981d7c5e8
+title: 'Erklärung zur Beantragung und Nutzung von App-Berechtigungen'
+description: StationPC Erklärung zur Beantragung und Nutzung von App-Berechtigungen
+---
+
+Aktualisierungsdatum: 29. September 2026
+
+## Vorwort
+
+Diese Erklärung beschreibt, wie die StationPC Begleit-App und der PC-/Mac-Client Betriebssystemberechtigungen beantragen und nutzen. Wir befolgen die Grundsätze der **minimalen Erforderlichkeit und der bedarfsgerechten Beantragung** und fordern Berechtigungen nur dynamisch an, wenn die entsprechende Funktion genutzt wird.
+
+Sie können Ihre Berechtigungen jederzeit in den Systemeinstellungen verwalten. Das Deaktivieren einer Berechtigung betrifft nur die zugehörige Funktion und nicht die grundlegenden Kernservices des Produkts.
+
+Drittanbieter-Plug-ins und -Dienste können zusätzliche Berechtigungen beantragen; eine Autorisierung bedeutet nicht, dass personenbezogene Daten fortlaufend erhoben werden.
+
+## iOS-Berechtigungen
+
+| Szenario | Zweck | Auswirkung bei Ablehnung oder Deaktivierung |
+| --- | --- | --- |
+| Aufruf der Gerätekamera | Scannen zum Binden von NAS-Geräten, Schnellanmeldung, Aufnehmen eines Profilbilds | Scannen zum Binden von Geräten und Aufnehmen eines Profilbilds nicht möglich |
+| Zugriff auf Foto- und Videoalbum | Sichern von Handyalbuminhalten auf das NAS, Auswählen von Bildern und Videos zum Hochladen, Festlegen des Kontoprofils; unterstützt den eingeschränkten Fotozugriff von iOS (nur ausgewählte Fotos) | Album-Backup sowie Hochladen von Bildern und Videos nicht möglich |
+| Zugriff auf lokales Netzwerk | Erkennen und Verbinden von StationPC-Geräten im LAN | NAS-Geräte im LAN können nicht erkannt und verbunden werden |
+| Empfangen von Systembenachrichtigungen | Benachrichtigungen zu Gerätestatus, Backup-Fortschritt und Kontosicherheit (einschließlich zeitkritischer Benachrichtigungen) | Keine entsprechenden Erinnerungsbenachrichtigungen möglich |
+| Zugriff auf Bluetooth-Geräte | Gerätebindung und Netzwerkkonfiguration: Erkennen von Geräten in der Nähe, Übertragen von Konfigurationsinformationen | Binden und Konfigurieren von Geräten über Bluetooth nicht möglich |
+| Abrufen von Standortinformationen (nur während der Nutzung) | Beim Einrichten des Netzwerks wird der aktuelle WiFi-Name gelesen und einmalig vorübergehend der Standort abgerufen, um den Ländercode für die WiFi-Regionseinstellung des Geräts abzuleiten; keine Standortbestimmung im Hintergrund, Koordinaten werden nicht hochgeladen und nicht gespeichert | Aktuelles WiFi und Region können nicht automatisch erkannt werden; manuelle Auswahl erforderlich |
+
+## Android-Berechtigungen
+
+| Szenario | Zweck | Auswirkung bei Ablehnung oder Deaktivierung |
+| --- | --- | --- |
+| Aufruf der Gerätekamera | Scannen zum Binden von Geräten, Schnellanmeldung | Scannen zum Binden von Geräten und Schnellanmeldung nicht möglich |
+| Zugriff auf lokalen Speicher | Hochladen und Herunterladen von Dateien, automatisches Album-Backup | Hochladen und Herunterladen von Dateien sowie automatisches Album-Backup nicht möglich |
+| Zugriff auf LAN und WiFi | Erkennen von Geräten im LAN und lokale Verbindung | Geräte im LAN können nicht erkannt und keine lokale Verbindung hergestellt werden |
+| Empfangen von Push-Benachrichtigungen | Aufgabenfortschritt, Geräteanomalien, Kontosicherheitshinweise | Keine Benachrichtigungen zu Aufgabenfortschritt, Geräteanomalien und Sicherheitshinweisen möglich |
+| Zugriff auf Bluetooth-Geräte | Gerätekopplung und Unterstützung bei der Netzwerkinitialisierung | Gerätekopplung und Netzwerkkonfiguration über Bluetooth nicht möglich |
+| Abrufen von Netzwerkstandortinformationen | Unterstützung der Erkennung bei der Netzwerkkonfiguration | Aktuelles WiFi und Region können nicht automatisch erkannt werden; manuelle Auswahl erforderlich |
+| Automatischer Start im Hintergrund | Aufrechterhaltung von Backup-Aufgaben im Hintergrund (vom Benutzer manuell aktiviert) | Backup-Aufgaben im Hintergrund können unterbrochen werden |
+| Lesen des Inhalts der Zwischenablage | Erkennen von Freigabelinks und Öffnen der Dateiübertragungsfunktion | Freigabelinks können nicht erkannt und die Dateiübertragungsfunktion nicht geöffnet werden |
+
+## Berechtigungen des Windows-Clients
+
+| Szenario | Zweck | Auswirkung bei Ablehnung oder Deaktivierung |
+| --- | --- | --- |
+| Empfangen von Desktop-Benachrichtigungen | Anzeige von Aufgabenfortschritt, Gerätestatus und Anomaliehinweisen | Keine Benachrichtigungen zu Aufgabenfortschritt, Gerätestatus und Anomalien möglich |
+| Zugriff auf das lokale Dateisystem | Unterstützung von lokalem Datei-Upload, Download und Ordnersynchronisierung | Lokale Dateien können nicht hochgeladen oder heruntergeladen und Ordner nicht synchronisiert werden |
+
+## Berechtigungen des Mac-Clients
+
+| Szenario | Zweck | Auswirkung bei Ablehnung oder Deaktivierung |
+| --- | --- | --- |
+| Empfangen von Systembenachrichtigungen | Rückmeldung zu Backup-Fortschritt und Gerätebetriebsstatus | Keine Benachrichtigungen zu Backup-Fortschritt und Gerätestatus möglich |
+| Zugriff auf lokale Verzeichnisse | Ausführen von Dateiverwaltung, Upload, Download und Synchronisierungsaufgaben | Dateiverwaltung, Upload, Download und Synchronisierungsaufgaben können nicht ausgeführt werden |
+
+## Ergänzende Hinweise
+
+Alle Berechtigungen werden bedarfsgerecht beantragt; beim Start erfolgt keine pauschale Autorisierung.
+
+Das Deaktivieren einer Berechtigung schaltet nur einzelne Funktionen ab und beeinflusst keine Basisdienste wie Anmeldung, Geräteverbindung oder Dateianzeige.
+
+Ohne ausdrückliche Autorisierung durch den Benutzer lesen, scannen oder laden wir keine privaten Benutzerdaten auf dem NAS hoch.
+
+Wir beantragen keine Hintergrund-Standortberechtigung und erheben keine werblichen Gerätekennungen. Standortinformationen werden nur vorübergehend bei der Netzwerkkonfiguration des Geräts verwendet (Lesen des WiFi-Namens, Ableiten des Ländercodes); Koordinaten werden nicht hochgeladen und nicht gespeichert. Dies entspricht den globalen Datenschutzanforderungen.

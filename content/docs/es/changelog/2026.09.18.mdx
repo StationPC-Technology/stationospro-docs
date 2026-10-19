@@ -1,0 +1,79 @@
+---
+sourceHash: b0c450609f40
+title: 'Notas de la actualización del sistema del 18.09.2026'
+---
+
+## Lea antes de actualizar
+Productos aplicables
+Esta actualización es aplicable a los productos que ejecutan el sistema StationOS Pro. Antes de actualizar, confirme la arquitectura del procesador correspondiente según el modelo del producto.
+
+● Serie DA: serie DA400
+
+Recordatorios de actualización
+1. Si desea utilizar las funciones descritas en este documento, actualice el firmware del sistema, la suite de aplicaciones o el cliente a la versión correspondiente o a una superior.
+2. Algunas de las nuevas funciones de la suite de aplicaciones requieren una versión específica del firmware del sistema. Si la versión del firmware del sistema es inferior a la versión mínima compatible, es posible que no reciba las notificaciones de actualización de las aplicaciones o que las funciones relacionadas no funcionen con normalidad.
+
+## Firmware del sistema StationOS Pro
+### Información de la versión
+Versión del firmware del sistema: v1.0.0.18
+
+Esta actualización implica ajustes en las interfaces; para garantizar el funcionamiento correcto de las funciones, se recomienda actualizar el firmware, el cliente y las aplicaciones relacionadas a la última versión.
+
+### Sistema y cuenta
+
+- Nuevo: ajuste del plan de mejora del uso del dispositivo, que permite elegir al registrarse si se desea participar.
+- Nuevo: inicio de sesión más seguro y reglas de aviso del zumbador más uniformes.
+- Optimización: registros del sistema más concisos y limpieza más completa al restaurar la configuración de fábrica.
+- Corregidos problemas como el nombre incorrecto del dispositivo en el primer arranque, el fallo de sincronización de la hora, la falta de un día en el apagado programado de los domingos, la desaparición del aviso de actualización y la imposibilidad de cerrar las ventanas de confirmación.
+
+### IA y búsqueda
+
+- Nuevo: el estado de los modelos de IA se actualiza en tiempo real, se puede ajustar la precisión del reconocimiento facial y el reconocimiento de lugares es más preciso.
+- Optimización: la instalación, la carga y la desinstalación de las funciones de IA son más estables, y las imágenes no compatibles se omiten automáticamente.
+- Corregidos problemas como la imposibilidad ocasional de la IA de obtener información de red, los falsos avisos de fallo de carga de modelos, la falta de disponibilidad de la función facial tras restaurar la configuración de fábrica y los bloqueos o resultados anómalos de la búsqueda.
+
+### Almacenamiento y discos
+
+- Optimización: la visualización de la temperatura, el estado de salud y el espacio restante de los discos es más coherente y oportuna.
+- Optimización: la actualización tras insertar o formatear discos externos es más rápida.
+- Corregidos problemas como la recuperación anómala tras la degradación de una matriz, la imposibilidad de usar correctamente el dispositivo tras sustituir un disco, la visualización inexacta del estado de los discos y las anomalías en las cuotas del espacio de almacenamiento.
+
+### Administrador de archivos
+
+- Nuevo: compatibilidad con la visualización de miniaturas de imágenes en discos externos.
+- Optimización: la detección de archivos duplicados es más rápida y consume menos recursos, las operaciones de copia y movimiento de archivos pueden continuar en segundo plano y los avisos de fallo de carga son más claros.
+- Corregidos problemas como anomalías al marcar archivos en la detección de duplicados, la falta de sincronización del estado de favoritos, las anomalías de previsualización de imágenes/Word/Excel y la visualización de información técnica en los errores de carga.
+
+### Centro de aplicaciones
+
+- Nuevo: las aplicaciones permiten seleccionar la ubicación de instalación y la ubicación de descarga, y la visualización del progreso de instalación es más uniforme.
+- Optimización: la visualización de la instalación de aplicaciones, las ventanas de configuración y el estado de ejecución es más clara.
+- Corregidos problemas como conflictos al volver a desplegar aplicaciones, el estado que se mostraba siempre como «desplegando», los registros de despliegue vacíos y los falsos avisos de anomalía en aplicaciones detenidas correctamente.
+
+### Red y acceso remoto
+
+- Nuevo: cuando surgen problemas en el montaje remoto, es más fácil identificar la causa.
+- Optimización: los avisos de error de conexión remota son más claros y el acceso a la red es más estable.
+- Corregidos problemas como restos de montajes remotos, inestabilidad del montaje remoto por FTP, imposibilidad de abrir directorios remotos y errores de visualización en la página de red.
+
+### Copia de seguridad y restauración
+
+- Optimización: la copia de seguridad del Álbum es más estable.
+- Corregidos problemas como permisos incorrectos en la copia de seguridad con un clic de carpetas de equipo, la falta de sincronización del directorio compartido de las cuentas nuevas y la ausencia de datos de algunas funciones tras restaurar la configuración de fábrica.
+
+## Cliente
+### Cliente iOS y Android
+Versión de la aplicación: v1.0.0
+
+- Optimización del proceso de creación del espacio de almacenamiento, con animaciones e indicaciones de progreso en las tres fases de inicialización, creación y formateo, y un resultado claro de éxito o fallo.
+- Renovación de los detalles multimedia y de la visualización EXIF de fotos, imágenes animadas, Live Photos y vídeos, con información adicional de lugar, hora de captura y datos del vídeo.
+- Optimización del panel de detalles del visor multimedia, de los gestos, de los controles de reproducción de vídeo y de las operaciones multimedia de la galería.
+- Mejora de la nitidez de la previsualización de las fotos favoritas en la página de inicio, visualización del lugar y la fecha de captura, y optimización de la actualización del Álbum tras las actualizaciones de copia de seguridad.
+- Estabilización del orden de la lista de copia de seguridad del Álbum, del progreso de carga, de la carga por lotes y de los estados de finalización, fallo y cancelación.
+- Mejora de la visualización del estado de los discos de solo lectura y externos, con restricción de las operaciones de carga, eliminación, movimiento y cambio de nombre en almacenamientos de solo lectura, manteniendo la capacidad de copiar a directorios con permiso de escritura.
+- Optimización de la selección del espacio de destino en las operaciones de copia, movimiento y carga de archivos, con compatibilidad con Mis archivos, Archivos de equipo, Almacenamiento externo y Mis favoritos.
+- Optimización de los avisos de los gráficos de líneas de la monitorización de recursos, con compatibilidad con la hora de muestreo, el desglose del uso de CPU y una visualización de los límites más clara.
+- Las direcciones IP o DDNS sin puerto especificado permiten intentar automáticamente una conexión HTTP, y se han mejorado la autenticación de conexión en tiempo real y el mecanismo de recuperación ante fallos.
+- Nuevo restablecimiento de red protegido mediante verificación de seguridad, y optimización de las configuraciones de actualización del sistema, activación por red y encendido automático al restablecerse la alimentación.
+- Optimización de la configuración de notificaciones por correo, los prefijos de asunto, los correos de prueba, la tarjeta aceleradora de IA y la visualización de la monitorización de recursos.
+- Optimización del montaje remoto, la identificación de tipos de archivo, la respuesta del estado de las páginas y la experiencia del proceso de creación en temas claros/oscuros.

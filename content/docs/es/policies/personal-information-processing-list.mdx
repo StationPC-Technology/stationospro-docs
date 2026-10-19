@@ -1,0 +1,104 @@
+---
+sourceHash: 6d751e09c2b4
+title: 'Lista de tratamiento de datos personales'
+description: 'StationPC: lista de tratamiento de datos personales'
+---
+
+Fecha de actualización: 29 de septiembre de 2026
+
+## Descripción general
+
+La presente lista describe los escenarios de tratamiento de datos personales de StationPC StationNAS en la aplicación móvil, la web y el cliente para PC, y distingue estrictamente entre el «modo de cuenta local sin conexión» y el «modo de cuenta en la nube».
+
+Los usuarios fuera de China continental solo pueden registrarse con correo electrónico; no se recopilan números de teléfono ni identificadores de publicidad. No se recopila ni se almacena la ubicación precisa: la información de ubicación solo se utiliza temporalmente durante la configuración de red del dispositivo (leer el nombre del WiFi y deducir el código de país). Los datos de análisis de uso del producto y de diagnóstico de fallos se tratan según lo descrito en esta lista.
+
+Los datos de las cuentas locales se almacenan completamente en el hardware local del NAS del usuario; la nube no recopila ni almacena ningún dato personal.
+
+Sin la autorización expresa del usuario, no leemos, escaneamos ni cargamos los archivos privados almacenados en su NAS.
+
+## 1. Registro e inicio de sesión
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Crear e iniciar sesión en una cuenta local sin conexión | Permitir la gestión local del dispositivo sin dependencia de la nube | Cuenta local, contraseña local (solo almacenadas localmente en el NAS) |
+| Verificación en dos pasos de la cuenta local (opcional) | Recibir códigos de verificación y mejorar la seguridad de la cuenta local | Correo electrónico de verificación de emergencia (almacenado localmente) |
+| Registro e inicio de sesión de la cuenta en la nube | Completar la verificación de identidad, la gestión de la cuenta y el inicio de sesión seguro | Número de teléfono (solo China continental)/correo electrónico (solo fuera de China continental), código de verificación, contraseña, apodo, avatar |
+| Verificación para recuperar la contraseña | Verificar la identidad del usuario y garantizar la seguridad de la cuenta | Información de la cuenta, número de serie SN del dispositivo |
+
+## 2. Vinculación y gestión del dispositivo
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Vincular y gestionar dispositivos NAS | Permitir la asociación del dispositivo con la nube, la identificación del dispositivo y la gestión de operaciones | SN del dispositivo, modelo, versión de firmware, MAC, IP, nombre personalizado del dispositivo, estado en línea, información de garantía |
+| Supervisión del estado de funcionamiento del dispositivo | Garantizar la gestión de permisos y la percepción del estado del dispositivo | Estado en línea/sin conexión/en hibernación del dispositivo, rol del usuario (propietario/compartidor) |
+| Estadísticas de iteración del producto | Optimizar las funciones del producto según la distribución de versiones | Versión de firmware del dispositivo |
+
+## 3. Descubrimiento de dispositivos en la red local
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Búsqueda de dispositivos en la red local | Descubrir rápidamente los dispositivos NAS disponibles en la red local | Nombre del dispositivo, IP, MAC, SN, versión de firmware, estado del dispositivo, estado de activación por red |
+
+## 4. Operación y mantenimiento de seguridad
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Operación y mantenimiento de la estabilidad del sistema y solución de problemas | Corregir fallos, optimizar el rendimiento y garantizar la seguridad de los servicios | Registros de fallos, modelo del dispositivo, versión del sistema, versión del software, registros de operaciones<br />**No se recopila ningún identificador de publicidad (OAID/GAID/IDFA); los datos de análisis del producto se tratan según lo descrito en esta sección** |
+| Análisis de uso del producto | Conocer el uso de las funciones y las rutas de operación dentro de la aplicación para mejorar continuamente el producto | ID de cuenta, tipo de usuario, nombre del dispositivo, SN del dispositivo, modelo del dispositivo, versión de la aplicación y del sistema, tratados mediante servicios de análisis de terceros |
+
+## 5. Soporte técnico y posventa
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Atención al cliente en línea y diagnóstico de fallos | Localizar problemas y ofrecer un soporte posventa preciso | Datos de contacto de la cuenta, SN del dispositivo, registros de operaciones, registros de errores, información de red, capturas de pantalla y descripciones enviadas voluntariamente por el usuario |
+| Envío de tickets internacionales | Atender problemas técnicos de usuarios internacionales | Región, SN del dispositivo, descripción del problema (opcional: apodo, tipo de dispositivo) |
+
+## 6. Historial de inicio de sesión y dispositivos de confianza
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Registro de la actividad de inicio de sesión | Identificar inicios de sesión anómalos y prevenir accesos no autorizados | Hora de inicio de sesión, IP, ubicación a nivel de ciudad, tipo de sistema, método de inicio de sesión, registros de operaciones |
+| Gestión de dispositivos de confianza | Simplificar los inicios de sesión repetidos y mejorar la seguridad de la cuenta | Modelo del dispositivo de confianza, lugar de inicio de sesión, hora del último inicio de sesión, lista de dispositivos |
+
+## 7. Servicio de conexión remota
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Activar y utilizar la conexión remota | Permitir el acceso externo y la gestión remota del dispositivo | ID de conexión remota (generado a partir del identificador único del dispositivo), SN del dispositivo, IP, puerto de enrutamiento, dominio |
+
+## 8. Centro de aplicaciones y servicios de terceros
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Utilizar las funciones del Centro de aplicaciones | Asociar al dispositivo aplicaciones de terceros adecuadas | SN del dispositivo, modelo, versión de firmware, IP |
+| Denuncia y reclamación de aplicaciones de terceros | Mantener el ecosistema de aplicaciones y atender los comentarios de los usuarios | Nombre de la aplicación, descripción del problema, pruebas con capturas de pantalla, correo electrónico del usuario |
+| Integración de servicios de nube de terceros | Permitir la sincronización de archivos entre el NAS y servicios de nube de terceros | Token temporal del servicio de nube de terceros (solo almacenado localmente) |
+
+## 9. Copia de seguridad y restauración de la configuración
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Copia de seguridad y restauración de la configuración del dispositivo | Guardar la configuración del sistema para la migración y la recuperación del dispositivo | Permisos de usuario, servicios de archivos, red, seguridad y datos de configuración del sistema |
+| Copia de seguridad y restauración de los contactos del teléfono | Copiar los contactos del teléfono al NAS del propio usuario para el cambio de teléfono y la recuperación de datos | Nombre del contacto, teléfono, correo electrónico, grupo (solo almacenados localmente en el NAS del propio usuario) |
+
+## 10. Encuesta de experiencia del usuario (solo fuera de China continental)
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Encuesta de experiencia de usuarios internacionales | Recopilar comentarios de usuarios internacionales y optimizar la experiencia del producto | Correo electrónico y cuenta en la nube proporcionados voluntariamente por el usuario |
+
+## 11. Plan de análisis del dispositivo (solo China continental)
+
+| Escenario | Finalidad | Datos recopilados |
+| --- | --- | --- |
+| Participación voluntaria en el plan de optimización del dispositivo | Analizar los hábitos de uso y mejorar la estabilidad del producto | ID de cuenta, ID del dispositivo, IP, estadísticas de comportamiento de uso, registros de fallos, información de ubicación y de red |
+
+## Notas adicionales importantes
+
+Las cuentas locales sin conexión no cargan ningún dato personal a la nube; todos los datos se guardan únicamente de forma local en el NAS del usuario.
+
+Sin la autorización activa del usuario, no leemos, cargamos ni analizamos los archivos privados almacenados en el NAS del usuario.
+
+La versión internacional no recopila identificadores de publicidad. No se recopila ni se almacena la ubicación precisa: la información de ubicación solo se utiliza temporalmente durante la configuración de red del dispositivo para deducir el código de país. Se conservan los registros de fallos y los datos de análisis del producto según lo descrito en la sección 4, para la corrección de fallos y la mejora del producto.
+
+El usuario puede consultar, corregir y eliminar sus datos personales, así como cancelar su cuenta, de forma autónoma en la configuración de la APP.

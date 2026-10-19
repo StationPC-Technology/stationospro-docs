@@ -1,0 +1,168 @@
+---
+sourceHash: ae5b2e7fcf16
+title: Espacio de almacenamiento
+description: Gestionar volúmenes de almacenamiento, RAID, discos de reserva y la aceleración con caché SSD
+---
+
+La página Espacio de almacenamiento se divide en **Espacio de almacenamiento** y **Aceleración con caché SSD**. La pestaña Espacio de almacenamiento se utiliza para crear y gestionar volúmenes compuestos por uno o varios discos; la pestaña Caché SSD se utiliza para emplear un SSD de alta velocidad como caché de un volumen HDD, mejorando el acceso a los datos de uso frecuente.
+
+## Pestaña Espacio de almacenamiento
+
+![Storage](/images/es/app-guide/settings-img/storage.png)
+
+### Lista de volúmenes de almacenamiento
+
+Cada tarjeta de volumen de almacenamiento muestra:
+
+| Campo | Descripción |
+| --- | --- |
+| Nombre | El nombre del volumen de almacenamiento, por ejemplo, Storage volume1. |
+| Estado de salud | Estados como Normal o Degraded; si es anómalo, es necesario revisar los discos cuanto antes. |
+| Modo de almacenamiento/RAID | Basic, JBOD, RAID0, RAID1, RAID5, RAID6, RAID10, etc. |
+| Capacidad | Capacidad utilizada / capacidad total. |
+| Tipo de disco | HDD, SSD, etc. |
+| Interfaz | SATA, NVMe, etc. |
+| Sistema de archivos | El sistema de archivos utilizado por el volumen actual, por ejemplo, Btrfs. |
+| Discos utilizados | Muestra los discos que componen el volumen y su capacidad; haga clic en un disco para consultar su información. |
+
+### Operaciones con volúmenes de almacenamiento
+
+La tarjeta del volumen o el menú de más opciones pueden ofrecer las siguientes operaciones:
+
+| Operación | Descripción |
+| --- | --- |
+| Crear espacio de almacenamiento | Inicializa discos libres como un nuevo volumen de almacenamiento. El proceso de creación formatea los discos seleccionados. |
+| Modificar el modo de almacenamiento | Cambia el tipo de RAID cuando es compatible; puede requerir añadir o retirar discos. |
+| Añadir discos | Amplía la capacidad de los volúmenes RAID compatibles; los discos nuevos se formatearán. |
+| Añadir/Retirar discos de reserva | Asigna discos de reserva a un volumen RAID. Si falla un disco miembro, el disco de reserva puede participar automáticamente en la recuperación. |
+| Sustituir discos | Sustituye discos miembro en casos de fallo o de ampliación de capacidad. |
+| Reparar/Comprobar | Se utiliza para solucionar y recuperar estados anómalos. |
+
+### RAID y modos de almacenamiento
+
+| Modo | Requisitos de discos | Ventajas | Riesgos/Limitaciones |
+| --- | --- | --- | --- |
+| Basic | 1 disco | Aprovecha al máximo la capacidad de un solo disco | Sin protección de datos; si el disco falla, se pierden los datos de ese disco |
+| JBOD | Al menos 1 disco | Combina varios discos en un único espacio utilizable; la ampliación es sencilla | Sin redundancia; el fallo de cualquier disco miembro puede provocar la pérdida de todos los datos del espacio |
+| RAID 0 | Al menos 2 discos | La velocidad de lectura y escritura más alta y un alto aprovechamiento de la capacidad | Sin protección de datos; el fallo de cualquier disco provoca la pérdida de todos los datos |
+| RAID 1 | Al menos 2 discos | Protección por espejo; admite el fallo de n-1 discos sin pérdida de datos | Bajo aprovechamiento de la capacidad |
+| RAID 5 | Al menos 3 discos | Equilibra rendimiento y protección; admite la recuperación mediante paridad tras el fallo de un disco | Escritura relativamente lenta y recuperación más lenta |
+| RAID 6 | Al menos 4 discos | Doble paridad; admite el fallo simultáneo de 2 discos | La velocidad de escritura y el aprovechamiento del espacio se reducen aún más |
+| RAID 10 | Al menos 4 discos y número par | Primero espejo y después bandas; combina alto rendimiento y alta protección | El aprovechamiento del espacio es de aproximadamente la mitad |
+
+### Elección del sistema de archivos
+
+En el asistente de creación se puede seleccionar el sistema de archivos:
+
+| Sistema de archivos | Idoneidad |
+| --- | --- |
+| Btrfs | Admite instantáneas, subvolúmenes y copias eficientes; adecuado para usuarios domésticos o desarrolladores con necesidades ligeras que requieran copias de seguridad flexibles y gestión de versiones. |
+| EXT4 | Maduro y estable; adecuado para servicios de archivos tradicionales, dispositivos con recursos limitados o entornos de oficina que prioricen la estabilidad. |
+
+### Proceso de creación de un espacio de almacenamiento
+
+1. Haga clic en **Crear espacio de almacenamiento**.
+2. Seleccione discos libres. El sistema calculará en tiempo real los modos RAID disponibles y la capacidad estimada.
+3. Seleccione el modo de almacenamiento/RAID y confirme la capacidad disponible, la capacidad de protección de datos y otra información.
+4. Seleccione el formato del sistema de archivos.
+5. Seleccione los usuarios que pueden utilizar este espacio de almacenamiento y, si lo desea, establezca un límite de capacidad para los usuarios normales.
+6. Confirme el resumen y la advertencia de formateo.
+7. Inicie la creación y espere a que finalice el formateo.
+
+<Callout title="Operación peligrosa" type="error">
+  Crear, modificar, ampliar o sustituir volúmenes de almacenamiento puede formatear los discos seleccionados y eliminar todos sus datos. Una vez iniciada la operación, no corte la alimentación, reinicie ni extraiga o inserte discos. Asegúrese de realizar primero una copia de seguridad de los datos importantes.
+</Callout>
+
+## Pestaña Aceleración con caché SSD
+
+La caché SSD guarda los datos de uso frecuente en un SSD de alta velocidad, lo que reduce el tiempo de espera de lectura de los HDD. Antes de utilizar esta función, el dispositivo debe tener instalado al menos un SSD no ocupado.
+
+![SSD Cache](/images/es/app-guide/settings-img/storage-ssd-cache.png)
+
+### Crear una caché SSD
+
+| Elemento de configuración | Descripción |
+| --- | --- |
+| Objeto acelerado | Seleccione el volumen de almacenamiento HDD que desea acelerar. |
+| SSD de caché | Seleccione un SSD libre; si no hay ningún SSD disponible, instale primero uno o libere un disco. |
+| Nombre de la caché | De forma predeterminada se puede generar automáticamente, o se puede asignar un nombre según su uso. |
+| Modo de caché | Caché de solo lectura o caché de lectura y escritura. |
+| RAID de caché | Con varios SSD, se puede seleccionar el modo RAID de la caché. |
+| Capacidad de la caché | Se puede elegir la capacidad máxima o una capacidad personalizada; la capacidad restante se puede seguir asignando a otros volúmenes. |
+| Confirmación de riesgos | Es necesario confirmar que se comprenden los riesgos de la creación de la caché, del formateo del SSD y del corte de alimentación en la caché de lectura y escritura. |
+
+### Comparación de modos de caché
+
+| Modo | Descripción |
+| --- | --- |
+| Caché de solo lectura | Solo almacena en caché los datos de lectura de uso frecuente; el fallo del SSD o un corte de alimentación supone un riesgo bajo para los datos de origen. |
+| Caché de lectura y escritura | Acelera tanto la lectura como la escritura y ofrece mejor rendimiento; el fallo del SSD o un corte de alimentación anómalo pueden afectar a los datos que aún no se han escrito de nuevo. |
+
+### Gestión de la caché
+
+| Operación | Descripción |
+| --- | --- |
+| Consultar el estado | Consulta el nombre, el modo, la capacidad, la tasa de aciertos y el volumen asociado de la caché. |
+| Eliminar la caché | Desvincula la caché del volumen. Antes de eliminar una caché de lectura y escritura, el sistema garantiza que los datos se escriban de nuevo; durante ese tiempo, no apague el dispositivo ni extraiga el SSD. |
+| Reparar la caché | Si la caché se degrada o se daña, puede volver a conectar todos los discos de caché siguiendo las indicaciones e intentar repararla. |
+| Asignar una caché existente | Utiliza la capacidad restante de un grupo de caché existente para acelerar otros volúmenes. |
+
+<Callout title="Seguridad de los datos" type="warn">
+  Crear una caché SSD borra los datos del SSD seleccionado. La caché de lectura y escritura requiere una alimentación fiable; un corte de alimentación anómalo o un fallo del SSD pueden provocar riesgos para los datos. Antes de extraer un SSD, elimine siempre primero la caché correspondiente en el sistema.
+</Callout>
+
+## Interpretación de los estados de almacenamiento
+
+| Estado/Indicador | Significado | Tratamiento recomendado |
+| --- | --- | --- |
+| Normal | El volumen de almacenamiento se puede leer y escribir con normalidad. | Mantener las copias de seguridad rutinarias y las comprobaciones de salud de los discos. |
+| Degraded | La redundancia RAID se ha reducido, pero normalmente aún se puede acceder a los datos. | Realizar de inmediato una copia de seguridad de los datos, revisar los discos miembro y reparar o sustituir los discos cuanto antes. |
+| Damaged/Anómalo | La estructura de almacenamiento o los discos miembro presentan una anomalía grave. | Evitar seguir escribiendo, realizar primero una copia de seguridad de los datos legibles y ponerse en contacto con el soporte. |
+| Syncing/Recuperando | El RAID se está sincronizando o reconstruyendo. | Mantener una alimentación estable y no reiniciar, cortar la alimentación ni extraer o insertar discos. |
+| Formatting | Se está formateando. | Espere a que finalice y no interrumpa la operación. |
+| Read-only | El sistema ha protegido el volumen contra escritura tras detectar riesgos en la conexión, los discos o el sistema de archivos. | Comprobar los discos y la conexión, realizar una copia de seguridad de los datos y reparar siguiendo las indicaciones. |
+| Reserva | El disco está en espera y puede participar automáticamente en la recuperación si falla un disco miembro. | Mantener el disco de reserva en buen estado y no reutilizarlo sin motivo. |
+
+## Lista de comprobación antes de crear o modificar
+
+1. Confirme que los discos seleccionados realmente no contienen datos que deban conservarse.
+2. Consulte el estado de salud, la temperatura, las horas de funcionamiento y los resultados S.M.A.R.T de los discos.
+3. Confirme que el número de discos, las interfaces y las capacidades cumplen los requisitos del RAID de destino.
+4. Comprenda la capacidad disponible estimada, la capacidad de protección de datos y la capacidad no utilizada.
+5. Detenga las tareas de copia de seguridad, descarga, sincronización, contenedores, indexación y escritura en bases de datos.
+6. Prepare una alimentación ininterrumpida o evite los períodos de inestabilidad eléctrica.
+7. Registre los nombres de los volúmenes de almacenamiento actuales, los números de los discos miembro y las rutas de montaje.
+
+## Recomendaciones de selección de RAID
+
+| Necesidad | Modo recomendado |
+| --- | --- |
+| Máxima capacidad de un solo disco y sin interés en la redundancia | Basic |
+| Concatenar varios discos en secuencia y seguir añadiendo discos posteriormente | JBOD |
+| Caché temporal, datos reconstruibles y prioridad a la velocidad | RAID 0 |
+| Proteger fotos y documentos importantes con dos discos | RAID 1 |
+| Equilibrar capacidad, rendimiento y protección en el hogar o en equipos pequeños | RAID 5 |
+| Mayor tolerancia a fallos y suficiente número de discos disponibles | RAID 6 |
+| Alto rendimiento y protección por espejo | RAID 10 |
+
+<Callout title="Recordatorio sobre la capacidad" type="info">
+  La capacidad disponible de RAID se ve afectada por la paridad, el espejo y las diferencias de capacidad entre discos. Cuando se crea un RAID con discos de distinta capacidad, normalmente se calcula según la capacidad menor o las reglas del modo. La capacidad estimada del asistente de creación es la referencia definitiva.
+</Callout>
+
+## Política de discos de reserva
+
+- **Reserva global/Reserva dentro del grupo**: cuando falla un disco miembro del espacio de almacenamiento asociado, el disco de reserva toma el relevo automáticamente y reduce la ventana de recuperación.
+- **Escenarios de aplicación**: despliegues remotos en los que no es conveniente sustituir discos de inmediato, volúmenes de servicios importantes y RAID 6/10 con muchos discos.
+- **Notas**: un disco de reserva no es una copia de seguridad; el rendimiento puede disminuir durante la sincronización y el volumen original sigue degradado hasta que finaliza la recuperación.
+
+## Recomendaciones de selección de caché SSD
+
+| Escenario | Recomendación |
+| --- | --- |
+| Mejorar principalmente la lectura repetida de datos de uso frecuente | Caché de solo lectura, con menor riesgo. |
+| Necesidad de mejorar la respuesta de escritura y disponibilidad de UPS | Se puede evaluar la caché de lectura y escritura. |
+| Sin UPS o datos extremadamente importantes | Evitar la caché de lectura y escritura y priorizar la mejora del rendimiento de los HDD/RAID. |
+| Varios usuarios acceden simultáneamente al mismo directorio | La caché de solo lectura aporta beneficios más evidentes. |
+| Escrituras aleatorias de muchos archivos pequeños | Evaluar junto con el patrón de escritura de las aplicaciones y la vida útil del SSD. |
+
+Al crear o eliminar una caché de lectura y escritura, el sistema puede necesitar sincronizar con los HDD los datos del SSD que aún no se han escrito de nuevo. Durante ese tiempo, no apague el dispositivo, no lo reinicie ni extraiga el SSD.

@@ -1,0 +1,110 @@
+---
+sourceHash: 0cdca6aec0ab
+title: Protokollzentrum
+description: Anleitung zur Verwendung des Protokollzentrums
+---
+
+Das Protokollzentrum zeichnet zentral Ereignisse aus Systembetrieb, Anmeldung und Verbindung, Dateiübertragung sowie Festplattenspeicher auf. Sie können Protokolle nach Stichwort, Stufe, Modul, Benutzer und Zeitraum durchsuchen, um Sicherheitsprüfungen, die Nachvollziehbarkeit von Vorgängen und die Fehlerbehebung zu unterstützen.
+
+## Seitenaufbau
+
+Das Protokollzentrum ist in eine obere Symbolleiste, eine Protokolltabelle und einen Paginierungsbereich am unteren Rand unterteilt:
+
+| Bereich | Funktion |
+| --- | --- |
+| Stichwort-Suchfeld | Durchsucht Protokollinhalte nach Stichwörtern. Nach der Eingabe wird die Suche durch Drücken der Eingabetaste oder Verlassen des Felds ausgelöst. |
+| Filtern | Kombiniertes Filtern nach Stufe, Modul, Benutzer und Zeitraum. |
+| Leeren | Löscht Protokolle nach Zeitraum. |
+| Protokolle exportieren | Exportiert die Protokolle des ausgewählten Zeitraums als CSV-Datei. |
+| Protokollarchivierung | Konfiguriert Bedingungen für die automatische Archivierung und den Archivspeicherort. |
+| Protokolltabelle | Zeigt Stufe, Modul, Zeit, Benutzer und Ereignis. |
+| Paginierungsbereich | Zeigt die Gesamtzahl der Protokolle und unterstützt Aktualisieren, Seitenwechsel, Anpassen der Einträge pro Seite und direktes Anspringen einer Seite. |
+
+## Systembenutzerprotokolle anzeigen
+
+Wenn Sie nur vom System erzeugte Protokolle anzeigen möchten, filtern Sie **Benutzer** nach `system`:
+
+1. Klicken Sie oben auf **Filtern**.
+2. Wählen Sie im Dropdown-Menü **Benutzer** den Eintrag `system`.
+3. Klicken Sie auf **Bestätigen**.
+
+In den Filterergebnissen lautet die Benutzerspalte durchgängig `system`. Dies eignet sich besonders, um Systemereignisse wie Ein- und Ausschalten, Systemupdates, Status von Netzwerkschnittstellen, Festplattenerkennung, S.M.A.R.T-Status von Festplatten und Anomalien bei Speichervolumes gezielt zu prüfen.
+
+![Nach Benutzer system gefilterte Protokollliste](/images/de/app-guide/log-center-img/logs.png)
+
+## Protokollfelder
+
+| Feld | Beschreibung |
+| --- | --- |
+| Stufe | Schweregrad des Protokolls: Normal, Warnung, Kritisch. Normal steht für reguläre Betriebsinformationen; Warnung erfordert Aufmerksamkeit; Kritisch weist auf ein erhöhtes Risiko für Funktionen oder Hardware hin. |
+| Modul | Quelle des Ereignisses: System, Anmeldung/Verbindung, Dateiübertragung, Festplattenspeicher. |
+| Zeit | Zeitpunkt des Ereignisses. |
+| Benutzer | Benutzer, der das Ereignis ausgelöst hat. `system` steht für automatisch vom System erzeugte Ereignisse; ein normaler Benutzername steht für Benutzeraktionen oder Ereignisse im Zusammenhang mit einer Benutzersitzung. |
+| Ereignis | Details zum Ereignis, z. B. Systemabschaltung, Entfernen einer Festplatte, Herabstufung eines Speichervolumes oder Aktualisierung der Systemversion. |
+
+## Suchen und Filtern
+
+### Stichwortsuche
+
+Geben Sie im Suchfeld ein Stichwort zum Ereignisinhalt ein, z. B. Festplattenmodell, Name des Speichervolumes, Systemversion oder Fehlerbeschreibung, und drücken Sie dann die Eingabetaste. Die Suche wird mit den Filterbedingungen kombiniert.
+
+### Bedingtes Filtern
+
+Nach dem Klicken auf **Filtern** können folgende Bedingungen kombiniert werden:
+
+| Bedingung | Auswahlwerte/Beschreibung |
+| --- | --- |
+| Stufe | Normal, Warnung, Kritisch; Mehrfachauswahl und Alle auswählen werden unterstützt. |
+| Modul | System, Anmeldung/Verbindung, Dateiübertragung, Festplattenspeicher; Mehrfachauswahl und Alle auswählen werden unterstützt. |
+| Benutzer | Die Optionen stammen aus den in den aktuellen Protokollen vorkommenden Benutzern; Mehrfachauswahl und Alle auswählen werden unterstützt. In diesem Beispiel wird `system` ausgewählt. |
+| Zeit | Auswahl von Start- und Enddatum, um nur Protokolle im angegebenen Zeitraum anzuzeigen. |
+
+Die Filterbedingungen werden zunächst im Dialogfenster gespeichert und erst nach dem Klicken auf **Bestätigen** auf die Liste angewendet. Durch Klicken auf **Zurücksetzen** werden die Filterbedingungen gelöscht und die Standardansicht wiederhergestellt.
+
+![Benutzerfilter system auswählen](/images/de/app-guide/log-center-img/filter.png)
+
+## Paginierung und Aktualisierung
+
+- **Gesamtzahl**: Der Paginierungsbereich zeigt die Gesamtzahl der Protokolle unter den aktuellen Filterbedingungen.
+- **Aktualisieren**: Durch Klicken auf das Aktualisierungssymbol links neben der Gesamtzahl wird die aktuelle Liste neu geladen.
+- **Einträge pro Seite**: Wählbar sind 50, 100 und 500.
+- **Seitenwechsel**: Geben Sie eine Seitenzahl ein und drücken Sie die Eingabetaste, oder verwenden Sie die Schaltflächen für die vorherige bzw. nächste Seite.
+
+## Protokolle exportieren
+
+Klicken Sie oben auf das Download-Symbol, um Protokolle zu exportieren:
+
+1. Wählen Sie den Zeitraum: Alle, letzte Woche, letzter Monat, letzte drei Monate, letztes halbes Jahr, letztes Jahr.
+2. Klicken Sie auf **Bestätigen**.
+3. Warten Sie, bis die Protokolldatei erstellt wurde. Die exportierte CSV-Datei wird im Download-Verzeichnis des lokalen Browsers gespeichert.
+
+Der Export eignet sich für die langfristige Aufbewahrung von Prüfaufzeichnungen oder zur Übergabe an Technikpersonal, wenn kein direkter Zugriff auf das Gerät möglich ist.
+
+## Protokolle leeren
+
+Nach dem Klicken auf **Leeren**:
+
+1. Wählen Sie den zu löschenden Zeitraum: Alle, vor einem Jahr, vor einem halben Jahr, vor drei Monaten, vor einem Monat, vor einer Woche.
+2. Bestätigen Sie den Löschumfang.
+3. Warten Sie, bis der Löschvorgang abgeschlossen ist.
+
+<Callout title="Hinweis" type="warn">
+  Das Leeren von Protokollen kann nicht rückgängig gemacht werden. Exportieren Sie vor dem Löschen möglichst die aufzubewahrenden historischen Protokolle. Bei Sicherheitsvorfällen oder Hardwareanomalien sollten Sie die Protokolle des betreffenden Zeitraums nicht vorschnell löschen.
+</Callout>
+
+## Protokollarchivierung
+
+Klicken Sie oben auf das Einstellungssymbol, um die **Protokollarchivierung** zu öffnen. Standardmäßig behält das System die letzten 3 Millionen Übertragungsprotokolle und archiviert nicht automatisch. Nach Aktivierung der automatischen Archivierung kann diese durch eine der folgenden Bedingungen ausgelöst werden:
+
+| Bedingung | Auswahlwerte |
+| --- | --- |
+| Protokolldatenmenge größer als | 500 MB, 1 GB, 3 GB |
+| Protokollzeit älter als | vor einer Woche, vor einem Monat, vor drei Monaten, vor einem halben Jahr, vor einem Jahr |
+
+Zusätzlich muss ein Archivspeicherort in den Team-Dateien ausgewählt werden. Die Konfiguration kann erst gespeichert werden, wenn mindestens eine Archivierungsbedingung aktiviert ist.
+
+<Callout title="Empfehlung" type="info">
+  - Prüfen Sie bei Anmeldeanomalien vorrangig „Anmeldung/Verbindung“ und achten Sie auf die Stufen Warnung und Kritisch.
+  - Bei Festplatten- oder Speichervolume-Fehlern können Sie nach Benutzer `system` und Modul „System“ oder „Festplattenspeicher“ filtern.
+  - Exportieren oder archivieren Sie wichtige Protokolle regelmäßig, damit sie nach dem Leeren nicht mehr nachvollziehbar sind.
+</Callout>

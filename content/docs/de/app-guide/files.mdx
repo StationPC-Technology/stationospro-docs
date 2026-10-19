@@ -1,0 +1,117 @@
+---
+sourceHash: df67dd5198ab
+title: Dateimanager
+description: Anleitung zur Verwendung des Dateimanagers
+---
+
+Der Dateimanager ist die Kernanwendung von StationOS Pro und dient der zentralen Verwaltung aller Dateien auf dem Gerät. Im Browser können Sie Dateien hoch- und herunterladen, Verzeichnisse verwalten, Berechtigungen freigeben, Dateien aus dem Papierkorb wiederherstellen und doppelte Dateien bereinigen. Außerdem können Sie Dateidienste wie SMB, WebDAV, FTP und NFS konfigurieren, damit Computer und Smartphones direkt auf die Dateien des NAS zugreifen können.
+
+## Oberfläche
+
+Der Dateimanager ist oben nach Funktionen in folgende Registerkarten unterteilt:
+
+| Registerkarte | Beschreibung |
+| --- | --- |
+| Meine Dateien | Persönlicher Dateibereich des aktuellen Benutzers |
+| Team-Dateien | Gemeinsam genutzter Bereich für die Zusammenarbeit mehrerer Personen |
+| Externer Speicher | Verwaltung von Dateien auf externen Geräten wie USB-Sticks und externen Festplatten |
+| Remote-Einbindung | Einbinden freigegebener Verzeichnisse von entfernten NAS-Geräten oder Servern |
+| App-Dateien | Anzeige der von Anwendungen erzeugten Datendateien |
+| Meine Favoriten | Schneller Zugriff auf favorisierte Dateien und Ordner |
+| Freigabe per externem Link | Verwaltung bereits erstellter externer Freigabelinks |
+| Papierkorb | Wiederherstellen oder endgültiges Löschen gelöschter Dateien |
+| Doppelte Dateien | Suchen und Bereinigen doppelter Dateien zur Freigabe von Speicherplatz |
+| Administratoransicht | Administratoren können alle Dateien nach Benutzer anzeigen (nur für Administratoren sichtbar) |
+
+Die Dateiliste unterstützt den Wechsel zwischen Listen- und Rasteransicht und zeigt Informationen wie Dateiname, Größe, Typ, Änderungszeit, Speicherort, Erstellungszeit und Besitzer. Durch Klicken auf die Spaltenüberschrift können Sie sortieren.
+
+![My Files](/images/de/app-guide/files-img/my-files.png)
+
+## Grundlegende Dateioperationen
+
+Die Symbolleiste bietet folgende häufig verwendete Operationen:
+
+- **Hochladen**: Dateien oder ganze Ordner hochladen;
+- **Neuer Ordner**: Ein neues Verzeichnis erstellen;
+- **Sortieren**: Nach Name, Größe, Zeit usw. sortieren;
+- **Ansicht wechseln**: Zwischen Listen- und Rasteransicht wechseln.
+
+### Neuen Ordner erstellen
+
+1. Wechseln Sie in das Zielverzeichnis und klicken Sie in der Symbolleiste auf **Neuer Ordner**.
+2. Geben Sie den Ordnernamen ein (maximal 180 Zeichen).
+3. Wählen Sie den Speicherort des Ordners aus (z. B. Speicherbereich 1).
+4. Klicken Sie zur Bestätigung auf **Bestätigen**.
+
+![New Folder](/images/de/app-guide/files-img/new-folder.png)
+
+### Kontextmenü
+
+Wenn Sie mit der rechten Maustaste auf eine Datei oder einen Ordner klicken, stehen folgende Operationen zur Verfügung:
+
+| Menüeintrag | Beschreibung |
+| --- | --- |
+| In neuem Fenster öffnen | In einem neuen Fenster öffnen (Ordner) |
+| Herunterladen | Auf den lokalen Computer herunterladen |
+| Kopieren nach / Verschieben nach | In ein anderes Verzeichnis kopieren oder verschieben |
+| Ausschneiden / Kopieren | Ausschneiden oder kopieren |
+| Löschen | Löschen (in den Papierkorb verschieben) |
+| Umbenennen | Umbenennen |
+| Favorisieren | Zu den Favoriten hinzufügen |
+| Freigabe per externem Link | Externe Linkfreigabe erstellen |
+| Details | Dateidetails anzeigen |
+
+![Context Menu](/images/de/app-guide/files-img/context-menu.png)
+
+## Freigabe per externem Link
+
+Über die Freigabe per externem Link können Sie Dateien oder Ordner für externe Benutzer freigeben, die kein NAS-Konto besitzen:
+
+1. Klicken Sie mit der rechten Maustaste auf die gewünschte Datei oder den Ordner und wählen Sie **Freigabe per externem Link**.
+2. Legen Sie die Freigabeparameter fest:
+   - **Freigabename**: Anzeigename des externen Links;
+   - **Gültigkeitsdauer**: Dauerhaft gültig oder benutzerdefinierter Ablaufzeitpunkt;
+   - **Download erlauben**: Ob Besucher die Dateien herunterladen dürfen;
+   - **Passwortschutz**: Zugriffspasswort für den Link festlegen;
+   - **Begrenzung der Zugriffe**: Maximale Anzahl der Zugriffe auf den Link begrenzen.
+3. Klicken Sie auf **Link erstellen**, um den Freigabelink zu erzeugen.
+
+Bereits erstellte Freigaben können auf der Registerkarte „Freigabe per externem Link“ zentral verwaltet werden, einschließlich Anzeigen des Links, Ändern der Regeln oder Aufheben der Freigabe.
+
+![Share Link](/images/de/app-guide/files-img/share-link.png)
+
+<Callout title="Sicherheitshinweis" type="warn">
+  Beim Freigeben vertraulicher Dateien empfiehlt es sich, den Passwortschutz zu aktivieren und eine Gültigkeitsdauer festzulegen. Schließen Sie nicht mehr benötigte Links nach Abschluss der Freigabe zeitnah, um Datenlecks zu vermeiden.
+</Callout>
+
+## Einstellungen für Dateidienste
+
+Klicken Sie oben rechts im Dateimanager auf **Einstellungen**, um Dateidienste zu konfigurieren. Das Einstellungsfenster enthält folgende Registerkarten:
+
+- **Dateifreigabeprotokolle**: Separate Konfiguration der Dienste SMB, WebDAV, FTP und NFS;
+- **Dateiregeln**: Konfiguration von Regeln wie Dateibenennung;
+- **Remote-Einbindung**: Konfiguration der Parameter für Remote-Einbindungen;
+- **Externe Freigabe**: Konfiguration globaler Regeln für Freigaben per externem Link.
+
+Am Beispiel von SMB bietet die Einstellungsseite:
+
+- **Sichtbarer Verzeichnisbereich**: Separate Einstellung der Sichtbarkeit von „Meine Dateien“, „Team-Dateien“ und „App-Dateien“ über das Protokoll;
+- **Verbindungsmethode**: Bebilderte Anleitung und Zugriffsadressen für die Verbindung von Windows und macOS mit dem NAS;
+- **Weitere Verbindungsinformationen**: Anzeige der IP-Adresse des Geräts und des Standardports (SMB: 445) mit Kopierfunktion.
+
+![File Settings](/images/de/app-guide/files-img/settings.png)
+
+### Auf NAS-Dateien vom Computer zugreifen
+
+- **macOS**: Öffnen Sie den Finder → Gehe zu → Mit Server verbinden, geben Sie `smb://Geräte-IP` ein und melden Sie sich mit dem lokalen NAS-Benutzerkonto und Passwort an.
+- **Windows**: Drücken Sie `Win + R`, geben Sie `\\Geräte-IP` ein und melden Sie sich mit dem lokalen NAS-Benutzerkonto und Passwort an.
+
+## Papierkorb
+
+Gelöschte Dateien werden in den Papierkorb verschoben, um Datenverlust durch versehentliches Löschen zu verhindern:
+
+- **Wiederherstellen**: Stellt Dateien am ursprünglichen Speicherort vor dem Löschen wieder her;
+- **Endgültig löschen**: Löscht ausgewählte Dateien dauerhaft und unwiderruflich;
+- **Papierkorb leeren**: Leert den gesamten Papierkorb mit einem Klick.
+
+Der Papierkorb unterscheidet anhand von „Meine Dateien“ und „Team-Dateien“ zwischen persönlichen und teambezogenen gelöschten Inhalten; Administratoren können die Papierkörbe aller Benutzer einsehen.

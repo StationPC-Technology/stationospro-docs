@@ -1,0 +1,122 @@
+---
+sourceHash: a70df36b0680
+title: Mise à jour et restauration
+description: Vérifier les mises à jour système, installer un micrologiciel manuellement, consulter les journaux et effectuer une réinitialisation
+---
+
+La page Mise à jour et restauration comporte deux onglets : **Mise à jour système** et **Restauration et réinitialisation**. L'onglet Mise à jour système sert à détecter et télécharger les mises à jour en ligne, à installer le micrologiciel ou à installer manuellement un micrologiciel local ; l'onglet Restauration et réinitialisation sert à rétablir les paramètres par défaut du système ou à réinitialiser le réseau.
+
+## Mise à jour système
+
+![System Update](/images/fr/app-guide/settings-img/update.png)
+
+### Informations sur la version actuelle
+
+| Champ | Description |
+| --- | --- |
+| Version actuelle | Numéro de version système actuel, par exemple `v1.1.0.17`. |
+| Vérifier les mises à jour | Interroger manuellement le serveur de mise à jour pour une nouvelle version. Le résultat indique si la dernière version est déjà installée. |
+| Dernière vérification | Certaines versions affichent l'heure de la dernière vérification de mise à jour. |
+
+### Mise à jour automatique
+
+| Option | Description |
+| --- | --- |
+| Installer automatiquement les mises à jour | Une fois activé, le système peut télécharger et installer automatiquement les mises à jour, puis redémarrer si nécessaire. Une fois désactivé, les notifications de nouvelle version restent affichées, mais la mise à niveau ne s'effectue qu'après un clic manuel sur « Redémarrer pour mettre à niveau ». |
+
+<Callout title="Recommandations d'utilisation" type="warn">
+  Une mise à jour affecte les services système et tous les services applicatifs. Il est recommandé d'arrêter d'abord les tâches de sauvegarde, de synchronisation, de téléchargement, d'indexation et d'écriture des conteneurs, et de garantir une alimentation stable. Pendant la mise à jour, ne coupez pas l'alimentation, n'actualisez pas la page et ne forcez pas l'arrêt.
+</Callout>
+
+### Installation manuelle
+
+| Option | Description |
+| --- | --- |
+| Click to select | Sélectionner un fichier de micrologiciel déjà téléchargé localement. L'interface actuelle exige un paquet de micrologiciel plus récent que la version actuelle. |
+| Format de fichier | Téléverser un format de micrologiciel pris en charge selon les indications du système ; après le téléversement, le système calcule la valeur de vérification et contrôle la version. |
+| Vérification de version | Si la version du paquet est inférieure ou égale à la version actuelle, le système bloque ou signale l'impossibilité de l'installer. |
+| Processus d'installation | Téléverser le micrologiciel → vérifier → confirmer la notification de mise à jour → attendre l'installation et le redémarrage du système. |
+
+### Journal des modifications
+
+| Fonction | Description |
+| --- | --- |
+| View details | Ouvrir l'historique des mises à jour de version. Permet de consulter le numéro de version, le type de version, la date de publication et le contenu des fonctionnalités/correctifs de bogues. |
+
+## Restauration et réinitialisation
+
+![Restore and Reset](/images/fr/app-guide/settings-img/restore.png)
+
+### Rétablissement des paramètres d'usine
+
+| Élément | Description |
+| --- | --- |
+| Portée | Les paramètres système sont rétablis aux valeurs d'usine ; les données des disques sont conservées. |
+| Vérification | Vérification de l'identité administrateur requise. |
+| Redémarrage | L'appareil redémarre automatiquement ; ne coupez pas l'alimentation pendant la restauration. |
+| Réseau/IP | Si l'accès par l'ancienne IP est impossible après la réinitialisation, consultez la nouvelle IP sur l'écran de l'appareil physique et réenregistrez l'appareil. |
+| Dissociation du compte | Pour dissocier le compte, suivez les indications et rendez-vous dans le centre de compte StationCloud. |
+
+### Réinitialiser le réseau
+
+| Élément | Description |
+| --- | --- |
+| Portée | Tous les paramètres de connexion réseau et les paramètres de pare-feu sont rétablis à leur état initial. |
+| Prérequis | Vérifier qu'au moins une connexion réseau filaire est disponible. |
+| Impact sur la connexion | Pendant et après la réinitialisation, la connexion actuelle peut être interrompue ; une nouvelle obtention d'IP peut être nécessaire. |
+| Vérification | Vérification de l'identité administrateur requise. |
+
+<Callout title="Opération dangereuse" type="error">
+  Le rétablissement des paramètres d'usine et la réinitialisation du réseau interrompent les services système et nécessitent un redémarrage. Avant l'exécution, notez les paramètres réseau, sauvegardez la configuration et vérifiez qu'un accès local permet de rétablir la connexion.
+</Callout>
+
+## Processus de mise à jour en ligne
+
+1. Cliquez sur **Vérifier les mises à jour**.
+2. Si une nouvelle version est disponible, consultez son numéro, la taille du paquet et les notes de mise à jour.
+3. Lisez les indications de mise à jour et confirmez l'arrêt des tâches d'écriture à haut risque.
+4. Cliquez sur Mettre à jour maintenant ou Continuer la mise à jour.
+5. Le système vérifie les conditions de mise à jour ; les tâches bloquantes éventuelles doivent être traitées au préalable.
+6. Attendez le téléchargement, l'installation et le redémarrage automatique.
+7. Une fois la mise à jour terminée, reconnectez-vous et vérifiez la version, le stockage, les applications et l'état du réseau.
+
+## Conditions de mise à jour et tâches bloquantes
+
+Le système peut vérifier les tâches en cours avant une mise à jour. Certaines tâches bloquent directement la mise à jour, d'autres doivent être arrêtées au préalable :
+
+- tâches de sauvegarde, de synchronisation et de téléchargement ;
+- écritures de conteneurs ou services de base de données ;
+- indexation de fichiers ou tâches de modèles IA ;
+- synchronisation, réparation ou formatage de volumes de stockage ;
+- autres services susceptibles d'écrire continuellement sur les disques.
+
+Traiter les éléments bloquants avant de poursuivre la mise à jour permet de réduire le risque de données lié à une interruption de la mise à niveau.
+
+## Mise à jour vers la version bêta
+
+Si la page affiche **Mise à jour de la version bêta**, l'activation permet de participer aux tests de versions préliminaires et de découvrir en avance des fonctionnalités inachevées. Les versions de test peuvent présenter des problèmes de stabilité, de compatibilité et d'exhaustivité fonctionnelle :
+
+- déconseillé sur les appareils contenant des données importantes ;
+- déconseillé en environnement de production ou sur les appareils sans surveillance ;
+- effectuer une sauvegarde complète avant la mise à jour ;
+- en cas de problème, le signaler via le Centre des journaux et les canaux de retour.
+
+## Règles détaillées de l'installation manuelle
+
+- Seuls les paquets de micrologiciel `.zip` sont pris en charge.
+- La version du paquet doit être supérieure à la version actuelle ; une version inférieure ou égale est refusée.
+- Le téléversement peut être mis en pause, repris ou annulé.
+- Une fois le téléversement terminé, le système calcule la valeur de vérification et analyse les informations du micrologiciel.
+- Après confirmation, la vérification des conditions de mise à jour et la confirmation de mise à niveau commencent.
+- Pendant la mise à jour, ne coupez pas l'alimentation du navigateur, n'actualisez pas le système et ne coupez pas l'alimentation électrique.
+
+## Comparaison restauration/réinitialisation
+
+| Opération | Rétablissement des paramètres d'usine | Réinitialisation du réseau |
+| --- | --- | --- |
+| Paramètres système | Rétablis aux valeurs par défaut | Paramètres réseau et pare-feu rétablis aux valeurs par défaut |
+| Données des disques | Conservées | Conservées |
+| Vérification administrateur | Requise | Requise |
+| Réseau | L'IP peut changer | L'IP/la connexion peut nécessairement changer |
+| Configuration des applications | Rétablie par défaut ou à reconfigurer | N'affecte généralement que la configuration réseau |
+| Cas d'application | Remise à zéro d'une configuration avant transfert/réinitialisation | Configuration réseau chaotique et irrécupérable |

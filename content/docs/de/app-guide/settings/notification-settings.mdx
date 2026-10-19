@@ -1,0 +1,111 @@
+---
+sourceHash: 2ecf6524f7ef
+title: Benachrichtigungseinstellungen
+description: Konfigurieren des E-Mail-Benachrichtigungsdienstes, des E-Mail-Betreffpräfixes und der Benachrichtigungssprache
+---
+
+Die Seite „Benachrichtigungseinstellungen“ ist in **E-Mail** und **Benachrichtigungssprache** unterteilt. Der E-Mail-Benachrichtigungsdienst wird für Kontosicherheits-E-Mails verwendet, z. B. für dringende Verifizierungscodes der Zwei-Faktor-Authentifizierung und E-Mails zum Zurücksetzen des Passworts. Die Benachrichtigungssprache legt fest, in welcher Sprache E-Mails, SMS und andere Push-Inhalte versendet werden.
+
+## E-Mail
+
+![Email Notification](/images/de/app-guide/settings-img/notifications.png)
+
+### E-Mail-Benachrichtigungsdienst
+
+| Funktion/Feld | Beschreibung |
+| --- | --- |
+| Dienstschalter | Nach Aktivierung kann das System Sicherheits-E-Mails über den angegebenen SMTP-Dienst versenden. |
+| Absenderadresse | Zeigt die aktuelle Absenderadresse; ist keine konfiguriert, wird „Nicht konfiguriert“ angezeigt. |
+| Bearbeiten | Öffnet das E-Mail-Einstellungsfenster zur Konfiguration von Anbieter, Absenderadresse und Authentifizierungsinformationen. |
+| E-Mail-Betreffpräfix | Legt ein Präfix für System-E-Mail-Betreffzeilen fest, damit das Quellgerät im Postfach leichter erkennbar ist. |
+| Test-E-Mail senden | Sendet eine Test-E-Mail an die angegebene Empfängeradresse, um die SMTP-Konfiguration zu prüfen. |
+
+<Callout title="Abhängigkeit der Zwei-Faktor-Authentifizierung" type="warn">
+  Die Zwei-Faktor-Authentifizierung benötigt den E-Mail-Benachrichtigungsdienst. Wenn das System die Zwei-Faktor-Authentifizierung bereits erzwingt, kann das direkte Deaktivieren des E-Mail-Dienstes dazu führen, dass Anmeldeverifizierungscodes nicht versendet werden können; die Seite weist Sie darauf hin, zuerst in den Kontosicherheitseinstellungen die Zwei-Faktor-Authentifizierung zu deaktivieren.
+</Callout>
+
+### E-Mail-Einstellungen
+
+#### Voreingestellte Postfächer
+
+Bei Auswahl von Gmail, QQ-Mail, 126-Mail oder 163-Mail müssen folgende Angaben konfiguriert werden:
+
+| Feld | Pflichtfeld | Beschreibung |
+| --- | --- | --- |
+| E-Mail-Anbieter | Ja | Voreingestellter Anbieter des Systems. |
+| Absenderadresse | Ja | E-Mail-Adresse zum Versenden von System-E-Mails. |
+| Autorisierungscode | Ja | Beim E-Mail-Anbieter erzeugter SMTP-Autorisierungscode; in der Regel nicht das Anmeldepasswort des Postfachs. |
+
+Voreingestellte Postfächer verwenden üblicherweise SSL auf Port 465. Die Seite weist darauf hin, sicherzustellen, dass ausgehende Firewall-Regeln den entsprechenden Port nicht blockieren.
+
+#### Benutzerdefiniertes Postfach
+
+Bei Auswahl eines benutzerdefinierten Postfachs müssen folgende Angaben konfiguriert werden:
+
+| Feld | Pflichtfeld | Beschreibung |
+| --- | --- | --- |
+| SMTP-Server | Ja | SMTP-Adresse des E-Mail-Anbieters, z. B. `smtp.example.com`. |
+| Port | Ja | Entsprechend dem SMTP-Dienst auszufüllen. Übliche Standardports: unverschlüsselt 25, SSL 465, TLS 587. |
+| Sicherheitstyp | Ja | Wählbar sind Keine, SSL und TLS. SSL oder TLS wird empfohlen. |
+| Benutzername | Ja | Benutzername für die SMTP-Authentifizierung, üblicherweise das E-Mail-Konto. |
+| Passwort | Ja | SMTP-Passwort oder Autorisierungscode. |
+| Absendername | Nein | Wird als Name des E-Mail-Absenders angezeigt. |
+| Absenderadresse | Ja | Tatsächliche E-Mail-Adresse für den Versand nach außen. |
+
+### E-Mail-Betreffpräfix
+
+| Option | Beschreibung |
+| --- | --- |
+| Gerätenamen verwenden | Verwendet automatisch den aktuellen Gerätenamen als Präfix der E-Mail-Betreffzeile. |
+| Benutzerdefiniert | Manuelle Eingabe des Präfixes; bei Auswahl dieser Option ist das Präfix Pflichtfeld. |
+
+Das E-Mail-Betreffpräfix eignet sich, um bei mehreren Geräten, die dasselbe Postfach für Benachrichtigungen nutzen, das Quellgerät schnell zu unterscheiden.
+
+### Test-E-Mail senden
+
+1. Stellen Sie sicher, dass der E-Mail-Dienst konfiguriert und aktiviert ist.
+2. Klicken Sie auf **Test-E-Mail senden**.
+3. Geben Sie die Empfängeradresse ein.
+4. Klicken Sie auf **Senden**.
+5. Prüfen Sie den Posteingang auf die Test-E-Mail. Wenn sie nicht ankommt, prüfen Sie Autorisierungscode, SMTP-Port, Sicherheitstyp und ausgehende Firewall-Regeln.
+
+## Benachrichtigungssprache
+
+![Notification Language](/images/de/app-guide/settings-img/notification-language.png)
+
+| Option | Beschreibung |
+| --- | --- |
+| Benachrichtigungssprache | Steuert die Sprache von E-Mails, SMS und anderen Push-Inhalten. |
+| Verfügbare Sprachen | 简体中文, 繁體中文, English, 日本語, 한국어, Deutsch, Français, Español |
+| Anwenden | Speichert die Sprachänderung. |
+
+<Callout title="Tipp" type="info">
+  Die Benachrichtigungssprache betrifft nur vom System versendete Push-Inhalte und wechselt nicht direkt die Sprache der Web-Desktop-Oberfläche. Die Desktop-Sprache kann in den persönlichen Einstellungen angepasst werden.
+</Callout>
+
+## Fehlerbehebung bei der E-Mail-Konfiguration
+
+| Erscheinung | Prüfung |
+| --- | --- |
+| Autorisierungscode falsch | Hat der Anbieter SMTP aktiviert, wurde der Autorisierungscode vollständig kopiert, wurde statt des Autorisierungscodes das Anmeldepasswort verwendet? |
+| Timeout bei der SMTP-Verbindung | SMTP-Adresse, Port, Sicherheitstyp, ausgehende Firewall-Regeln. |
+| SSL-Port verwendet, aber TLS ausgewählt | Dokumentation des Anbieters prüfen; üblich sind 465/SSL und 587/TLS. |
+| E-Mail landet im Spam | Absendername, SPF/DKIM/DMARC, DNS der benutzerdefinierten Domain. |
+| Test-E-Mail erfolgreich, aber Verifizierungscode kommt nicht an | Spam-Ordner, Benachrichtigungssprache, Kontosicherheitsrichtlinie, E-Mail-Verzögerung. |
+| Deaktivieren des E-Mail-Dienstes wird blockiert | Das System hat die Abhängigkeit der Zwei-Faktor-Authentifizierung vom E-Mail-Dienst erkannt; die entsprechende Richtlinie muss zuerst deaktiviert werden. |
+
+## Checkliste für benutzerdefiniertes SMTP
+
+1. Ist die SMTP-Serveradresse die vom Anbieter empfohlene Adresse?
+2. Passen Port und Sicherheitstyp zusammen?
+3. Ist der Benutzername die vollständige E-Mail-Adresse oder das vom Anbieter verlangte Konto?
+4. Enthalten Passwort/Autorisierungscode keine Leerzeichen oder Zeilenumbrüche?
+5. Stimmt die Absenderadresse mit dem SMTP-Konto überein, oder erlaubt der Anbieter ausdrücklich Aliase?
+6. Blockiert die Firewall den entsprechenden ausgehenden Port nicht?
+7. Test-E-Mail senden und den Spam-Ordner prüfen.
+
+## Sprache und Benachrichtigungen bei mehreren Geräten
+
+- Die Benachrichtigungssprache gilt für die vom System versendeten E-Mails oder SMS.
+- Bereits versendete E-Mails werden durch spätere Änderungen nicht erneut übersetzt.
+- Wenn mehrere Geräte dieselbe Absenderadresse verwenden, empfiehlt es sich, unterschiedliche Betreffpräfixe festzulegen, z. B. Gerätename, Standort oder Verwendungszweck.

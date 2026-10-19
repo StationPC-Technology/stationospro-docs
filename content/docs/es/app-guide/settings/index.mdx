@@ -1,0 +1,60 @@
+---
+sourceHash: 47989e45f467
+title: Configuración del sistema
+description: Descripción general de la Configuración del sistema y guía de uso de cada módulo funcional
+---
+
+La Configuración del sistema es el centro de control de StationOS Pro y gestiona de forma centralizada configuraciones esenciales como la información del dispositivo, los usuarios, el almacenamiento, la red, el acceso remoto, las políticas de seguridad, el hardware y la energía y las actualizaciones del sistema. Por lo general, esta aplicación requiere permisos de administrador. Dado que los modelos, las versiones de firmware y el hardware instalado pueden variar, las opciones visibles pueden diferir; tome como referencia la interfaz real del dispositivo.
+
+## Acceder a la Configuración del sistema
+
+1. Inicie sesión en el escritorio de StationOS Pro.
+2. Abra **Configuración del sistema** desde la barra Dock o el lanzador de aplicaciones.
+3. En la barra de pestañas izquierda, seleccione el módulo funcional que desea configurar.
+
+![Settings window](/images/es/app-guide/settings-img/device-info.png)
+
+La barra de pestañas izquierda se divide por función en los siguientes 14 módulos:
+
+| Módulo | Uso principal | Escenarios de aplicación |
+| --- | --- | --- |
+| Información del dispositivo | Consultar el nombre del dispositivo, el Station ID, la versión, el hardware, el número de serie y la información de red | Confirmar la identidad del dispositivo, solucionar problemas de conexión y contactar con el servicio posventa |
+| Gestión de usuarios | Gestionar usuarios locales, roles, estados, grupos de usuarios y cuotas de almacenamiento | Asignar cuentas y espacio a familiares o miembros del equipo |
+| Espacio de almacenamiento | Crear y gestionar volúmenes de almacenamiento, RAID, discos de reserva y caché SSD | Inicializar discos, ampliar la capacidad y mejorar el rendimiento de lectura y escritura |
+| Discos | Consultar los detalles y el estado de salud de los discos, formatearlos o expulsarlos de forma segura | Inspección de discos, sustitución y solución de problemas |
+| Protocolos de compartición de archivos | Configurar SMB, WebDAV, FTP, NFS y Time Machine | Permitir que ordenadores, teléfonos, reproductores de TV y otros dispositivos accedan a los archivos del NAS |
+| Modelos de IA | Gestionar las capacidades básicas de IA, los modelos locales y la ubicación de almacenamiento de los datos de índice | Activar el reconocimiento facial, de texto, de archivos y visual, y controlar el espacio de los modelos |
+| Configuración de red | Configurar la puerta de enlace, DNS, tarjetas de red, puentes de red y agregación de enlaces | Cambiar la IP, equilibrar varios puertos de red y añadir redundancia de red |
+| Acceso remoto | Configurar el acceso remoto mediante Station ID y DDNS | Acceder al dispositivo desde Internet o mediante un dominio propio |
+| SSH | Activar o desactivar el servicio de terminal remoto SSH/SFTP | Mantenimiento remoto, gestión por línea de comandos y control de seguridad |
+| Seguridad | Configurar los puertos de acceso, la verificación en dos pasos, la protección por IP, el cortafuegos, los certificados y el análisis de datos | Restringir los accesos al sistema, bloquear accesos sospechosos y activar HTTPS |
+| Configuración de notificaciones | Configurar el servicio de notificaciones por correo y el idioma de las notificaciones | Recibir códigos de verificación, restablecer contraseñas y recibir correos de notificación del sistema |
+| Hardware y energía | Gestionar el zumbador, el ventilador, la compresión de memoria, los planes de energía y la hibernación de discos | Controlar el ruido, la refrigeración, el encendido y apagado automáticos y el consumo energético |
+| Hora y zona horaria | Configurar la zona horaria, la sincronización automática por NTP o la hora manual | Garantizar la exactitud de los registros, los certificados y la programación de tareas |
+| Actualización y restauración | Buscar e instalar actualizaciones del sistema, consultar el registro de cambios, restaurar los valores de fábrica o restablecer la red | Actualizar el sistema, reparar la configuración de red y restaurar la configuración predeterminada |
+
+<Callout title="Recomendaciones de uso" type="info">
+  Las operaciones que afectan a volúmenes de almacenamiento, RAID, formateo, cortafuegos, puertos, restauración de valores de fábrica y restablecimiento de red pueden afectar a los datos o a la conexión. Antes de modificarlas, confirme el impacto en el servicio y conserve una copia de seguridad de los datos importantes.
+</Callout>
+
+## Agrupación funcional y riesgos de las operaciones
+
+| Categoría | Módulo | Riesgos principales |
+| --- | --- | --- |
+| Información de solo lectura | Información del dispositivo | Prácticamente sin riesgo; modificar el nombre del dispositivo afecta a la forma de identificarlo. |
+| Cuentas y autorización | Gestión de usuarios | Eliminar un usuario elimina sus datos personales; elevar a administrador amplía el control sobre el sistema. |
+| Estructura de datos | Espacio de almacenamiento, Discos | Crear, modificar, formatear o sustituir discos puede eliminar datos o reducir la redundancia. |
+| Accesos a servicios | Protocolos de compartición de archivos, SSH, Seguridad | Activar protocolos o puertos aumenta la superficie expuesta; una configuración incorrecta del cortafuegos o de los puertos puede cortar la conexión de administración. |
+| Red y acceso remoto | Configuración de red, Acceso remoto | Modificar la IP, el puente de red, la agregación de enlaces o DDNS puede interrumpir la conexión actual. |
+| Mantenimiento del sistema | Hardware y energía, Hora y zona horaria, Actualización y restauración | Reiniciar, restablecer, una hora incorrecta o una actualización interrumpida pueden afectar a la disponibilidad del servicio. |
+
+## Lista de comprobación para administradores
+
+Antes de realizar operaciones de alto riesgo, se recomienda confirmar lo siguiente:
+
+1. Los datos importantes disponen de una copia de seguridad independiente y dicha copia se puede restaurar.
+2. Existe una vía de recuperación mediante la red local o la consola, sin depender únicamente de la conexión remota que se está modificando.
+3. El estado de salud de los volúmenes de almacenamiento es normal y los discos no presentan degradación, daños ni alertas de solo lectura.
+4. Se ha notificado a los usuarios afectados que detengan las tareas de escritura de archivos, copia de seguridad, descarga, contenedores e indexación.
+5. La alimentación eléctrica del dispositivo es estable; no fuerce el corte de alimentación durante el uso de discos mecánicos, la caché SSD ni las actualizaciones del sistema.
+6. Registre la IP, los puertos, el DNS, las reglas del cortafuegos, el Station ID y el número de versión anteriores a la modificación.

@@ -1,0 +1,84 @@
+---
+sourceHash: abf0084bb3ec
+title: Docker
+description: Guide d'utilisation de l'application Docker
+---
+
+L'application Docker est la plateforme de gestion de conteneurs de StationOS Pro. Elle permet de gérer graphiquement les conteneurs, les projets (Compose), les images et les réseaux, sans ligne de commande, afin de déployer et d'exploiter les applications conteneurisées courantes.
+
+## Activer le service Docker
+
+Lors de la première ouverture de l'application Docker, une configuration initiale est nécessaire :
+
+1. Dans **Emplacement de stockage**, sélectionnez l'espace de stockage destiné aux données Docker.
+2. Choisissez **Démarrage automatique** selon vos besoins :
+   - **Démarrage automatique** : le service Docker démarre automatiquement à la mise sous tension de l'appareil ;
+   - **Ne pas démarrer** : démarrage manuel en cas de besoin.
+3. Cliquez sur **Démarrer Docker** ; le système prépare le stockage et démarre le service.
+
+![Docker Setup](/images/fr/app-guide/docker-img/setup.png)
+
+<Callout title="Attention" type="warn">
+  Le démarrage du service Docker crée un répertoire de données Docker dans l'espace de stockage sélectionné. Pendant cette opération, ne coupez pas l'alimentation et ne forcez pas l'arrêt de l'appareil.
+</Callout>
+
+## Vue d'ensemble
+
+Une fois le service démarré, la page de vue d'ensemble permet de connaître rapidement l'état de Docker :
+
+- **État du service** : indique si le service fonctionne normalement ;
+- **Projets** : nombre de projets en cours d'exécution/total ;
+- **Conteneurs** : nombre de conteneurs en cours d'exécution/total ;
+- **Images locales** : nombre d'images utilisées/total ;
+- **Taille des données** : espace occupé par les données Docker.
+
+![Docker Overview](/images/fr/app-guide/docker-img/overview.png)
+
+## Gestion des conteneurs
+
+La page **Conteneurs** affiche le nom, l'image, l'état et l'utilisation CPU/mémoire de tous les conteneurs. Elle permet également de :
+
+- rechercher un conteneur ;
+- cliquer sur **Créer un conteneur** pour configurer et créer un conteneur via un assistant (image, ports, répertoires montés, variables d'environnement, etc.) ;
+- démarrer, arrêter, redémarrer ou supprimer un conteneur ;
+- consulter les journaux du conteneur et le détail de l'utilisation des ressources.
+
+![Containers](/images/fr/app-guide/docker-img/containers.png)
+
+## Gestion des projets
+
+La page **Projets** permet de déployer des applications au format Docker Compose :
+
+1. Cliquez pour créer un projet et saisissez son nom.
+2. Modifiez `docker-compose.yml` ou importez le contenu d'orchestration depuis un fichier.
+3. Après l'enregistrement, le système récupère automatiquement les images et démarre tous les services définis dans le projet.
+
+La liste des projets permet de consulter l'état d'exécution et les services inclus, ainsi que d'effectuer des opérations de démarrage, d'arrêt et de reconstruction.
+
+![Docker Project](/images/fr/app-guide/docker-img/project.png)
+
+## Gestion des images
+
+La page **Images** comporte deux vues :
+
+- **Dépôt d'images** : rechercher et récupérer en ligne les images nécessaires, avec choix du Tag ;
+- **Images locales** : gérer les images déjà récupérées localement (consultation, suppression, création de conteneurs à partir d'une image, etc.).
+
+![Docker Images](/images/fr/app-guide/docker-img/images.png)
+
+<Callout title="Conseil" type="info">
+  La récupération d'images en ligne nécessite que l'appareil puisse accéder au réseau du dépôt d'images. En cas d'échec, vérifiez la connexion réseau ou configurez une adresse de miroir d'images disponible dans les paramètres Docker.
+</Callout>
+
+## Gestion des réseaux
+
+La page **Réseaux** affiche la liste des réseaux Docker (réseaux `bridge`, `host`, etc. fournis par défaut) et permet de :
+
+- **Actualiser** : actualiser la liste des réseaux ;
+- **Ajouter un réseau** : créer un réseau personnalisé pour la communication entre conteneurs.
+
+![Docker Networks](/images/fr/app-guide/docker-img/networks.png)
+
+## Paramètres Docker
+
+La page **Paramètres** permet de modifier la configuration globale de Docker, notamment l'emplacement de stockage et le démarrage automatique. Certaines modifications nécessitent le redémarrage du service Docker pour prendre effet.

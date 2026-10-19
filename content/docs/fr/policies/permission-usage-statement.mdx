@@ -1,0 +1,63 @@
+---
+sourceHash: a85981d7c5e8
+title: 'Demande et utilisation des autorisations de l''application'
+description: Demande et utilisation des autorisations de l'application StationPC
+---
+
+Date de mise à jour : 29 septembre 2026
+
+## Avant-propos
+
+La présente notice décrit les autorisations du système d'exploitation demandées et utilisées par l'application StationPC, le client PC/Mac. Nous appliquons le principe du **minimum nécessaire et de la demande à la carte** : les autorisations ne sont demandées de manière dynamique que lors de l'utilisation de la fonction concernée.
+
+Vous pouvez à tout moment gérer les autorisations dans les paramètres du système ; la désactivation d'une autorisation n'affecte que la fonction correspondante et ne porte pas atteinte aux services de base essentiels du produit.
+
+Les plug-ins et services tiers peuvent demander des autorisations supplémentaires ; l'octroi d'une autorisation ne signifie pas que des informations personnelles sont collectées en continu.
+
+## Autorisations iOS
+
+| Scénario | Finalité | Conséquence du refus ou de la désactivation |
+| --- | --- | --- |
+| Utilisation de l'appareil photo | Scanner le code pour associer un appareil NAS, connexion rapide, prise de photo pour définir l'avatar | Impossible de scanner le code pour associer l'appareil ou de prendre une photo pour définir l'avatar |
+| Accès aux photos et vidéos | Sauvegarder le contenu de l'album du téléphone sur le NAS, sélectionner des photos et vidéos à téléverser, définir l'avatar du compte ; prise en charge de l'accès limité d'iOS (photos sélectionnées uniquement) | Impossible de sauvegarder l'album ou de téléverser des photos et vidéos |
+| Accès au réseau local | Découvrir et connecter les appareils StationPC sur le réseau local | Impossible de découvrir et de connecter les appareils NAS du réseau local |
+| Réception des notifications système | Recevoir les notifications d'état de l'appareil, de progression de la sauvegarde et de sécurité du compte (y compris les notifications urgentes) | Impossible de recevoir les notifications concernées |
+| Accès aux appareils Bluetooth | Association et configuration réseau de l'appareil : découverte des appareils à proximité, transmission des informations de configuration réseau | Impossible d'associer et de configurer l'appareil via Bluetooth |
+| Obtention de la position (uniquement pendant l'utilisation) | Lire le nom du WiFi actuel lors de la configuration réseau et obtenir ponctuellement la position pour en déduire le code pays destiné au réglage de la région WiFi de l'appareil ; aucune localisation en arrière-plan, les coordonnées ne sont ni téléversées ni stockées | Impossible d'identifier automatiquement le WiFi et la région actuels ; sélection manuelle nécessaire |
+
+## Autorisations Android
+
+| Scénario | Finalité | Conséquence du refus ou de la désactivation |
+| --- | --- | --- |
+| Utilisation de l'appareil photo | Scanner le code pour associer l'appareil, connexion rapide | Impossible de scanner le code pour associer l'appareil ou de se connecter rapidement |
+| Accès au stockage local | Permettre le téléversement et le téléchargement de fichiers ainsi que la sauvegarde automatique de l'album | Impossible de téléverser ou télécharger des fichiers et de sauvegarder automatiquement l'album |
+| Accès au réseau local et au WiFi | Découverte des appareils du réseau local et connexion locale | Impossible de découvrir les appareils du réseau local ou d'établir une connexion locale |
+| Réception des notifications push | Progression des tâches, anomalies de l'appareil, alertes de sécurité du compte | Impossible de recevoir la progression des tâches, les anomalies de l'appareil et les alertes de sécurité |
+| Accès aux appareils Bluetooth | Association de l'appareil et assistance à l'initialisation du réseau | Impossible d'associer l'appareil et de configurer le réseau via Bluetooth |
+| Obtention de la position réseau | Assistance à l'identification lors de la configuration réseau | Impossible d'identifier automatiquement le WiFi et la région actuels ; sélection manuelle nécessaire |
+| Démarrage automatique en arrière-plan | Maintenir les tâches de sauvegarde en arrière-plan (activé manuellement par l'utilisateur) | Les tâches de sauvegarde en arrière-plan peuvent être interrompues |
+| Lecture du contenu du presse-papiers | Identifier les liens de partage et déclencher la fonction de transfert de fichiers | Impossible d'identifier les liens de partage et de déclencher la fonction de transfert de fichiers |
+
+## Autorisations du client Windows
+
+| Scénario | Finalité | Conséquence du refus ou de la désactivation |
+| --- | --- | --- |
+| Réception des notifications du bureau | Afficher la progression des tâches, l'état de l'appareil et les alertes d'anomalie | Impossible de recevoir la progression des tâches, l'état de l'appareil et les alertes d'anomalie |
+| Accès au système de fichiers local | Permettre le téléversement et le téléchargement de fichiers locaux ainsi que la synchronisation des dossiers | Impossible de téléverser ou télécharger des fichiers locaux et de synchroniser les dossiers |
+
+## Autorisations du client Mac
+
+| Scénario | Finalité | Conséquence du refus ou de la désactivation |
+| --- | --- | --- |
+| Réception des notifications système | Signaler la progression de la sauvegarde et l'état de fonctionnement de l'appareil | Impossible de recevoir les notifications de progression de la sauvegarde et d'état de l'appareil |
+| Accès aux répertoires locaux | Réaliser la gestion de fichiers, le téléversement, le téléchargement et les tâches de synchronisation | Impossible de réaliser la gestion de fichiers, le téléversement, le téléchargement et les tâches de synchronisation |
+
+## Informations complémentaires
+
+Toutes les autorisations sont demandées à la carte ; aucune autorisation groupée n'est accordée au démarrage.
+
+La désactivation d'une autorisation ne désactive qu'une partie des fonctions et n'affecte pas les services de base tels que la connexion, la connexion à l'appareil et la navigation dans les fichiers.
+
+Sans votre autorisation explicite, nous ne lisons ni ne téléversons de notre propre initiative aucune donnée privée vous appartenant stockée sur le NAS.
+
+Nous ne demandons pas l'autorisation de localisation en arrière-plan et ne collectons pas d'identifiants publicitaires de l'appareil. Les informations de position ne sont utilisées que temporairement lors de la configuration réseau de l'appareil (lecture du nom du WiFi, déduction du code pays) ; les coordonnées ne sont ni téléversées ni stockées, conformément aux exigences mondiales de protection de la vie privée.

@@ -1,0 +1,71 @@
+---
+sourceHash: c278699369f0
+title: 'Notas de la actualización del sistema del 16.10.2026'
+---
+
+## Lea antes de actualizar
+Productos aplicables
+Esta actualización es aplicable a los productos que ejecutan el sistema StationOS Pro. Antes de actualizar, confirme la arquitectura del procesador correspondiente según el modelo del producto.
+
+● Serie DA: serie DA400
+
+Recordatorios de actualización
+1. Si desea utilizar las funciones descritas en este documento, actualice el firmware del sistema, la suite de aplicaciones o el cliente a la versión correspondiente o a una superior.
+2. Algunas de las nuevas funciones de la suite de aplicaciones requieren una versión específica del firmware del sistema. Si la versión del firmware del sistema es inferior a la versión mínima compatible, es posible que no reciba las notificaciones de actualización de las aplicaciones o que las funciones relacionadas no funcionen con normalidad.
+
+## Firmware del sistema StationOS Pro
+### Información de la versión
+Versión del firmware del sistema: v1.1.0
+
+Esta actualización implica ajustes en las interfaces; para garantizar el funcionamiento correcto de las funciones, se recomienda actualizar el firmware, el cliente y las aplicaciones relacionadas a la última versión.
+
+### Sistema y dispositivo
+- Nuevo: monitorización de recursos de VPU, que permite consultar la utilización, la memoria, la temperatura y el estado de funcionamiento.
+- Optimización: recopilación y caché de la información de la tarjeta aceleradora de IA, lo que reduce el coste de muestreo y mejora la coherencia del estado.
+- Optimización: el despliegue de actualizaciones del sistema incorpora un bloqueo exclusivo y protección ante reinicios pendientes, lo que reduce el riesgo de operaciones concurrentes.
+- Optimización: instantáneas del estado en línea de las sesiones y registros del sistema, lo que reduce la salida de registros innecesarios.
+- Corregidos problemas como restos de la configuración del fabricante tras restaurar la configuración de fábrica, la actualización del estado del dispositivo y la sincronización de parte de la configuración de apagado.
+
+### Almacenamiento y discos
+- Optimización: retorno automático de matrices degradadas, identificación de miembros tardíos y determinación de la salud de los discos, lo que mejora la estabilidad de la recuperación de matrices y de la reutilización de discos.
+- Optimización: unificación de los atributos SMART, los registros de errores, la temperatura y el estado de E/S, lo que reduce los falsos avisos de estado de salud.
+- Optimización: conciliación del estado del pool de almacenamiento y del espacio de almacenamiento, lo que evita que espacios montados correctamente se marquen por error como anómalos.
+- Corregidos problemas de falsos avisos de fallo en estados intermedios de la matriz durante la creación o eliminación de espacios de almacenamiento.
+
+### Archivos y multimedia
+- Optimización: las miniaturas de vídeo se extraen de fotogramas según la duración del vídeo, lo que reduce el tiempo de generación del primer fotograma y corrige la alineación de los fotogramas clave de los segmentos.
+- Optimización: control de memoria en la transcodificación de vídeos HDR y de alta resolución, lo que evita que el procesamiento de vídeo 8K supere los límites.
+- Corregidos problemas como bucles infinitos en el demultiplexado de transcodificación provocados por fuentes de vídeo dañadas, fugas de tareas o procesos no recuperados tras cambiar de vídeo.
+- Optimización: estabilidad del montaje remoto por FTP, así como reutilización de conexiones y velocidad de listado de directorios de los sondeos de directorios de servicios de nube.
+- Optimización: uso de memoria con grandes conjuntos de resultados en la detección de archivos duplicados, recomendación de copias duplicadas y tratamiento de archivos con extensiones desconocidas.
+
+### Centro de aplicaciones y Docker
+- Optimización: protección de volúmenes de datos ausentes y reintentos de inicio de Docker, lo que evita reintentos repetidos provocados por configuraciones anómalas.
+- Optimización: despliegue de Compose, nuevo despliegue, visualización de registros y sincronización del estado de las aplicaciones.
+- Optimización: tareas de instalación de aplicaciones, configuración del directorio de instalación y del directorio de descarga, y adición de confirmaciones para directorios no configurados.
+
+### IA y búsqueda
+- Nuevo: compatibilidad con el modelo local Qwen3.5 y optimización del paquete de ejecución de RK1828 y de la carga de la lista de modelos.
+- Optimización: el estado de carga de los modelos locales se sincroniza en tiempo real mediante eventos, lo que mejora la precisión de los comentarios de instalación, carga y desinstalación.
+- Optimización: reintentos con retroceso tras fallos en la migración del modelo facial y recuperación automática de la función facial tras restaurar la configuración de fábrica.
+- Optimización: tiempo de espera estimado de la indexación del Álbum, búsqueda de duplicados y recuperación ante anomalías de la búsqueda vectorial.
+
+### Red, acceso remoto y notificaciones
+- Nuevo: ajuste del plan de mejora del análisis del dispositivo y compatibilidad con la sincronización de la información de registro.
+- Optimización: el acceso remoto utiliza tickets de WebSocket y autenticación Bearer Token, lo que mejora la estabilidad del cambio de conexión y de la recuperación tras desconexiones.
+- Optimización: eventos de instantánea de la configuración del zumbador y de la configuración de apagado, lo que unifica el estado de las notificaciones.
+- Corregidos problemas de agujeros negros por desconexión de red, avisos de error y restos de estado durante el montaje remoto y los cambios de red.
+
+## Cliente
+### Cliente iOS y Android
+Versión de la aplicación: v1.1.0
+
+- Nuevo ajuste del plan de mejora del análisis del dispositivo, que permite elegir al registrarse si se desea participar.
+- Nueva gestión de dispositivos con sesión iniciada, con compatibilidad con la actualización automática de la lista de dispositivos y el control de permisos.
+- Optimización de la tarjeta de almacenamiento de la página de inicio, que sincroniza en tiempo real los cambios de los volúmenes de almacenamiento al expandirse, y corrección de bloqueos anómalos al destruir la tarjeta.
+- Optimización de la expansión desplegable del Álbum, de la agrupación del selector de imágenes para carga y de las interacciones animadas, lo que mejora la visualización de favoritos, fechas y lugares.
+- Optimización de la reproducción transcodificada de vídeo 4K, la sincronización del progreso, la búsqueda por arrastre y el cambio de subtítulos, y corrección de tirones, cierres inesperados y congelaciones de imagen.
+- Corrección de la visualización incorrecta del UUID de los periféricos, del dispositivo de origen y del estado de las tareas en la copia de seguridad con un clic.
+- Restricción de las operaciones de carga, eliminación, movimiento y cambio de nombre en almacenamientos externos de solo lectura para evitar modificaciones accidentales de los datos.
+- Optimización de los avisos de los gráficos de líneas de la monitorización de recursos, con visualización de la hora de muestreo y mejora de la visualización del desbordamiento de los nombres de proceso.
+- Optimización de la ruta de configuración de instalación de aplicaciones, con una confirmación adicional cuando no se ha configurado el directorio y un aviso para reiniciar el servicio de la aplicación tras modificar el directorio.

@@ -1,0 +1,122 @@
+---
+sourceHash: a70df36b0680
+title: Actualización y restauración
+description: Buscar actualizaciones del sistema, instalar firmware manualmente, consultar registros y restablecer el sistema
+---
+
+La página Actualización y restauración se divide en **Actualización del sistema** y **Restauración y restablecimiento**. La página Actualización del sistema se utiliza para detectar y descargar e instalar firmware en línea o instalar firmware local manualmente; la página Restauración y restablecimiento se utiliza para restaurar la configuración predeterminada del sistema o restablecer la red.
+
+## Actualización del sistema
+
+![System Update](/images/es/app-guide/settings-img/update.png)
+
+### Información de la versión actual
+
+| Campo | Descripción |
+| --- | --- |
+| Versión actual | El número de versión actual del sistema, por ejemplo, `v1.1.0.17`. |
+| Buscar actualizaciones | Consulta manualmente al servidor de actualizaciones si hay una nueva versión. El resultado de la comprobación indica si ya se dispone de la última versión. |
+| Hora de la última comprobación | Algunas versiones muestran la última vez que se comprobó si había actualizaciones. |
+
+### Actualización automática
+
+| Opción | Descripción |
+| --- | --- |
+| Instalar actualizaciones automáticamente | Una vez activado, el sistema puede descargar e instalar las actualizaciones automáticamente y reiniciarse cuando sea necesario. Si se desactiva, se seguirán recibiendo avisos de nuevas versiones, pero la actualización solo se realizará tras hacer clic manualmente en «Reiniciar y actualizar». |
+
+<Callout title="Recomendaciones de uso" type="warn">
+  Las actualizaciones afectan a los servicios del sistema y a todos los servicios de aplicaciones. Se recomienda detener primero las tareas de copia de seguridad, sincronización, descarga, indexación y escritura en contenedores, y asegurarse de que la alimentación o el nivel de batería sea estable. Durante la actualización, no corte la alimentación, no actualice la página ni fuerce el apagado.
+</Callout>
+
+### Instalación manual
+
+| Opción | Descripción |
+| --- | --- |
+| Click to select | Seleccione un archivo de firmware descargado en el dispositivo. La descripción de la interfaz actual exige seleccionar un paquete de firmware de una versión superior a la actual. |
+| Formato de archivo | Cargue un formato de firmware compatible según las indicaciones del sistema; tras la carga, el sistema calcula el valor de verificación y comprueba la versión. |
+| Verificación de versión | Si la versión del paquete de instalación es inferior o igual a la actual, el sistema impedirá la instalación o indicará que no se puede instalar. |
+| Proceso de instalación | Cargar firmware → Verificar → Confirmar el aviso de actualización → Esperar a que el sistema instale y se reinicie. |
+
+### Registro de cambios
+
+| Función | Descripción |
+| --- | --- |
+| View details | Abre el registro de cambios de la versión. Permite consultar el número de versión, el tipo de versión, la fecha de publicación y el contenido de las funciones/correcciones de errores. |
+
+## Restauración y restablecimiento
+
+![Restore and Reset](/images/es/app-guide/settings-img/restore.png)
+
+### Restaurar la configuración de fábrica
+
+| Elemento | Descripción |
+| --- | --- |
+| Alcance del efecto | La configuración del sistema se restaura a los valores predeterminados de fábrica; los datos de los discos se conservan. |
+| Verificación | Se requiere verificar la identidad del administrador. |
+| Reinicio | El dispositivo se reinicia automáticamente; durante la restauración, no corte la alimentación. |
+| Red/IP | Si tras el restablecimiento no se puede acceder con la IP anterior, consulte la nueva IP en la pantalla del dispositivo físico y vuelva a registrarlo. |
+| Desvincular la cuenta | Si necesita desvincular la cuenta, siga las indicaciones para hacerlo en el centro de cuentas de StationCloud. |
+
+### Restablecer la red
+
+| Elemento | Descripción |
+| --- | --- |
+| Alcance del efecto | Restaura todas las configuraciones de conexión de red y del cortafuegos a su estado inicial. |
+| Requisito previo | Confirme que al menos hay una conexión de red por cable disponible. |
+| Efecto en la conexión | La conexión actual puede interrumpirse durante el restablecimiento y después de este; es posible que sea necesario obtener una nueva IP. |
+| Verificación | Se requiere verificar la identidad del administrador. |
+
+<Callout title="Operación peligrosa" type="error">
+  Tanto la restauración de la configuración de fábrica como el restablecimiento de la red interrumpen los servicios del sistema y requieren reiniciar. Antes de ejecutarlos, registre los parámetros de red, realice una copia de seguridad de la configuración y confirme que dispone de una vía de acceso local para recuperar la conexión.
+</Callout>
+
+## Proceso de actualización en línea
+
+1. Haga clic en **Buscar actualizaciones**.
+2. Si se detecta una nueva versión, consulte el número de versión, el tamaño del paquete y las notas de la actualización.
+3. Lea el aviso de actualización y confirme la detención de las tareas de escritura de alto riesgo.
+4. Haga clic en actualizar ahora o en continuar la actualización.
+5. El sistema comprueba las condiciones de actualización; si hay tareas que bloquean la actualización, deben resolverse primero.
+6. Espere a la descarga, la instalación y el reinicio automático.
+7. Tras completar la actualización, vuelva a iniciar sesión y compruebe la versión, el almacenamiento, las aplicaciones y el estado de la red.
+
+## Condiciones de actualización y tareas de bloqueo
+
+El sistema puede comprobar las tareas en ejecución antes de actualizar. Algunas tareas bloquean directamente la actualización y, para otras, se recomienda detenerlas primero:
+
+- Tareas de copia de seguridad, sincronización y descarga;
+- Escritura en contenedores o servicios de bases de datos;
+- Tareas de indexación de archivos o de modelos de IA;
+- Sincronización, reparación o formateo de volúmenes de almacenamiento;
+- Otros servicios que puedan escribir continuamente en los discos.
+
+Resolver los elementos de bloqueo antes de continuar con la actualización reduce el riesgo para los datos derivado de una interrupción del proceso de actualización.
+
+## Actualización a versiones Beta
+
+Si la página muestra **Actualización a versión Beta**, al activarla podrá participar en las pruebas de versiones beta y probar antes las funciones aún no finalizadas. Las versiones de prueba pueden presentar problemas de estabilidad, compatibilidad y funciones incompletas:
+
+- No se recomienda activarla en dispositivos con datos importantes;
+- No se recomienda activarla en entornos de producción ni en dispositivos desatendidos;
+- Antes de actualizar, realice una copia de seguridad completa;
+- Si encuentra problemas, puede enviarlos a través del Centro de registros y los canales de comentarios.
+
+## Reglas detalladas de la instalación manual
+
+- Solo se pueden seleccionar paquetes de firmware `.zip`.
+- La versión del paquete de instalación debe ser superior a la versión actual; se rechazarán las versiones inferiores o iguales.
+- Durante la carga se puede pausar, reanudar o cancelar.
+- Tras completar la carga, el sistema calcula el valor de verificación y analiza la información del firmware.
+- Tras confirmar, se pasa a la comprobación de las condiciones de actualización y a la confirmación de la actualización.
+- Durante la actualización, no apague el navegador, no actualice el sistema ni corte la alimentación.
+
+## Comparación entre restauración y restablecimiento
+
+| Operación | Restaurar la configuración de fábrica | Restablecer la red |
+| --- | --- | --- |
+| Configuración del sistema | Se restaura a los valores predeterminados | La configuración de red y del cortafuegos se restaura a los valores predeterminados |
+| Datos de los discos | Se conservan | Se conservan |
+| Verificación del administrador | Necesaria | Necesaria |
+| Red | Puede cambiar la IP | Puede cambiar necesariamente la IP/la conexión |
+| Configuración de las aplicaciones | Se restaura a los valores predeterminados o requiere reconfiguración | Normalmente solo afecta a la configuración relacionada con la red |
+| Escenario de aplicación | Traspaso/reinicialización tras borrar la configuración | Cuando la configuración de red es caótica y no se puede recuperar |

@@ -1,0 +1,76 @@
+---
+sourceHash: f5e072bc8e3f
+title: Zeit und Zeitzone
+description: Einstellen der Systemzeitzone, der automatischen NTP-Synchronisierung oder der manuellen Zeit
+---
+
+Die Seite „Zeit und Zeitzone“ dient dazu, eine genaue Gerätezeit sicherzustellen. Eine korrekte Zeit ist wichtig für die Sortierung von Protokollen, zeitgesteuerte Aufgaben, die Zertifikatsprüfung, die Zwei-Faktor-Authentifizierung und die HTTPS-Kommunikation.
+
+![Time](/images/de/app-guide/settings-img/time.png)
+
+## Zeitzone
+
+| Option | Beschreibung |
+| --- | --- |
+| Timezone | Wählen Sie die Zeitzone des Gerätestandorts, z. B. `(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi`. |
+| Suche/Filter | Im Zeitzonen-Dropdown kann nach Stadt oder UTC-Abweichung gesucht werden, um die Zielzeitzone schnell zu finden. |
+
+Wenn sich der Bereitstellungsort des Geräts vom Standort des Benutzers unterscheidet, empfiehlt es sich, die Zeitzone nach dem tatsächlichen Gerätestandort einzustellen, damit die Ausführungszeiten von Aufgaben nicht von den lokalen Erwartungen abweichen.
+
+## Zeit
+
+### Automatische Synchronisierung
+
+| Option | Beschreibung |
+| --- | --- |
+| Auto Sync | Die Systemzeit wird regelmäßig durch einen NTP-Server abgeglichen. Für den täglichen Gebrauch empfohlen. |
+| NTP-Server | Wählbar sind u. a. `pool.ntp.org`, `time.google.com`, `time.cloudflare.com`, `time.apple.com`, `time.windows.com`, `time.nist.gov`, `ntp.tencent.com` und `ntp.aliyun.com`; alternativ kann eine benutzerdefinierte NTP-Adresse eingegeben werden. |
+| Aktuelle Zeit | Die Seite zeigt die aktuelle Systemzeit in Echtzeit an. |
+
+<Callout title="Tipp" type="info">
+  Wenn das Gerät den ausgewählten NTP-Server nicht erreichen kann, prüfen Sie DNS, ausgehende Firewall-Regeln und UDP-Port 123. In Netzwerkumgebungen in Festlandchina können bevorzugt die von NTP-Anbietern bereitgestellten Adressen verwendet werden.
+</Callout>
+
+### Manuelle Einstellung
+
+| Option | Beschreibung |
+| --- | --- |
+| Manual Set | Manuelle Angabe von Datum und Uhrzeit. |
+| Date | Datum auswählen, Format z. B. `2026-10-14`. |
+| Time | Uhrzeit eingeben, Format z. B. `17:46:26`. |
+| Warnhinweis | Das System weist auf eine genaue Zeit hin; zu große Abweichungen können Netzwerkanfragen fehlschlagen lassen oder Dienststörungen verursachen. |
+
+Die manuelle Einstellung eignet sich für isolierte Netzwerke oder Umgebungen ohne NTP-Zugriff. Klicken Sie nach der Einstellung auf **Anwenden**, um zu speichern.
+
+<Callout title="Hinweis" type="warn">
+  Stellen Sie die Zeit nicht außerhalb der Gültigkeitsdauer von Zertifikaten und nicht zu weit von der tatsächlichen Zeit abweichend ein; andernfalls können HTTPS, Fernzugriff, Updateprüfungen und die Zwei-Faktor-Verifizierung fehlschlagen.
+</Callout>
+
+## Auswahl zwischen NTP und manueller Zeit
+
+| Szenario | Empfehlung |
+| --- | --- |
+| Internetzugang verfügbar | Automatische Synchronisierung. |
+| Isoliertes internes Netz | Manuelle Einstellung oder Anbindung an einen internen NTP-Server. |
+| Zeitabweichung verursacht Zertifikatsfehler | Zuerst auf einen erreichbaren NTP-Server wechseln und prüfen, ob die Zeit wieder im Gültigkeitsbereich der Zertifikate liegt. |
+| Abweichung bei zeitgesteuerten Aufgaben | Zeitzone und NTP prüfen, nicht nur die Zeit ändern. |
+| Team über mehrere Zeitzonen | Nach dem tatsächlichen Gerätestandort einstellen, damit die Protokollzeiten konsistent bleiben. |
+
+## Auswirkungen einer anomalen Zeit
+
+| Funktion | Mögliche Auswirkung |
+| --- | --- |
+| HTTPS/Zertifikate | Zertifikatsprüfung schlägt fehl, weil das Zertifikat noch nicht gültig oder bereits abgelaufen ist. |
+| Zwei-Faktor-Authentifizierung/OTP | Das Zeitfenster des Einmalcodes stimmt nicht überein. |
+| Protokollprüfung | Reihenfolge und Zeitpunkt von Ereignissen sind unzuverlässig. |
+| Zeitgesteuerte Aufgaben | Ein-/Ausschalten und Backup-Aufgaben erfolgen zu früh oder zu spät. |
+| Cloud-Synchronisierung/API | Signatur der Anfrage oder Token-Prüfung schlägt fehl. |
+| Updateprüfung | Die Updatequelle lehnt die Anfrage möglicherweise ab. |
+
+## Empfehlungen zur Fehlerbehebung
+
+1. Prüfen Sie zuerst die Zeitzone und dann die Zeit; zwei überlagerte Fehler erschweren die Diagnose.
+2. Wenn NTP nicht wirkt, testen Sie DNS und ausgehendes UDP 123.
+3. Warten Sie nach einem Wechsel des NTP-Anbieters einen Synchronisierungszyklus ab.
+4. Wenden Sie manuelle Einstellungen sofort an und verbleiben Sie nicht längere Zeit bei einer temporären Zeit.
+5. Melden Sie sich nach einer Zeitänderung erneut am Client an, um Sitzung und Cache zu aktualisieren.

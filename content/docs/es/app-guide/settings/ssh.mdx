@@ -1,0 +1,69 @@
+---
+sourceHash: 3b5cca3c75e8
+title: SSH
+description: Gestionar el puerto, el período de validez, los algoritmos de cifrado y SFTP del servicio SSH
+---
+
+La página SSH se utiliza para activar o desactivar el servicio de línea de comandos remoto. El administrador puede ejecutar comandos de diagnóstico y solucionar problemas del sistema mediante SSH; una vez activado SFTP, también se pueden transferir archivos a través del canal SSH.
+
+![SSH](/images/es/app-guide/settings-img/ssh.png)
+
+## Configuración básica
+
+| Opción | Descripción |
+| --- | --- |
+| Activar | Activa el servicio SSH. Una vez desactivado, no se puede conectar al dispositivo mediante SSH/SFTP. |
+| Puerto | El puerto de escucha de SSH; el valor predeterminado es 22. Se puede cambiar a otro puerto no ocupado para reducir la exposición a escaneos. |
+| Período de validez | El tiempo que el servicio permanece activado; se puede elegir 10 minutos, 30 minutos, 1 hora, 3 horas, 6 horas o permanente. La activación a corto plazo es adecuada para la solución temporal de problemas y el servicio se desactiva automáticamente al expirar. |
+| Configuración avanzada | Configura la intensidad de los algoritmos de cifrado, el alcance de acceso y SFTP. |
+| Aplicar | Guarda los cambios del puerto, el período de validez y la configuración avanzada. |
+
+## Configuración avanzada
+
+| Opción | Descripción |
+| --- | --- |
+| Algoritmos de cifrado | Se puede elegir Alto, Medio o Bajo. Se recomienda «Alto»; reduzca la intensidad solo cuando los clientes antiguos no puedan negociar la conexión. |
+| Restricción de acceso | Con **Solo red local** activado, SSH solo acepta conexiones de la red local y prohíbe el acceso SSH remoto desde Internet. |
+| SFTP | Una vez activado, se pueden transferir archivos con clientes SFTP mediante la cuenta SSH. Si se desactiva, solo se conserva SSH por línea de comandos. |
+
+## Ejemplo de conexión
+
+1. Abra un terminal o un cliente SSH en el ordenador.
+2. Introduzca `ssh usuario@IP del dispositivo -p puerto`.
+3. Inicie sesión con el usuario y la contraseña de la cuenta local del dispositivo.
+4. Si utiliza SFTP, seleccione SFTP como protocolo en el cliente, introduzca la IP del dispositivo como dirección y el puerto SSH actual como puerto.
+
+<Callout title="Recomendaciones de seguridad" type="warn">
+  - No exponga SSH a Internet de forma prolongada; si realmente necesita mantenimiento remoto, utilice un período de validez corto y active Solo red local o el acceso mediante VPN.
+  - Evite utilizar puertos predeterminados como el 22, contraseñas débiles o compartir la contraseña de administrador con personas no fiables.
+  - Los comandos SSH pueden modificar directamente el estado del sistema; ejecutar comandos de origen desconocido puede provocar anomalías en los servicios o pérdida de datos.
+</Callout>
+
+## Recomendaciones de uso
+
+| Escenario | Configuración recomendada |
+| --- | --- |
+| Soporte técnico temporal | 10/30 minutos, solo red local. |
+| Mantenimiento habitual en la red interna | Permanente + Solo red local, manteniendo una alta intensidad de cifrado. |
+| Solución remota de problemas | Acceder a la red interna mediante VPN o el acceso remoto con Station ID y, a continuación, activar SSH a corto plazo. |
+| Necesidad de transferir archivos | Activar SFTP y utilizar una cuenta controlada y directorios concretos. |
+| Los clientes antiguos no pueden conectarse | Confirmar primero el usuario, la contraseña y el puerto; reducir temporalmente el nivel de cifrado solo si realmente no se admiten los algoritmos nuevos. |
+
+## Proceso de uso
+
+1. Confirme que realmente necesita la línea de comandos para el mantenimiento y valore primero la interfaz de administración web.
+2. Establezca un puerto no predeterminado y un período de validez corto.
+3. Abra la configuración avanzada y mantenga un algoritmo de cifrado alto.
+4. Active Solo red local y active SFTP si es necesario.
+5. Haga clic en Aplicar y pruebe con un cliente.
+6. Desactive SSH una vez finalizado el mantenimiento.
+
+## Solución de problemas
+
+| Fenómeno | Comprobación |
+| --- | --- |
+| Connection refused | SSH no está activado, el puerto es incorrecto o el servicio no está escuchando. |
+| Timeout | Cortafuegos, enrutamiento, restricción de solo red local o IP inaccesible. |
+| Auth failed | Usuario/contraseña incorrectos, usuario desactivado o permisos insuficientes. |
+| Falla la negociación de algoritmos | Cliente demasiado antiguo o algoritmos de cifrado incompatibles. |
+| SFTP se conecta pero no puede escribir | Permisos del directorio, volumen de almacenamiento de solo lectura o cuota del usuario completa. |

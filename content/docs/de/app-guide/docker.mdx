@@ -1,0 +1,84 @@
+---
+sourceHash: abf0084bb3ec
+title: Docker
+description: Anleitung zur Verwendung der Docker-Anwendung
+---
+
+Die Docker-Anwendung ist die containerisierte Verwaltungsplattform von StationOS Pro. Sie unterstützt die grafische Verwaltung von Containern, Projekten (Compose), Images und Netzwerken, sodass Sie gängige containerisierte Anwendungen ohne Kommandozeile bereitstellen und betreiben können.
+
+## Docker-Dienst aktivieren
+
+Beim ersten Öffnen der Docker-Anwendung ist eine Ersteinrichtung erforderlich:
+
+1. Wählen Sie unter **Speicherort** den Speicherbereich aus, in dem die Docker-Daten abgelegt werden sollen.
+2. Wählen Sie nach Bedarf den **Autostart beim Booten**:
+   - **Automatisch starten**: Der Docker-Dienst wird nach dem Einschalten des Geräts automatisch gestartet;
+   - **Nicht starten**: Der Dienst wird bei Bedarf manuell gestartet.
+3. Klicken Sie auf **Docker starten**; das System bereitet den Speicher vor und startet den Dienst.
+
+![Docker Setup](/images/de/app-guide/docker-img/setup.png)
+
+<Callout title="Hinweis" type="warn">
+  Beim Starten des Docker-Dienstes wird im ausgewählten Speicherbereich ein Docker-Datenverzeichnis angelegt. Unterbrechen Sie während dieses Vorgangs nicht die Stromversorgung und schalten Sie das Gerät nicht zwangsweise aus.
+</Callout>
+
+## Übersicht
+
+Nach dem Start des Dienstes gelangen Sie auf die Übersichtsseite, die einen schnellen Überblick über den Docker-Betriebsstatus bietet:
+
+- **Dienststatus**: Zeigt an, ob der Dienst ordnungsgemäß läuft;
+- **Projekte**: Anzahl der laufenden bzw. aller Projekte;
+- **Container**: Anzahl der laufenden bzw. aller Container;
+- **Lokale Images**: Anzahl der verwendeten bzw. aller Images;
+- **Datengröße**: Belegter Speicherplatz der Docker-Daten.
+
+![Docker Overview](/images/de/app-guide/docker-img/overview.png)
+
+## Container-Verwaltung
+
+Auf der Seite **Container** sehen Sie Name, Image, Status sowie CPU- und Arbeitsspeicherauslastung aller Container. Zudem werden folgende Funktionen unterstützt:
+
+- Container suchen;
+- Klicken Sie auf **Container erstellen**, um über einen Assistenten Parameter wie Image, Ports, Einbindungsverzeichnisse und Umgebungsvariablen zu konfigurieren und einen Container zu erstellen;
+- Container starten, stoppen, neu starten oder löschen;
+- Container-Protokolle und Details zur Ressourcenauslastung einsehen.
+
+![Containers](/images/de/app-guide/docker-img/containers.png)
+
+## Projektverwaltung
+
+Die Seite **Projekte** unterstützt die Bereitstellung von Anwendungen mit Docker Compose:
+
+1. Klicken Sie auf „Projekt erstellen“ und geben Sie den Projektnamen ein.
+2. Bearbeiten Sie die Datei `docker-compose.yml` oder importieren Sie die Orchestrierungsinhalte aus einer Datei.
+3. Nach dem Speichern lädt das System die Images automatisch herunter und startet alle im Projekt definierten Dienste.
+
+In der Projektliste können Sie den Projektstatus und die enthaltenen Dienste einsehen sowie Projekte starten, stoppen und neu erstellen.
+
+![Docker Project](/images/de/app-guide/docker-img/project.png)
+
+## Image-Verwaltung
+
+Die Seite **Images** ist in zwei Ansichten unterteilt:
+
+- **Image-Repository**: Online-Suche und Herunterladen benötigter Images mit Auswahl des Tags;
+- **Lokale Images**: Verwaltung der lokal heruntergeladenen Images, einschließlich Anzeigen, Löschen und Erstellen von Containern aus einem Image.
+
+![Docker Images](/images/de/app-guide/docker-img/images.png)
+
+<Callout title="Tipp" type="info">
+  Für das Online-Herunterladen von Images muss das Gerät auf das Netzwerk des Image-Repositorys zugreifen können. Wenn der Download fehlschlägt, prüfen Sie die Netzwerkverbindung oder konfigurieren Sie in den Docker-Einstellungen eine verfügbare Image-Beschleunigungsadresse.
+</Callout>
+
+## Netzwerkverwaltung
+
+Die Seite **Netzwerke** zeigt die Docker-Netzwerkliste (standardmäßig sind u. a. `bridge` und `host` vorhanden) und unterstützt:
+
+- **Aktualisieren**: Aktualisiert die Netzwerkliste;
+- **Netzwerk hinzufügen**: Erstellt ein benutzerdefiniertes Netzwerk für die Kommunikation zwischen Containern.
+
+![Docker Networks](/images/de/app-guide/docker-img/networks.png)
+
+## Docker-Einstellungen
+
+Auf der Seite **Einstellungen** können Sie globale Konfigurationen wie den Docker-Speicherort und den Autostart beim Booten ändern. Nach dem Ändern einiger Einstellungen muss der Docker-Dienst neu gestartet werden, damit sie wirksam werden.

@@ -1,0 +1,84 @@
+---
+sourceHash: abf0084bb3ec
+title: Docker
+description: Docker 應用程式使用指南
+---
+
+Docker 應用程式是 StationOS Pro 的容器化管理平台，支援以圖形化方式管理容器、專案（Compose）、映像與網路，無需命令列即可完成常見容器化應用程式的部署與維運。
+
+## 啟用 Docker 服務
+
+首次開啟 Docker 應用程式時，需要完成初始設定：
+
+1. 在 **儲存位置** 中選擇用於存放 Docker 資料的儲存空間。
+2. 依需求選擇 **開機自動啟動**：
+   - **自動啟動**：裝置開機後自動啟動 Docker 服務；
+   - **不啟動**：需要時手動啟動。
+3. 點擊 **啟動 Docker**，系統將準備儲存並啟動服務。
+
+![Docker Setup](/images/zh-Hant/app-guide/docker-img/setup.png)
+
+<Callout title="注意" type="warn">
+  啟動 Docker 服務會在所選儲存空間中建立 Docker 資料目錄，過程中請勿斷電或強制關機。
+</Callout>
+
+## 總覽
+
+服務啟動後進入總覽頁面，可快速瞭解 Docker 執行狀態：
+
+- **服務狀態**：顯示服務是否正常；
+- **專案**：執行中/全部專案數量；
+- **容器**：執行中/全部容器數量；
+- **本機映像**：已使用/全部映像數量；
+- **資料大小**：Docker 資料佔用空間。
+
+![Docker Overview](/images/zh-Hant/app-guide/docker-img/overview.png)
+
+## 容器管理
+
+進入 **容器** 頁面，可檢視全部容器的名稱、映像、狀態、CPU/記憶體佔用等資訊，並支援：
+
+- 搜尋容器；
+- 點擊 **建立容器**，透過精靈設定映像、連接埠、掛載目錄、環境變數等參數並建立容器；
+- 啟動、停止、重新啟動或刪除容器；
+- 檢視容器日誌與資源佔用詳情。
+
+![Containers](/images/zh-Hant/app-guide/docker-img/containers.png)
+
+## 專案管理
+
+**專案** 頁面支援以 Docker Compose 的方式部署應用程式：
+
+1. 點擊建立專案，填寫專案名稱。
+2. 編輯 `docker-compose.yml` 或從檔案匯入編排內容。
+3. 儲存後系統將自動拉取映像並啟動專案內定義的全部服務。
+
+專案列表中可檢視專案執行狀態、包含的服務，並對專案執行啟動、停止、重建等操作。
+
+![Docker Project](/images/zh-Hant/app-guide/docker-img/project.png)
+
+## 映像管理
+
+**映像** 頁面分為兩個檢視：
+
+- **映像倉庫**：線上搜尋並拉取所需映像，支援選擇 Tag；
+- **本機映像**：管理已拉取到本機的映像，支援檢視、刪除、用映像建立容器等操作。
+
+![Docker Images](/images/zh-Hant/app-guide/docker-img/images.png)
+
+<Callout title="提示" type="info">
+  線上拉取映像需要裝置能夠存取映像倉庫網路。如拉取失敗，請檢查網路連線或在 Docker 設定中設定可用的映像加速位址。
+</Callout>
+
+## 網路管理
+
+**網路** 頁面展示 Docker 的網路列表（預設提供 `bridge`、`host` 等網路），並支援：
+
+- **重新整理**：重新整理網路列表；
+- **新增網路**：建立自訂網路，用於容器間通訊。
+
+![Docker Networks](/images/zh-Hant/app-guide/docker-img/networks.png)
+
+## Docker 設定
+
+**設定** 頁面可修改 Docker 的儲存位置、開機自動啟動等全域設定，部分設定修改後需要重新啟動 Docker 服務才能生效。

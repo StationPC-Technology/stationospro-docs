@@ -1,0 +1,63 @@
+---
+sourceHash: a85981d7c5e8
+title: 'Solicitud y uso de permisos de las aplicaciones'
+description: 'StationPC: solicitud y uso de permisos de las aplicaciones'
+---
+
+Fecha de actualización: 29 de septiembre de 2026
+
+## Introducción
+
+La presente declaración le informa sobre la solicitud y el uso de permisos del sistema operativo por parte de la App de StationPC y del cliente para PC/Mac. Seguimos el principio de **mínimo necesario y solicitud bajo demanda**, y solo solicitamos permisos de forma dinámica cuando se utiliza la función correspondiente.
+
+Puede gestionar la autorización de permisos en cualquier momento en la configuración del sistema; desactivar un permiso solo afecta a la función correspondiente y no afecta a los servicios básicos esenciales del producto.
+
+Los complementos y servicios de terceros pueden solicitar permisos adicionales; la autorización no implica la recopilación continua de datos personales.
+
+## Permisos de iOS
+
+| Escenario | Finalidad | Efecto de denegar o desactivar el permiso |
+| --- | --- | --- |
+| Acceso a la cámara del dispositivo | Escanear códigos para vincular el dispositivo NAS, inicio de sesión rápido y toma de fotos para establecer el avatar | No se puede escanear el código para vincular el dispositivo ni tomar fotos para establecer el avatar |
+| Acceso al álbum de fotos y vídeos | Copiar el contenido del álbum del teléfono al NAS, seleccionar imágenes y vídeos para cargar y establecer el avatar de la cuenta; compatible con el acceso limitado a fotos de iOS (solo se autorizan las fotos seleccionadas) | No se puede realizar la copia de seguridad del álbum ni cargar imágenes y vídeos |
+| Acceso a la red local | Descubrir y conectar dispositivos StationPC en la red local | No se pueden descubrir ni conectar los dispositivos NAS de la red local |
+| Recibir notificaciones del sistema | Recibir notificaciones del estado del dispositivo, del progreso de la copia de seguridad y de la seguridad de la cuenta (incluidas notificaciones urgentes) | No se pueden recibir las notificaciones relacionadas |
+| Acceso a dispositivos Bluetooth | Vinculación y configuración de red del dispositivo: descubrir dispositivos cercanos y transmitir la información de configuración de red | No se puede vincular ni configurar el dispositivo mediante Bluetooth |
+| Obtener la ubicación (solo durante el uso) | Leer el nombre del WiFi actual durante la configuración de red y obtener una vez de forma temporal la ubicación para deducir el código de país destinado a la configuración regional del WiFi del dispositivo; no se realiza localización en segundo plano, y las coordenadas no se cargan ni se almacenan | No se puede identificar automáticamente el WiFi ni la región actuales, y es necesario seleccionarlos manualmente |
+
+## Permisos de Android
+
+| Escenario | Finalidad | Efecto de denegar o desactivar el permiso |
+| --- | --- | --- |
+| Acceso a la cámara del dispositivo | Escanear códigos para vincular el dispositivo e inicio de sesión rápido | No se puede escanear el código para vincular el dispositivo ni iniciar sesión rápidamente |
+| Acceso al almacenamiento local | Implementar la carga y descarga de archivos y la copia de seguridad automática del álbum | No se pueden cargar ni descargar archivos ni realizar copias de seguridad automáticas del álbum |
+| Acceso a la red local y al WiFi | Descubrimiento de dispositivos en la red local y conexión local | No se pueden descubrir dispositivos de la red local ni establecer conexiones locales |
+| Recibir notificaciones push | Progreso de tareas, anomalías del dispositivo y recordatorios de seguridad de la cuenta | No se pueden recibir el progreso de las tareas, las anomalías del dispositivo ni los recordatorios de seguridad |
+| Acceso a dispositivos Bluetooth | Emparejamiento del dispositivo y asistencia en la inicialización de la red | No se puede completar el emparejamiento ni la configuración de red del dispositivo mediante Bluetooth |
+| Obtener la ubicación de red | Asistencia en la identificación durante la configuración de red | No se puede identificar automáticamente el WiFi ni la región actuales, y es necesario seleccionarlos manualmente |
+| Inicio automático en segundo plano | Mantener las tareas de copia de seguridad en segundo plano (activadas manualmente por el usuario) | Las tareas de copia de seguridad en segundo plano pueden interrumpirse |
+| Leer el contenido del portapapeles | Identificar enlaces compartidos e iniciar la función de transferencia de archivos | No se pueden identificar enlaces compartidos ni iniciar la función de transferencia de archivos |
+
+## Permisos del cliente de Windows
+
+| Escenario | Finalidad | Efecto de denegar o desactivar el permiso |
+| --- | --- | --- |
+| Recibir notificaciones de escritorio | Mostrar el progreso de las tareas, el estado del dispositivo y los avisos de anomalías | No se pueden recibir el progreso de las tareas, el estado del dispositivo ni los avisos de anomalías |
+| Acceso al sistema de archivos local | Permitir la carga y descarga de archivos locales y la sincronización de carpetas | No se pueden cargar ni descargar archivos locales ni sincronizar carpetas |
+
+## Permisos del cliente de Mac
+
+| Escenario | Finalidad | Efecto de denegar o desactivar el permiso |
+| --- | --- | --- |
+| Recibir notificaciones del sistema | Informar del progreso de la copia de seguridad y del estado de funcionamiento del dispositivo | No se pueden recibir notificaciones del progreso de la copia de seguridad ni del estado del dispositivo |
+| Acceso a directorios locales | Completar la gestión de archivos y las tareas de carga, descarga y sincronización | No se pueden completar la gestión de archivos ni las tareas de carga, descarga y sincronización |
+
+## Notas adicionales
+
+Todos los permisos se solicitan bajo demanda; no se autorizan por lotes al iniciar la aplicación.
+
+Desactivar un permiso solo inhabilita algunas funciones y no afecta a servicios básicos como el inicio de sesión, la conexión del dispositivo o la exploración de archivos.
+
+Sin la autorización expresa del usuario, no leemos ni cargamos de forma proactiva ningún dato privado del usuario almacenado en el NAS.
+
+No solicitamos permisos de localización en segundo plano ni recopilamos identificadores de publicidad del dispositivo. La información de ubicación solo se utiliza temporalmente durante la configuración de red del dispositivo (leer el nombre del WiFi y deducir el código de país); las coordenadas no se cargan ni se almacenan, en cumplimiento de los requisitos globales de privacidad.

@@ -1,0 +1,71 @@
+---
+sourceHash: c278699369f0
+title: 'Notes de mise à jour du système 2026.10.16'
+---
+
+## À lire avant la mise à jour
+Produits concernés
+Cette mise à jour concerne les produits exécutant le système StationOS Pro. Avant la mise à niveau, vérifiez l'architecture du processeur correspondante selon le modèle du produit.
+
+● Série DA : série DA400
+
+Rappels de mise à niveau
+1. Pour utiliser les fonctionnalités décrites dans cet article, mettez à niveau le micrologiciel système, la suite d'applications ou le client vers la version correspondante ou une version ultérieure.
+2. Les nouvelles fonctionnalités de certaines suites d'applications nécessitent une version spécifique du micrologiciel système. Si la version du micrologiciel système est inférieure à la version minimale compatible, les notifications de mise à jour des applications peuvent ne pas être reçues ou les fonctionnalités concernées peuvent ne pas fonctionner correctement.
+
+## Micrologiciel système StationOS Pro
+### Informations de version
+Version du micrologiciel système : v1.1.0
+
+Cette mise à jour implique des ajustements d'interface. Pour garantir le bon fonctionnement des fonctionnalités, il est recommandé de mettre à niveau le micrologiciel, le client et les applications concernées vers les dernières versions.
+
+### Système et appareil
+- Nouveau : surveillance des ressources VPU, avec consultation de l'utilisation, de la mémoire, de la température et de l'état de fonctionnement.
+- Optimisation : collecte et mise en cache des informations de la carte accélératrice IA, afin de réduire la charge d'échantillonnage et d'améliorer la cohérence des états.
+- Optimisation : ajout d'un verrou exclusif et d'une protection contre les redémarrages en attente lors du déploiement des mises à jour système, afin de réduire les risques d'opérations concurrentes.
+- Optimisation : instantané de l'état de connexion des sessions et journaux système, avec réduction des journaux inutiles.
+- Correction : résidus de configuration du fabricant après restauration d'usine, actualisation de l'état de l'appareil et synchronisation de certaines configurations d'arrêt.
+
+### Stockage et disques
+- Optimisation : réintégration automatique des grappes dégradées, identification des membres tardifs et évaluation de la santé des disques, pour une meilleure stabilité de récupération des grappes et de réutilisation des disques.
+- Optimisation : unification des attributs SMART, des journaux d'erreurs, de la température et de l'état d'E/S, afin de réduire les faux positifs sur l'état de santé.
+- Optimisation : réconciliation des états des pools et des espaces de stockage, pour éviter de marquer à tort comme anormaux des espaces correctement montés.
+- Correction : faux signalements de panne pendant les états intermédiaires de grappe lors de la création ou de la suppression d'un espace de stockage.
+
+### Fichiers et médias
+- Optimisation : extraction des vignettes vidéo selon la durée de la vidéo, afin de raccourcir la génération de la première image et de corriger l'alignement des images clés des segments.
+- Optimisation : contrôle de la mémoire lors du transcodage des vidéos HDR et haute résolution, afin d'éviter les dépassements lors du traitement de vidéos 8K.
+- Correction : boucle infinie de démultiplexage lors du transcodage d'une source vidéo corrompue, fuite de tâches ou processus non récupérés après changement de vidéo.
+- Optimisation : stabilité du montage FTP distant, réutilisation des connexions et rapidité de listage des répertoires pour les sondes de répertoires cloud.
+- Optimisation : mémoire utilisée par les grands jeux de résultats de détection des doublons, recommandation de copies en double et traitement des fichiers aux extensions inconnues.
+
+### Centre d'applications et Docker
+- Optimisation : protection des volumes de données manquants et nouvelles tentatives de démarrage de Docker, afin d'éviter les tentatives répétées dues à une configuration anormale.
+- Optimisation : déploiement et redéploiement Compose, affichage des journaux et synchronisation de l'état des applications.
+- Optimisation : tâches d'installation des applications, configuration des répertoires d'installation et de téléchargement, avec ajout d'une confirmation en l'absence de répertoire configuré.
+
+### IA et recherche
+- Nouveau : prise en charge du modèle local Qwen3.5, optimisation du paquet d'exécution RK1828 et du chargement de la liste des modèles.
+- Optimisation : synchronisation en temps réel de l'état de chargement des modèles locaux via des événements, pour un retour plus précis sur l'installation, le chargement et la désinstallation.
+- Optimisation : nouvelles tentatives différées après échec de migration du modèle de reconnaissance faciale, avec restauration automatique de la reconnaissance faciale après rétablissement d'usine.
+- Optimisation : estimation du temps d'attente de l'indexation des albums, recherche de doublons et récupération après anomalie de recherche vectorielle.
+
+### Réseau, accès à distance et notifications
+- Nouveau : paramètre du programme d'amélioration de l'analyse de l'appareil, avec prise en charge de la synchronisation des informations d'enregistrement.
+- Optimisation : authentification de l'accès à distance par ticket WebSocket et Bearer Token, pour une meilleure stabilité du basculement de connexion et de la reprise après déconnexion.
+- Optimisation : instantanés des événements de configuration du buzzer et de configuration d'arrêt, pour unifier l'état des notifications.
+- Correction : trou noir en cas de coupure réseau, messages d'erreur et résidus d'état lors du montage distant et du basculement réseau.
+
+## Client
+### Client iOS et Android
+Version de l'application : v1.1.0
+
+- Ajout du paramètre du programme d'amélioration de l'analyse de l'appareil, avec choix de participation lors de l'enregistrement.
+- Ajout de la gestion des appareils connectés, avec actualisation automatique de la liste des appareils et contrôle des permissions.
+- Optimisation de la carte de stockage de la page d'accueil : synchronisation en temps réel des changements de volume une fois dépliée, correction du plantage lors de la destruction de la carte.
+- Optimisation du déploiement de l'album par glissement vers le bas, du regroupement du sélecteur d'images à téléverser et des animations, avec amélioration de l'affichage des favoris, des dates et des lieux.
+- Optimisation de la lecture transcodée des vidéos 4K, de la synchronisation de la progression, du déplacement par glissement et du changement de sous-titres ; correction des saccades, des fermetures inattendues et des images figées.
+- Correction de l'affichage erroné de l'UUID du périphérique externe, de l'appareil source et de l'état des tâches de la sauvegarde en un clic.
+- Restriction des opérations de téléversement, suppression, déplacement et renommage sur les stockages externes en lecture seule, afin d'éviter les modifications accidentelles.
+- Optimisation des info-bulles des courbes de surveillance des ressources, avec affichage de l'heure d'échantillonnage et amélioration de la troncature des noms de processus.
+- Optimisation du chemin de configuration de l'installation des applications, avec confirmation en l'absence de répertoire configuré et indication de redémarrage du service applicatif après modification du répertoire.

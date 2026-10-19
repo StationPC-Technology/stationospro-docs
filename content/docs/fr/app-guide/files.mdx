@@ -1,0 +1,117 @@
+---
+sourceHash: df67dd5198ab
+title: Gestionnaire de fichiers
+description: Guide d'utilisation du Gestionnaire de fichiers
+---
+
+Le Gestionnaire de fichiers est l'application centrale de StationOS Pro. Il permet de gérer de manière centralisée tous les fichiers de l'appareil. Depuis votre navigateur, vous pouvez téléverser et télécharger des fichiers, gérer des répertoires, partager avec des autorisations, restaurer depuis la corbeille et nettoyer les fichiers en double. Vous pouvez également configurer les services de fichiers SMB, WebDAV, FTP et NFS afin que vos ordinateurs et téléphones accèdent directement aux fichiers du NAS.
+
+## Présentation de l'interface
+
+La partie supérieure du Gestionnaire de fichiers est organisée en plusieurs onglets fonctionnels :
+
+| Onglet | Description |
+| --- | --- |
+| Mes fichiers | Espace de fichiers personnel de l'utilisateur actuel |
+| Fichiers d'équipe | Espace partagé d'équipe, accessible en collaboration par plusieurs personnes |
+| Stockage externe | Gérer les fichiers des périphériques externes tels que clés USB et disques durs portables |
+| Montage distant | Monter des répertoires partagés sur un NAS distant ou un serveur |
+| Fichiers d'applications | Consulter les fichiers de données générés par les applications |
+| Mes favoris | Accéder rapidement aux fichiers et dossiers favoris |
+| Partage par lien | Gérer les liens de partage externe déjà créés |
+| Corbeille | Restaurer ou supprimer définitivement les fichiers supprimés |
+| Fichiers en double | Analyser et nettoyer les fichiers en double pour libérer de l'espace de stockage |
+| Vue administrateur | L'administrateur peut consulter tous les fichiers par utilisateur (visible uniquement par les administrateurs) |
+
+La liste des fichiers prend en charge le basculement entre vue liste et vue grille, et affiche le nom, la taille, le type, la date de modification, l'emplacement de stockage, la date de création et le propriétaire. Cliquez sur l'en-tête d'une colonne pour trier.
+
+![My Files](/images/fr/app-guide/files-img/my-files.png)
+
+## Opérations de base sur les fichiers
+
+La barre d'outils propose les opérations courantes suivantes :
+
+- **Téléverser** : téléverser un fichier ou un dossier complet ;
+- **Nouveau dossier** : créer un répertoire ;
+- **Trier** : trier par nom, taille, date, etc. ;
+- **Changer de vue** : basculer entre la vue liste et la vue grille.
+
+### Créer un dossier
+
+1. Accédez au répertoire cible, puis cliquez sur **Nouveau dossier** dans la barre d'outils.
+2. Saisissez le nom du dossier (180 caractères maximum).
+3. Sélectionnez l'emplacement de stockage du dossier (par exemple, espace de stockage 1).
+4. Cliquez sur **Confirmer** pour terminer la création.
+
+![New Folder](/images/fr/app-guide/files-img/new-folder.png)
+
+### Menu contextuel
+
+Cliquez avec le bouton droit sur un fichier ou un dossier pour effectuer les opérations suivantes :
+
+| Élément de menu | Description |
+| --- | --- |
+| Ouvrir dans une nouvelle fenêtre | Ouvrir dans une nouvelle fenêtre (dossier) |
+| Télécharger | Télécharger sur l'ordinateur local |
+| Copier vers / Déplacer vers | Copier ou déplacer vers un autre répertoire |
+| Couper / Copier | Couper ou copier |
+| Supprimer | Supprimer (envoyer dans la corbeille) |
+| Renommer | Renommer |
+| Favori | Ajouter aux favoris |
+| Partage par lien | Créer un partage par lien |
+| Détails | Consulter les détails du fichier |
+
+![Context Menu](/images/fr/app-guide/files-img/context-menu.png)
+
+## Partage par lien
+
+Le partage par lien vous permet de partager des fichiers ou des dossiers avec des utilisateurs externes ne disposant pas de compte NAS :
+
+1. Cliquez avec le bouton droit sur le fichier ou le dossier cible, puis sélectionnez **Partage par lien**.
+2. Configurez les paramètres de partage :
+   - **Nom du partage** : nom affiché pour le lien ;
+   - **Durée de validité** : validité permanente ou date d'expiration personnalisée ;
+   - **Autoriser le téléchargement** : autoriser ou non les visiteurs à télécharger les fichiers ;
+   - **Protection par mot de passe** : définir un mot de passe d'accès pour le lien ;
+   - **Limite du nombre d'accès** : limiter le nombre maximal d'accès au lien.
+3. Cliquez sur **Créer le lien** pour générer le lien de partage.
+
+Les partages créés peuvent être gérés de manière centralisée dans l'onglet « Partage par lien », notamment pour consulter les liens, modifier les règles ou annuler un partage.
+
+![Share Link](/images/fr/app-guide/files-img/share-link.png)
+
+<Callout title="Conseil de sécurité" type="warn">
+  Lors du partage de fichiers sensibles, il est recommandé d'activer la protection par mot de passe et de définir une durée de validité. Une fois le partage terminé, désactivez rapidement les liens qui ne sont plus utilisés afin d'éviter toute fuite de données.
+</Callout>
+
+## Paramètres des services de fichiers
+
+Cliquez sur **Paramètres** en haut à droite du Gestionnaire de fichiers pour configurer les services de fichiers. La fenêtre de paramètres comprend les onglets suivants :
+
+- **Protocoles de partage de fichiers** : configurer séparément les services SMB, WebDAV, FTP et NFS ;
+- **Règles de fichiers** : configurer les règles de nommage des fichiers, etc. ;
+- **Montage distant** : configurer les paramètres liés au montage distant ;
+- **Partage externe** : configurer les règles globales du partage par lien.
+
+Prenons l'exemple de SMB ; la page de paramètres propose :
+
+- **Plage de répertoires visibles** : définir séparément la visibilité de Mes fichiers, des Fichiers d'équipe et des Fichiers d'applications via le protocole ;
+- **Mode de connexion** : fournir des instructions illustrées et l'adresse d'accès pour connecter un ordinateur Windows ou macOS au NAS ;
+- **Autres informations de connexion** : afficher l'adresse IP de l'appareil et le port par défaut (445 pour SMB), avec copie en un clic.
+
+![File Settings](/images/fr/app-guide/files-img/settings.png)
+
+### Accéder aux fichiers du NAS depuis un ordinateur
+
+- **macOS** : ouvrez Finder → Aller → Se connecter au serveur, saisissez `smb://IP de l'appareil`, puis le compte et le mot de passe local du NAS pour accéder aux fichiers.
+- **Windows** : appuyez sur `Win + R`, saisissez `\\IP de l'appareil`, puis le compte et le mot de passe local du NAS pour accéder aux fichiers.
+
+## Corbeille
+
+Les fichiers supprimés sont placés dans la corbeille afin de prévenir toute perte de données due à une suppression accidentelle :
+
+- **Restaurer** : restaurer le fichier à son emplacement d'origine avant la suppression ;
+- **Supprimer définitivement** : supprimer définitivement les fichiers sélectionnés, sans possibilité de restauration ;
+- **Vider la corbeille** : vider en un clic tous les fichiers de la corbeille.
+
+La corbeille distingue le contenu supprimé des Mes fichiers et celui des Fichiers d'équipe. Les administrateurs peuvent consulter la corbeille de tous les utilisateurs.

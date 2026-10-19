@@ -1,0 +1,168 @@
+---
+sourceHash: ae5b2e7fcf16
+title: Espace de stockage
+description: Gérer les volumes de stockage, le RAID, les disques de secours et l'accélération par cache SSD
+---
+
+La page Espace de stockage comporte deux onglets : **Espace de stockage** et **Accélération par cache SSD**. L'onglet Espace de stockage sert à créer et gérer les volumes composés d'un ou plusieurs disques ; l'onglet Cache SSD sert à utiliser un SSD rapide comme cache d'un volume HDD afin d'améliorer les performances d'accès aux données fréquemment utilisées.
+
+## Onglet Espace de stockage
+
+![Storage](/images/fr/app-guide/settings-img/storage.png)
+
+### Liste des volumes de stockage
+
+Chaque carte de volume de stockage affiche :
+
+| Champ | Description |
+| --- | --- |
+| Nom | Nom du volume de stockage, par exemple Storage volume1. |
+| État de santé | État Normal, Degraded, etc. ; en cas d'anomalie, vérifiez rapidement les disques. |
+| Mode de stockage/RAID | Basic, JBOD, RAID0, RAID1, RAID5, RAID6, RAID10, etc. |
+| Capacité | Capacité utilisée / capacité totale. |
+| Type de disque | HDD, SSD, etc. |
+| Interface | SATA, NVMe, etc. |
+| Système de fichiers | Système de fichiers utilisé par le volume actuel, par exemple Btrfs. |
+| Disques utilisés | Affiche les disques composant le volume et leur capacité ; cliquez sur un disque pour consulter ses informations. |
+
+### Opérations sur les volumes de stockage
+
+La carte du volume ou le menu d'options peut proposer les opérations suivantes :
+
+| Opération | Description |
+| --- | --- |
+| Créer un espace de stockage | Initialiser des disques libres en un nouveau volume de stockage. La création formate les disques sélectionnés. |
+| Modifier le mode de stockage | Changer le type de RAID lorsque les conditions de compatibilité le permettent ; l'ajout ou le retrait de disques peut être nécessaire. |
+| Ajouter un disque | Étendre un volume RAID compatible ; le nouveau disque est formaté. |
+| Ajouter/Retirer un disque de secours | Désigner un disque de secours pour un volume RAID. En cas de défaillance d'un disque membre, le disque de secours peut participer automatiquement à la reconstruction. |
+| Remplacer un disque | Remplacer un disque membre en cas de panne ou d'augmentation de capacité. |
+| Réparer/Vérifier | Utilisé pour le diagnostic et la récupération d'états anormaux. |
+
+### RAID et modes de stockage
+
+| Mode | Exigence de disques | Avantages | Risques/Limites |
+| --- | --- | --- | --- |
+| Basic | 1 disque | Exploite pleinement la capacité d'un seul disque | Aucune protection des données ; en cas de panne du disque, ses données sont perdues |
+| JBOD | Au moins 1 disque | Concatène plusieurs disques en un espace utilisable, extension simple | Aucune redondance ; la panne de n'importe quel disque membre peut entraîner la perte de toutes les données de l'espace |
+| RAID 0 | Au moins 2 disques | Débits de lecture/écriture les plus élevés, bonne utilisation de la capacité | Aucune protection des données ; la panne d'un disque entraîne la perte de toutes les données |
+| RAID 1 | Au moins 2 disques | Protection par miroir ; tolère la panne de n-1 disques sans perte de données | Faible taux d'utilisation de la capacité |
+| RAID 5 | Au moins 3 disques | Bon compromis entre performances et protection ; permet la reconstruction après panne d'un disque grâce à la parité | Écritures relativement lentes, reconstruction longue |
+| RAID 6 | Au moins 4 disques | Double parité ; tolère la panne simultanée de 2 disques | Débit d'écriture et utilisation de l'espace encore réduits |
+| RAID 10 | Au moins 4 disques, en nombre pair | Miroir puis bandes ; concilie hautes performances et forte protection | Utilisation de l'espace d'environ la moitié |
+
+### Choix du système de fichiers
+
+Le système de fichiers peut être choisi dans l'assistant de création :
+
+| Système de fichiers | Pertinence |
+| --- | --- |
+| Btrfs | Prend en charge les instantanés, les sous-volumes et la copie efficace ; adapté aux particuliers ou développeurs légers ayant besoin de sauvegardes flexibles et de gestion de versions. |
+| EXT4 | Mature et stable ; adapté aux services de fichiers traditionnels, aux appareils aux ressources limitées ou aux environnements de bureau privilégiant la stabilité. |
+
+### Procédure de création d'un espace de stockage
+
+1. Cliquez sur **Créer un espace de stockage**.
+2. Sélectionnez les disques libres. Le système calcule en temps réel les modes RAID disponibles et la capacité estimée.
+3. Sélectionnez le mode de stockage/RAID et vérifiez la capacité disponible, la capacité de protection des données, etc.
+4. Sélectionnez le format du système de fichiers.
+5. Sélectionnez les utilisateurs autorisés à utiliser cet espace de stockage et, si nécessaire, définissez une limite de capacité pour les utilisateurs ordinaires.
+6. Confirmez le résumé et l'avertissement de formatage.
+7. Lancez la création et attendez la fin du formatage.
+
+<Callout title="Opération dangereuse" type="error">
+  La création, la modification, l'extension ou le remplacement d'un volume de stockage peuvent formater les disques sélectionnés et supprimer toutes leurs données. Une fois l'opération lancée, ne coupez pas l'alimentation, ne redémarrez pas et ne retirez pas les disques. Sauvegardez impérativement les données importantes au préalable.
+</Callout>
+
+## Onglet Accélération par cache SSD
+
+Le cache SSD conserve les données fréquemment utilisées sur un SSD rapide afin de réduire les temps d'attente de lecture sur les HDD. Avant d'utiliser cette fonction, au moins un SSD non utilisé doit être installé dans l'appareil.
+
+![SSD Cache](/images/fr/app-guide/settings-img/storage-ssd-cache.png)
+
+### Créer un cache SSD
+
+| Élément de configuration | Description |
+| --- | --- |
+| Objet accéléré | Sélectionner le volume de stockage HDD à accélérer. |
+| SSD de cache | Sélectionner un SSD libre ; s'il n'y en a pas, installez ou libérez un disque. |
+| Nom du cache | Généré automatiquement par défaut, ou nommé selon l'usage. |
+| Mode de cache | Cache en lecture seule ou cache en lecture/écriture. |
+| RAID de cache | En cas de plusieurs SSD, sélectionner le mode RAID du cache. |
+| Capacité du cache | Capacité maximale ou personnalisée ; la capacité restante peut être affectée à d'autres volumes. |
+| Confirmation des risques | Confirmer la compréhension des risques liés à la création du cache, au formatage du SSD et à la coupure d'alimentation avec un cache en lecture/écriture. |
+
+### Comparaison des modes de cache
+
+| Mode | Description |
+| --- | --- |
+| Cache en lecture seule | Ne met en cache que les données de lecture fréquentes ; le risque pour les données source en cas de panne SSD ou de coupure est faible. |
+| Cache en lecture/écriture | Accélère à la fois lecture et écriture, pour de meilleures performances ; une panne SSD ou une coupure anormale peut affecter les données non encore réécrites sur le HDD. |
+
+### Gestion du cache
+
+| Opération | Description |
+| --- | --- |
+| Consulter l'état | Afficher le nom, le mode, la capacité, le taux de réussite et le volume associé du cache. |
+| Supprimer le cache | Dissocier le cache du volume. Avant de supprimer un cache en lecture/écriture, le système s'assure de la réécriture des données ; pendant cette opération, n'éteignez pas l'appareil et ne retirez pas le SSD. |
+| Réparer le cache | En cas de dégradation ou de corruption du cache, reconnectez tous les disques de cache selon les instructions et tentez une réparation. |
+| Affecter un cache existant | Utiliser la capacité restante d'un pool de cache existant pour accélérer d'autres volumes. |
+
+<Callout title="Sécurité des données" type="warn">
+  La création d'un cache SSD efface les données du SSD sélectionné. Le cache en lecture/écriture nécessite une alimentation fiable ; une coupure anormale ou une panne SSD peut entraîner un risque pour les données. Avant de retirer un SSD, supprimez impérativement le cache correspondant dans le système.
+</Callout>
+
+## Interprétation des états de stockage
+
+| État/Indicateur | Signification | Traitement recommandé |
+| --- | --- | --- |
+| Normal | Le volume de stockage fonctionne normalement en lecture/écriture. | Maintenir les sauvegardes de routine et les contrôles de santé des disques. |
+| Degraded | La redondance RAID est réduite, mais les données restent généralement accessibles. | Sauvegarder immédiatement les données, vérifier les disques membres et réparer ou remplacer rapidement les disques. |
+| Damaged/Anormal | Anomalie grave de la structure de stockage ou d'un disque membre. | Éviter de continuer à écrire, sauvegarder les données lisibles et contacter le support. |
+| Syncing/Récupération en cours | Le RAID est en cours de synchronisation ou de reconstruction. | Maintenir une alimentation stable ; ne pas redémarrer, couper l'alimentation ni retirer les disques. |
+| Formatting | Formatage en cours. | Attendre la fin ; ne pas interrompre l'opération. |
+| Read-only | Le système a protégé l'écriture après détection d'un risque de connexion, de disque ou de système de fichiers. | Vérifier les disques et les connexions, sauvegarder les données puis réparer selon les instructions. |
+| Disque de secours | Le disque est en attente et peut participer automatiquement à la reconstruction en cas de panne d'un disque membre. | Maintenir le disque de secours en bonne santé ; ne pas le réaffecter à d'autres usages sans raison. |
+
+## Liste de vérification avant création ou modification
+
+1. Vérifiez que les disques sélectionnés ne contiennent effectivement aucune donnée à conserver.
+2. Consultez l'état de santé, la température, les heures de fonctionnement et les résultats S.M.A.R.T des disques.
+3. Vérifiez que le nombre, l'interface et la capacité des disques satisfont aux exigences du RAID cible.
+4. Comprenez la capacité disponible estimée, la capacité de protection des données et la capacité non utilisée.
+5. Arrêtez les tâches de sauvegarde, de téléchargement, de synchronisation, de conteneurs, d'indexation et d'écriture en base de données.
+6. Préparez une alimentation sans interruption ou évitez les périodes d'instabilité électrique.
+7. Notez le nom du volume de stockage, le numéro des disques membres et le chemin de montage actuels.
+
+## Recommandations de choix RAID
+
+| Besoin | Mode recommandé |
+| --- | --- |
+| Capacité maximale sur un seul disque, sans priorité à la redondance | Basic |
+| Concaténation séquentielle de plusieurs disques, avec ajout ultérieur de disques | JBOD |
+| Cache temporaire, données reconstructibles, priorité à la vitesse | RAID 0 |
+| Protection de photos et documents importants sur deux disques | RAID 1 |
+| Compromis capacité/performances/protection pour un usage domestique ou une petite équipe | RAID 5 |
+| Tolérance aux pannes plus élevée, nombre de disques suffisant | RAID 6 |
+| Hautes performances avec protection par miroir | RAID 10 |
+
+<Callout title="Rappel sur la capacité" type="info">
+  La capacité disponible RAID dépend de la parité, du miroir et des différences de capacité entre disques. Lorsque des disques de capacités différentes composent un RAID, le calcul se fait généralement selon la plus petite capacité ou les règles du mode. La capacité estimée de l'assistant de création fait foi.
+</Callout>
+
+## Stratégie des disques de secours
+
+- **Secours global/secours dans le pool** : prend automatiquement le relais en cas de panne d'un disque membre de l'espace de stockage associé, réduisant la fenêtre de récupération.
+- **Cas d'application** : déploiements distants où le remplacement immédiat d'un disque est difficile, volumes d'activités importantes, RAID 6/10 comportant de nombreux disques.
+- **Remarques** : un disque de secours n'est pas une sauvegarde ; les performances peuvent diminuer pendant la synchronisation, et le volume d'origine reste dégradé jusqu'à la fin de la reconstruction.
+
+## Recommandations de choix du cache SSD
+
+| Scénario | Recommandation |
+| --- | --- |
+| Améliorer principalement les lectures répétées de données fréquentes | Cache en lecture seule, risque plus faible. |
+| Améliorer la réactivité en écriture, avec onduleur | Le cache en lecture/écriture peut être évalué. |
+| Sans onduleur ou données extrêmement importantes | Éviter le cache en lecture/écriture ; privilégier l'amélioration des performances HDD/RAID. |
+| Accès concurrent de plusieurs utilisateurs au même répertoire | Le cache en lecture seule apporte un gain notable. |
+| Écritures aléatoires de nombreux petits fichiers | À évaluer selon le profil d'écriture des applications et la durée de vie du SSD. |
+
+Lors de la création ou de la suppression d'un cache en lecture/écriture, le système peut devoir synchroniser vers le HDD les données non encore réécrites du SSD. Pendant cette opération, n'éteignez pas l'appareil, ne le redémarrez pas et ne retirez pas le SSD.

@@ -1,0 +1,79 @@
+---
+sourceHash: b0c450609f40
+title: 'Systemupdate 2026.09.18'
+---
+
+## Vor dem Update lesen
+Geeignete Produkte
+Dieses Update gilt für Produkte, auf denen StationOS Pro läuft. Prüfen Sie vor dem Update anhand des Produktmodells die entsprechende Prozessorarchitektur.
+
+● DA-Serie: DA400-Serie
+
+Updatehinweise
+1. Um die in diesem Dokument beschriebenen Funktionen zu nutzen, aktualisieren Sie Systemfirmware, App-Suite oder Client auf die entsprechende Version oder höher.
+2. Einige neue Funktionen der App-Suite erfordern eine bestimmte Systemfirmwareversion. Ist die Systemfirmware niedriger als die Mindestkompatibilitätsversion, werden möglicherweise keine App-Update-Benachrichtigungen empfangen oder die betreffenden Funktionen stehen nicht ordnungsgemäß zur Verfügung.
+
+## StationOS Pro Systemfirmware
+### Versionsinformationen
+Systemfirmwareversion: v1.0.0.18
+
+Dieses Update umfasst Schnittstellenanpassungen. Für eine ordnungsgemäße Nutzung wird empfohlen, Firmware, Client und zugehörige Anwendungen auf die neueste Version zu aktualisieren.
+
+### System und Konto
+
+- Neu: Einstellung für das Geräteverbesserungsprogramm; bei der Registrierung kann die Teilnahme gewählt werden.
+- Neu: Sicherere Anmeldeverbindungen und einheitlichere Regeln für Signalton-Erinnerungen.
+- Optimiert: Kompaktere Systemprotokolle und gründlichere Bereinigung bei der Wiederherstellung der Werkseinstellungen.
+- Behoben: Falscher Gerätename beim ersten Start, fehlgeschlagene Zeitsynchronisierung, ein fehlender Tag bei der zeitgesteuerten Abschaltung am Sonntag, verschwindende Updatehinweise, nicht schließende Bestätigungsdialoge und weitere Probleme.
+
+### KI und Suche
+
+- Neu: Der Status der KI-Modelle wird in Echtzeit aktualisiert, die Genauigkeit der Gesichtserkennung kann angepasst werden, die Ortserkennung ist genauer.
+- Optimiert: Installation, Laden und Deinstallieren von KI-Funktionen sind stabiler; nicht unterstützte Bilder werden automatisch übersprungen.
+- Behoben: KI erhält gelegentlich keine Netzwerkinformationen, Modelle melden fälschlich einen Ladefehler, die Gesichtsfunktion ist nach der Wiederherstellung der Werkseinstellungen nicht verfügbar, die Suche bleibt hängen oder liefert fehlerhafte Ergebnisse.
+
+### Speicher und Festplatte
+
+- Optimiert: Die Anzeige von Festplattentemperatur, Gesundheitsstatus und freiem Speicher ist konsistenter und aktueller.
+- Optimiert: Schnellere Aktualisierung nach dem Einstecken und Formatieren externer Festplatten.
+- Behoben: Anomale Wiederherstellung nach einer Array-Degradierung, keine normale Nutzung nach einem Festplattentausch, ungenaue Festplattenstatusanzeige und fehlerhafte Speicherkontingente.
+
+### Dateimanager
+
+- Neu: Unterstützt die Anzeige von Bildvorschauen auf externen Festplatten.
+- Optimiert: Die Dateiduplikatsuche ist schneller und ressourcenschonender; Kopieren und Verschieben von Dateien können im Hintergrund fortgesetzt werden; klarere Hinweise bei Uploadfehlern.
+- Behoben: Fehlerhafte Auswahl bei der Duplikatsuche, nicht synchronisierter Favoritenstatus, fehlerhafte Vorschau von Bildern/Word/Excel und technische Informationen in Upload-Fehlermeldungen.
+
+### App Center
+
+- Neu: Anwendungen unterstützen die Auswahl von Installations- und Downloadspeicherort; einheitlichere Anzeige des Installationsfortschritts.
+- Optimiert: Klarere Anzeige von App-Installation, Konfigurationsdialogen und Laufzeitstatus.
+- Behoben: Konflikte bei der erneuten Bereitstellung von Apps, dauerhafte Anzeige „Wird bereitgestellt“, leere Bereitstellungsprotokolle und fälschliche Fehlermeldungen für ordnungsgemäß gestoppte Apps.
+
+### Netzwerk und Fernzugriff
+
+- Neu: Bei Problemen mit Remote-Mounts können die Ursachen einfacher untersucht werden.
+- Optimiert: Klarere Fehlermeldungen bei Remote-Verbindungen und stabilerer Netzwerkzugriff.
+- Behoben: Rückstände bei Remote-Mounts, instabile FTP-Remote-Mounts, nicht öffnende Remote-Verzeichnisse und fehlerhafte Anzeigen auf der Netzwerkseite.
+
+### Backup und Wiederherstellung
+
+- Optimiert: Stabileres Album-Backup.
+- Behoben: Falsche Berechtigungen beim Ein-Klick-Backup von Teamordnern, nicht synchronisierte Freigabeverzeichnisse neuer Konten und fehlende Funktionsdaten nach der Wiederherstellung der Werkseinstellungen.
+
+## Client
+### iOS- und Android-Client
+App-Version: v1.0.0
+
+- Optimierter Ablauf zur Erstellung von Speicherbereichen mit Animationen und Fortschritt für die drei Phasen Initialisierung, Erstellung und Formatierung sowie klaren Erfolgs- oder Fehlerergebnissen.
+- Neu gestaltete Medien- und EXIF-Anzeige für Fotos, Motion Photos, Live Photos und Videos mit Ergänzung von Ort, Aufnahmezeit und Videoinformationen.
+- Optimiertes Detailfenster des Medienbetrachters, Gesteninteraktion, Videowiedergabesteuerung und Medienvorgänge in der Galerie.
+- Höhere Klarheit der Favoritenfotovorschau auf der Startseite, Anzeige von Ort und Aufnahmedatum sowie optimierte Aktualisierung des Albums nach Backup-Updates.
+- Stabilere Reihenfolge der Album-Backup-Liste, des Uploadfortschritts, des stapelweisen Ladens sowie der Status für Abschluss, Fehler und Abbruch.
+- Verbesserte Statusanzeige für schreibgeschützte und externe Festplatten; Upload, Löschen, Verschieben und Umbenennen auf schreibgeschütztem Speicher sind eingeschränkt, das Kopieren in beschreibbare Verzeichnisse bleibt jedoch möglich.
+- Optimierte Zielspeicherauswahl beim Kopieren, Verschieben und Hochladen von Dateien; unterstützt werden „Meine Dateien“, Teamdateien, externer Speicher und „Meine Favoriten“.
+- Optimierte Hinweise in den Liniendiagrammen der Ressourcenüberwachung mit Abtastzeit, Aufschlüsselung der CPU-Auslastung und klarerer Grenzanzeige.
+- IP- oder DDNS-Adressen ohne Portangabe versuchen automatisch eine HTTP-Verbindung; die Echtzeit-Verbindungsauthentifizierung und der Fehler-Fallback wurden verbessert.
+- Neu: Netzwerk zurücksetzen mit Schutz durch eine Sicherheitsverifizierung; optimierte Einstellungen für Systemupdate, Wake-on-LAN und automatisches Einschalten bei Stromzufuhr.
+- Optimierte Anzeige von E-Mail-Benachrichtigungskonfiguration, Betreffpräfix, Test-E-Mail, KI-Beschleunigerkarte und Ressourcenüberwachung.
+- Optimiertes Erlebnis bei Remote-Mounts, Dateityperkennung, Seitenstatus-Feedback sowie Erstellungsabläufen in hellen und dunklen Designs.

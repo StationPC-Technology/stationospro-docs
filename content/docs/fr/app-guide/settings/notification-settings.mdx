@@ -1,0 +1,111 @@
+---
+sourceHash: 2ecf6524f7ef
+title: Paramètres de notification
+description: Configurer le service de notification e-mail, le préfixe d'objet et la langue des notifications
+---
+
+La page Paramètres de notification comporte deux onglets : **E-mail** et **Langue des notifications**. Le service de notification par e-mail sert à envoyer des messages liés à la sécurité du compte, par exemple les codes de vérification d'urgence de la double authentification ou les e-mails de réinitialisation de mot de passe ; la langue des notifications détermine la langue utilisée pour les e-mails, SMS et autres notifications push.
+
+## E-mail
+
+![Email Notification](/images/fr/app-guide/settings-img/notifications.png)
+
+### Service de notification par e-mail
+
+| Fonction/Champ | Description |
+| --- | --- |
+| Interrupteur du service | Une fois activé, le système peut envoyer des e-mails de sécurité via le service SMTP spécifié. |
+| Adresse d'expédition | Affiche l'adresse d'expédition actuelle ; « Non configuré » s'affiche si elle ne l'est pas. |
+| Modifier | Ouvre la fenêtre de paramètres e-mail pour configurer le fournisseur, l'adresse d'expédition et les informations d'authentification. |
+| Préfixe d'objet des e-mails | Définir le préfixe de l'objet des e-mails système, afin d'identifier facilement l'appareil source dans la boîte de réception. |
+| Envoyer un e-mail de test | Envoyer un e-mail de test à une adresse de destination spécifiée pour vérifier la configuration SMTP. |
+
+<Callout title="Dépendance à la double authentification" type="warn">
+  La double authentification nécessite la prise en charge du service de notification par e-mail. Si le système impose la double authentification, la désactivation directe du service e-mail peut empêcher l'envoi des codes de connexion ; la page vous invite alors à désactiver d'abord la double authentification dans les paramètres de sécurité du compte.
+</Callout>
+
+### Paramètres e-mail
+
+#### Boîtes e-mail prédéfinies
+
+Lorsque vous sélectionnez Gmail, QQ Mail, 126 Mail ou 163 Mail, configurez :
+
+| Champ | Obligatoire | Description |
+| --- | --- | --- |
+| Fournisseur de messagerie | Oui | Sélectionner le fournisseur prédéfini par le système. |
+| Adresse d'expédition | Oui | Adresse e-mail utilisée pour envoyer les e-mails système. |
+| Code d'autorisation | Oui | Code d'autorisation SMTP généré chez le fournisseur de messagerie ; il ne s'agit généralement pas du mot de passe de connexion. |
+
+Les boîtes e-mail prédéfinies utilisent généralement le port SSL 465. La page rappelle de vérifier que les règles de pare-feu sortantes ne bloquent pas le port correspondant.
+
+#### Boîte e-mail personnalisée
+
+Après avoir sélectionné une boîte e-mail personnalisée, configurez :
+
+| Champ | Obligatoire | Description |
+| --- | --- | --- |
+| Serveur SMTP | Oui | Adresse SMTP du fournisseur de messagerie, par exemple `smtp.example.com`. |
+| Port | Oui | À renseigner selon le service SMTP. Ports par défaut courants : 25 sans chiffrement, 465 SSL, 587 TLS. |
+| Type de sécurité | Oui | Aucun, SSL ou TLS. SSL ou TLS est recommandé. |
+| Nom d'utilisateur | Oui | Nom d'utilisateur d'authentification SMTP, généralement le compte de messagerie. |
+| Mot de passe | Oui | Mot de passe SMTP ou code d'autorisation. |
+| Nom de l'expéditeur | Non | Nom affiché dans le nom de l'expéditeur de l'e-mail. |
+| Adresse d'expédition | Oui | Adresse e-mail réellement utilisée pour l'envoi externe. |
+
+### Préfixe d'objet des e-mails
+
+| Option | Description |
+| --- | --- |
+| Utiliser le nom de l'appareil | Utiliser automatiquement le nom actuel de l'appareil comme préfixe d'objet des e-mails. |
+| Personnalisé | Saisir manuellement un préfixe ; obligatoire lorsque cette option est choisie. |
+
+Le préfixe d'objet est utile lorsque plusieurs appareils reçoivent des notifications sur une même boîte e-mail, afin d'identifier rapidement l'appareil source.
+
+### Envoyer un e-mail de test
+
+1. Vérifiez que le service e-mail est configuré et activé.
+2. Cliquez sur **Envoyer un e-mail de test**.
+3. Saisissez l'adresse de destination.
+4. Cliquez sur **Envoyer**.
+5. Consultez la boîte de réception ; si l'e-mail n'arrive pas, vérifiez le code d'autorisation, le port SMTP, le type de sécurité et les règles de pare-feu sortantes.
+
+## Langue des notifications
+
+![Notification Language](/images/fr/app-guide/settings-img/notification-language.png)
+
+| Option | Description |
+| --- | --- |
+| Langue des notifications | Contrôle la langue des e-mails, SMS et autres notifications push. |
+| Langues disponibles | 简体中文、繁體中文、English、日本語、한국어、Deutsch、Français、Español. |
+| Appliquer | Enregistrer la modification de langue. |
+
+<Callout title="Conseil" type="info">
+  La langue des notifications n'affecte que le contenu des notifications système et ne change pas directement la langue de l'interface Web du bureau. La langue du bureau se règle dans les paramètres personnels.
+</Callout>
+
+## Dépannage de la configuration e-mail
+
+| Symptôme | Vérification |
+| --- | --- |
+| Code d'autorisation incorrect | Le fournisseur a-t-il activé le SMTP ? Le code a-t-il été copié en entier ? Le mot de passe de connexion a-t-il été utilisé à la place du code ? |
+| Délai d'expiration de connexion SMTP | Adresse SMTP, port, type de sécurité, règles de pare-feu sortantes. |
+| Port SSL utilisé avec TLS sélectionné | Vérifier la documentation du fournisseur ; combinaisons courantes 465/SSL et 587/TLS. |
+| E-mail classé comme indésirable | Nom de l'expéditeur, SPF/DKIM/DMARC, DNS du domaine personnalisé. |
+| E-mail de test reçu mais code de vérification absent | Dossier indésirable, langue des notifications, stratégie de sécurité du compte, délai d'acheminement. |
+| Désactivation du service e-mail bloquée | Le système détecte que la double authentification dépend de l'e-mail ; désactivez d'abord la stratégie concernée. |
+
+## Liste de vérification SMTP personnalisé
+
+1. L'adresse du serveur SMTP est-elle celle recommandée par le fournisseur ?
+2. Le port et le type de sécurité correspondent-ils ?
+3. Le nom d'utilisateur est-il l'adresse e-mail complète ou le compte exigé par le fournisseur ?
+4. Le mot de passe/code d'autorisation ne contient-il pas d'espaces ou de retours à la ligne ?
+5. L'adresse d'expédition correspond-elle au compte SMTP, ou le fournisseur autorise-t-il explicitement un alias ?
+6. Le pare-feu ne bloque-t-il pas le port sortant correspondant ?
+7. Envoyez un e-mail de test et vérifiez le dossier des indésirables.
+
+## Langue et notifications multi-appareils
+
+- La langue des notifications s'applique au contenu des e-mails ou SMS envoyés par le système.
+- Les e-mails déjà envoyés ne sont pas retraduits par une modification ultérieure.
+- Lorsque plusieurs appareils utilisent la même adresse d'expédition, il est recommandé de définir des préfixes d'objet différents, par exemple le nom, l'emplacement ou l'usage de l'appareil.

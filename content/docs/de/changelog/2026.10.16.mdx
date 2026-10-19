@@ -1,0 +1,71 @@
+---
+sourceHash: c278699369f0
+title: 'Systemupdate 2026.10.16'
+---
+
+## Vor dem Update lesen
+Geeignete Produkte
+Dieses Update gilt für Produkte, auf denen StationOS Pro läuft. Prüfen Sie vor dem Update anhand des Produktmodells die entsprechende Prozessorarchitektur.
+
+● DA-Serie: DA400-Serie
+
+Updatehinweise
+1. Um die in diesem Dokument beschriebenen Funktionen zu nutzen, aktualisieren Sie Systemfirmware, App-Suite oder Client auf die entsprechende Version oder höher.
+2. Einige neue Funktionen der App-Suite erfordern eine bestimmte Systemfirmwareversion. Ist die Systemfirmware niedriger als die Mindestkompatibilitätsversion, werden möglicherweise keine App-Update-Benachrichtigungen empfangen oder die betreffenden Funktionen stehen nicht ordnungsgemäß zur Verfügung.
+
+## StationOS Pro Systemfirmware
+### Versionsinformationen
+Systemfirmwareversion: v1.1.0
+
+Dieses Update umfasst Schnittstellenanpassungen. Für eine ordnungsgemäße Nutzung wird empfohlen, Firmware, Client und zugehörige Anwendungen auf die neueste Version zu aktualisieren.
+
+### System und Gerät
+- Neu: VPU-Ressourcenüberwachung mit Anzeige von Auslastung, Speicher, Temperatur und Betriebsstatus.
+- Optimiert: Erfassung und Zwischenspeicherung der Informationen zur KI-Beschleunigerkarte, wodurch der Abtastaufwand sinkt und die Statuskonsistenz steigt.
+- Optimiert: Bereitstellung von Systemupdates mit exklusiver Sperre und Schutz vor ausstehenden Neustarts zur Verringerung von Risiken bei parallelen Vorgängen.
+- Optimiert: Snapshots des Online-Status von Sitzungen und Systemprotokolle zur Verringerung unnötiger Protokollausgaben.
+- Behoben: Rückstände von Herstellerkonfigurationen nach der Wiederherstellung der Werkseinstellungen, Aktualisierung des Gerätestatus und Synchronisierungsprobleme bei einigen Abschaltkonfigurationen.
+
+### Speicher und Festplatte
+- Optimiert: Automatische Rückkehr degradierter Arrays, Erkennung verspäteter Mitglieder und Bewertung der Festplattengesundheit zur Verbesserung der Stabilität von Array-Wiederherstellung und Festplattenwiederverwendung.
+- Optimiert: Vereinheitlichung von SMART-Attributen, Fehlerprotokollen, Temperatur und I/O-Status zur Verringerung falscher Gesundheitswarnungen.
+- Optimiert: Abgleich des Status von Speicherpools und Speicherbereichen, damit ordnungsgemäß eingebundene Bereiche nicht fälschlich als anomal gekennzeichnet werden.
+- Behoben: Falsche Fehlermeldungen zu Zwischenzuständen des Arrays während der Erstellung oder Löschung von Speicherbereichen.
+
+### Dateien und Medien
+- Optimiert: Video-Vorschaubilder werden nach der Videolänge als Einzelbilder entnommen, wodurch die Erzeugung des ersten Vorschaubilds beschleunigt und die Keyframe-Ausrichtung der Segmente korrigiert wird.
+- Optimiert: Speichersteuerung bei der Transkodierung von HDR- und hochauflösenden Videos zur Vermeidung von Überschreitungen bei der Verarbeitung von 8K-Videos.
+- Behoben: Endlosschleife beim Demuxing von Transkodierungen durch beschädigte Videoquellen, Aufgabenlecks oder nicht freigegebene Prozesse nach dem Wechsel des Videos.
+- Optimiert: Stabilität von FTP-Remote-Mounts sowie Verbindungswiederverwendung und Verzeichnisauflistungsgeschwindigkeit von Cloud-Verzeichnisprüfungen.
+- Optimiert: Speicherbelegung bei großen Ergebnismengen der Dateiduplikatsuche, Empfehlung doppelter Kopien und Behandlung von Dateien mit unbekannter Endung.
+
+### App Center und Docker
+- Optimiert: Schutz fehlender Daten-Volumes und Wiederholungsversuche beim Docker-Start, damit fehlerhafte Konfigurationen keine wiederholten Versuche auslösen.
+- Optimiert: Compose-Bereitstellung, erneute Bereitstellung, Protokollanzeige und Synchronisierung des Anwendungsstatus.
+- Optimiert: Aufgaben zur App-Installation sowie Konfiguration von Installations- und Downloadverzeichnissen mit ergänzten Bestätigungshinweisen für nicht konfigurierte Verzeichnisse.
+
+### KI und Suche
+- Neu: Unterstützung des lokalen Modells Qwen3.5; Laufzeitpaket für RK1828 und Laden der Modellliste optimiert.
+- Optimiert: Der Ladezustand lokaler Modelle wird über Ereignisse in Echtzeit synchronisiert, wodurch die Rückmeldung zu Installation, Laden und Deinstallieren genauer wird.
+- Optimiert: Rückoff-Retry nach fehlgeschlagener Migration des Gesichtsmodells; die Gesichtsfunktion wird nach der Wiederherstellung der Werkseinstellungen automatisch wiederhergestellt.
+- Optimiert: Geschätzte Wartezeit der Albumindizierung, Duplikatsuche und Wiederherstellung nach anomaler Vektorsuche.
+
+### Netzwerk, Fernzugriff und Benachrichtigungen
+- Neu: Einstellung für das Geräteanalyse-Verbesserungsprogramm mit Unterstützung der Synchronisierung von Registrierungsinformationen.
+- Optimiert: Fernzugriff verwendet WebSocket-Tickets und Bearer-Token-Authentifizierung zur Verbesserung der Stabilität bei Verbindungswechsel und Wiederverbindung nach Unterbrechungen.
+- Optimiert: Konfiguration des Signalgebers und Snapshot-Ereignisse der Abschaltkonfiguration zur Vereinheitlichung des Benachrichtigungsstatus.
+- Behoben: Fehlerhinweise und Statusrückstände bei Netzwerkausfällen, Remote-Mounts und Netzwerkwechseln.
+
+## Client
+### iOS- und Android-Client
+App-Version: v1.1.0
+
+- Neu: Einstellung für das Geräteanalyse-Verbesserungsprogramm; bei der Registrierung kann die Teilnahme gewählt werden.
+- Neu: Verwaltung angemeldeter Geräte mit automatischer Aktualisierung der Geräteliste und Berechtigungskontrolle.
+- Optimierte Speicherkarte der Startseite; beim Aufklappen werden Änderungen der Speichervolumes in Echtzeit synchronisiert, und ein anormaler Absturz beim Zerstören der Karte wurde behoben.
+- Optimiertes Aufklappen des Albums per Ziehen, Gruppierung im Bildauswahldialog für Uploads und Animationen; verbesserte Anzeige von Favoriten, Datum und Ort.
+- Optimierte Wiedergabe transkodierter 4K-Videos, Fortschrittssynchronisierung, Positionsbestimmung per Ziehen und Untertitelwechsel; Ruckeln, Abstürze und eingefrorene Bilder wurden behoben.
+- Behoben: Fehlerhafte Anzeige von UUID, Quellgerät und Aufgabenstatus beim Ein-Klick-Backup externer Geräte.
+- Upload, Löschen, Verschieben und Umbenennen auf schreibgeschütztem externem Speicher sind eingeschränkt, um versehentliche Datenänderungen zu vermeiden.
+- Optimierte Hinweise in den Liniendiagrammen der Ressourcenüberwachung mit Anzeige der Abtastzeit und verbesserter Darstellung überlaufender Prozessnamen.
+- Optimierter Konfigurationspfad bei der App-Installation; bei nicht konfiguriertem Verzeichnis erscheint ein Bestätigungshinweis, und nach einer Verzeichnisänderung wird ein Neustart des Anwendungsdienstes empfohlen.

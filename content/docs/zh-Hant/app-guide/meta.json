@@ -1,4 +1,15 @@
 {
   "title": "應用教學",
-  "pages": ["overview"]
+  "defaultOpen": true,
+  "pages": [
+    "overview",
+    "app-center",
+    "files",
+    "backup",
+    "docker",
+    "log-center",
+    "monitor",
+    "settings",
+    "station-ai"
+  ]
 }

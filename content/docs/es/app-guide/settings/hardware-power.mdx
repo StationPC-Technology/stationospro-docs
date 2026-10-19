@@ -1,0 +1,134 @@
+---
+sourceHash: 8498127943c7
+title: Hardware y energía
+description: Configurar el zumbador, el ventilador de refrigeración, la compresión de memoria, el encendido y apagado automáticos y la hibernación de discos
+---
+
+La página Hardware y energía se divide en **General** y **Energía**. La página General controla el sonido, la refrigeración y la compresión de memoria; la página Energía controla la recuperación de la alimentación, la activación por red, el encendido y apagado programados y la hibernación de discos.
+
+## General
+
+![Hardware General](/images/es/app-guide/settings-img/hardware-general.png)
+
+### Zumbador
+
+Tras hacer clic en el botón de configuración del zumbador, puede seleccionar qué eventos activan el aviso sonoro:
+
+| Categoría | Evento | Descripción |
+| --- | --- | --- |
+| General | Encendido del dispositivo | Emite un tono durante el proceso de encendido. |
+| General | Apagado del dispositivo | Emite un tono durante el proceso de apagado. |
+| General | Copia de seguridad con un clic correcta | Avisa cuando finaliza una tarea de copia de seguridad con un clic. |
+| Error del dispositivo | Temperatura excesiva | Alarma cuando la temperatura del dispositivo supera el rango seguro. |
+| Error del dispositivo | Error de espacio de almacenamiento | Alarma cuando el estado del volumen de almacenamiento o del disco es anómalo. |
+| Error del dispositivo | Error del ventilador | Alarma cuando el ventilador se detiene o presenta una anomalía. |
+
+Tras guardar, solo los eventos marcados activarán el zumbador. Si el dispositivo está en un dormitorio o en un entorno silencioso, puede conservar únicamente los avisos de errores de alto riesgo.
+
+### Ventilador de refrigeración
+
+| Modo | Descripción |
+| --- | --- |
+| Normal | Ajusta automáticamente la velocidad según la temperatura del dispositivo para equilibrar refrigeración y ruido; adecuado para la mayoría de los escenarios. |
+| Silencioso | Funciona a baja velocidad y con poco ruido, pero la temperatura del dispositivo puede aumentar. Adecuado para entornos sensibles al ruido y con poca carga. |
+| Velocidad máxima | Fuerza la velocidad máxima para garantizar la máxima refrigeración, aunque genera más ruido. Adecuado para entornos de alta carga o alta temperatura, o para uso temporal cuando la refrigeración es anómala. |
+
+La tarjeta de la página muestra el modo actual, por ejemplo, «Modo actual: Normal».
+
+### Compresión de memoria
+
+| Opción | Descripción |
+| --- | --- |
+| Interruptor de compresión de memoria | Una vez activado, permite liberar espacio de memoria y acelerar la lectura de datos, lo que hace que el sistema funcione de forma más eficiente. |
+
+La compresión de memoria consume una pequeña cantidad de CPU a cambio de un mayor espacio de memoria disponible. Se recomienda a los usuarios habituales mantener la configuración predeterminada; si se ejecutan tareas con alta carga de CPU y la presión de memoria es baja, puede ajustarse según los resultados reales de las pruebas de rendimiento.
+
+## Energía
+
+![Power](/images/es/app-guide/settings-img/power.png)
+
+### Encendido automático al restablecerse la alimentación
+
+| Opción | Descripción |
+| --- | --- |
+| Power On When Power Returns | El dispositivo se inicia automáticamente cuando se restablece la alimentación externa. Adecuado para combinarlo con un UPS estable o para escenarios que requieren reinicios desatendidos. |
+
+### Activación por red
+
+| Opción | Descripción |
+| --- | --- |
+| Wake On LAN (WOL) | Cuando el dispositivo está apagado o en hibernación, se puede activar mediante un paquete mágico de la red local. Requiere compatibilidad de la tarjeta de red, la placa base y el entorno de enrutamiento. |
+
+### Encendido y apagado programados
+
+| Opción | Descripción |
+| --- | --- |
+| Interruptor Scheduled Power On / Off | Una vez activado, el dispositivo se enciende o apaga automáticamente según la programación. La primera vez que se activa, se guía al usuario para añadir la primera programación. |
+| Add Schedule | Añade una programación. |
+| Day | Permite seleccionar todos los días o de lunes a domingo. |
+| Time | La hora de ejecución de la programación. |
+| Action | Encender o apagar. |
+| Actions | Editar o eliminar una programación existente. |
+
+Las distintas programaciones se repiten semanalmente; el sistema valida las programaciones duplicadas o no válidas. Si utiliza el encendido automático, asegúrese de que la alimentación del dispositivo y la política de la BIOS/firmware admitan el inicio programado.
+
+### Hibernación de discos
+
+La hibernación de discos solo se aplica a los discos mecánicos compatibles con la hibernación, y los discos internos y externos se pueden configurar por separado. Es posible que el disco del sistema no admita la hibernación.
+
+| Opción | Descripción |
+| --- | --- |
+| Enable Internal Disk Sleep | Activa la hibernación de los discos internos. |
+| Enable External Disk Sleep | Activa la hibernación de los discos externos. |
+| Wake Internal Disks When a User Logs In | Activa automáticamente los discos internos cuando un usuario inicia sesión. |
+| Wake External Disks When a User Logs In | Activa automáticamente los discos externos cuando un usuario inicia sesión. |
+| Idle Time | Tiempo de inactividad tras el cual se activa la hibernación; puede elegir 10 minutos, 20 minutos, 30 minutos, 1 hora, 2 horas o 3 horas. |
+
+<Callout title="Atención" type="info">
+  El acceso frecuente dificulta que los discos entren en hibernación. Si hay copias de seguridad, indexación, descargas, grabaciones de vigilancia o aplicaciones en contenedores que leen y escriben continuamente en los discos, prolongue adecuadamente el tiempo de inactividad o active la hibernación solo para los discos no esenciales.
+</Callout>
+
+## Política del zumbador
+
+| Escenario | Recomendación |
+| --- | --- |
+| Sala de servidores u oficina | Conservar temperatura excesiva, error del ventilador y error de almacenamiento. |
+| Dormitorio o salón silencioso | Conservar solo los errores graves y desactivar los avisos de encendido y apagado. |
+| Despliegue remoto desatendido | Activar todos los avisos de error para detectar cuanto antes anomalías de temperatura o almacenamiento. |
+| Copia de seguridad con un clic importante | Conservar el aviso de copia de seguridad correcta. |
+
+## Selección del modo del ventilador
+
+| Condición | Recomendación |
+| --- | --- |
+| Uso doméstico habitual | Normal. |
+| Baja carga nocturna | Silencioso; al día siguiente se puede volver a Normal. |
+| Entorno de alta temperatura, descargas a plena carga, tareas de contenedores/IA | Velocidad máxima. |
+| Alarma de error del ventilador | Apagar primero el dispositivo y revisar el ventilador; no depender a largo plazo de la velocidad máxima para ocultar el fallo. |
+
+## Combinaciones de políticas de energía
+
+| Objetivo | Combinación recomendada |
+| --- | --- |
+| Ahorro energético programado en el hogar | Apagado programado + activación manual/por red. |
+| Disponibilidad automática tras un corte de energía | Encendido automático al restablecerse la alimentación. |
+| Mantenimiento remoto | WOL + red local/VPN fiable + IP fija o reserva DHCP. |
+| Funcionamiento continuo de servicios importantes | Usar con prudencia las programaciones; configurar UPS y almacenamiento redundante. |
+
+## Notas sobre el encendido y apagado programados
+
+- El encendido automático también depende de la compatibilidad del hardware/firmware del dispositivo.
+- Antes de apagar, confirme que las tareas de copia de seguridad, sincronización, descarga, indexación, grabación y contenedores se pueden interrumpir.
+- No configure el encendido y el apagado a la misma hora.
+- El sistema valida las programaciones duplicadas, pero aun así deben revisarse manualmente.
+- Utilice NTP para mantener la hora exacta; de lo contrario, la hora de ejecución de las programaciones puede desviarse.
+
+## Solución de problemas de hibernación de discos
+
+| Fenómeno | Comprobación |
+| --- | --- |
+| Los discos nunca entran en hibernación | Si el Centro de registros, las copias de seguridad, la indexación, los contenedores, la vigilancia o las tareas de descarga acceden continuamente a ellos. |
+| Activación/hibernación frecuente | Si el tiempo de inactividad es demasiado corto y si los clientes consultan SMB/WebDAV periódicamente. |
+| Acceso lento tras la hibernación | Es el tiempo de espera de activación; acorte el tiempo de inactividad o desactive la hibernación. |
+| Los discos externos no entran en hibernación | Si el disco externo o el puente USB admiten la hibernación. |
+| El disco del sistema no entra en hibernación | El disco del sistema normalmente debe prestar servicio de forma continua y puede no admitir la hibernación. |

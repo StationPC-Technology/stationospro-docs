@@ -1,0 +1,178 @@
+---
+sourceHash: 96725f95e296
+title: Dateifreigabeprotokolle
+description: Konfigurieren der Dateidienste SMB, WebDAV, FTP, NFS und Time Machine
+---
+
+Die Seite „Dateifreigabeprotokolle“ bietet die vier Registerkarten **SMB**, **WebDAV**, **FTP** und **NFS**. Nach Aktivierung des jeweiligen Dienstes können Clients wie Computer, Smartphones, NAS-Geräte und TV-Boxen über das Protokoll auf Dateien auf dem Gerät zugreifen. Jede Protokollseite enthält Hinweise zur Verbindungsherstellung, sodass Sie Adressen bequem kopieren und die Einbindung Schritt für Schritt vornehmen können.
+
+![File Sharing](/images/de/app-guide/settings-img/file-sharing.png)
+
+## Sichtbarer Ordnerbereich
+
+Die Dienstkarten von SMB, WebDAV und FTP bieten jeweils **Sichtbaren Verzeichnisbereich festlegen**. Diese Einstellung bestimmt, ob die einzelnen Dateibereiche über das jeweilige Protokoll sichtbar sind:
+
+| Bereich | Beschreibung |
+| --- | --- |
+| Meine Dateien, von anderen freigegeben | Persönliches Verzeichnis des aktuellen Benutzers und empfangene Freigaben. |
+| Team-Dateien | Gemeinsam genutztes Team-Verzeichnis. |
+| Externer Speicher | Dateien auf externen Speichergeräten wie USB. |
+| Remote-Einbindung | Von entfernten NAS-Geräten, Servern oder Cloud-Laufwerken eingebundene Verzeichnisse. |
+| App-Dateien | Von Anwendungen erzeugte Datenverzeichnisse. |
+
+Für jeden Bereich kann Folgendes gewählt werden:
+
+| Modus | Wirkung |
+| --- | --- |
+| Alle sichtbar | Aktuelle und künftig hinzugefügte Ordner sind über das Protokoll zugänglich. |
+| Benutzerdefinierte Ordner | Nur ausgewählte Ordner der ersten Ebene sind sichtbar; die Karte zeigt die Anzahl der benutzerdefinierten Ordner an. |
+| Alles gesperrt/Keine | Kein Ordner in diesem Bereich ist über das Protokoll sichtbar. |
+
+<Callout title="Namensbeschränkungen" type="info">
+  Wenn der Name eines Ordners der ersten Ebene Leerzeichen oder Sonderzeichen wie `! " # % & ' ( ) * + , / : ; < = > ? @ [ ] ^ { } | ~` enthält, ist er über das Dateifreigabeprotokoll nicht erreichbar. Für Verzeichnisse der ersten Ebene sollten Buchstaben, Ziffern, chinesische Zeichen, Unterstriche oder Bindestriche verwendet werden.
+</Callout>
+
+## SMB
+
+SMB ist das am häufigsten verwendete Dateifreigabeprotokoll unter Windows, macOS und den meisten Clients und eignet sich für den alltäglichen Dateizugriff im lokalen Netzwerk.
+
+| Funktion | Beschreibung |
+| --- | --- |
+| SMB-Dienstschalter | Nach Aktivierung kann das Gerät Dateien im lokalen Netzwerk über SMB freigeben und darauf zugreifen. |
+| Erweiterte Einstellungen | Konfiguration von SMB3-Multichannel, SMB1, NTLMv1 und macOS-Dateinamenkompatibilität. |
+| Sichtbaren Verzeichnisbereich festlegen | Wechselt zu den Dateimanager-Einstellungen, um den über Dateidienste sichtbaren Bereich der einzelnen Verzeichnisse zu konfigurieren. |
+| Time Machine-Dienst | Nach Aktivierung können Macs über Time Machine auf dieses NAS sichern. |
+| Time Machine-Ordner | Zeigt das Time Machine-Backup-Verzeichnis an oder legt es fest. |
+| Ordner anzeigen | Öffnet das aktuelle Time Machine-Backup-Verzeichnis. |
+| Verbindungsmethode | Enthält Schritte für macOS Finder und das Windows-Ausführen-Fenster sowie die Adressen `smb://IP` und `\\IP`. |
+| Weitere Verbindungsinformationen | Zeigt Geräte-IP, Standardport 445 und Hostnamen an. |
+
+### Erweiterte SMB-Einstellungen
+
+| Option | Beschreibung | Empfehlung |
+| --- | --- | --- |
+| SMB3-Multichannel unterstützen | Ermöglicht die parallele Übertragung über mehrere Netzwerkverbindungen für höhere Geschwindigkeit und Zuverlässigkeit. | Bei mehreren Netzwerkports oder hoher Parallelübertragung empfohlen. |
+| SMB1 unterstützen | Kompatibel mit älteren Geräten, jedoch mit schwächerer Protokollsicherheit. | Nur vorübergehend aktivieren, wenn ältere Geräte sich nicht verbinden können. |
+| NTLMv1 unterstützen | Kompatibel mit Endgeräten wie TV-Boxen und Playern, die nur NTLMv1 unterstützen; das Authentifizierungsprotokoll ist jedoch unsicher. | Nur für erforderliche Geräte aktivieren und den Zugriffsbereich einschränken. |
+| Sonderzeichen in Dateinamen für macOS konvertieren | Verbessert die Dateinamenkompatibilität mit macOS. | Bei Problemen mit dem Mac-Zugriff aktivieren. |
+
+### Time Machine-Einstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| Time Machine-Dienstschalter | Der SMB-Dienst muss zuerst aktiviert werden. |
+| Speicherort | Wählen Sie das Speichervolume für die Mac-Sicherungen aus. |
+| Begrenzung der Backup-Kapazität | Wählen Sie „Größe begrenzen“ und geben Sie eine Kapazität ein, oder wählen Sie „Größe nicht begrenzen“. |
+| Kapazitätseinheit | GB und TB werden unterstützt; die Begrenzung darf die Gesamtkapazität des ausgewählten Speicherbereichs nicht überschreiten. |
+
+![SMB](/images/de/app-guide/settings-img/file-sharing.png)
+
+## WebDAV
+
+WebDAV bietet Dateizugriff über HTTP/HTTPS und wird häufig von Drittanbieter-Clients, mobilen Anwendungen und einigen Einbindungswerkzeugen verwendet.
+
+![WebDAV](/images/de/app-guide/settings-img/file-sharing-webdav.png)
+
+| Funktion | Beschreibung |
+| --- | --- |
+| WebDAV-Dienstschalter | Nach Aktivierung ist der Dateizugriff im lokalen Netzwerk über WebDAV möglich. |
+| Erweiterte Einstellungen | Konfiguration von HTTP/HTTPS-Protokoll und Listening-Port. |
+| Sichtbaren Verzeichnisbereich festlegen | Konfiguriert die über WebDAV sichtbaren Dateiverzeichnisse. |
+| Verbindungsmethode | Enthält Zuordnungs-/Verbindungsschritte für macOS und Windows; das Adressformat lautet `http://IP:Port`. |
+
+### Erweiterte WebDAV-Einstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| HTTP aktivieren | Verwendet das unverschlüsselte HTTP-Protokoll; der übliche Standardport ist 5005. |
+| HTTP-Port | Listening-Port des HTTP-Dienstes, Bereich 1 bis 65535. |
+| HTTPS aktivieren | Verwendet verschlüsselte Übertragung; empfohlen in nicht vertrauenswürdigen Netzwerken oder wenn Kontodaten geschützt werden müssen. |
+| HTTPS-Port | Listening-Port des HTTPS-Dienstes; darf nicht mit dem HTTP-Port identisch sein. |
+| Debug-Modus | Gibt detaillierte Protokolle aus, kann die Leistung beeinträchtigen und sollte nur vorübergehend zur Fehlersuche aktiviert werden. |
+
+## FTP
+
+FTP eignet sich für die systemübergreifende Übertragung großer Dateimengen. Das System unterstützt sowohl unverschlüsseltes FTP als auch FTPS.
+
+![FTP](/images/de/app-guide/settings-img/file-sharing-ftp.png)
+
+| Funktion | Beschreibung |
+| --- | --- |
+| FTP-Dienstschalter | Nach Aktivierung können FTP/FTPS-Clients eine Verbindung herstellen. |
+| Erweiterte Einstellungen | Konfiguration von Protokoll, Port, passivem Portbereich und Leerlauf-Timeout. |
+| Sichtbaren Verzeichnisbereich festlegen | Konfiguriert die über FTP sichtbaren Dateiverzeichnisse. |
+| Verbindungsmethode | Enthält Verbindungsschritte für macOS Finder und den Windows-Datei-Explorer; das Adressformat lautet `ftp://IP:21`. |
+
+### Erweiterte FTP-Einstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| FTP-Dienst aktivieren (unverschlüsselt) | Aktiviert Standard-FTP. Die übertragenen Inhalte sind nicht verschlüsselt; die Nutzung in nicht vertrauenswürdigen Netzwerken wird nicht empfohlen. |
+| FTPS-Dienst aktivieren (sichere Verschlüsselung) | Aktiviert FTP over SSL/TLS und bietet verschlüsselte Übertragung. |
+| FTP-Port | Listening-Port des Dienstes, Standard 21, gültiger Bereich 1 bis 65535. |
+| Passiver FTP-Portbereich | Standard oder benutzerdefiniert wählbar. Ein benutzerdefinierter Bereich muss innerhalb von 55536 bis 65535 liegen, und die Obergrenze darf nicht kleiner als die Untergrenze sein. |
+| Leerlauf-Timeout | Trennt die Verbindung automatisch, wenn der Client keine Aktion ausführt; unterstützt 1 bis 120 Minuten. |
+
+## NFS
+
+NFS wird häufig verwendet, damit Linux-, Unix-, virtuelle Maschinen oder einige Wiedergabegeräte freigegebene Verzeichnisse direkt einbinden. Der Hinweis auf der aktuellen Seite erläutert: Nach Aktivierung können Geräte im lokalen Netzwerk freigegebene Ordner lokal einbinden und direkt auf Dateien zugreifen, ohne Kontoverifizierung.
+
+![NFS](/images/de/app-guide/settings-img/file-sharing-nfs.png)
+
+| Funktion | Beschreibung |
+| --- | --- |
+| NFS-Dienstschalter | Erst nach Aktivierung kann über eine NFS-Adresse eingebunden werden. |
+| Sichtbaren Verzeichnisbereich festlegen | Nicht verfügbar, solange der Dienst ausgeschaltet ist; nach Aktivierung können die über NFS sichtbaren Verzeichnisse konfiguriert werden. |
+| Verbindungsmethode | Enthält Beispiele für macOS (`nfs://IP/Pfad`) und Windows (`\\IP\Pfad`). |
+
+<Callout title="Sicherheitshinweis" type="warn">
+  - NFS führt möglicherweise keine Verifizierung von Benutzername und Passwort durch. Aktivieren Sie NFS nur in vertrauenswürdigen lokalen Netzwerken und beschränken Sie den Zugriff über den sichtbaren Verzeichnisbereich und Client-Berechtigungen.
+  - SMB1, NTLMv1 sowie unverschlüsseltes FTP/HTTP bergen Sicherheitsrisiken. Wenn das Gerät es unterstützt, bevorzugen Sie SMB3, HTTPS, FTPS oder SFTP.
+  - Nach einer Änderung des Dienstports müssen Sie die ausgehenden/eingehenden Firewall-Regeln und die Client-Adressen entsprechend anpassen.
+</Callout>
+
+## Auswirkungen der Dienstschalter
+
+| Vorgang | Auswirkung auf Clients | Auswirkung auf Daten |
+| --- | --- | --- |
+| Protokoll aktivieren | Entsprechende Clients können eine Verbindung versuchen. | Dateiberechtigungen werden nicht geändert. |
+| Protokoll deaktivieren | Bestehende Protokollverbindungen schlagen fehl oder werden getrennt. | Dateien werden nicht gelöscht. |
+| Port ändern | Die alte Adresse ist sofort ungültig. | Dateien werden nicht gelöscht. |
+| Sichtbaren Bereich ändern | Einige Verzeichnisse verschwinden für Protokoll-Clients. | Nur Anzeige und Zugriffseinstieg ändern sich; Verzeichnisse werden nicht gelöscht. |
+| Speichervolume des Protokolls formatieren | Das Protokoll kann weiterhin aktiviert werden, die Quelldaten sind jedoch gelöscht. | Alle Dateien im Volume werden gelöscht. |
+
+## Zusammenhang zwischen Konten und Berechtigungen
+
+Dateiprotokolle verwenden die lokalen Gerätekonten zur Authentifizierung. Welche Inhalte schließlich sichtbar und beschreibbar sind, hängt zusätzlich von folgenden Konfigurationen ab:
+
+1. ob der Benutzer aktiviert ist;
+2. auf welche Speicherbereiche und Kontingente der Benutzer zugreifen darf;
+3. Autorisierung über Benutzergruppen;
+4. eigene Berechtigungen von Dateien/Verzeichnissen;
+5. sichtbarer Verzeichnisbereich des Protokolls;
+6. Firewall und IP-Liste;
+7. ob das Speichervolume schreibgeschützt ist.
+
+## Standardadressen und Ports
+
+| Protokoll | Standardport | Übliche Adressen |
+| --- | --- | --- |
+| SMB | 445 | `smb://IP`, `\\IP` |
+| WebDAV | 5005, in den erweiterten Einstellungen änderbar | `http://IP:Port` |
+| FTP/FTPS | 21, in den erweiterten Einstellungen änderbar | `ftp://IP:Port` |
+| NFS | Vom exportierten Systempfad abhängig | `nfs://IP/Freigabepfad` |
+
+## Fehlerbehebung bei Verbindungen
+
+| Erscheinung | Prüfreihenfolge |
+| --- | --- |
+| Client kann keine Verbindung herstellen | Dienstschalter, IP/Port, Firewall, Switch-Routing, Netz des Clients. |
+| Verbindung möglich, aber keine Verzeichnisse sichtbar | Sichtbarer Verzeichnisbereich, Kontoberechtigungen, Sonderzeichen im Ordnernamen. |
+| Meldung zu falschem Benutzername/Passwort | Ob der Benutzer aktiviert ist, ob das Passwort geändert wurde, ob das Protokoll ein lokales Konto verlangt. |
+| Langsame Übertragung | Linkgeschwindigkeit/Duplex, SMB-Multichannel, Aggregationsmodus, Festplattenlast, CPU-/Arbeitsspeicherauslastung. |
+| Kein Zugriff nach Portänderung | Client-Adresse und -Port, Firewall-Regeln, Portweiterleitung am Router. |
+| Auffällige Sonderzeichen in Mac-Dateinamen | Sonderzeichenkonvertierung für macOS aktivieren und Verzeichnisbenennung prüfen. |
+
+<Callout title="Prinzip der minimalen Exposition" type="warn">
+  Aktivieren Sie nur tatsächlich benötigte Protokolle; verwenden Sie NFS nur in vertrauenswürdigen Netzwerken; für den Zugriff aus dem Internet bevorzugen Sie den Fernzugriff oder ein VPN und geben Sie SMB, FTP oder Verwaltungsports nicht direkt frei.
+</Callout>

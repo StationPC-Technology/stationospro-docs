@@ -1,0 +1,59 @@
+---
+sourceHash: ec76bd988ac2
+title: '第三方個人資料分享清單'
+description: StationPC 第三方個人資料分享清單
+---
+
+更新日期：2026 年 9 月 29 日
+
+為保障 StationPC 各項功能完整穩定運作，我們會整合外部合作方提供的 SDK、應用程式介面（API）、外掛等第三方元件。本文件列明相關合作第三方，關於第三方處理個人資料的完整規則，請查閱對應第三方的隱私權政策。
+
+請注意，第三方元件可能因版本迭代、策略修訂調整其資料處理範圍，請以各第三方服務供應商官方公告說明為準。
+
+## 行動端
+
+適用範圍：StationPC StationNAS App（Android / iOS）
+
+核對日期：2026-09-24
+
+核對依據：pubspec.yaml / pubspec.lock / android/app/build.gradle / ios/Podfile.lock / package/ 本機外掛 / lib 活躍呼叫點
+
+**本機通知（SDK，flutter_local_notifications 19.4.1 / com.dexterous.flutterlocalnotifications）**<br />第三方公司名稱：MaikuB（開放原始碼專案）<br />適用區域：全球（元件本機執行，無第三方伺服器）<br />使用目的：使用者備份時通知剩餘備份數量、任務完成提醒<br />涉及個人資料：本機通知權限；通知內容僅存本機，不上傳<br />使用情境：備份任務進行中或完成時，在裝置本機彈出通知，提醒剩餘備份數量與任務完成情況<br />分享方式：SDK（本機整合，不向第三方伺服器傳輸資料）<br />第三方個人資料處理規則：[https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
+
+**音樂播放（SDK，audio_service / com.ryanheise.audioservice）**<br />第三方公司名稱：Ryan Heise（開放原始碼專案）<br />適用區域：全球（元件本機執行，無第三方伺服器）<br />使用目的：備份時背景播放/前景保持運作，確保備份任務不被中斷，提升使用者體驗<br />涉及個人資料：通知、背景執行相關權限（不蒐集個人資料）<br />使用情境：開啟相簿、檔案等自動備份後，App 在背景保持執行，避免備份任務被系統中斷<br />分享方式：SDK（本機整合，不向第三方伺服器傳輸資料）<br />第三方個人資料處理規則：[https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
+
+**影片播放 VLCPlayer（SDK，flutter_vlc_player 7.4.2 / MobileVLCKit 3.6.1b1）**<br />第三方公司名稱：VideoLAN（開放原始碼組織）<br />適用區域：全球（元件本機執行，無第三方伺服器）<br />使用目的：應用程式內影片播放，手機旋轉時橫豎屏切換<br />涉及個人資料：加速度感測器/陀螺儀（用於旋轉判斷，不蒐集裝置個人資料）<br />使用情境：在 App 內播放 NAS 中的影片檔案，旋轉手機時自動切換橫豎屏<br />分享方式：SDK（本機整合，不向第三方伺服器傳輸資料）<br />第三方個人資料處理規則：[https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
+
+**Sentry 日誌監控（SDK，sentry_flutter 8.14.2 / Sentry HybridSDK 8.46.0）**<br />第三方公司名稱：Functional Software, Inc.（Sentry）<br />適用區域：全球<br />使用目的：當機與異常日誌記錄，用於問題排查與穩定性分析<br />涉及個人資料：裝置資訊（裝置型號/系統版本）、裝置唯一識別碼、日誌資訊、連網資訊（IP）<br />使用情境：App 發生當機或運作異常時，蒐集當機與錯誤日誌，用於故障定位與產品穩定性改進<br />分享方式：SDK<br />第三方個人資料處理規則：[https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
+
+**PostHog 使用者行為統計分析（SDK，posthog_flutter 5.0.0 / PostHog iOS 3.30.1）**<br />第三方公司名稱：PostHog, Inc.<br />適用區域：全球<br />使用目的：進行 App 營運統計與分析（事件統計與使用者識別；工作階段重播已關閉）<br />涉及個人資料：裝置唯一識別碼（ulid/裝置 SN）、裝置資訊、網路資訊<br />使用情境：使用 App 各項功能時產生的功能使用事件統計，用於瞭解功能使用情況與應用程式內操作路徑<br />分享方式：SDK<br />第三方個人資料處理規則：[https://posthog.com/privacy](https://posthog.com/privacy)
+
+**華為掃碼服務 HMS Scan Kit（SDK，flutter_scankit 2.0.3 / com.huawei.hms:scanplus:2.12.0.301）**<br />第三方公司名稱：華為軟體技術有限公司<br />適用區域：全球（中國大陸及海外，取決於華為 HMS Core 服務可用區域）<br />使用目的：掃描 QR Code/條碼（新增裝置、掃碼登入/綁定）<br />涉及個人資料：相機擷取的影像資訊（端側辨識，不上傳原圖）、HMS 服務運作所需的基本裝置資訊<br />使用情境：新增 NAS 裝置、掃碼登入或綁定裝置時，呼叫相機掃描裝置 QR Code/條碼<br />分享方式：SDK（影像在裝置端完成辨識，不上傳原圖）<br />第三方個人資料處理規則：[https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/)
+
+**Google ML Kit 條碼辨識（SDK，mobile_scanner 6.x / iOS GoogleMLKit/BarcodeScanning 7.0.0 / Android com.google.mlkit:barcode-scanning 17.3.0）**<br />第三方公司名稱：Google LLC<br />適用區域：中國大陸以外國家及地區<br />使用目的：掃碼辨識（iOS 端掃碼，Android 端備用掃碼）<br />涉及個人資料：相機擷取的影像資訊（端側辨識，不上傳）、Google 隱私權政策所述的裝置/診斷資訊<br />使用情境：新增 NAS 裝置、掃碼登入或綁定裝置時，呼叫相機辨識 QR Code/條碼<br />分享方式：SDK（影像在裝置端完成辨識，不上傳）<br />第三方個人資料處理規則：[https://policies.google.com/privacy](https://policies.google.com/privacy)
+
+**peergine P2P 通道（SDK，pg_lib_tunnel：Android pgjnitunnel.jar / iOS 原生程式庫）**<br />第三方公司名稱：peergine<br />適用區域：全球（中繼伺服器 p2p.t-firefly.net / us.p2prelay.t-firefly.net 由裝置商部署）<br />使用目的：遠端存取 NAS 時建立 P2P 打洞/中繼資料通道（內網穿透）<br />涉及個人資料：裝置序號/裝置識別碼（SN、UDID）、IP 位址及連接埠、網路資訊（用於 NAT 穿透與鏈路協商）<br />使用情境：開啟遠端連線功能後，在外網透過 P2P 通道存取家中 NAS 裝置<br />分享方式：SDK<br />第三方個人資料處理規則：無公開隱私權政策
+
+## 合規聲明
+
+1. 未經您明確同意，我們不會向第三方分享您的個人資料用於其獨立商業目的。
+
+2. 本產品整合的第三方服務僅為約定的功能目的處理個人資料。
+
+## 第三方官方隱私權連結
+
+- 本機通知 flutter_local_notifications：[https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
+
+- 音樂播放 audio_service：[https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
+
+- 影片播放 VLCPlayer：[https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
+
+- Sentry 日誌監控：[https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
+
+- PostHog 使用者行為統計分析：[https://posthog.com/privacy](https://posthog.com/privacy)
+
+- 華為掃碼服務 HMS Scan Kit：[https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/)（HMS Core 隱私權聲明，建議人工複核）
+
+- Google ML Kit 條碼辨識：[https://policies.google.com/privacy](https://policies.google.com/privacy)
+
+- peergine P2P 通道：無公開隱私權政策

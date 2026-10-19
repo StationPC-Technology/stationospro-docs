@@ -1,0 +1,178 @@
+---
+sourceHash: 96725f95e296
+title: Protocolos de compartición de archivos
+description: Configurar los servicios de archivos SMB, WebDAV, FTP, NFS y Time Machine
+---
+
+La página Protocolos de compartición de archivos ofrece cuatro pestañas: **SMB**, **WebDAV**, **FTP** y **NFS**. Tras activar el servicio correspondiente, clientes como ordenadores, teléfonos, NAS y reproductores de TV pueden acceder a los archivos del dispositivo mediante el protocolo. Cada página de protocolo ofrece instrucciones sobre el método de conexión para copiar la dirección y montarla siguiendo los pasos.
+
+![File Sharing](/images/es/app-guide/settings-img/file-sharing.png)
+
+## Alcance de carpetas visibles
+
+Las tarjetas de servicio de SMB, WebDAV y FTP ofrecen **Configurar el alcance de directorios visibles**. Esta configuración determina si cada área de archivos es visible a través del protocolo correspondiente:
+
+| Área | Descripción |
+| --- | --- |
+| Mis archivos, Compartidos por otros | El directorio personal del usuario actual y los archivos recibidos mediante compartición. |
+| Archivos de equipo | El directorio compartido del equipo. |
+| Almacenamiento externo | Los archivos de almacenamiento externo, como los conectados por USB. |
+| Montaje remoto | Los directorios montados desde un NAS, servidor o servicio de nube remoto. |
+| Archivos de aplicaciones | Los directorios de datos generados por las aplicaciones. |
+
+Para cada área se puede seleccionar:
+
+| Modo | Efecto |
+| --- | --- |
+| Todo visible | Las carpetas actuales y las que se añadan en el futuro son accesibles a través de ese protocolo. |
+| Carpeta personalizada | Solo son visibles las carpetas de primer nivel especificadas; la tarjeta muestra el número de carpetas personalizadas. |
+| Todo prohibido/Ninguno | Ninguna carpeta de esa área puede verse a través de ese protocolo. |
+
+<Callout title="Restricciones de nomenclatura" type="info">
+  Si el nombre de una carpeta de primer nivel contiene espacios o caracteres especiales como `! " # % & ' ( ) * + , / : ; < = > ? @ [ ] ^ { } | ~`, no se podrá acceder a ella mediante los protocolos de compartición de archivos. Se recomienda nombrar los directorios de primer nivel con letras, números, caracteres chinos, guiones bajos o guiones.
+</Callout>
+
+## SMB
+
+SMB es el protocolo de compartición de archivos más utilizado en Windows, macOS y la mayoría de los clientes, y es adecuado para el acceso habitual a archivos en la red local.
+
+| Función | Descripción |
+| --- | --- |
+| Interruptor del servicio SMB | Una vez activado, el dispositivo puede compartir y acceder a archivos mediante SMB en la red local. |
+| Configuración avanzada | Configura SMB3 multicanal, SMB1, NTLMv1 y la compatibilidad con nombres de archivo de macOS. |
+| Configurar el alcance de directorios visibles | Abre la configuración del Administrador de archivos para configurar el alcance visible de cada directorio a través del servicio de archivos. |
+| Servicio Time Machine | Una vez activado, un Mac puede realizar copias de seguridad en este NAS mediante Time Machine. |
+| Carpeta de Time Machine | Muestra o configura el directorio de copia de seguridad de Time Machine. |
+| Ver carpeta | Abre el directorio actual de copia de seguridad de Time Machine. |
+| Método de conexión | Ofrece los pasos de conexión mediante Finder de macOS y la ventana Ejecutar de Windows, y las direcciones `smb://IP` y `\\IP`. |
+| Otra información de conexión | Muestra la IP del dispositivo, el puerto predeterminado 445 y el nombre de host. |
+
+### Configuración avanzada de SMB
+
+| Opción | Descripción | Recomendación |
+| --- | --- | --- |
+| Admitir SMB3 multicanal | Permite que varias conexiones de red transmitan en paralelo, lo que mejora la velocidad y la fiabilidad. | Se recomienda activarlo en escenarios de varios puertos de red o de transmisiones de alta concurrencia. |
+| Admitir SMB1 | Proporciona compatibilidad con dispositivos antiguos, pero la seguridad del protocolo es menor. | Activarlo temporalmente solo cuando los dispositivos antiguos no puedan conectarse. |
+| Admitir NTLMv1 | Proporciona compatibilidad con algunos reproductores de TV y reproductores multimedia que solo admiten NTLMv1, pero el protocolo de autenticación no es seguro. | Activarlo solo para los dispositivos necesarios y limitar el alcance del acceso. |
+| Convertir los caracteres especiales de los nombres de archivo para macOS | Mejora la compatibilidad con los nombres de archivo de macOS. | Puede activarse cuando el acceso desde un Mac presenta anomalías. |
+
+### Configuración de Time Machine
+
+| Opción | Descripción |
+| --- | --- |
+| Interruptor del servicio Time Machine | Es necesario activar primero el servicio SMB. |
+| Ubicación de almacenamiento | Seleccione el volumen de almacenamiento en el que se guardarán las copias de seguridad del Mac. |
+| Límite de capacidad de copia de seguridad | Seleccione «Limitar tamaño» e introduzca la capacidad, o seleccione «No limitar el tamaño». |
+| Unidad de capacidad | Admiten GB y TB; el límite no puede superar la capacidad total del espacio de almacenamiento seleccionado. |
+
+![SMB](/images/es/app-guide/settings-img/file-sharing.png)
+
+## WebDAV
+
+WebDAV proporciona acceso a archivos basado en HTTP/HTTPS y es habitual en clientes de terceros, aplicaciones móviles y algunas herramientas de montaje.
+
+![WebDAV](/images/es/app-guide/settings-img/file-sharing-webdav.png)
+
+| Función | Descripción |
+| --- | --- |
+| Interruptor del servicio WebDAV | Una vez activado, se puede acceder a los archivos mediante WebDAV en la red local. |
+| Configuración avanzada | Configura el protocolo HTTP/HTTPS y el puerto de escucha. |
+| Configurar el alcance de directorios visibles | Configura los directorios de archivos visibles a través de WebDAV. |
+| Método de conexión | Ofrece los pasos de asignación/conexión en macOS y Windows; el formato de la dirección es `http://IP:puerto`. |
+
+### Configuración avanzada de WebDAV
+
+| Opción | Descripción |
+| --- | --- |
+| Activar HTTP | Utiliza el protocolo HTTP sin cifrar; el puerto habitual predeterminado es 5005. |
+| Puerto HTTP | El puerto de escucha del servicio HTTP, en el rango de 1 a 65535. |
+| Activar HTTPS | Utiliza transmisión cifrada; se recomienda activarlo en redes no fiables o cuando sea necesario proteger los datos de la cuenta. |
+| Puerto HTTPS | El puerto de escucha del servicio HTTPS; no puede ser igual que el puerto HTTP. |
+| Modo de depuración | Genera registros detallados, lo que puede afectar al rendimiento; actívelo temporalmente solo para solucionar problemas. |
+
+## FTP
+
+FTP es adecuado para la transferencia por lotes de archivos entre sistemas. El sistema admite tanto FTP sin cifrar como FTPS.
+
+![FTP](/images/es/app-guide/settings-img/file-sharing-ftp.png)
+
+| Función | Descripción |
+| --- | --- |
+| Interruptor del servicio FTP | Una vez activado, permite la conexión de clientes FTP/FTPS. |
+| Configuración avanzada | Configura el protocolo, el puerto, el rango de puertos pasivos y el tiempo de espera por inactividad. |
+| Configurar el alcance de directorios visibles | Configura los directorios de archivos visibles a través de FTP. |
+| Método de conexión | Ofrece los pasos de conexión mediante Finder de macOS y el Explorador de archivos de Windows; el formato de la dirección es `ftp://IP:21`. |
+
+### Configuración avanzada de FTP
+
+| Opción | Descripción |
+| --- | --- |
+| Activar el servicio FTP (sin cifrar) | Activa FTP estándar. El contenido transferido no está cifrado, por lo que no se recomienda su uso en redes no fiables. |
+| Activar el servicio FTPS (cifrado seguro) | Activa FTP over SSL/TLS, que proporciona transmisión cifrada. |
+| Puerto FTP | El puerto de escucha del servicio; el valor predeterminado es 21 y el rango válido es de 1 a 65535. |
+| Rango de puertos FTP pasivos | Se puede elegir el valor predeterminado o personalizado. El rango personalizado debe estar entre 55536 y 65535, y el límite superior no puede ser inferior al inferior. |
+| Tiempo de espera por inactividad | Desconecta automáticamente al cliente tras un período de inactividad; admite de 1 a 120 minutos. |
+
+## NFS
+
+NFS se utiliza habitualmente en Linux, Unix, máquinas virtuales o algunos reproductores para montar directamente directorios compartidos. La descripción de la página actual indica que, una vez activado, los dispositivos de la red local pueden montar localmente las carpetas compartidas y acceder directamente a los archivos sin necesidad de verificación de cuenta.
+
+![NFS](/images/es/app-guide/settings-img/file-sharing-nfs.png)
+
+| Función | Descripción |
+| --- | --- |
+| Interruptor del servicio NFS | Solo después de activarlo se puede montar mediante una dirección NFS. |
+| Configurar el alcance de directorios visibles | No está disponible cuando el servicio está desactivado; una vez activado, permite configurar los directorios visibles a través de NFS. |
+| Método de conexión | Ofrece ejemplos de macOS `nfs://IP/ruta` y Windows `\\IP\ruta`. |
+
+<Callout title="Aviso de seguridad" type="warn">
+  - Es posible que NFS no realice la verificación de usuario y contraseña; actívelo solo en redes locales de confianza y limite el acceso mediante el alcance de directorios visibles y los permisos de los clientes.
+  - SMB1, NTLMv1 y FTP/HTTP sin cifrar presentan riesgos de seguridad. Cuando los dispositivos sean compatibles, priorice SMB3, HTTPS, FTPS o SFTP.
+  - Tras modificar el puerto de un servicio, ajuste también las reglas de entrada/salida del cortafuegos y las direcciones de los clientes.
+</Callout>
+
+## Efecto de los interruptores de servicio
+
+| Operación | Efecto en el cliente | Efecto en los datos |
+| --- | --- | --- |
+| Activar el protocolo | Los clientes correspondientes pueden intentar conectarse. | No modifica los permisos de los archivos. |
+| Desactivar el protocolo | Las conexiones existentes del protocolo fallarán o se cerrarán. | No elimina archivos. |
+| Modificar el puerto | La dirección anterior deja de ser válida de inmediato. | No elimina archivos. |
+| Modificar el alcance visible | Algunos directorios dejan de verse desde los clientes del protocolo. | Solo afecta a la visualización y al acceso, y no elimina directorios. |
+| Formatear el volumen de almacenamiento del protocolo | El protocolo se puede seguir activando, pero los datos de origen se borran. | Se eliminan todos los archivos del volumen. |
+
+## Relación entre cuentas y permisos
+
+Los protocolos de archivos utilizan las cuentas locales del dispositivo para la autenticación. El contenido finalmente visible y escribible también se ve afectado por las siguientes configuraciones:
+
+1. Si el usuario está activado;
+2. Los espacios de almacenamiento y las cuotas a los que puede acceder el usuario;
+3. La autorización de los grupos de usuarios;
+4. Los permisos propios de los archivos y directorios;
+5. El alcance de directorios visibles del protocolo;
+6. El cortafuegos y la lista de IP;
+7. Si el volumen de almacenamiento es de solo lectura.
+
+## Direcciones y puertos predeterminados
+
+| Protocolo | Puerto predeterminado | Direcciones habituales |
+| --- | --- | --- |
+| SMB | 445 | `smb://IP`, `\\IP` |
+| WebDAV | 5005, modificable en la configuración avanzada | `http://IP:puerto` |
+| FTP/FTPS | 21, modificable en la configuración avanzada | `ftp://IP:puerto` |
+| NFS | Determinado por la ruta exportada por el sistema | `nfs://IP/ruta compartida` |
+
+## Solución de problemas de conexión
+
+| Fenómeno | Orden de comprobación |
+| --- | --- |
+| El cliente no puede conectarse | Interruptor del servicio, IP/puerto, cortafuegos, enrutamiento del conmutador y subred del cliente. |
+| Se conecta pero no ve los directorios | Alcance de directorios visibles, permisos de la cuenta y caracteres especiales en los nombres de carpeta. |
+| Se indica que el usuario o la contraseña son incorrectos | Si el usuario está activado, si se ha modificado la contraseña y si el protocolo requiere una cuenta local. |
+| Velocidad de transferencia lenta | Velocidad/dúplex del enlace, SMB multicanal, modo de agregación, carga de los discos y uso de CPU/memoria. |
+| No se puede acceder tras modificar el puerto | Puerto de la dirección del cliente, reglas del cortafuegos y redirección de puertos del router. |
+| Nombres de archivo especiales anómalos en Mac | Activar la conversión de caracteres especiales de nombres de archivo para macOS y comprobar la nomenclatura de los directorios. |
+
+<Callout title="Principio de mínima exposición" type="warn">
+  Active solo los protocolos que realmente necesite; utilice NFS únicamente en redes de confianza; para el acceso desde Internet, priorice el acceso remoto o una VPN y no exponga directamente SMB, FTP ni los puertos de administración.
+</Callout>

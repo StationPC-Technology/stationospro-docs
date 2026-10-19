@@ -1,0 +1,121 @@
+---
+sourceHash: 641a37933370
+title: Benutzerverwaltung
+description: Verwalten von Benutzerkonten, Rollen, Benutzergruppen und Speicherkontingenten
+---
+
+Die Seite „Benutzerverwaltung“ ist in die Registerkarten **Benutzer** und **Benutzergruppen** unterteilt. Administratoren können hier lokale Konten erstellen, den Kontostatus steuern, Rollen und zugängliche Speicherbereiche festlegen und Mitglieder über Benutzergruppen gebündelt organisieren.
+
+## Registerkarte „Benutzer“
+
+### Seitenaufbau
+
+- **Benutzerliste links**: Zeigt alle Benutzer und unterstützt die Suche nach Benutzernamen; die Liste zeigt Profilbild, Benutzername, Rolle und Status.
+- **Benutzerdetails rechts**: Zeigt Basisinformationen des ausgewählten Benutzers, zugängliche Speicherbereiche und zugehörige Benutzergruppen.
+- **Neuer Benutzer**: Über die Schaltfläche „Hinzufügen“ oberhalb der linken Liste wird ein lokales Konto erstellt.
+
+![Users](/images/de/app-guide/settings-img/users.png)
+
+### Benutzerrollen und -status
+
+| Option | Wert | Berechtigung/Auswirkung |
+| --- | --- | --- |
+| Rolle | Administrator | Kann sich an den Systemeinstellungen anmelden und Systemkonfiguration, Benutzer, Speicher, Sicherheit und Anwendungen verwalten. |
+| Rolle | Standardbenutzer | Nutzt Datei- und Anwendungsfunktionen im autorisierten Bereich und kann Systemeinstellungen nicht verwalten. |
+| Status | Aktiviert | Der Benutzer kann sich normal anmelden. |
+| Status | Deaktiviert | Der Benutzer kann sich nicht am Gerät anmelden; bestehende Freigaben, Aufgaben oder Dateiberechtigungen bedeuten nicht sofort, dass Daten gelöscht wurden. |
+
+### Benutzer erstellen oder bearbeiten
+
+Beim Erstellen und Bearbeiten von Benutzern können folgende Informationen anfallen:
+
+| Feld/Funktion | Beschreibung |
+| --- | --- |
+| Benutzername | Unterstützt englische Buchstaben, Ziffern und `-` innerhalb der vorgegebenen Länge; `-` darf nicht am Anfang oder Ende stehen, und einige reservierte Namen sind nicht zulässig. |
+| Profilbild | Hochladen oder Ändern des Benutzerprofilbilds; das Bild muss den Format- und Größenbeschränkungen entsprechen. |
+| Anmeldepasswort/Neues Passwort | Unterstützt 6 bis 30 Zeichen aus Buchstaben, Ziffern und `@#*-_`; es müssen sowohl Buchstaben als auch Ziffern enthalten sein. |
+| Passwort bestätigen | Erneute Eingabe des Passworts; beide Eingaben müssen übereinstimmen. |
+| Benutzerinformationen bearbeiten | Ändern von Profilbild, Benutzername, Rolle, Status und weiteren Basisdaten. |
+| Passwort ändern | Festlegen eines neuen Passworts für den Benutzer; nach der Änderung ist die Anmeldung mit dem neuen Passwort erforderlich. |
+| Zum Administrator ernennen | Befördert einen Standardbenutzer zum Administrator. Vor der Beförderung verlangt das System eine Bestätigung. |
+| Deaktivieren/Aktivieren | Sperrt die Anmeldung des Benutzers vorübergehend oder stellt sie wieder her; dies ist nicht mit dem Löschen des Benutzers gleichzusetzen. |
+| Benutzer löschen | Löscht das Konto und die Daten im persönlichen Ordner. Das System weist auf die fehlende Wiederherstellbarkeit hin; prüfen Sie zuvor, ob keine Aufgaben oder Freigaben von diesem Benutzer abhängen. |
+
+### Zugängliche Speicherbereiche
+
+Klicken Sie in den Benutzerdetails unter **Zugängliche Speicherbereiche** auf **Bearbeiten**, um die nutzbaren Speichervolumes und Kapazitäten des Benutzers festzulegen:
+
+| Feld | Beschreibung |
+| --- | --- |
+| Speicherbereich | Zeigt Volume-Name, belegte Kapazität, Gesamtkapazität und die maximale nutzbare Kapazität dieses Benutzers. |
+| Maximale nutzbare Kapazität | Wählbar ist `Unlimited` oder die Eingabe eines konkreten Kontingents. Das Kontingent darf den verfügbaren Bereich des Speichervolumes nicht überschreiten. |
+| Speichern | Nach dem Speichern wird der Schreibbereich des Benutzers sofort aktualisiert. Das Kontingent begrenzt nur die schreibbare Kapazität dieses Benutzers und bedeutet nicht, dass Daten bereits belegt sind. |
+
+<Callout title="Achtung" type="warn">
+  Das Löschen eines Benutzers löscht zugleich die Daten in dessen persönlichem Ordner; der Vorgang ist nicht wiederherstellbar. Migrieren Sie vor dem Löschen Teamdateien, sichern Sie persönliche Daten und stellen Sie sicher, dass Backup-Aufgaben, Freigabelinks, Synchronisierungsaufgaben und Anwendungsberechtigungen nicht mehr von diesem Konto abhängen.
+</Callout>
+
+## Registerkarte „Benutzergruppen“
+
+### Seitenaufbau
+
+- **Gruppenliste links**: Zeigt alle Benutzergruppen und die Anzahl der Mitglieder, unterstützt die Suche; integrierte Gruppen wie Admin und Standard User dürfen nicht beliebig gelöscht werden.
+- **Gruppendetails rechts**: Zeigt Gruppenname, Bemerkung, Mitgliederliste und Mitgliederrollen.
+- **Neue Benutzergruppe**: Erstellt eine benutzerdefinierte Benutzergruppe.
+- **Mitglieder hinzufügen**: Wählt einen oder mehrere bestehende Benutzer für die Gruppe aus.
+- **Benutzergruppe bearbeiten**: Ändert Gruppenname, Bemerkung oder Mitglieder.
+- **Benutzergruppe löschen**: Löscht eine benutzerdefinierte Gruppe; das Löschen einer Gruppe löscht in der Regel keine Mitgliedskonten, beeinflusst jedoch den Zugriff auf Ressourcen, die über die Gruppe autorisiert wurden.
+
+### Häufige Felder
+
+| Feld | Beschreibung |
+| --- | --- |
+| Name der Benutzergruppe | Dient der Identifikation der Gruppe; empfohlen wird eine Benennung nach Abteilung, Familienrolle oder Projekt. |
+| Bemerkung | Optional; dokumentiert Zweck oder Autorisierungsumfang der Gruppe. |
+| Mitglieder | Liste der Benutzer in der Gruppe, durchsuchbar. |
+| Mitgliederrolle | Zeigt die Rolle der Mitglieder im System, z. B. Admin. |
+
+<Callout title="Empfehlung" type="info">
+  Wenn mehrere Benutzer dieselben Datei- oder Anwendungsberechtigungen benötigen, sollten Berechtigungen bevorzugt über Benutzergruppen erteilt werden. Später müssen nur die Gruppenmitglieder angepasst werden, nicht jedes Konto einzeln.
+</Callout>
+
+## Vollständiger Ablauf zum Anlegen eines Benutzers
+
+| Schritt | Vorgang | Wichtige Prüfung |
+| --- | --- | --- |
+| 1 | Auf **Neuer Benutzer** klicken | Öffnet den Assistenten für einen neuen Benutzer. |
+| 2 | Basisinformationen eingeben | Benutzername entspricht dem Format; Passwort enthält Buchstaben und Ziffern; beide Passworteingaben stimmen überein. |
+| 3 | Profilbild festlegen | Nur Bilddateien auswählen, Größe maximal 2 MB. |
+| 4 | Benutzertyp/Rolle auswählen | Für den täglichen Gebrauch Standardbenutzer bevorzugen, damit nicht alle Benutzer Administratorrechte erhalten. |
+| 5 | Zugängliche Speicherbereiche konfigurieren | Festlegen, welche Volumes beschreibbar sind und ob die Kapazität begrenzt wird. |
+| 6 | Zugehörige Benutzergruppe festlegen | Benutzer nach Abteilung, Familienrolle oder Projekt einer Gruppe zuordnen. |
+| 7 | Bestätigen und erstellen | Kontingent, Rolle und Hinweis zur Löschung persönlicher Daten prüfen. |
+
+## Auswirkungen von Berechtigungen und Daten
+
+| Vorgang | Sofortige Auswirkung | Datenauswirkung | Wiederherstellbarkeit |
+| --- | --- | --- | --- |
+| Passwort ändern | Alle Geräte dieses Kontos werden abgemeldet. | Daten werden nicht gelöscht. | Erneute Änderung möglich. |
+| Benutzer deaktivieren | Der Benutzer kann sich nicht anmelden; bestehende Sitzungen können nicht fortgesetzt werden. | Benutzerdaten bleiben erhalten. | Erneute Aktivierung möglich. |
+| Zum Administrator ernennen | Zugriff auf Systemeinstellungen und Verwaltung des Systems. | Daten werden nicht gelöscht, die Berechtigungen werden jedoch deutlich erweitert. | Administratorstatus kann entfernt werden. |
+| Aus Benutzergruppe entfernen | Gruppenautorisierte Freigabe- oder Anwendungsberechtigungen ändern sich entsprechend. | Der persönliche Ordner wird nicht gelöscht. | Erneutes Hinzufügen zur Gruppe möglich. |
+| Benutzer löschen | Das Konto kann sich nicht mehr anmelden. | Alle Daten im persönlichen Ordner werden gelöscht. | Nicht wiederherstellbar. |
+| Benutzergruppe löschen | Die Gruppenzugehörigkeit wird aufgelöst. | Mitgliedskonten werden in der Regel nicht gelöscht, die Gruppenautorisierung entfällt jedoch. | Gruppe muss neu erstellt und erneut autorisiert werden. |
+
+## Empfehlungen zu Speicherkontingenten
+
+- **Heimgeräte**: Für jedes Mitglied ein Kontingent festlegen, damit persönliche Fotos und Videos das gemeinsam genutzte Volume nicht füllen.
+- **Teamgeräte**: Einheitliche Kapazitätsrichtlinien nach Abteilung oder Projektgruppe festlegen und Sonderfälle separat anpassen.
+- **Backup-Benutzer**: Ausreichend Reserve entsprechend der Größe der Quelldaten vorsehen und die belegte Kapazität regelmäßig prüfen.
+- **Anwendungskonten**: Eine Kapazitätsbegrenzung wird empfohlen, um unbegrenztes Wachstum von Anwendungsprotokollen oder Caches zu verhindern.
+
+Das Kontingent begrenzt nur die schreibbare Kapazität des Benutzers auf diesem Speichervolume; vorhandene Dateien, Teamdateien und Systemdaten können getrennt gezählt werden. Die auf der Seite angezeigte belegte Kapazität richtet sich nach der tatsächlichen Speicherstatistik.
+
+## Empfehlungen zur Fehlerbehebung
+
+| Problem | Prüfrichtung |
+| --- | --- |
+| Benutzer kann sich nicht anmelden | Ist das Konto deaktiviert, wurde das Passwort geändert, ist die IP durch eine Schutzregel im Bereich „Sicherheit“ gesperrt? |
+| Benutzer sieht das Freigabeverzeichnis nicht | Zugängliche Speicherbereiche, Benutzergruppenmitgliedschaft, sichtbarer Verzeichnisbereich des Dateifreigabeprotokolls. |
+| Beim Schreiben wird fehlender Speicherplatz gemeldet | Benutzerkontingent, verbleibende Kapazität des Speichervolumes, ob die Festplatte schreibgeschützt oder degradiert ist. |
+| Berechtigungen werden nach Gruppenänderung nicht wirksam | Client-Cache oder Sitzung wurde nicht aktualisiert; erneut anmelden oder Dateidienst neu verbinden. |

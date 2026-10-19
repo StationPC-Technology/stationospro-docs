@@ -1,0 +1,158 @@
+---
+sourceHash: 60a796a6b4e6
+title: Modèles IA
+description: Gérer les capacités IA de base, les modèles locaux et le stockage des données d'index
+---
+
+La page Modèles IA comporte trois onglets : **Capacités de base**, **Gestion des modèles** et **Emplacement de stockage**. Elle contrôle les capacités de reconnaissance locale utilisées par la recherche globale et Station AI, les fichiers de grands modèles de langage, ainsi que l'emplacement de stockage sur disque des modèles et des données d'index.
+
+## Capacités de base
+
+La page Capacités de base gère les modules de capacités IA nécessaires à la recherche globale et à la reconnaissance de contenu.
+
+![AI Basic Capabilities](/images/fr/app-guide/settings-img/ai-models.png)
+
+### Modules de capacités
+
+| Capacité | Fonction | Impact en cas de désactivation |
+| --- | --- | --- |
+| Reconnaissance faciale | Identifier et regrouper les personnes ; prend en charge la recherche par visage et les albums intelligents. | La recherche par visage, le regroupement de personnes et les capacités associées ne sont plus disponibles. |
+| Reconnaissance de texte | Reconnaître le texte contenu dans les images et localiser le contenu des images par mots-clés. | Les capacités d'OCR d'images et de recherche de texte dans les images sont limitées. |
+| Reconnaissance de fichiers | Indexer le nom, le chemin, le contenu et la sémantique des fichiers afin d'améliorer la recherche globale. | Les capacités de recherche par contenu et sémantique des documents sont limitées. |
+| Reconnaissance de contenu visuel | Identifier les scènes et les objets dans les images/vidéos et les utiliser pour la recherche par correspondance de contenu. | La recherche d'images par image et la recherche par scène/objet sont limitées. |
+
+### État et informations d'index
+
+Les modules de reconnaissance de texte, de reconnaissance de fichiers et de reconnaissance de contenu visuel affichent :
+
+| Champ | Description |
+| --- | --- |
+| Fichiers reconnus | Nombre de fichiers déjà indexés. |
+| Échecs d'indexation | Nombre de fichiers qui n'ont pas pu être indexés. Cela peut être dû à un fichier corrompu, à un format non pris en charge, à une anomalie de permissions ou à un stockage temporairement indisponible. |
+| Dernière indexation | Heure de la dernière indexation terminée. |
+| État de la capacité | Normal, désactivé, installation en cours, mise à jour en cours, reconstruction en cours, migration en cours, anomalie, suspension pour espace faible, etc. |
+| Opérations de maintenance | Installer, mettre à jour, activer/désactiver, réparer ou reconstruire l'index pour chaque capacité. |
+
+<Callout title="Conseil" type="info">
+  La première activation d'une capacité nécessite la création d'un index ; la durée dépend du nombre de fichiers, du type de documents et des performances du stockage. Vous pouvez continuer à utiliser l'appareil pendant l'indexation, mais les résultats de recherche peuvent être incomplets.
+</Callout>
+
+## Gestion des modèles
+
+La page Gestion des modèles permet de télécharger, activer, mettre à jour et désinstaller les grands modèles locaux, ainsi que de gérer l'accès à l'API compatible OpenAI.
+
+![AI Model Management](/images/fr/app-guide/settings-img/ai-model-management.png)
+
+### Cartes de modèles
+
+Chaque modèle affiche :
+
+| Champ | Description |
+| --- | --- |
+| Nom du modèle | Par exemple Qwen3.5-0.8B, Qwen3-8B, Gemma4-E4B, etc. |
+| Type | Type de capacité du modèle, par exemple Text Generation, Any-to-Any, etc. |
+| Taille | Espace estimé occupé par le fichier du modèle. |
+| État | Non téléchargé, téléchargement en cours, téléchargé, actuellement utilisé, etc. |
+| Activer/Désactiver | Contrôler si le modèle apparaît dans la liste des modèles disponibles. |
+| Désinstaller/Supprimer | Supprimer le fichier du modèle local ; il pourra être téléchargé à nouveau si nécessaire. |
+| Configurer le modèle | Consulter ou modifier la configuration associée au modèle. |
+
+### Accès API
+
+Cliquez sur **API Access** pour gérer l'accès à l'interface compatible OpenAI :
+
+| Fonction | Description |
+| --- | --- |
+| Adresse de l'API | Afficher l'adresse d'accès au modèle ou au service local. |
+| Clé API | Créer, consulter, mettre à jour ou supprimer une clé d'accès. |
+| Instructions d'appel | Utilisable par les applications tierces ou les scripts de développement compatibles avec l'API OpenAI. |
+
+<Callout title="Attention" type="warn">
+  La suppression d'un modèle local efface définitivement tous ses fichiers locaux. Si le modèle est actuellement utilisé, le système peut basculer vers un autre modèle disponible ou vers l'API compatible OpenAI.
+</Callout>
+
+## Emplacement de stockage
+
+La page Emplacement de stockage gère l'emplacement de stockage sur disque des modèles locaux et des données d'index, et offre une protection en cas d'espace faible.
+
+![AI Storage](/images/fr/app-guide/settings-img/ai-model-storage.png)
+
+### Stockage des modèles locaux
+
+| Champ/Opération | Description |
+| --- | --- |
+| Volume de stockage actuel | Afficher le nom du volume, le type RAID et la capacité disponible. |
+| Changer de stockage | Migrer les fichiers des grands modèles locaux vers un autre volume de stockage. Pendant la migration, les modèles locaux sont temporairement indisponibles. |
+| État | Normal, espace faible, lecture seule, indisponible, migration en cours, etc. |
+
+### Stockage des données d'index
+
+| Champ | Description |
+| --- | --- |
+| État | État de santé global du pool d'index. |
+| Index de fichiers | Occupation de l'index de base (noms de fichiers, chemins, etc.). |
+| Contenu textuel | Occupation des données OCR et des données textuelles/vectorielles des documents. |
+| Contenu d'images | Occupation des données vectorielles visuelles des images. |
+| Espace disponible | Espace restant dans le stockage d'index actuel. |
+| Seuil d'espace faible | Seuil d'espace déclenchant la protection ; dans l'exemple actuel, les tâches sont suspendues en dessous de 10 GB. |
+| Changer de stockage | Migrer les données d'index vers un autre emplacement de stockage. |
+
+### Protection en cas d'espace faible
+
+Une fois activée, lorsque l'espace disponible descend sous le seuil défini, le système suspend automatiquement les téléchargements de modèles et les tâches de reconstruction d'index afin d'éviter de saturer le stockage et de provoquer des anomalies de service. Une fois l'espace rétabli, vous pouvez reprendre les tâches manuellement.
+
+<Callout title="Recommandations" type="info">
+  Les grands modèles et les données d'index augmentent avec le nombre de fichiers. Il est recommandé de placer les modèles et l'index sur un volume SSD disposant d'une capacité suffisante et d'un bon état de santé, et de maintenir la protection en cas d'espace faible activée.
+</Callout>
+
+## États des capacités et traitement
+
+| État | Signification | Recommandation |
+| --- | --- | --- |
+| Normal | La capacité est disponible. | Maintenir les modèles à jour et reconstruire régulièrement l'index. |
+| Désactivé | L'administrateur ou l'utilisateur a désactivé la capacité. | La réactiver si nécessaire. |
+| Installation/Mise à jour en cours | Téléchargement ou mise à jour des dépendances et des modèles en cours. | Maintenir le réseau et le stockage disponibles. |
+| Reconstruction en cours | Reconstruction des données d'index en cours. | Attendre la fin ; éviter de déplacer massivement des fichiers. |
+| Migration en cours | Migration des modèles ou de l'index vers un nouveau volume. | Les modèles locaux peuvent être temporairement indisponibles. |
+| Suspension pour espace faible | L'espace restant est inférieur au seuil. | Libérer de l'espace ou migrer vers un volume plus grand. |
+| Lecture seule | L'emplacement de stockage est en lecture seule. | Vérifier l'état du volume et changer d'emplacement de stockage. |
+| Anomalie/Échec | Anomalie des dépendances, du stockage ou du service. | Consulter le Centre des journaux, tenter une réparation ou une reconstruction. |
+
+## Recommandations de maintenance de l'index
+
+| Opération | Cas d'utilisation |
+| --- | --- |
+| Tout installer/mettre à jour | Première activation d'une capacité ou nouvelle version disponible. |
+| Réparer | État d'index anormal, certains fichiers non recherchables. |
+| Reconstruire l'index | Résultats incomplets après un déplacement massif de fichiers ou une migration du stockage d'index. |
+| Désactiver une capacité | Vous n'avez pas besoin de la reconnaissance faciale, de l'OCR, de la sémantique documentaire ou de la recherche visuelle. |
+| Migrer le stockage | Espace insuffisant sur le volume actuel ou remplacement par un SSD plus rapide. |
+
+<Callout title="Périmètre d'indexation" type="info">
+  L'indexation ne s'applique qu'aux fichiers lisibles par le système et accessibles avec les autorisations nécessaires. Les fichiers chiffrés, les formats non pris en charge, les fichiers corrompus ou les répertoires sans autorisation suffisante peuvent apparaître dans les statistiques d'échecs d'indexation.
+</Callout>
+
+## Choix et maintenance des modèles
+
+| Élément | Recommandation |
+| --- | --- |
+| Modèles à petit nombre de paramètres | Occupation plus faible et réponse plus rapide ; adaptés aux questions-réponses légères et aux appareils peu puissants. |
+| Modèles à grand nombre de paramètres | Capacités de compréhension et de génération plus fortes, mais occupation mémoire/stockage plus importante et réponse potentiellement plus lente. |
+| Modèles Any-to-Any | Adaptés aux scénarios nécessitant plusieurs formes d'entrée et de sortie ; volume de téléchargement généralement plus important. |
+| Modèles locaux | Les données ne quittent pas l'appareil ; adaptés aux scénarios de confidentialité, mais limités par la puissance matérielle. |
+| API compatible OpenAI | Permet de se connecter à des services externes ; nécessite la configuration de la Base URL, du nom du modèle et de la clé API. |
+| Supprimer un modèle | Libère de l'espace ; le modèle pourra être téléchargé à nouveau, mais cela consommera de la bande passante et du temps. |
+
+## Précautions d'utilisation d'API Access
+
+- La clé API ne conserve que les identifiants nécessaires ; ne la soumettez pas à un dépôt de code et ne la partagez pas publiquement.
+- L'adresse d'appel ne doit être exposée qu'à un réseau interne de confiance ou à des clients limités par un reverse proxy/pare-feu.
+- Si la clé est compromise, supprimez-la ou mettez-la à jour immédiatement.
+- Les appels externes restent soumis à la charge de l'appareil, à l'état du modèle et à l'espace de stockage.
+
+## Précautions lors de la migration du stockage
+
+1. Avant la migration, vérifiez que la capacité du volume cible est supérieure à la taille totale des modèles et des données d'index, avec une marge de croissance.
+2. Pendant la migration, ne modifiez pas la configuration des modèles et ne redémarrez pas l'appareil.
+3. Avant la fin de la migration des modèles locaux, la fonction de conversation peut être temporairement indisponible.
+4. Après la migration de l'index, il est recommandé d'effectuer une recherche de vérification et, si nécessaire, de reconstruire l'index.

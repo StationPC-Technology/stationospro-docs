@@ -1,0 +1,60 @@
+---
+sourceHash: 47989e45f467
+title: Systemeinstellungen
+description: Überblick über die Systemeinstellungen und Anleitungen zu den einzelnen Funktionsmodulen
+---
+
+Die Systemeinstellungen sind die Zentrale von StationOS Pro und verwalten zentrale Konfigurationen wie Geräteinformationen, Benutzer, Speicher, Netzwerk, Fernzugriff, Sicherheitsrichtlinien, Hardware und Stromversorgung sowie Systemupdates. Der Zugriff auf diese Anwendung erfordert in der Regel Administratorrechte. Je nach Modell, Firmware-Version und installierter Hardware können die sichtbaren Optionen abweichen; maßgeblich ist die tatsächliche Oberfläche Ihres Geräts.
+
+## Systemeinstellungen öffnen
+
+1. Melden Sie sich am StationOS Pro-Desktop an.
+2. Öffnen Sie die **Systemeinstellungen** über die Dock-Leiste oder den App-Starter.
+3. Wählen Sie in der linken Registerleiste das zu konfigurierende Funktionsmodul aus.
+
+![Settings window](/images/de/app-guide/settings-img/device-info.png)
+
+Die linke Registerleiste ist nach Funktionen in folgende 14 Module unterteilt:
+
+| Modul | Hauptzweck | Typische Einsatzfälle |
+| --- | --- | --- |
+| Geräteinformationen | Anzeigen von Gerätename, Station ID, Version, Hardware, Seriennummer und Netzwerkinformationen | Geräteidentität bestätigen, Verbindungsprobleme eingrenzen, Kundendienst kontaktieren |
+| Benutzerverwaltung | Verwalten lokaler Benutzer, Rollen, Status, Benutzergruppen und Speicherkontingente | Konten und Speicherplatz für Familie oder Teammitglieder bereitstellen |
+| Speicherbereich | Erstellen und Verwalten von Speichervolumes, RAID, Hot-Spare-Festplatten und SSD-Cache | Festplatten initialisieren, Kapazität erweitern, Lese-/Schreibleistung verbessern |
+| Festplatte | Anzeigen von Festplattendetails und Gesundheitsstatus, Formatieren oder sicheres Auswerfen | Festplattenprüfung, Austausch, Fehlersuche |
+| Dateifreigabeprotokolle | Konfigurieren von SMB, WebDAV, FTP, NFS und Time Machine | Computern, Smartphones und TV-Boxen den Zugriff auf NAS-Dateien ermöglichen |
+| KI-Modelle | Verwalten der KI-Basisfunktionen, lokaler Modelle und des Speicherorts für Indexdaten | Gesichts-, Text-, Datei- und visuelle Erkennung aktivieren, Modellspeicher steuern |
+| Netzwerkeinstellungen | Konfigurieren von Gateway, DNS, Netzwerkkarten, Bridge und Link Aggregation | IP ändern, Lastverteilung über mehrere Ports, Netzwerkredundanz |
+| Fernzugriff | Konfigurieren des Station ID-Fernzugriffs und von DDNS | Zugriff auf das Gerät über das Internet oder eine eigene Domain |
+| SSH | Aktivieren oder Deaktivieren von SSH/SFTP-Fernzugriff | Wartung aus der Ferne, Kommandozeilenverwaltung, Sicherheitskontrolle |
+| Sicherheit | Konfigurieren von Zugriffsports, Zwei-Faktor-Authentifizierung, IP-Schutz, Firewall, Zertifikaten und Datenanalyse | Systemzugänge absichern, verdächtige Zugriffe blockieren, HTTPS aktivieren |
+| Benachrichtigungseinstellungen | Konfigurieren des E-Mail-Benachrichtigungsdienstes und der Benachrichtigungssprache | Verifizierungscodes, Passwortzurücksetzungen und Systembenachrichtigungen erhalten |
+| Hardware und Stromversorgung | Verwalten von Signalton, Lüfter, Arbeitsspeicherkomprimierung, Energieplan und Festplattenruhezustand | Geräuschentwicklung, Kühlung, automatisches Ein-/Ausschalten und Energieverbrauch steuern |
+| Zeit und Zeitzone | Einstellen von Zeitzone, automatischer NTP-Synchronisierung oder manueller Zeit | Korrekte Zeit für Protokolle, Zertifikate und Aufgabenplanung sicherstellen |
+| Update und Wiederherstellung | Systemupdates prüfen/installieren, Änderungsprotokoll anzeigen, Werkseinstellungen wiederherstellen oder Netzwerk zurücksetzen | System aktualisieren, Netzwerkkonfiguration reparieren, Standardeinstellungen wiederherstellen |
+
+<Callout title="Empfehlung" type="info">
+  Vorgänge an Speichervolumes, RAID, Formatierung, Firewall, Ports, Werkseinstellungen und Netzwerkzurücksetzung können Daten oder Verbindungen beeinträchtigen. Prüfen Sie vor Änderungen die Auswirkungen auf den Betrieb und halten Sie für wichtige Daten eine Sicherung bereit.
+</Callout>
+
+## Funktionsgruppen und Betriebsrisiken
+
+| Kategorie | Modul | Hauptrisiko |
+| --- | --- | --- |
+| Nur-Lese-Informationen | Geräteinformationen | Grundsätzlich kein Risiko; eine Änderung des Gerätenamens beeinflusst jedoch die Erkennung. |
+| Konto und Autorisierung | Benutzerverwaltung | Das Löschen eines Benutzers löscht persönliche Daten; die Beförderung zum Administrator erweitert die Systemkontrolle. |
+| Datenstruktur | Speicherbereich, Festplatte | Erstellen, Ändern, Formatieren oder Austauschen von Festplatten kann Daten löschen oder die Redundanz verringern. |
+| Dienstzugänge | Dateifreigabeprotokolle, SSH, Sicherheit | Das Aktivieren von Protokollen oder Ports vergrößert die Angriffsfläche; falsche Firewall-/Portkonfigurationen können die Verwaltungsverbindung trennen. |
+| Netzwerk und Fernzugriff | Netzwerkeinstellungen, Fernzugriff | Änderungen an IP, Bridge, Aggregation oder DDNS können die aktuelle Verbindung unterbrechen. |
+| Systemwartung | Hardware und Stromversorgung, Zeit und Zeitzone, Update und Wiederherstellung | Neustart, Zurücksetzen, falsche Zeit oder unterbrochene Updates können die Dienstverfügbarkeit beeinträchtigen. |
+
+## Checkliste für Administratoren
+
+Vor risikoreichen Vorgängen sollten Sie Folgendes bestätigen:
+
+1. Wichtige Daten sind separat gesichert und die Sicherung ist wiederherstellbar.
+2. Ein Wiederherstellungsweg über LAN oder Konsole ist vorhanden; verlassen Sie sich nicht ausschließlich auf die gerade geänderte Fernverbindung.
+3. Der Gesundheitsstatus der Speichervolumes ist normal; Festplatten melden weder Degradierung, Beschädigung noch Nur-Lese-Warnungen.
+4. Die betroffenen Benutzer wurden informiert, Schreib-, Backup-, Download-, Container- und Indexierungsaufgaben zu stoppen.
+5. Die Stromversorgung des Geräts ist stabil; bei mechanischen Festplatten, SSD-Cache und Systemupdates darf die Stromversorgung nicht zwangsweise unterbrochen werden.
+6. IP, Ports, DNS, Firewall-Regeln, Station ID und Versionsnummer vor der Änderung werden dokumentiert.

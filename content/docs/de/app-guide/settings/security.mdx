@@ -1,0 +1,227 @@
+---
+sourceHash: cb1af2d8dfdf
+title: Sicherheit
+description: Konfigurieren von Zugriffsports, Zwei-Faktor-Authentifizierung, IP-Schutz, Firewall, Zertifikaten und Geräteanalyse
+---
+
+Die Seite „Sicherheit“ enthält sechs Registerkarten: **Port-Einstellungen**, **Kontosicherheit**, **Schutz**, **Firewall**, **Zertifikate** und **Geräteanalyse**. Sie dienen dazu, Systemzugänge abzusichern, Zugriffsquellen zu kontrollieren, Übertragungen zu verschlüsseln und datenschutzbezogene Schalter einzusehen.
+
+## Port-Einstellungen
+
+![Port Settings](/images/de/app-guide/settings-img/security-port-settings.png)
+
+### Aktuelle Informationen
+
+Die Seite zeigt die aktuellen Ports des Web-Verwaltungszugangs:
+
+| Feld | Standardwert | Beschreibung |
+| --- | --- | --- |
+| HTTP-Port | 9500 | Zugriff auf die Verwaltung über HTTP. |
+| HTTPS-Port | 9501 | Zugriff auf die Verwaltung über HTTPS. |
+
+### Dialog für Port-Einstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| HTTP-Portnummer | Pflichtfeld, Bereich 1 bis 65535, darf nicht mit dem HTTPS-Port identisch sein. |
+| HTTPS-Portnummer | Pflichtfeld, Bereich 1 bis 65535. Bei erzwungenem HTTPS oder Weiterleitung der Standardports darf sie nicht 0 sein. |
+| HTTPS-Verbindung erzwingen | Leitet HTTP-Verbindungen auf HTTPS um. |
+| Ports 80 und 443 weiterleiten | Leitet 80 auf den HTTP-Port und 443 auf den HTTPS-Port um; nach Aktivierung ist beim Zugriff auf das Gerät keine Portangabe erforderlich. |
+
+<Callout title="Hinweis" type="warn">
+  Bei aktivierter Weiterleitung der Standardports dürfen HTTP/HTTPS nicht die Ports 80 oder 443 verwenden. Öffnen Sie die Verwaltung nach einer Portänderung über den neuen Port und stellen Sie sicher, dass Firewall- oder Router-Weiterleitungsregeln entsprechend aktualisiert wurden.
+</Callout>
+
+## Kontosicherheit
+
+Die Seite „Kontosicherheit“ steuert die systemweite Richtlinie zur Zwei-Faktor-Authentifizierung.
+
+![Account Security](/images/de/app-guide/settings-img/security-account-security.png)
+
+| Option | Beschreibung |
+| --- | --- |
+| Zwei-Faktor-Authentifizierung erzwingen | Nach Aktivierung müssen Benutzer, für die die Richtlinie gilt, bei der Anmeldung den zweiten OTP-Schritt abschließen. |
+| Alle Benutzer | Die Richtlinie gilt für alle Benutzer. |
+| Nur Administratoren | Nur Administratorkonten müssen die Zwei-Faktor-Authentifizierung verwenden. |
+| Bestimmte Benutzer | Nur ausgewählte Benutzer oder Benutzergruppen müssen die Zwei-Faktor-Authentifizierung verwenden. |
+| Bestimmte Benutzer bearbeiten | Fügt Ziele der Richtlinie im Benutzer-/Benutzergruppenauswahlfeld hinzu oder entfernt sie. |
+
+<Callout title="Voraussetzung" type="info">
+  Die Zwei-Faktor-Authentifizierung setzt den E-Mail-Benachrichtigungsdienst voraus. Konfigurieren Sie vor dem Aktivieren unter „Systemeinstellungen → Benachrichtigungseinstellungen“ eine Absenderadresse. Wenn der E-Mail-Dienst ausgeschaltet wird, können Verifizierungscodes der Zwei-Faktor-Authentifizierung möglicherweise nicht versendet werden.
+</Callout>
+
+## Schutz
+
+Die Seite „Schutz“ dient der automatischen Sperrung auffälliger Anmelde-IPs und der Verwaltung von Allowlist und Blocklist.
+
+![Protection](/images/de/app-guide/settings-img/security-protection.png)
+
+### Auffällige IPs sperren
+
+| Option | Beschreibung |
+| --- | --- |
+| Dienstschalter | Nach Aktivierung blockiert das System Anmeldungen auffälliger IPs nach festgelegten Regeln. |
+| Regeln bearbeiten | Konfiguration von Schwellenwert für die automatische Sperrung, Zeitfenster und Sperrdauer. |
+
+### Regeln für die automatische Sperrung
+
+| Feld | Standardwert | Bereich | Beschreibung |
+| --- | --- | --- | --- |
+| Anzahl der Anmeldeversuche | 10 | 1 bis 100 | Anzahl der Fehlversuche, die eine Sperrung auslöst. |
+| Innerhalb von | 5 Minuten | 1 bis 10080 Minuten | Zeitfenster für die Zählung der Fehlversuche. |
+| Regel zur automatischen Freigabe | 1 Stunde | 30 Minuten/1 Stunde/1 Tag/7 Tage/30 Tage/dauerhaft | Zeitpunkt der Freigabe der gesperrten IP. |
+
+### Allowlist und Blocklist
+
+| Liste | Priorität und Wirkung |
+| --- | --- |
+| Allowlist | IPs/CIDR in dieser Liste dürfen stets verbinden und sich anmelden; sie sind von Sperrregeln ausgenommen und haben Vorrang vor der Blocklist. |
+| Blocklist | IPs/CIDR in dieser Liste werden bei Verbindung und Anmeldung stets eingeschränkt. |
+
+Die Listentabelle zeigt Client-IP, letzte Zugriffszeit, Ablaufzeit (Blocklist), Dauerhaft-Kennzeichnung und Bemerkung. Unterstützt werden:
+
+| Vorgang | Beschreibung |
+| --- | --- |
+| Hinzufügen | Eine oder mehrere IPs/CIDRs eingeben; mehrere Adressen durch Zeilenumbrüche oder Kommas trennen. Bei der Blocklist kann eine Freigabezeit gewählt werden. |
+| Bemerkung | Maximal 180 Zeichen zur Kennzeichnung von Herkunft oder Zweck. |
+| Löschen | Ein oder mehrere ausgewählte Einträge löschen und die entsprechende Einschränkung aufheben. |
+
+## Firewall
+
+Die Firewall-Seite steuert den Netzwerkverkehr anhand eingehender und ausgehender Regeln.
+
+![Firewall](/images/de/app-guide/settings-img/security-firewall.png)
+
+### Grundeinstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| Firewall-Schalter | Nach Aktivierung steuert das System den Verkehr nach eingehenden/ausgehenden Regeln. |
+| Erweiterte Einstellungen | Konfiguration von Arbeitsmodus und standardmäßiger Freigabe im lokalen Netzwerk. |
+
+### Erweiterte Einstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| Arbeitsmodus | Auto bevorzugt den XDP-Native-Modus; Generic verwendet den klassischen Kernel-Netzwerkstack. Bei Kompatibilitätsproblemen kann gewechselt werden. |
+| Lokales Netzwerk | Ist „Standardmäßig Zugriff erlauben“ aktiviert, wird Verkehr aus dem lokalen Netzwerk standardmäßig zugelassen, wodurch die Wahrscheinlichkeit sinkt, dass die Verwaltung versehentlich blockiert wird. |
+
+### Eingehende und ausgehende Regeln
+
+| Feld | Beschreibung |
+| --- | --- |
+| Netzwerkverbindung | Alle Schnittstellen oder eine bestimmte Netzwerkschnittstelle. |
+| Port | Einzelner Port, durch Kommas getrennte Ports oder Bereich, z. B. `80`, `443`, `1-65535`. |
+| Protokoll | Alle, TCP, UDP, ICMP. |
+| Quell-IP / Ziel-IP | Benutzerdefinierte IP oder CIDR; bei eingehenden Regeln gilt die Quell-IP, bei ausgehenden die Ziel-IP. |
+| Berechtigung | Zulassen oder Ablehnen. |
+| Status | Aktiv oder deaktiviert. |
+| Bemerkung | Beschreibung des Regelzwecks. |
+| Reihenfolge | Regeln können per Drag-and-drop sortiert werden; weiter oben stehende Regeln haben höhere Priorität. |
+| Wenn keine der folgenden Regeln zutrifft | Standardmäßig Zugriff erlauben oder standardmäßig Zugriff verweigern festlegen. |
+
+<Callout title="Gefährlicher Vorgang" type="error">
+  Falsche Firewall-Regeln können dazu führen, dass Verwaltung, Fernzugriff oder Anwendungsdienste nicht erreichbar sind. Halten Sie vor der Konfiguration die aktuelle Verwaltungsverbindung aufrecht und lassen Sie vorrangig Verwaltungsport, SSH-Port und lokales Netzwerk zu.
+</Callout>
+
+## Zertifikate
+
+Die Seite „Zertifikate“ dient der Verwaltung der Zertifikate, die von System-HTTPS, FTPS, WebDAV und Fernzugriff verwendet werden.
+
+![Certificate](/images/de/app-guide/settings-img/security-certificate.png)
+
+### Zertifikatsliste
+
+| Feld | Beschreibung |
+| --- | --- |
+| Zertifikatsname | Vom Benutzer erkennbarer Name. |
+| Zertifikatstyp | Vom System selbstsigniertes Zertifikat, Let's Encrypt-Zertifikat oder importiertes Zertifikat. |
+| Ausstellende Stelle | Herausgeber des Zertifikats. |
+| Alternative Domains | Weitere vom Zertifikat abgedeckte Domains; falls keine vorhanden, wird `-` angezeigt. |
+| Gültigkeitsdauer | Ablaufzeitpunkt. |
+| Automatische Verlängerung | Systemzertifikate oder Let's Encrypt-Zertifikate können vor Ablauf automatisch verlängert werden. |
+| Status | Gültig, läuft bald ab, abgelaufen. |
+| Aktionen | Details anzeigen/bearbeiten, aktualisieren, herunterladen, löschen. Nach dem Löschen ist keine Wiederherstellung möglich. |
+
+### Zertifikat hinzufügen
+
+| Methode | Beschreibung |
+| --- | --- |
+| Zertifikat importieren | Zertifikatsdatei, private Schlüsseldatei und optionales Zwischenzertifikat lokal hochladen oder vom NAS auswählen. Geeignet für Benutzer mit einem bereits von einer CA ausgestellten Zertifikat. |
+| Zertifikat beziehen | Kostenloses Zertifikat von Let's Encrypt beziehen und automatisch verlängern. E-Mail-Adresse, DDNS-Domain oder benutzerdefinierte Domain sowie Anbieter sind anzugeben. |
+
+### Hinweise zum Bezug von Let's Encrypt-Zertifikaten
+
+- Für kostenlose Zertifikate gelten Begrenzungen für Antragshäufigkeit und -anzahl.
+- Die HTTP-Validierung erfordert eine Weiterleitung von Port 80 an das NAS; die DNS-Validierung erfordert Unterstützung durch den Anbieter.
+- Die Domain muss korrekt auf die aktuelle öffentliche IP verweisen.
+- Nach erfolgreichem Bezug verlängert das System das Zertifikat vor Ablauf automatisch.
+
+### Dienstkonfiguration
+
+**Service Config** dient der Auswahl der Zertifikate für FTPS, WebDAV und Fernzugriff. Nach der Bestätigung verwenden die betreffenden Dienste das ausgewählte Zertifikat für verschlüsselte Verbindungen.
+
+## Geräteanalyse
+
+Die Seite „Geräteanalyse“ enthält zwei datenschutzbezogene Schalter.
+
+![Device Analytics](/images/de/app-guide/settings-img/security-device-analytics.png)
+
+| Option | Beschreibung |
+| --- | --- |
+| Am Geräteanalyse-Verbesserungsprogramm teilnehmen | Das System erfasst einige anonyme Nutzungsdaten, um Produktnutzung zu analysieren, Stabilität zu verbessern und Funktionen weiterzuentwickeln. Eine Teilnahme kann jederzeit beendet werden. |
+| webfind-Dienst aktivieren | Nach Aktivierung können Station OS-Geräte im lokalen Netzwerk gefunden werden. Das System erfasst IP-Adresse und Portinformationen, um diesen Dienst bereitzustellen. |
+
+Beide Hinweise verlinken auf die Datenschutzrichtlinie. Wenn Sie nicht an der Datenerfassung teilnehmen oder die Erkennung im lokalen Netzwerk nicht bereitstellen möchten, können Sie den jeweiligen Schalter deaktivieren.
+
+<Callout title="Empfehlung zur Sicherheitsbasislinie" type="info">
+  Aktivieren Sie HTTPS/erzwungenes HTTPS, Zwei-Faktor-Authentifizierung, Schutz vor auffälligen IPs und die Firewall; öffnen Sie nur die erforderlichen Ports; konfigurieren Sie die automatische Verlängerung für Zertifikate; bevorzugen Sie für den Zugriff aus dem Internet die Station ID oder ein VPN.
+</Callout>
+
+## Empfehlungen zur Port-Richtlinie
+
+| Szenario | Empfehlung |
+| --- | --- |
+| Heimnetzwerk | HTTP/HTTPS können beibehalten werden; Anmeldedaten nur auf vertrauenswürdigen Geräten speichern. |
+| Internet oder gemeinsam genutztes Netzwerk | HTTPS/erzwungenes HTTPS aktivieren, um die Übermittlung von Passwörtern im Klartext zu vermeiden. |
+| Nur die Portangabe weglassen | Weiterleitung von 80/443 aktivieren, aber sicherstellen, dass Router- und Firewall-Regeln synchron sind. |
+| Standardport ändern | Einen freien Port im Bereich 1024–65535 wählen, der nicht mit SMB/FTP/SSH kollidiert. |
+| Fernzugriff | Bevorzugt Station ID oder VPN verwenden; Verwaltungsports nicht direkt freigeben. |
+
+## Vergleich der Richtlinien zur Zwei-Faktor-Authentifizierung
+
+| Umfang | Vorteile | Geeignet für |
+| --- | --- | --- |
+| Alle Benutzer | Höchste Sicherheitsbasislinie. | Geräte mit vertraulichen Dateien oder mehreren Benutzern. |
+| Nur Administratoren | Guter Kompromiss zwischen Sicherheit und Komfort für normale Benutzer. | Heimgeräte oder Umgebungen mit geringen Rechten normaler Konten. |
+| Bestimmte Benutzer | Gezielte Kontrolle über Konten mit hohem Risiko. | Spezielle Konten, z. B. nur für Backup, Finanzen oder Betrieb. |
+
+Nach Aktivierung der Richtlinie müssen Benutzer im festgelegten Umfang in ihren persönlichen Einstellungen einen Authenticator oder die E-Mail-Verifizierung einrichten; Administratoren sollten zuvor die Verfügbarkeit des E-Mail-Dienstes prüfen.
+
+## Empfehlungen zum IP-Schutz
+
+- **Allowlist**: Feste Büronetze, Heimatausgang, VPN-Ausgang, Sprungserver-Adressen.
+- **Blocklist**: Quellen wiederholter Anmeldeversuche, kompromittierte Netze, eindeutige Scan-Quellen.
+- **Schwellenwert**: Bei Heimgeräten kann strenger eingestellt werden; in Umgebungen mit mehreren Benutzern oder Proxy-Ausgängen sollten zu kleine Schwellenwerte vermieden werden.
+- **Sperrdauer**: Bei kritischen Geräten länger wählen; bei temporären Netzwerken kurz halten, um die Wiederherstellung zu erleichtern.
+- **VPN-Hinweis**: Änderungen der Ausgangs-IP beeinflussen die Erkennung; verwenden Sie bei Bedarf einen festen Ausgang oder eine benutzerdefinierte Prüfadresse.
+
+## Ablauf zur Gestaltung von Firewall-Regeln
+
+1. Lassen Sie zuerst Verwaltungsport, SSH-Port und lokales Netzwerk zu.
+2. Bestimmen Sie eingehende Dienste und Ports, z. B. HTTPS, WebDAV, FTPS.
+3. Erstellen Sie Regeln mit minimalem Umfang nach Quell-IP, Protokoll und Port.
+4. Blockieren Sie nicht benötigte Quellen mit Ablehnungsregeln.
+5. Passen Sie die Priorität per Drag-and-drop an; weiter oben stehende Regeln werden zuerst abgeglichen.
+6. Legen Sie die Standardrichtlinie fest; wenn Sie mit der Firewall nicht vertraut sind, lassen Sie zunächst den Zugriff zu und verschärfen Sie die Regeln nach der Prüfung.
+7. Halten Sie eine verbundene Verwaltungssitzung offen, bis die neuen Regeln als zuverlässig bestätigt sind.
+
+## Fehlerbehebung bei Zertifikaten
+
+| Problem | Prüfung |
+| --- | --- |
+| Browser meldet, dass der Zertifikatsdomain nicht übereinstimmt | Stimmt die aufgerufene Domain mit den alternativen Domains des Zertifikats überein? |
+| Let's Encrypt-Antrag schlägt fehl | Domainauflösung, Weiterleitung von Port 80, API-Berechtigungen, Häufigkeitsbegrenzungen. |
+| HTTPS nicht erreichbar | HTTPS-Port, Firewall, ob in der Dienstkonfiguration ein Zertifikat ausgewählt ist. |
+| Zertifikat wird nicht automatisch verlängert | Systemzeit, DNS-Auflösung, Erreichbarkeit von 80/443. |
+| Client vertraut importiertem Zertifikat nicht | Fehlendes Zwischenzertifikat oder Verwendung eines selbstsignierten Zertifikats. |

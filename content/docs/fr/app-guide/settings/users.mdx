@@ -1,0 +1,121 @@
+---
+sourceHash: 641a37933370
+title: Gestion des utilisateurs
+description: Gérer les comptes utilisateurs, les rôles, les groupes et les quotas de stockage
+---
+
+La page Gestion des utilisateurs comporte deux onglets : **Utilisateurs** et **Groupes d'utilisateurs**. Les administrateurs peuvent y créer des comptes locaux, contrôler l'état des comptes, définir les rôles et les espaces de stockage accessibles, et organiser les membres par lots via des groupes d'utilisateurs.
+
+## Onglet Utilisateurs
+
+### Disposition de la page
+
+- **Liste des utilisateurs à gauche** : affiche tous les utilisateurs et permet une recherche par nom d'utilisateur ; la liste indique l'avatar, le nom d'utilisateur, le rôle et l'état.
+- **Détails de l'utilisateur à droite** : affiche les informations de base de l'utilisateur sélectionné, les espaces de stockage accessibles et les groupes d'utilisateurs auxquels il appartient.
+- **Ajouter un utilisateur** : cliquez sur le bouton d'ajout au-dessus de la liste de gauche pour créer un compte local.
+
+![Users](/images/fr/app-guide/settings-img/users.png)
+
+### Rôles et états des utilisateurs
+
+| Option | Valeur | Permissions/Impact |
+| --- | --- | --- |
+| Rôle | Administrateur | Peut se connecter aux Paramètres système et gérer la configuration système, les utilisateurs, le stockage, la sécurité et les applications. |
+| Rôle | Utilisateur standard | Utilise les fichiers et fonctions applicatives dans le périmètre autorisé ; ne peut pas gérer les Paramètres système. |
+| État | Activé | L'utilisateur peut se connecter normalement. |
+| État | Désactivé | L'utilisateur ne peut plus se connecter à l'appareil ; les partages, tâches ou permissions de fichiers existants ne signifient pas pour autant que les données sont immédiatement supprimées. |
+
+### Créer ou modifier un utilisateur
+
+La création et la modification d'un utilisateur peuvent impliquer les informations suivantes :
+
+| Champ/Fonction | Description |
+| --- | --- |
+| Nom d'utilisateur | Accepte des lettres anglaises, des chiffres et `-` dans une longueur définie ; `-` ne peut pas figurer au début ni à la fin, et certains noms réservés sont indisponibles. |
+| Avatar | Téléverser ou changer l'avatar de l'utilisateur ; l'image doit respecter les limites de format et de taille. |
+| Mot de passe de connexion/Nouveau mot de passe | Accepte de 6 à 30 caractères parmi lettres, chiffres et `@#*-_`, avec au moins une lettre et un chiffre. |
+| Confirmer le mot de passe | Saisir à nouveau le mot de passe ; les deux saisies doivent être identiques. |
+| Modifier les informations de l'utilisateur | Modifier l'avatar, le nom d'utilisateur, le rôle, l'état et autres informations de base. |
+| Modifier le mot de passe | Définir un nouveau mot de passe pour l'utilisateur ; la connexion devra ensuite utiliser le nouveau mot de passe. |
+| Définir comme administrateur | Promouvoir un utilisateur standard en administrateur. Le système demande une confirmation avant la promotion. |
+| Désactiver/Activer | Interdire temporairement ou rétablir la connexion de l'utilisateur ; cela ne supprime pas l'utilisateur. |
+| Supprimer l'utilisateur | Supprimer le compte et les données de son dossier personnel. Le système signale l'irréversibilité ; vérifiez d'abord qu'aucune tâche ni aucun partage ne dépend de cet utilisateur. |
+
+### Espaces de stockage accessibles
+
+Dans **Espaces de stockage accessibles** des détails de l'utilisateur, cliquez sur **Modifier** pour définir les volumes de stockage et les capacités utilisables par l'utilisateur :
+
+| Champ | Description |
+| --- | --- |
+| Espace de stockage | Affiche le nom du volume, la capacité utilisée, la capacité totale et la capacité maximale disponible pour cet utilisateur. |
+| Capacité maximale disponible | Choisir `Unlimited` ou saisir un quota précis. Le quota ne doit pas dépasser la plage disponible du volume de stockage. |
+| Enregistrer | La plage d'écriture de l'utilisateur est mise à jour immédiatement après l'enregistrement. Le quota limite uniquement la capacité d'écriture de cet utilisateur ; il ne signifie pas que les données occupent déjà cet espace. |
+
+<Callout title="Attention" type="warn">
+  La suppression d'un utilisateur supprime également les données de son dossier personnel, et l'opération est irréversible. Avant la suppression, transférez les fichiers d'équipe, sauvegardez les données personnelles et vérifiez que les tâches de sauvegarde, les liens de partage, les tâches de synchronisation et les permissions applicatives ne dépendent plus de ce compte.
+</Callout>
+
+## Onglet Groupes d'utilisateurs
+
+### Disposition de la page
+
+- **Liste des groupes à gauche** : affiche tous les groupes d'utilisateurs et le nombre de membres, avec recherche ; les groupes intégrés tels que Admin et Standard User ne peuvent pas être supprimés librement.
+- **Détails du groupe à droite** : affiche le nom du groupe, la remarque, la liste des membres et leur rôle.
+- **Ajouter un groupe d'utilisateurs** : créer un groupe personnalisé.
+- **Ajouter des membres** : sélectionner un ou plusieurs utilisateurs existants à ajouter au groupe.
+- **Modifier le groupe d'utilisateurs** : modifier le nom, la remarque ou les membres du groupe.
+- **Supprimer le groupe d'utilisateurs** : supprimer un groupe personnalisé ; la suppression d'un groupe ne supprime généralement pas les comptes des membres, mais affecte l'accès aux ressources autorisées via le groupe.
+
+### Champs courants
+
+| Champ | Description |
+| --- | --- |
+| Nom du groupe d'utilisateurs | Sert à identifier le groupe ; il est recommandé de le nommer selon le service, le rôle familial ou le projet. |
+| Remarque | Facultative ; indique l'usage du groupe ou son périmètre d'autorisation. |
+| Membres | Liste des utilisateurs du groupe, avec recherche. |
+| Rôle des membres | Affiche le rôle des membres dans le système, par exemple Admin. |
+
+<Callout title="Recommandations" type="info">
+  Lorsque plusieurs utilisateurs ont besoin des mêmes permissions sur des fichiers ou applications, privilégiez l'autorisation par groupe d'utilisateurs. Il suffira ensuite d'ajuster les membres du groupe, sans modifier chaque compte individuellement.
+</Callout>
+
+## Procédure complète d'ajout d'un utilisateur
+
+| Étape | Opération | Vérification clé |
+| --- | --- | --- |
+| 1 | Cliquer sur **Ajouter un utilisateur** | Ouvre l'assistant d'ajout d'utilisateur. |
+| 2 | Renseigner les informations de base | Nom d'utilisateur conforme au format ; mot de passe contenant à la fois lettres et chiffres ; deux saisies identiques. |
+| 3 | Définir l'avatar | Sélectionner uniquement un fichier image de 2 Mo maximum. |
+| 4 | Choisir le type d'utilisateur/le rôle | Pour un usage quotidien, privilégier Utilisateur standard afin d'éviter de donner les droits administrateur à tout le monde. |
+| 5 | Configurer les espaces de stockage accessibles | Identifier les volumes accessibles en écriture et décider s'il faut limiter la capacité. |
+| 6 | Définir les groupes d'utilisateurs | Ajouter l'utilisateur aux groupes organisés par service, rôle familial ou projet. |
+| 7 | Confirmer et créer | Vérifier le quota, le rôle et l'avertissement de suppression des données personnelles. |
+
+## Permissions et impact sur les données
+
+| Opération | Impact immédiat | Impact sur les données | Réversibilité |
+| --- | --- | --- | --- |
+| Modifier le mot de passe | Toutes les sessions de ce compte sur tous les appareils sont déconnectées. | Aucune suppression de données. | Peut être modifié à nouveau. |
+| Désactiver l'utilisateur | L'utilisateur ne peut plus se connecter ; les sessions associées ne peuvent pas continuer. | Les données de l'utilisateur sont conservées. | Peut être réactivé. |
+| Définir comme administrateur | Accès aux Paramètres système et gestion du système. | Aucune suppression de données, mais les permissions sont nettement élargies. | Le statut d'administrateur peut être retiré. |
+| Retirer d'un groupe | Les permissions de partage ou applicatives accordées via le groupe changent en conséquence. | Le dossier personnel n'est pas supprimé. | Peut être réajouté au groupe. |
+| Supprimer l'utilisateur | Le compte ne peut plus se connecter. | Toutes les données du dossier personnel sont supprimées. | Irréversible. |
+| Supprimer le groupe d'utilisateurs | Les membres du groupe sont dissociés. | Les comptes des membres ne sont généralement pas supprimés, mais les autorisations du groupe deviennent caduques. | Le groupe doit être recréé et reconfiguré. |
+
+## Recommandations de quotas de stockage
+
+- **Appareil domestique** : définir un quota pour chaque membre afin d'éviter que les photos et vidéos personnelles ne saturent le volume partagé.
+- **Appareil d'équipe** : appliquer une stratégie de capacité uniforme par service ou groupe de projet, puis ajuster individuellement les cas particuliers.
+- **Utilisateur de sauvegarde** : prévoir une marge selon la taille des données source sauvegardées et vérifier régulièrement la capacité utilisée.
+- **Compte dédié aux applications** : limiter la capacité afin d'éviter une croissance illimitée des journaux ou du cache applicatif.
+
+Le quota limite uniquement la capacité d'écriture de cet utilisateur sur ce volume de stockage ; les fichiers existants, les fichiers d'équipe et les données système peuvent être comptabilisés séparément. La capacité utilisée affichée sur la page repose sur les statistiques de stockage réelles.
+
+## Conseils de dépannage
+
+| Problème | Axe de vérification |
+| --- | --- |
+| L'utilisateur ne peut pas se connecter | Compte désactivé, mot de passe modifié, IP bloquée par une règle de protection dans Sécurité. |
+| L'utilisateur ne voit pas de répertoire partagé | Espaces de stockage accessibles, appartenance aux groupes d'utilisateurs, plage de répertoires visibles des protocoles de partage de fichiers. |
+| Message d'espace insuffisant à l'écriture | Quota utilisateur, capacité restante du volume de stockage, disque en lecture seule ou dégradé. |
+| Les permissions ne suivent pas les changements de groupe | Cache ou session du client non actualisé ; reconnectez-vous ou reconnectez le service de fichiers. |

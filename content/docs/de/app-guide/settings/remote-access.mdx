@@ -1,0 +1,135 @@
+---
+sourceHash: 5b882db8dcb1
+title: Fernzugriff
+description: Konfigurieren des Station ID-Fernzugriffs, von DDNS und der Kontotrennung
+---
+
+Die Seite „Fernzugriff“ ist in **Fernzugriff** und **DDNS** unterteilt. Die Station ID eignet sich für den schnellen Zugriff über den offiziellen Relay-Dienst; DDNS eignet sich für Benutzer, die bereits eine Domain besitzen und die öffentliche IP über eine eigene Domain auflösen möchten.
+
+## Station ID-Fernzugriff
+
+![Remote Access](/images/de/app-guide/settings-img/remote-access.png)
+
+### Grundeinstellungen
+
+| Funktion/Feld | Beschreibung |
+| --- | --- |
+| Schalter für Station ID-Fernzugriff | Nach Aktivierung ist der Fernzugriff auf das Gerät über das Internet möglich. Vor dem Ein- oder Ausschalten ist eine Identitätsprüfung erforderlich, und Sie müssen der Nutzungsvereinbarung und der Datenschutzrichtlinie zustimmen. |
+| Station ID | Kennung für den Fernzugriff. Sie besteht aus 4 bis 30 Zeichen, darf nur Ziffern, Kleinbuchstaben und Bindestriche enthalten, wobei ein Bindestrich nicht am Anfang oder Ende stehen darf. |
+| Verknüpfte E-Mail-Adresse | Zeigt die E-Mail-Adresse des aktuell verknüpften Fernzugriffskontos. Der Fernzugriff kann erst aktiviert werden, nachdem eine E-Mail-Adresse verknüpft wurde. |
+| Ändern/Bearbeiten | Durch Klicken auf die Station ID oder den Bearbeitungseinstieg kann die ID geändert werden; ist die ID bereits vergeben, muss sie geändert werden. |
+
+### Methoden für den Fernzugriff
+
+| Methode | Verwendung |
+| --- | --- |
+| Web | Rufen Sie im Browser `https://scnas.cloud/<Station ID>/web` auf. |
+| Client | Geben Sie im StationCloud-Client die Station ID ein, um das Gerät hinzuzufügen und darauf zuzugreifen. |
+
+### Kontotrennung
+
+Zum Schutz der Kontosicherheit müssen Sie sich für die Trennung beim verknüpften StationCloud/思特云-Konto anmelden:
+
+1. Öffnen Sie `login.stationpc.com` im Browser.
+2. Melden Sie sich beim mit dem Gerät verknüpften Konto an.
+3. Öffnen Sie „Meine Geräte“ oder die Geräteverwaltung in der App.
+4. Wählen Sie das aktuelle Gerät aus und heben Sie die Verknüpfung auf.
+
+<Callout title="Hinweis" type="warn">
+  Das Deaktivieren des Fernzugriffs trennt die aktuelle Fernverbindung. Nach dem Entkoppeln des Kontos ist der Fernzugriff nicht mehr verfügbar; für eine erneute Nutzung ist eine neue Verknüpfung und Verifizierung erforderlich.
+</Callout>
+
+## DDNS
+
+DDNS prüft regelmäßig die öffentliche IP und synchronisiert Änderungen mit dem DNS-Anbieter. Ist keine Konfiguration vorhanden, zeigt die Seite einen Leerzustand an; durch Klicken auf **Neue Konfiguration** kann eine angelegt werden.
+
+![DDNS](/images/de/app-guide/settings-img/ddns.png)
+
+### Konfigurationsliste
+
+| Feld | Beschreibung |
+| --- | --- |
+| Anbieter | DNS-Dienstanbieter, z. B. Cloudflare, DNSPod.cn, No-IP.com, Duck DNS, FreeDNS, ChangeIP.com, DynDNS usw.; die tatsächliche Liste wird vom Server zurückgegeben. |
+| Domain | Die mit dem aktuellen DDNS-Eintrag verknüpfte Domain. |
+| Status | Aktualisiert, deaktiviert, nicht verbunden, wird verbunden, Fehler. |
+| Letzte Aktualisierungszeit | Zeitpunkt der letzten Prüfung oder IP-Synchronisierung. |
+| Aktionen | Konfiguration bearbeiten, sofort aktualisieren, aktivieren/deaktivieren, löschen. Nach dem Löschen ist eine Wiederherstellung nicht möglich. |
+
+### Konfiguration hinzufügen/bearbeiten
+
+#### Grundeinstellungen
+
+| Feld | Pflichtfeld | Beschreibung |
+| --- | --- | --- |
+| Anbieter | Ja | DNS-Anbieter auswählen. Nach dem Hinzufügen kann der Anbieter nicht direkt geändert werden. |
+| Domain | Ja | Vollständige Domain eingeben; sie muss dem Format entsprechen und darf nicht mit einer vorhandenen DDNS-Konfiguration identisch sein. |
+| AccessKey/API Token/Konto | Je nach Anbieter | Vom Anbieter verlangtes Konto oder AccessKey. Der Feldname variiert je nach Anbieter. |
+| SecretKey/API Secret/Passwort | Je nach Anbieter | Vom Anbieter verlangter Schlüssel. Beim Bearbeiten bedeutet ein leeres Feld, dass der gespeicherte Schlüssel weiterverwendet wird. |
+| IPv4 | Ja oder IPv6 mindestens eine Option | Standardmäßig „Automatisch“; zeigt die erkannte öffentliche IPv4-Adresse an. Alternativ kann eine Schnittstellenadresse oder eine benutzerdefinierte Prüfadresse gewählt werden. |
+| IPv6 | Ja oder IPv4 mindestens eine Option | Standardmäßig deaktiviert. Wählbar sind automatische öffentliche IPv6, Schnittstellen-IPv6 oder eine benutzerdefinierte Prüfadresse. |
+
+<Callout title="VPN-Hinweis" type="info">
+  Hinweis auf der Seite: Wenn ein VPN aktiviert ist, kann die Prüfung der externen IP-Adresse ungenau sein. Deaktivieren Sie das VPN vorübergehend und konfigurieren Sie erneut, oder geben Sie die korrekte externe IP-Adresse manuell ein.
+</Callout>
+
+#### Weitere Einstellungen
+
+| Feld | Beschreibung |
+| --- | --- |
+| Aktualisierungsintervall | Prüft die IP-Aktualisierung regelmäßig alle 1, 5, 10, 15, 30 oder 60 Minuten. |
+| Verbindung testen | Validiert die Konfiguration sofort. Das Ergebnis zeigt nicht verbunden, wird verbunden, aktualisiert oder Fehler an. |
+
+#### Optionen am unteren Rand
+
+| Option | Beschreibung |
+| --- | --- |
+| Konfiguration aktivieren | Steuert, ob diese DDNS-Konfiguration aktiviert ist. |
+
+<Callout title="Voraussetzungen" type="warn">
+  DDNS ist nur für die Namensauflösung zuständig und durchdringt nicht automatisch das NAT des Routers. Für den Zugriff auf das NAS aus dem Internet ist zusätzlich eine Portweiterleitung am Router erforderlich, oder Sie verwenden den Station ID-Fernzugriff. Für öffentlich erreichbare Dienste sollten Sie unbedingt HTTPS, starke Passwörter und die Zwei-Faktor-Authentifizierung aktivieren.
+</Callout>
+
+## Regeln für die Station ID
+
+| Punkt | Beschreibung |
+| --- | --- |
+| Zeichenregeln | 4–30 Zeichen, Kleinbuchstaben, Ziffern und Bindestriche; Bindestriche dürfen nicht am Anfang oder Ende stehen. |
+| Eindeutigkeit | Eine ID, die bereits von einem anderen Gerät verwendet wird, kann nicht erneut verwendet werden. |
+| Erzeugungsbedingung | Der Fernzugriffsdienst muss aktiviert und die Verknüpfung abgeschlossen sein. |
+| Auswirkung von Änderungen | Alte Web-/Client-Adressen sind sofort ungültig; die neue ID muss verwendet werden. |
+| Sicherheitsbezug | Die Station ID ist kein Passwort; die Anmeldung mit einem lokalen Gerätekonto bleibt erforderlich. |
+| Auswirkung der Entkopplung | Der Fernzugriff ist nicht verfügbar; für eine erneute Nutzung ist eine neue Verknüpfung erforderlich. |
+
+## Typischer Ablauf zum Aktivieren des Fernzugriffs
+
+1. Konfigurieren Sie in den Benachrichtigungseinstellungen eine nutzbare E-Mail-Adresse.
+2. Verknüpfen Sie die E-Mail-Adresse auf der Seite „Fernzugriff“ und schließen Sie die Verifizierung ab.
+3. Legen Sie eine den Regeln entsprechende Station ID fest.
+4. Stimmen Sie der Nutzungsvereinbarung und der Datenschutzrichtlinie zu.
+5. Aktivieren Sie den Fernzugriffsdienst.
+6. Testen Sie den Zugriff über einen Browser oder Client außerhalb des lokalen Netzwerks.
+7. Aktivieren Sie nach Möglichkeit HTTPS, starke Passwörter und die Zwei-Faktor-Authentifizierung.
+
+## DDNS-Felder im Detail
+
+| Feld | Beschreibung |
+| --- | --- |
+| Anbieter | Bestimmt die DNS-API-Adresse und die Authentifizierungsfelder. Nach dem Hinzufügen sollte die Konfiguration nicht beliebig neu erstellt werden; beim Bearbeiten kann der Anbieter nicht direkt geändert werden. |
+| Domain | Muss eine vollständige Domain sein, die beim jeweiligen Anbieter gehostet wird. |
+| AccessKey/API Token | Vom Anbieter vergebene Anmeldeinformationen für DNS-Operationen; vergeben Sie nach Möglichkeit nur minimale DNS-Rechte. |
+| SecretKey/API Secret | Gehört zum AccessKey; beim Bearbeiten kann ein leeres Feld den gespeicherten Schlüssel weiterverwenden. |
+| IPv4 automatisch erkennen | Verwendet einen öffentlichen Prüfdienst, um die öffentliche IPv4-Adresse zu ermitteln. |
+| IPv4-Schnittstellenadresse | Verwendet die Adresse einer vom Gerät angegebenen Schnittstelle; geeignet für Umgebungen mit fester öffentlicher IP. |
+| Benutzerdefinierte IPv4-URL | Verwendet die von einem benutzerdefinierten Dienst zurückgegebene IP; geeignet für NAT-/Proxy-Umgebungen. |
+| IPv6 | Standardmäßig deaktiviert; kann automatisch erkannt oder über eine Schnittstellenadresse bezogen werden. |
+| Aktualisierungsintervall | Kürzere Intervalle wirken schneller, erzeugen aber häufiger Anfragen. |
+
+## Fehlerbehebung bei DDNS
+
+| Erscheinung | Prüfung |
+| --- | --- |
+| Verbindungstest fehlerhaft | AccessKey/Secret, Domain-Host, API-Berechtigungen, Server-Netzwerk. |
+| IP der Domainauflösung ändert sich nicht | Lokaler DNS-Cache, TTL, ob der Prüfdienst die korrekte öffentliche IP ermittelt. |
+| Domainauflösung korrekt, aber kein Zugriff | Portweiterleitung am Router, Firewall, Dienstport, Sperrung durch den ISP. |
+| Fehlerhafte Erkennung in VPN-Umgebung | VPN vorübergehend deaktivieren oder eine benutzerdefinierte IP-Prüfadresse verwenden. |
+| IPv6 nicht verfügbar | IPv6-Präfix von Router/Anbieter, Schnittstellenadresse, Freigabe in der Firewall. |

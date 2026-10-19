@@ -1,0 +1,110 @@
+---
+sourceHash: 0cdca6aec0ab
+title: Centro de registros
+description: Guía de uso del Centro de registros
+---
+
+El Centro de registros registra de forma centralizada eventos como el funcionamiento del sistema, las conexiones de inicio de sesión, la transferencia de archivos y el almacenamiento en disco. Puede buscar registros por palabra clave, nivel, módulo, usuario y rango de tiempo, lo que resulta útil para auditorías de seguridad, trazabilidad de operaciones y solución de problemas.
+
+## Diseño de la página
+
+El Centro de registros se divide en una barra de herramientas superior, una tabla de registros y un área de paginación inferior:
+
+| Área | Función |
+| --- | --- |
+| Cuadro de búsqueda por palabra clave | Busca por palabras clave del contenido del registro. Tras introducirlas, pulse Intro o haga que el cuadro pierda el foco para aplicar la búsqueda. |
+| Filtrar | Filtra combinando nivel, módulo, usuario y rango de tiempo. |
+| Vaciar | Borra los registros según el rango de tiempo. |
+| Exportar registros | Exporta los registros del rango de tiempo seleccionado a un archivo CSV. |
+| Archivado de registros | Configura las condiciones de archivado automático y la ubicación de guardado del archivo. |
+| Tabla de registros | Muestra el nivel, el módulo, la hora, el usuario y el evento. |
+| Área de paginación | Muestra el total de registros y permite actualizar, cambiar de página, ajustar el número de elementos por página y saltar a una página concreta. |
+
+## Consultar los registros del usuario del sistema
+
+Si solo desea consultar los registros generados por el sistema, filtre **Usuario** por `system`:
+
+1. Haga clic en **Filtrar** en la parte superior.
+2. En el cuadro desplegable **Usuario**, seleccione `system`.
+3. Haga clic en **Confirmar**.
+
+La columna de usuario de los resultados filtrados será `system` en todos los casos. Este filtro es adecuado para consultar especialmente eventos del sistema como el encendido y apagado, las actualizaciones del sistema, el estado de las interfaces de red, la detección de discos, el estado S.M.A.R.T de los discos y las anomalías de los volúmenes de almacenamiento.
+
+![Registros filtrados por el usuario system](/images/es/app-guide/log-center-img/logs.png)
+
+## Campos de los registros
+
+| Campo | Descripción |
+| --- | --- |
+| Nivel | Gravedad del registro: normal, advertencia y grave. Normal corresponde a información habitual de funcionamiento; advertencia indica que debe prestarse atención; grave indica un riesgo elevado para una función o el hardware. |
+| Módulo | Origen del evento: sistema, conexión de inicio de sesión, transferencia de archivos y almacenamiento en disco. |
+| Hora | Momento en que ocurrió el evento. |
+| Usuario | Usuario que desencadenó el evento. `system` indica un evento generado automáticamente por el sistema; un nombre de usuario normal indica un evento relacionado con la operación o la sesión de un usuario. |
+| Evento | Detalles del evento, por ejemplo, apagado del sistema, extracción de un disco, degradación de un volumen de almacenamiento o actualización de la versión del sistema. |
+
+## Búsqueda y filtrado
+
+### Búsqueda por palabra clave
+
+Introduzca en el cuadro de búsqueda una palabra clave del contenido del evento, como el modelo de un disco, el nombre de un volumen de almacenamiento, la versión del sistema o la descripción de un error, y pulse Intro. La búsqueda se aplica junto con los filtros de condiciones.
+
+### Filtrado por condiciones
+
+Tras hacer clic en **Filtrar**, puede combinar las siguientes condiciones:
+
+| Condición | Valores disponibles/Descripción |
+| --- | --- |
+| Nivel | Normal, advertencia y grave; admite selección múltiple y seleccionar todo. |
+| Módulo | Sistema, conexión de inicio de sesión, transferencia de archivos y almacenamiento en disco; admite selección múltiple y seleccionar todo. |
+| Usuario | Las opciones proceden de los usuarios que aparecen en los registros actuales; admite selección múltiple y seleccionar todo. En el ejemplo de este artículo se selecciona `system`. |
+| Hora | Seleccione las fechas de inicio y fin para consultar únicamente los registros del rango de tiempo especificado. |
+
+Las condiciones de filtrado se guardan primero en la ventana emergente y solo se aplican a la lista después de hacer clic en **Confirmar**. Al hacer clic en **Restablecer**, se borran las condiciones de filtrado y se restaura la vista predeterminada.
+
+![Selección del usuario system en el filtro](/images/es/app-guide/log-center-img/filter.png)
+
+## Paginación y actualización
+
+- **Total**: el área de paginación muestra el número total de registros con las condiciones de filtrado actuales.
+- **Actualizar**: haga clic en el icono de actualización situado a la izquierda del total para volver a cargar la lista actual.
+- **Elementos por página**: puede elegir 50, 100 o 500.
+- **Saltar de página**: introduzca el número de página y pulse Intro, o utilice la página anterior/la página siguiente.
+
+## Exportar registros
+
+Haga clic en el icono de descarga de la parte superior para exportar los registros:
+
+1. Seleccione el rango de tiempo: todo, última semana, último mes, últimos tres meses, último semestre o último año.
+2. Haga clic en **Confirmar**.
+3. Espere a que se genere el archivo de registros; el CSV exportado se guardará en el directorio de descargas del navegador local.
+
+La exportación es adecuada para conservar registros de auditoría a largo plazo o para entregárselos a personal técnico para su análisis cuando no sea posible acceder directamente al dispositivo.
+
+## Vaciar registros
+
+Tras hacer clic en **Vaciar**:
+
+1. Seleccione el rango de tiempo que desea borrar: todo, hace un año, hace medio año, hace tres meses, hace un mes o hace una semana.
+2. Confirme el rango de limpieza.
+3. Espere a que finalice el progreso de la limpieza.
+
+<Callout title="Atención" type="warn">
+  El vaciado de registros no se puede deshacer. Antes de limpiar, se recomienda exportar los registros históricos que necesite conservar; si se produce un incidente de seguridad o una anomalía de hardware, no se apresure a borrar los registros del período afectado.
+</Callout>
+
+## Archivado de registros
+
+Haga clic en el icono de configuración de la parte superior para abrir **Archivado de registros**. De forma predeterminada, el sistema conserva los últimos 3 millones de registros de transferencia y no realiza archivados automáticos; una vez activado el archivado automático, este puede activarse mediante cualquiera de las siguientes condiciones:
+
+| Condición | Valores disponibles |
+| --- | --- |
+| Volumen de datos de registro mayor que | 500 MB, 1 GB, 3 GB |
+| Registros anteriores a | hace una semana, hace un mes, hace tres meses, hace medio año, hace un año |
+
+También debe seleccionar la ubicación de guardado del archivo en Archivos de equipo. Solo se puede guardar después de activar al menos una condición de archivado.
+
+<Callout title="Recomendación" type="info">
+  - Al solucionar anomalías de inicio de sesión, filtre primero por «Conexión de inicio de sesión» y preste atención a los niveles de advertencia y grave.
+  - Al solucionar fallos de disco o de volumen de almacenamiento, puede filtrar por usuario `system` y por módulo «Sistema» o «Almacenamiento en disco».
+  - Exporte o archive periódicamente los registros importantes para evitar que no puedan rastrearse tras un vaciado.
+</Callout>

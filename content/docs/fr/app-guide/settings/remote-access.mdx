@@ -1,0 +1,135 @@
+---
+sourceHash: 5b882db8dcb1
+title: Accès à distance
+description: Configurer l'accès à distance par Station ID, le DDNS et la dissociation du compte
+---
+
+La page Accès à distance comporte deux onglets : **Accès à distance** et **DDNS**. Le Station ID convient à un accès rapide via le service de relais officiel ; le DDNS convient aux utilisateurs disposant déjà d'un nom de domaine et souhaitant résoudre l'IP publique via leur propre domaine.
+
+## Accès à distance par Station ID
+
+![Remote Access](/images/fr/app-guide/settings-img/remote-access.png)
+
+### Paramètres de base
+
+| Fonction/Champ | Description |
+| --- | --- |
+| Interrupteur d'accès à distance Station ID | Une fois activé, l'appareil est accessible à distance via Internet. L'activation ou la désactivation nécessite une authentification et l'acceptation du contrat d'utilisation et de la politique de confidentialité. |
+| Station ID | Identifiant d'accès à distance. Règle : 4 à 30 caractères, uniquement des chiffres, des lettres minuscules et des traits d'union, ces derniers ne pouvant figurer au début ni à la fin. |
+| E-mail associé | Affiche l'adresse e-mail du compte d'accès à distance actuellement associé. L'association d'un e-mail est indispensable avant d'activer l'accès à distance. |
+| Modifier/Éditer | Cliquez sur le Station ID ou sur l'entrée d'édition pour changer d'ID ; si l'ID est déjà utilisé, il faut en choisir un autre. |
+
+### Modes d'accès à distance
+
+| Mode | Utilisation |
+| --- | --- |
+| Interface Web | Accéder dans le navigateur à `https://scnas.cloud/<Station ID>/web`. |
+| Client | Saisir le Station ID dans le client StationCloud pour ajouter et accéder à l'appareil. |
+
+### Dissociation du compte
+
+Pour garantir la sécurité du compte, la dissociation nécessite la connexion au compte StationCloud/思特云 associé :
+
+1. Ouvrez `login.stationpc.com` dans un navigateur.
+2. Connectez-vous au compte associé à l'appareil.
+3. Accédez à « Mes appareils » ou à la gestion des appareils dans l'application.
+4. Sélectionnez l'appareil actuel et dissociez-le.
+
+<Callout title="Attention" type="warn">
+  La désactivation de l'accès à distance coupe la connexion distante en cours. Après dissociation du compte, l'accès à distance n'est plus disponible ; pour le réutiliser, vous devrez associer à nouveau un compte et effectuer la vérification.
+</Callout>
+
+## DDNS
+
+Le DDNS détecte périodiquement l'IP publique et synchronise les changements auprès du fournisseur de résolution de noms de domaine. En l'absence de configuration, la page affiche un état vide ; cliquez sur **Ajouter une configuration**.
+
+![DDNS](/images/fr/app-guide/settings-img/ddns.png)
+
+### Liste des configurations
+
+| Champ | Description |
+| --- | --- |
+| Fournisseur | Fournisseur du service DNS, par exemple Cloudflare, DNSPod.cn, No-IP.com, Duck DNS, FreeDNS, ChangeIP.com, DynDNS, etc. ; la liste réelle est fournie par le serveur. |
+| Nom de domaine | Nom de domaine associé à l'enregistrement DDNS actuel. |
+| État | Mis à jour, désactivé, non connecté, connexion en cours, anomalie. |
+| Dernière mise à jour | Heure de la dernière détection ou synchronisation de l'IP. |
+| Opération | Modifier la configuration, actualiser/mettre à jour immédiatement, activer/désactiver, supprimer. La suppression est irréversible. |
+
+### Ajouter/Modifier une configuration
+
+#### Paramètres de base
+
+| Champ | Obligatoire | Description |
+| --- | --- | --- |
+| Fournisseur | Oui | Sélectionner le fournisseur de résolution de noms de domaine. Après l'ajout, le fournisseur ne peut pas être modifié directement. |
+| Nom de domaine | Oui | Saisir le nom de domaine complet ; il doit respecter le format et ne pas être en double avec une configuration DDNS existante. |
+| AccessKey/API Token/Compte | Selon le fournisseur | Compte ou AccessKey exigé par le fournisseur. Le nom du champ varie selon le fournisseur. |
+| SecretKey/API Secret/Mot de passe | Selon le fournisseur | Clé du fournisseur. Laisser vide lors de la modification pour continuer à utiliser la clé enregistrée. |
+| IPv4 | Oui, ou IPv6 au moins | « Automatique » par défaut, affiche l'IPv4 publique détectée. Il est également possible de choisir une adresse d'interface ou une adresse de détection personnalisée. |
+| IPv6 | Oui, ou IPv4 au moins | Désactivé par défaut. Choisir la détection automatique de l'IPv6 publique, l'IPv6 de l'interface ou une adresse de détection personnalisée. |
+
+<Callout title="Conseil VPN" type="info">
+  La page indique : si un VPN est activé, la vérification de l'adresse IP externe peut être inexacte. Vous pouvez désactiver temporairement le VPN puis reconfigurer, ou saisir manuellement l'adresse IP externe correcte.
+</Callout>
+
+#### Paramètres supplémentaires
+
+| Champ | Description |
+| --- | --- |
+| Intervalle de mise à jour | Vérifier périodiquement la mise à jour de l'IP toutes les 1, 5, 10, 15, 30 ou 60 minutes. |
+| Tester la connexion | Vérifier immédiatement la configuration. Le résultat affiche non connecté, connexion en cours, mis à jour ou anomalie. |
+
+#### Options inférieures
+
+| Option | Description |
+| --- | --- |
+| Activer la configuration | Contrôle si cette configuration DDNS est active. |
+
+<Callout title="Conditions préalables" type="warn">
+  Le DDNS ne gère que la résolution de noms de domaine et ne traverse pas automatiquement le NAT du routeur. Pour accéder au NAS depuis Internet, vous devez également configurer la redirection de port sur le routeur ou utiliser l'accès à distance par Station ID. Pour les services exposés publiquement, activez impérativement HTTPS, un mot de passe fort et la double authentification.
+</Callout>
+
+## Règles d'utilisation du Station ID
+
+| Élément | Description |
+| --- | --- |
+| Règles de caractères | 4 à 30 caractères, lettres minuscules, chiffres et traits d'union ; le trait d'union ne peut pas être au début ni à la fin. |
+| Unicité | Un ID déjà utilisé par un autre appareil ne peut pas être réutilisé. |
+| Conditions de génération | Nécessite l'activation du service d'accès à distance et la réalisation de l'association. |
+| Impact d'une modification | Les anciennes adresses Web/client deviennent immédiatement invalides ; le nouvel ID doit être utilisé. |
+| Relation de sécurité | Le Station ID n'est pas un mot de passe ; la connexion avec un compte local de l'appareil reste nécessaire. |
+| Impact de la dissociation | L'accès à distance devient indisponible ; une nouvelle association est nécessaire pour le réutiliser. |
+
+## Procédure type d'activation de l'accès à distance
+
+1. Configurer une adresse e-mail utilisable dans les paramètres de notification.
+2. Associer un e-mail sur la page Accès à distance et effectuer la vérification.
+3. Définir un Station ID conforme aux règles.
+4. Accepter le contrat d'utilisation et la politique de confidentialité.
+5. Activer le service d'accès à distance.
+6. Tester l'accès depuis un navigateur ou un client sur un réseau externe.
+7. Il est recommandé d'activer HTTPS, un mot de passe fort et la double authentification.
+
+## Détail des champs DDNS
+
+| Champ | Description |
+| --- | --- |
+| Fournisseur | Détermine l'adresse de l'API DNS et les champs d'authentification. Après l'ajout, évitez de recréer la configuration sans raison ; le fournisseur ne peut pas être modifié directement lors de l'édition. |
+| Nom de domaine | Doit être un nom de domaine complet hébergé chez ce fournisseur. |
+| AccessKey/API Token | Identifiant accordé par le fournisseur pour les opérations DNS ; il est recommandé de ne donner que les permissions DNS minimales. |
+| SecretKey/API Secret | Associé à l'AccessKey ; laisser vide lors de l'édition permet de conserver la clé enregistrée. |
+| Détection automatique IPv4 | Utilise un service de détection public pour obtenir l'IPv4 publique. |
+| Adresse d'interface IPv4 | Utilise l'adresse d'une interface spécifiée de l'appareil ; adapté aux environnements disposant d'une IP publique fixe. |
+| URL personnalisée IPv4 | Utilise l'IP renvoyée par un service personnalisé ; adapté aux environnements NAT/proxy. |
+| IPv6 | Désactivé par défaut ; détection automatique ou adresse d'interface possible. |
+| Intervalle de mise à jour | Plus il est court, plus la prise d'effet est rapide, mais plus les requêtes sont fréquentes. |
+
+## Dépannage DDNS
+
+| Symptôme | Vérification |
+| --- | --- |
+| Test de connexion en anomalie | AccessKey/Secret, hébergeur du domaine, permissions API, réseau du serveur. |
+| L'IP résolue pour le domaine ne change pas | Cache DNS local, TTL, le service de détection obtient-il la bonne IP publique ? |
+| Résolution correcte mais accès impossible | Redirection de port du routeur, pare-feu, port du service, blocage éventuel par le FAI. |
+| Détection erronée en environnement VPN | Désactiver temporairement le VPN ou utiliser une adresse de détection IP personnalisée. |
+| IPv6 indisponible | Préfixe IPv6 du routeur/opérateur, adresse d'interface, autorisation du pare-feu. |

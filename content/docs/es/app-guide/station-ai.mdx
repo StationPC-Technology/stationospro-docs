@@ -1,0 +1,57 @@
+---
+sourceHash: eccab6d7e528
+title: Station AI
+description: Guía de uso del asistente inteligente Station AI
+---
+
+Station AI es el asistente inteligente de IA integrado en StationOS Pro. Se basa en un modelo de lenguaje grande desplegado localmente (Qwen3-8B de forma predeterminada) y admite conversaciones en lenguaje natural, preguntas y respuestas sobre bases de conocimiento, traducción de documentos y resúmenes de documentos. Además, permite consultar directamente el estado del dispositivo y ejecutar operaciones del sistema mediante la conversación.
+
+## Interfaz
+
+En la ventana de Station AI, la parte izquierda es el área de navegación e incluye:
+
+- **Nueva conversación**: inicia una conversación nueva;
+- **Base de conocimiento**: gestiona y consulta bases de conocimiento;
+- **Historial**: consulta las conversaciones anteriores;
+- **Configuración**: configura el modelo y los parámetros de conversación.
+
+![Station AI Chat](/images/es/app-guide/station-ai-img/chat.png)
+
+## Conversar con la IA
+
+1. Introduzca su pregunta en el cuadro de entrada y haga clic en el botón de enviar (o pulse `Enter`).
+2. La IA generará una respuesta basada en el modelo integrado y, cuando la consulta implique el estado del dispositivo o una operación, invocará automáticamente las capacidades del sistema.
+
+La página de nueva conversación ofrece comandos rápidos de uso habitual; haga clic en uno para iniciar la consulta rápidamente:
+
+- **Presentar las funciones del NAS**: presenta las funciones del NAS;
+- **Reiniciar el dispositivo**: reinicia el dispositivo;
+- **Apagar el dispositivo**: apaga el dispositivo;
+- **Consultar la información y el estado de los discos del dispositivo actual**: consulta la información y el estado de los discos.
+
+Debajo del cuadro de entrada también se ofrecen las siguientes capacidades:
+
+- **Añadir**: sube archivos como contexto de la conversación;
+- **Selección de modelo**: muestra el modelo que se está utilizando (por ejemplo, Qwen3-8B);
+- **Traducción de documentos**: sube documentos para traducirlos;
+- **Resumen de documentos**: sube documentos para generar automáticamente un resumen.
+
+<Callout title="Atención" type="warn">
+  Antes de ejecutar operaciones sensibles mediante la IA, como reiniciar o apagar, confirme que no haya tareas importantes en ejecución en el dispositivo para evitar la pérdida de datos.
+</Callout>
+
+## Base de conocimiento
+
+La función de base de conocimiento le permite importar documentos al NAS, de modo que la IA cree un índice y realice preguntas y respuestas precisas:
+
+1. Cambie a la pestaña **Base de conocimiento**.
+2. Haga clic en **Crear base de conocimiento**.
+3. Suba los archivos de documento (se admiten formatos de documento habituales); el sistema los analizará y creará el índice automáticamente.
+4. En la lista de bases de conocimiento puede consultar el nombre, el tamaño y el número de archivos; haga clic en **Chat** para iniciar preguntas y respuestas basadas en esa base de conocimiento.
+
+![Knowledge Base](/images/es/app-guide/station-ai-img/knowledge-base.png)
+
+<Callout title="Consejo" type="info">
+  - Si los archivos de la base de conocimiento son grandes o numerosos, la creación del índice puede tardar un tiempo; tenga paciencia.
+  - El modelo puede consultarse y gestionarse en «Configuración del sistema → Modelos de IA»; la inferencia local consume recursos de NPU/CPU, por lo que se recomienda procesar grandes lotes de documentos en horarios de baja actividad.
+</Callout>

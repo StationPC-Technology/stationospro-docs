@@ -1,0 +1,55 @@
+---
+sourceHash: d0f9bb512ad3
+title: Copia de seguridad
+description: Guía de uso de la aplicación Copia de seguridad
+---
+
+La aplicación Copia de seguridad ofrece una gestión unificada de las tareas de copia de seguridad. Permite copiar datos a otras ubicaciones de almacenamiento del dispositivo, a un NAS remoto o a un servicio de nube, y también protege rápidamente los datos mediante la copia de seguridad con un clic desde un dispositivo externo.
+
+La navegación izquierda de la aplicación contiene tres módulos:
+
+- **Copia de seguridad local**: guarda los datos de origen de la copia en el espacio de almacenamiento del dispositivo;
+- **Copia de seguridad remota**: copia los datos a un NAS remoto, un servicio de nube u otro servidor;
+- **Copia de seguridad con un clic**: activa rápidamente una copia de seguridad mediante un dispositivo de almacenamiento externo y el botón de encendido del dispositivo.
+
+![Backup to Local](/images/es/app-guide/backup-img/local-backup.png)
+
+## Crear una tarea de copia de seguridad
+
+1. Entre en la página «Copia de seguridad local» o «Copia de seguridad remota» y haga clic en **Crear tarea de copia de seguridad**.
+2. En el cuadro de diálogo «Seleccionar origen de la copia», elija el origen de la copia:
+   - **Dispositivo local**: una ruta del propio NAS o almacenamiento externo;
+   - **Almacenamiento en la nube**: Google Drive, Dropbox, Microsoft OneDrive;
+   - **Protocolo de archivos**: servicios de archivos remotos como SMB, WebDAV o FTP.
+3. Haga clic en **Confirmar** y, siguiendo el asistente, seleccione sucesivamente la ruta de origen, la ubicación de destino y la programación de la tarea.
+4. Tras confirmar la configuración, cree la tarea. En la lista de tareas podrá consultar el estado de ejecución y el historial.
+
+![Create Backup Task](/images/es/app-guide/backup-img/create-task.png)
+
+<Callout title="Consejo" type="info">
+  Si utiliza almacenamiento en la nube como origen de la copia, primero debe autorizar la cuenta del servicio de nube correspondiente; si utiliza protocolos SMB/WebDAV/FTP, debe introducir la dirección del servidor, la cuenta y la contraseña.
+</Callout>
+
+## Gestionar tareas de copia de seguridad
+
+En la lista de tareas, puede:
+
+- Consultar el estado de la tarea, la hora de la última ejecución y el resultado;
+- Iniciar, pausar o eliminar tareas manualmente;
+- Modificar la ruta de origen, la ubicación de destino y la programación de ejecución de la tarea.
+
+## Copia de seguridad con un clic
+
+La «Copia de seguridad con un clic» está pensada para realizar copias rápidas desde dispositivos de almacenamiento externo:
+
+1. Asegúrese de que el interruptor de copia de seguridad con un clic esté activado.
+2. Conecte el dispositivo de almacenamiento externo (unidad USB/disco duro portátil) al NAS.
+3. Pulse brevemente el botón de encendido del dispositivo y el sistema copiará automáticamente los datos del dispositivo externo al NAS.
+
+![One-touch Backup](/images/es/app-guide/backup-img/one-touch.png)
+
+<Callout title="Atención" type="warn">
+  - La dirección de ejecución de la copia de seguridad con un clic depende de la configuración del dispositivo; antes de ejecutarla, confirme la dirección de la copia para evitar que los datos se sobrescriban en sentido inverso.
+  - Se recomienda comprobar periódicamente el resultado de las tareas de copia de seguridad para garantizar que las copias sigan siendo válidas.
+  - Para los datos importantes, se recomienda seguir el «principio de copia de seguridad 3-2-1»: al menos 3 copias de los datos, 2 tipos de soporte y 1 copia fuera del sitio.
+</Callout>

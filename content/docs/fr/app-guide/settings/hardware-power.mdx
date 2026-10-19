@@ -1,0 +1,134 @@
+---
+sourceHash: 8498127943c7
+title: Matériel et alimentation
+description: Configurer le buzzer, le ventilateur de refroidissement, la compression mémoire, la mise sous/hors tension automatique et la veille des disques
+---
+
+La page Matériel et alimentation comporte deux onglets : **Général** et **Alimentation**. L'onglet Général contrôle le son, le refroidissement et la compression mémoire ; l'onglet Alimentation contrôle la reprise après coupure de courant, le réveil réseau, la mise sous/hors tension planifiée et la veille des disques.
+
+## Général
+
+![Hardware General](/images/fr/app-guide/settings-img/hardware-general.png)
+
+### Buzzer
+
+Après avoir cliqué sur le bouton de paramètres du buzzer, vous pouvez choisir les événements qui déclenchent un signal sonore :
+
+| Catégorie | Événement | Description |
+| --- | --- | --- |
+| Général | Mise sous tension de l'appareil | Émettre un signal sonore pendant le démarrage. |
+| Général | Mise hors tension de l'appareil | Émettre un signal sonore pendant l'arrêt. |
+| Général | Sauvegarde en un clic réussie | Signaler la fin réussie d'une tâche de sauvegarde en un clic. |
+| Erreur de l'appareil | Température excessive | Alerter lorsque la température de l'appareil dépasse la plage de sécurité. |
+| Erreur de l'appareil | Erreur d'espace de stockage | Alerter en cas d'état anormal d'un volume de stockage ou d'un disque. |
+| Erreur de l'appareil | Erreur de ventilateur | Alerter en cas d'arrêt ou d'anomalie du ventilateur. |
+
+Après l'enregistrement, seuls les événements cochés déclenchent le buzzer. Si l'appareil se trouve dans une chambre ou un environnement calme, vous pouvez ne conserver que les alertes d'erreur à haut risque.
+
+### Ventilateur de refroidissement
+
+| Mode | Description |
+| --- | --- |
+| Normal | Ajuste automatiquement la vitesse selon la température de l'appareil, en équilibrant refroidissement et bruit ; adapté à la plupart des situations. |
+| Silencieux | Fonctionnement à faible bruit et faible vitesse, mais la température de l'appareil peut augmenter. Adapté aux environnements sensibles au bruit et à faible charge. |
+| Pleine vitesse | Force la vitesse maximale pour un refroidissement optimal, mais le bruit est plus important. Adapté aux environnements à forte charge ou à température élevée, ou en cas d'anomalie de refroidissement temporaire. |
+
+La carte de la page affiche le mode actuel, par exemple « Mode actuel : Normal ».
+
+### Compression mémoire
+
+| Option | Description |
+| --- | --- |
+| Interrupteur de compression mémoire | Une fois activée, libère de l'espace mémoire et accélère la lecture des données pour un système plus efficient. |
+
+La compression mémoire consomme un peu de CPU en échange d'un espace mémoire disponible plus grand. Pour un usage courant, il est recommandé de conserver la valeur par défaut ; en cas de tâches à forte charge CPU avec une pression mémoire faible, vous pouvez l'ajuster selon les résultats de tests de performance réels.
+
+## Alimentation
+
+![Power](/images/fr/app-guide/settings-img/power.png)
+
+### Mise sous tension automatique au retour du courant
+
+| Option | Description |
+| --- | --- |
+| Power On When Power Returns | L'appareil démarre automatiquement lorsque l'alimentation externe est rétablie. Adapté aux configurations avec onduleur stable ou aux scénarios nécessitant un redémarrage sans intervention. |
+
+### Réveil réseau
+
+| Option | Description |
+| --- | --- |
+| Wake On LAN (WOL) | Lorsque l'appareil est éteint ou en veille, il peut être réveillé par un paquet magique du réseau local. Nécessite la prise en charge de la carte réseau, de la carte mère et de l'environnement de routage. |
+
+### Mise sous/hors tension planifiée
+
+| Option | Description |
+| --- | --- |
+| Interrupteur Scheduled Power On / Off | Une fois activé, l'appareil s'allume ou s'éteint automatiquement selon la planification. Lors de la première activation, l'ajout d'une première planification est proposé. |
+| Add Schedule | Ajouter une planification. |
+| Day | Choisir tous les jours ou du lundi au dimanche. |
+| Time | Heure d'exécution de la planification. |
+| Action | Mise sous tension ou mise hors tension. |
+| Actions | Modifier ou supprimer une planification existante. |
+
+Les planifications multiples se répètent chaque semaine ; les planifications en double ou invalides sont vérifiées par le système. Lors de l'utilisation de la mise sous tension automatique, assurez-vous que l'alimentation de l'appareil et la stratégie BIOS/micrologiciel prennent en charge le démarrage planifié.
+
+### Mise en veille des disques
+
+La mise en veille des disques ne s'applique qu'aux disques mécaniques compatibles ; les disques internes et externes peuvent être configurés séparément. Le disque système peut ne pas prendre en charge la veille.
+
+| Option | Description |
+| --- | --- |
+| Enable Internal Disk Sleep | Activer la veille des disques internes. |
+| Enable External Disk Sleep | Activer la veille des disques externes. |
+| Wake Internal Disks When a User Logs In | Réveiller automatiquement les disques internes lors de la connexion d'un utilisateur. |
+| Wake External Disks When a User Logs In | Réveiller automatiquement les disques externes lors de la connexion d'un utilisateur. |
+| Idle Time | Délai d'inactivité avant la mise en veille : 10 minutes, 20 minutes, 30 minutes, 1 heure, 2 heures ou 3 heures. |
+
+<Callout title="Attention" type="info">
+  Des accès fréquents empêchent les disques d'entrer en veille. Si des sauvegardes, indexations, téléchargements, enregistrements de surveillance ou applications conteneurisées accèdent continuellement aux disques, allongez le délai d'inactivité ou n'activez la veille que pour les disques non critiques.
+</Callout>
+
+## Stratégie du buzzer
+
+| Scénario | Recommandation |
+| --- | --- |
+| Salle serveur ou bureau | Conserver les alertes de température excessive, d'erreur de ventilateur et d'erreur de stockage. |
+| Chambre ou salon calme | Conserver uniquement les erreurs graves et désactiver les signaux de mise sous/hors tension. |
+| Déploiement distant sans surveillance | Activer toutes les alertes d'erreur pour détecter au plus vite les anomalies de température ou de stockage. |
+| Sauvegarde en un clic importante | Conserver le signal de réussite de sauvegarde. |
+
+## Choix du mode de ventilateur
+
+| Condition | Recommandation |
+| --- | --- |
+| Usage domestique courant | Normal. |
+| Faible charge nocturne | Silencieux, puis retour au mode Normal le lendemain. |
+| Environnement chaud, téléchargements à pleine charge, tâches conteneur/IA | Pleine vitesse. |
+| Alerte d'erreur de ventilateur | Éteindre d'abord l'appareil pour vérifier le ventilateur ; ne pas compter durablement sur la pleine vitesse pour masquer la panne. |
+
+## Combinaisons de stratégies d'alimentation
+
+| Objectif | Combinaison recommandée |
+| --- | --- |
+| Économiser l'énergie à domicile selon un horaire | Extinction planifiée + réveil manuel/réseau. |
+| Disponibilité automatique après retour du courant | Mise sous tension automatique au retour du courant. |
+| Maintenance à distance | WOL + réseau local/VPN fiable + IP fixe ou réservation DHCP. |
+| Continuité d'activités importantes | Utiliser prudemment la planification ; configurer un onduleur et un stockage redondant. |
+
+## Précautions pour la mise sous/hors tension planifiée
+
+- La mise sous tension automatique dépend également de la prise en charge matérielle/micrologiciel de l'appareil.
+- Avant l'arrêt, vérifiez que les tâches de sauvegarde, de synchronisation, de téléchargement, d'indexation, d'enregistrement et de conteneurs peuvent être interrompues.
+- Ne définissez pas une mise sous tension et une mise hors tension à la même heure.
+- Le système vérifie les planifications en double, mais une relecture manuelle reste recommandée.
+- Utilisez NTP pour maintenir une heure exacte, sinon l'heure d'exécution des planifications peut dériver.
+
+## Dépannage de la veille des disques
+
+| Symptôme | Vérification |
+| --- | --- |
+| Les disques ne passent jamais en veille | Accès continus du Centre des journaux, des sauvegardes, de l'indexation, des conteneurs, de la surveillance ou des téléchargements. |
+| Réveils/mises en veille fréquents | Délai d'inactivité trop court, interrogation SMB/WebDAV par les clients. |
+| Accès lent après la veille | Il s'agit du délai de réveil ; réduisez le délai d'inactivité ou désactivez la veille. |
+| Le disque externe ne passe pas en veille | Le disque externe/le contrôleur USB prend-il en charge la veille ? |
+| Le disque système ne passe pas en veille | Le disque système doit généralement rester en service et peut ne pas prendre en charge la veille. |

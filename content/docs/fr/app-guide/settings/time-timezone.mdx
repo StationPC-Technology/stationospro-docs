@@ -1,0 +1,76 @@
+---
+sourceHash: f5e072bc8e3f
+title: Date et heure
+description: Définir le fuseau horaire, la synchronisation NTP automatique ou l'heure manuelle
+---
+
+La page Date et heure permet de garantir l'exactitude de l'heure de l'appareil. Une heure correcte est essentielle au classement des journaux, aux tâches planifiées, à la validation des certificats, à la double authentification et aux communications HTTPS.
+
+![Time](/images/fr/app-guide/settings-img/time.png)
+
+## Fuseau horaire
+
+| Option | Description |
+| --- | --- |
+| Timezone | Sélectionner le fuseau horaire de l'appareil, par exemple `(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi`. |
+| Recherche/Filtre | La liste déroulante des fuseaux horaires permet de rechercher une ville ou un décalage UTC pour localiser rapidement le fuseau cible. |
+
+Si la région de déploiement de l'appareil diffère du lieu de résidence de l'utilisateur, il est recommandé de définir le fuseau horaire selon le lieu réel de l'appareil afin d'éviter un décalage entre l'heure d'exécution des tâches et l'heure locale attendue.
+
+## Heure
+
+### Synchronisation automatique
+
+| Option | Description |
+| --- | --- |
+| Auto Sync | Calibration périodique de l'heure système par un serveur NTP. Recommandé pour un usage quotidien. |
+| Serveur NTP | Choix possible parmi `pool.ntp.org`, `time.google.com`, `time.cloudflare.com`, `time.apple.com`, `time.windows.com`, `time.nist.gov`, `ntp.tencent.com`, `ntp.aliyun.com`, etc., ou saisie d'une adresse NTP personnalisée. |
+| Heure actuelle | La page affiche en temps réel l'heure système actuelle. |
+
+<Callout title="Conseil" type="info">
+  Si l'appareil ne peut pas accéder au serveur NTP sélectionné, vérifiez le DNS, les règles de pare-feu sortantes et le port UDP 123. En Chine continentale, il est possible d'essayer en priorité les adresses fournies par des fournisseurs NTP locaux.
+</Callout>
+
+### Réglage manuel
+
+| Option | Description |
+| --- | --- |
+| Manual Set | Spécifier manuellement la date et l'heure. |
+| Date | Sélectionner la date, au format `2026-10-14` par exemple. |
+| Time | Saisir l'heure, au format `17:46:26` par exemple. |
+| Avertissement | Le système rappelle de veiller à l'exactitude de l'heure ; un écart trop important peut entraîner l'échec de requêtes réseau ou des anomalies de service. |
+
+Le réglage manuel convient aux réseaux isolés ou aux environnements sans accès NTP. Après le réglage, cliquez sur **Appliquer** pour enregistrer.
+
+<Callout title="Attention" type="warn">
+  Ne réglez pas l'heure en dehors de la période de validité des certificats ou avec un écart trop important par rapport à l'heure réelle, sinon HTTPS, l'accès à distance, la vérification des mises à jour ou la double authentification peuvent échouer.
+</Callout>
+
+## NTP ou réglage manuel
+
+| Scénario | Recommandation |
+| --- | --- |
+| Accès à Internet disponible | Synchronisation automatique. |
+| Réseau interne isolé | Réglage manuel ou connexion à un serveur NTP interne. |
+| Échec de certificat dû à un décalage horaire | Basculer d'abord vers un NTP disponible et vérifier que l'heure revient dans la plage de validité du certificat. |
+| Décalage d'exécution des tâches planifiées | Vérifier le fuseau horaire et le NTP ; ne pas modifier uniquement l'heure. |
+| Équipe répartie sur plusieurs fuseaux | Définir le fuseau selon le lieu réel de l'appareil pour conserver la cohérence des heures de journal. |
+
+## Impact des anomalies d'heure
+
+| Fonction | Impact possible |
+| --- | --- |
+| HTTPS/Certificats | Échec de validation d'un certificat non encore valide ou expiré. |
+| Double authentification/OTP | Fenêtre temporelle du code dynamique non concordante. |
+| Audit des journaux | Ordre et heure des événements non fiables. |
+| Tâches planifiées | Mise sous/hors tension et sauvegardes avancées ou retardées. |
+| Synchronisation cloud/API | Échec de validation de signature de requête ou de jeton. |
+| Vérification des mises à jour | La source de mise à jour peut refuser la requête. |
+
+## Conseils de dépannage
+
+1. Vérifiez d'abord le fuseau horaire, puis l'heure ; la combinaison de deux erreurs rend le diagnostic difficile.
+2. Si NTP ne fonctionne pas, testez le DNS et le trafic sortant UDP 123.
+3. Après avoir changé de fournisseur NTP, attendez un cycle de synchronisation.
+4. Après un réglage manuel, appliquez immédiatement ; ne restez pas longtemps sur une heure temporaire.
+5. Après modification de l'heure, reconnectez le client pour actualiser la session et le cache.

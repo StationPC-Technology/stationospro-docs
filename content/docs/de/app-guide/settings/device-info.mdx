@@ -1,0 +1,87 @@
+---
+sourceHash: 39fd6aa82e45
+title: Geräteinformationen
+description: Anzeigen und Ändern grundlegender Geräteinformationen, Hardware- und Netzwerkinformationen
+---
+
+Die Seite „Geräteinformationen“ dient zur Bestätigung der Geräteidentität und des Betriebszustands. Hier können Sie Systemversion, Hardwarespezifikationen, Seriennummer und die Adressen der einzelnen Netzwerkports anzeigen sowie den Gerätenamen ändern oder Station ID und IP-Adresse kopieren.
+
+## Grundlegende Geräteinformationen
+
+| Feld/Vorgang | Beschreibung |
+| --- | --- |
+| Gerätename | Zeigt den aktuellen Gerätenamen. Über das Bearbeitungssymbol rechts neben dem Namen kann er geändert werden; der Name unterstützt 1 bis 15 englische Buchstaben, Ziffern und `-`, wobei `-` nicht am Anfang oder Ende stehen darf. |
+| Station ID | Kennung für den Fernzugriff auf das Gerät. Wird nach Aktivierung des Fernzugriffsdienstes erzeugt und kann per Klick kopiert werden; zum Ändern klicken Sie auf die ID und durchlaufen den Änderungsprozess. |
+| Systemversion | Aktuelle StationOS Pro-Versionsnummer, z. B. `v1.1.0.17`. Wird eine neue Version erkannt, erscheint möglicherweise ein Hinweis darauf. |
+| Systemlaufzeit | Dauer des ununterbrochenen Betriebs seit dem letzten Start. |
+| Letzte Startzeit | Systemzeit des letzten Starts. |
+
+![Device Info](/images/de/app-guide/settings-img/device-info.png)
+
+## Hardwareinformationen
+
+Die Hardwareinformationen sind in drei Bereiche unterteilt:
+
+| Bereich | Felder | Zweck |
+| --- | --- | --- |
+| CPU | CPU-Modell, Taktfrequenz, Anzahl Kerne, Anzahl Threads | Beurteilung der Prozessorleistung und der Fähigkeit für parallele Aufgaben. |
+| Arbeitsspeicher | Arbeitsspeicherkapazität | Beurteilung des verfügbaren Arbeitsspeichers für Anwendungen, Container, Indizes und KI-Aufgaben. |
+| KI-Modulerweiterung | Modell und Rechenleistung des KI-Moduls, z. B. RK1828, 20 TOPS INT8 | Bestätigung, ob das Gerät über KI-Beschleunigungshardware verfügt und welche Leistungsklasse sie hat. |
+
+## Gerätedetails
+
+| Feld | Beschreibung |
+| --- | --- |
+| Gerätemodell | Produktmodell des Geräts, z. B. DA400. |
+| Seriennummer | Eine der eindeutigen Gerätekennungen. Über die Kopierschaltfläche lässt sie sich schnell kopieren; sie wird häufig für Registrierung, Garantie und technischen Support benötigt. |
+
+## Netzwerkinformationen
+
+Die Netzwerkinformationen werden pro Netzwerkport angezeigt, z. B. „Kabelverbindung 1“ und „Kabelverbindung 2“. Nach Auswahl eines Ports sehen Sie:
+
+| Feld | Beschreibung |
+| --- | --- |
+| Portname | Vom System erkannter Schnittstellenname, z. B. `enP2p33s0`. |
+| Netzwerkkonfiguration | Duplexmodus und MTU, z. B. Full-duplex, MTU1500. |
+| IPv4-Adresse | Aktuelle IPv4-Adresse; über die Kopierschaltfläche kopierbar. |
+| IPv4-Verbindungsstatus | Zeigt an, ob IPv4 verbunden ist. |
+| IPv6-Adresse | Aktuelle IPv6-Adresse; ist keine Adresse vorhanden, wird `-` angezeigt. |
+| IPv6-Verbindungsstatus | Zeigt an, ob IPv6 verbunden ist. |
+
+<Callout title="Tipp" type="info">
+  Wenn die IP in den Geräteinformationen nicht mit der von Ihnen verwendeten Zugriffsadresse übereinstimmt, kann dies daran liegen, dass ein Gerät mit mehreren Netzwerkports gleichzeitig über mehrere Verbindungen angebunden ist. Maßgeblich ist das Netz, in dem der Client tatsächlich verbunden ist; alternativ können Sie in den Netzwerkeinstellungen Gateway und DNS der einzelnen Schnittstellen prüfen.
+</Callout>
+
+## Empfehlungen zur Feldnutzung
+
+| Szenario | Empfohlene Felder |
+| --- | --- |
+| Browser kann nicht auf das Gerät zugreifen | IPv4-/IPv6-Adresse, Verbindungsstatus und Portname in den Netzwerkinformationen. |
+| Remote-Client kann das Gerät nicht hinzufügen | Station ID, Systemversion, Status des Fernzugriffsschalters. |
+| Beurteilen, ob KI oder Container ausgeführt werden können | CPU-Kerne und -Threads, Arbeitsspeicherkapazität, Rechenleistung des KI-Moduls. |
+| Technischen Support oder Garantie kontaktieren | Gerätemodell, Seriennummer, Systemversion, Laufzeit. |
+| Wiederholte Neustarts untersuchen | Letzte Startzeit und Systemlaufzeit, ggf. zusammen mit den Systemprotokollen im Protokollzentrum. |
+| Verbindungen mehrerer Netzwerkports prüfen | Adresse, Duplexmodus, MTU und Verbindungsstatus unter den einzelnen Port-Registerkarten. |
+
+## Statusinterpretation
+
+| Status/Erscheinung | Bedeutung | Empfohlene Maßnahme |
+| --- | --- | --- |
+| IPv4 verbunden, IPv6 zeigt `-` | Die aktuelle Verbindung hat kein IPv6 erhalten; dies beeinträchtigt den IPv4-Zugriff nicht zwingend. | Nur bei Bedarf an IPv6 SLAAC/DHCPv6 am Router prüfen. |
+| Ein Netzwerkport wird als nicht verbunden angezeigt | Netzwerkkabel nicht eingesteckt, Switch-Port gestört oder Link-Aushandlung fehlgeschlagen. | Netzwerkkabel/Port tauschen und den Schnittstellenstatus in den Netzwerkeinstellungen prüfen. |
+| Sehr kurze Laufzeit | Das Gerät wurde gerade eingeschaltet oder unerwartet neu gestartet. | Im Protokollzentrum nach Benutzer „System“ filtern und Ausschalt-, Neustart- und Updateeinträge prüfen. |
+| Hinweis auf neue Version | Der Update-Server hat eine neue Firmware gemeldet. | Unter „Update und Wiederherstellung“ die Versionshinweise prüfen, vor dem Upgrade sichern. |
+
+## Häufig gestellte Fragen
+
+### Beeinflusst eine Änderung des Gerätenamens den Dateizugriff?
+
+Der Gerätename dient hauptsächlich zur Identifikation des Geräts und in einigen Benachrichtigungsszenarien; er ändert in der Regel weder Speicherpfade noch Konten. Wenn ein Client Dienste über den Hostnamen anspricht, muss nach der Änderung mit dem neuen Hostnamen neu verbunden werden; der Zugriff über die IP ist normalerweise nicht betroffen.
+
+### Warum haben mehrere Netzwerkports jeweils eine IP?
+
+Geräte mit mehreren Netzwerkports können gleichzeitig mehrere Verbindungen nutzen. Die Informationen der einzelnen Ports werden getrennt angezeigt; ein Client sollte die Adresse aus demselben Netz verwenden. Wenn Bandbreitenbündelung oder Link-Redundanz erforderlich ist, können Sie in den Netzwerkeinstellungen eine Bridge oder Link Aggregation prüfen.
+
+### Kann die Station ID als Konto verwendet werden?
+
+Nein. Die Station ID ist eine Kennung für den Fernzugriff auf das Gerät, kein Anmeldekonto. Für den Fernzugriff sind weiterhin ein lokaler Gerätebenutzer und das zugehörige Passwort erforderlich; die verknüpfte E-Mail-Adresse dient der Zuordnung des Fernzugriffskontos und der Identitätsprüfung.

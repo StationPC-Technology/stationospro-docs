@@ -1,0 +1,110 @@
+---
+sourceHash: 0cdca6aec0ab
+title: Centre des journaux
+description: Guide d'utilisation du Centre des journaux
+---
+
+Le Centre des journaux enregistre de manière centralisée les événements liés au fonctionnement du système, aux connexions et authentifications, aux transferts de fichiers ainsi qu'au stockage et aux disques. Vous pouvez rechercher les journaux par mot-clé, niveau, module, utilisateur et période, pour l'audit de sécurité, la traçabilité des opérations et le dépannage.
+
+## Disposition de la page
+
+Le Centre des journaux se compose d'une barre d'outils supérieure, d'un tableau de journaux et d'une zone de pagination inférieure :
+
+| Zone | Fonction |
+| --- | --- |
+| Champ de recherche par mot-clé | Rechercher par mot-clé dans le contenu des journaux. Après la saisie, appuyez sur Entrée ou laissez le champ perdre le focus pour appliquer la recherche. |
+| Filtrer | Filtrer par combinaison de niveau, module, utilisateur et période. |
+| Vider | Supprimer les journaux d'une période donnée. |
+| Exporter les journaux | Exporter les journaux de la période sélectionnée dans un fichier CSV. |
+| Archivage des journaux | Configurer les conditions d'archivage automatique et l'emplacement d'enregistrement des archives. |
+| Tableau des journaux | Afficher le niveau, le module, l'heure, l'utilisateur et l'événement. |
+| Zone de pagination | Afficher le nombre total de journaux et permettre l'actualisation, le changement de page, la modification du nombre d'éléments par page et le saut à une page. |
+
+## Consulter les journaux de l'utilisateur système
+
+Pour consulter uniquement les journaux générés par le système, filtrez **Utilisateur** sur `system` :
+
+1. Cliquez sur **Filtrer** en haut.
+2. Dans la liste déroulante **Utilisateur**, sélectionnez `system`.
+3. Cliquez sur **Confirmer**.
+
+Dans les résultats filtrés, la colonne Utilisateur affiche `system` pour toutes les entrées. Cette vue est adaptée à la consultation des événements système tels que la mise sous/hors tension, les mises à jour système, l'état des interfaces réseau, la détection des disques durs, l'état S.M.A.R.T des disques durs et les anomalies des volumes de stockage.
+
+![Journal list filtered by system user](/images/fr/app-guide/log-center-img/logs.png)
+
+## Champs des journaux
+
+| Champ | Description |
+| --- | --- |
+| Niveau | Gravité du journal : normal, avertissement, critique. Normal correspond aux informations de fonctionnement courant ; avertissement indique un point à surveiller ; critique indique un risque élevé pour une fonction ou le matériel. |
+| Module | Source de l'événement : système, connexion et authentification, transfert de fichiers, stockage et disques. |
+| Heure | Heure de survenue de l'événement. |
+| Utilisateur | Utilisateur à l'origine de l'événement. `system` désigne un événement généré automatiquement par le système ; un nom d'utilisateur ordinaire désigne une opération ou un événement lié à la session de cet utilisateur. |
+| Événement | Détails de l'événement, par exemple arrêt du système, retrait d'un disque dur, dégradation d'un volume de stockage, mise à jour de la version système, etc. |
+
+## Recherche et filtrage
+
+### Recherche par mot-clé
+
+Saisissez dans le champ de recherche un mot-clé du contenu de l'événement, par exemple un modèle de disque dur, le nom d'un volume de stockage, la version du système ou la description d'une erreur, puis appuyez sur Entrée. La recherche se combine avec les filtres conditionnels.
+
+### Filtrage conditionnel
+
+Après avoir cliqué sur **Filtrer**, vous pouvez combiner les conditions suivantes :
+
+| Condition | Valeurs disponibles/Description |
+| --- | --- |
+| Niveau | Normal, avertissement, critique ; sélection multiple et sélection totale possibles. |
+| Module | Système, connexion et authentification, transfert de fichiers, stockage et disques ; sélection multiple et sélection totale possibles. |
+| Utilisateur | Les options proviennent des utilisateurs présents dans les journaux actuels ; sélection multiple et sélection totale possibles. L'exemple de cet article sélectionne `system`. |
+| Période | Sélectionner les dates de début et de fin pour consulter uniquement les journaux de la période spécifiée. |
+
+Les conditions de filtrage sont d'abord conservées dans la fenêtre contextuelle et ne sont appliquées à la liste qu'après un clic sur **Confirmer** ; un clic sur **Réinitialiser** efface les conditions de filtrage et rétablit la vue par défaut.
+
+![Filtering system user](/images/fr/app-guide/log-center-img/filter.png)
+
+## Pagination et actualisation
+
+- **Total** : la zone de pagination affiche le nombre total de journaux correspondant aux filtres actuels.
+- **Actualiser** : cliquez sur l'icône d'actualisation à gauche du total pour recharger la liste actuelle.
+- **Éléments par page** : 50, 100 ou 500.
+- **Saut de page** : saisissez un numéro de page puis appuyez sur Entrée, ou utilisez les boutons page précédente/page suivante.
+
+## Exporter les journaux
+
+Cliquez sur l'icône de téléchargement en haut pour exporter les journaux :
+
+1. Sélectionnez la période : tout, dernière semaine, dernier mois, trois derniers mois, six derniers mois, dernière année.
+2. Cliquez sur **Confirmer**.
+3. Attendez la génération du fichier de journaux ; le fichier CSV exporté est enregistré dans le répertoire de téléchargement de votre navigateur local.
+
+L'export est adapté à la conservation à long terme des enregistrements d'audit ou à l'analyse par un technicien lorsque l'appareil n'est pas directement accessible.
+
+## Vider les journaux
+
+Après avoir cliqué sur **Vider** :
+
+1. Sélectionnez la période à supprimer : tout, il y a un an, il y a six mois, il y a trois mois, il y a un mois, il y a une semaine.
+2. Confirmez la plage de suppression.
+3. Attendez la fin de la progression du nettoyage.
+
+<Callout title="Attention" type="warn">
+  La suppression des journaux est irréversible. Avant le nettoyage, il est recommandé d'exporter les journaux historiques à conserver ; en cas d'incident de sécurité ou d'anomalie matérielle, ne vous empressez pas de supprimer les journaux de la période concernée.
+</Callout>
+
+## Archivage des journaux
+
+Cliquez sur l'icône de paramètres en haut pour ouvrir **Archivage des journaux**. Le système conserve par défaut les 3 derniers millions de journaux de transfert et n'effectue pas d'archivage automatique ; une fois l'archivage automatique activé, il peut être déclenché par l'une des conditions suivantes :
+
+| Condition | Valeurs disponibles |
+| --- | --- |
+| Volume de données de journal supérieur à | 500 MB, 1 GB, 3 GB |
+| Journaux antérieurs à | il y a une semaine, il y a un mois, il y a trois mois, il y a six mois, il y a un an |
+
+Vous devez également choisir l'emplacement d'enregistrement des archives dans les Fichiers d'équipe. Au moins une condition d'archivage doit être activée pour pouvoir enregistrer.
+
+<Callout title="Recommandations" type="info">
+  - Lors du diagnostic d'anomalies de connexion, filtrez en priorité « Connexion et authentification » et surveillez les niveaux avertissement et critique.
+  - Lors du diagnostic d'une panne de disque dur ou de volume de stockage, vous pouvez filtrer l'utilisateur `system` et les modules « Système » ou « Stockage et disques ».
+  - Exportez ou archivez régulièrement les journaux importants afin d'éviter toute perte de traçabilité après un nettoyage.
+</Callout>

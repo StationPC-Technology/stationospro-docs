@@ -1,0 +1,55 @@
+---
+sourceHash: d0f9bb512ad3
+title: Backup
+description: Anleitung zur Verwendung der Backup-Anwendung
+---
+
+Die Backup-Anwendung bietet eine einheitliche Verwaltung von Backup-Aufgaben. Sie können Daten an andere Speicherorte auf dem Gerät, an ein entferntes NAS oder in Cloud-Laufwerke sichern und Daten über One-Click-Backup mit externen Geräten schnell schützen.
+
+Die linke Navigation der Anwendung enthält drei Module:
+
+- **Lokales Backup**: Speichert die Quelldaten des Backups in einem Speicherbereich des Geräts;
+- **Remote-Backup**: Sichert Daten auf einem entfernten NAS, in einem Cloud-Laufwerk oder auf einem anderen Server;
+- **One-Click-Backup**: Löst Backups über externe Speichergeräte und die Netztaste des Geräts schnell aus.
+
+![Backup to Local](/images/de/app-guide/backup-img/local-backup.png)
+
+## Backup-Aufgabe erstellen
+
+1. Öffnen Sie die Seite „Lokales Backup“ oder „Remote-Backup“ und klicken Sie auf **Backup-Aufgabe erstellen**.
+2. Wählen Sie im Dialog „Backup-Quelle auswählen“ die Backup-Quelle aus:
+   - **Lokales Gerät**: Ein lokaler Pfad des NAS oder externer Speicher;
+   - **Cloud-Speicher**: Google Drive, Dropbox, Microsoft OneDrive;
+   - **Dateiprotokoll**: Remote-Dateidienste wie SMB, WebDAV und FTP.
+3. Klicken Sie auf **Bestätigen** und wählen Sie im Assistenten nacheinander den Quellpfad, das Backup-Ziel und den Aufgabenplan aus.
+4. Bestätigen Sie die Konfiguration und erstellen Sie die Aufgabe. In der Aufgabenliste können Sie den Ausführungsstatus und den Verlauf einsehen.
+
+![Create Backup Task](/images/de/app-guide/backup-img/create-task.png)
+
+<Callout title="Tipp" type="info">
+  Wenn Sie Cloud-Speicher als Backup-Quelle verwenden, müssen Sie zuerst das Konto des entsprechenden Cloud-Laufwerks autorisieren. Bei den Protokollen SMB/WebDAV/FTP müssen Sie Serveradresse, Benutzername und Passwort eingeben.
+</Callout>
+
+## Backup-Aufgaben verwalten
+
+In der Aufgabenliste können Sie:
+
+- den Aufgabenstatus, die letzte Ausführungszeit und das Ergebnis einsehen;
+- Aufgaben manuell starten, pausieren oder löschen;
+- den Quellpfad, das Ziel und den Ausführungsplan einer Aufgabe ändern.
+
+## One-Click-Backup
+
+„One-Click-Backup“ eignet sich für das schnelle Sichern externer Speichergeräte:
+
+1. Stellen Sie sicher, dass der One-Click-Backup-Schalter aktiviert ist.
+2. Schließen Sie ein externes Speichergerät (USB-Stick bzw. externe Festplatte) an das NAS an.
+3. Drücken Sie kurz die Netztaste des Geräts; das System sichert die Daten des externen Geräts automatisch auf dem NAS.
+
+![One-touch Backup](/images/de/app-guide/backup-img/one-touch.png)
+
+<Callout title="Hinweis" type="warn">
+  - Die Ausführungsrichtung des One-Click-Backups richtet sich nach den Geräteeinstellungen. Bestätigen Sie vor der Ausführung die Backup-Richtung, damit keine Daten in die Gegenrichtung überschrieben werden.
+  - Prüfen Sie die Ergebnisse der Backup-Aufgaben regelmäßig, um eine dauerhaft wirksame Sicherung zu gewährleisten.
+  - Für wichtige Daten empfiehlt sich die „3-2-1-Backup-Regel“: mindestens 3 Datenkopien, 2 verschiedene Medien und 1 Kopie an einem externen Standort.
+</Callout>

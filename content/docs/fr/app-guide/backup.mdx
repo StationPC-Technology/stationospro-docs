@@ -1,0 +1,55 @@
+---
+sourceHash: d0f9bb512ad3
+title: Sauvegarde
+description: Guide d'utilisation de l'application Sauvegarde
+---
+
+L'application Sauvegarde offre une gestion unifiée des tâches de sauvegarde. Elle permet de sauvegarder des données vers un autre emplacement de stockage local, vers un NAS distant ou vers un cloud, et de protéger rapidement vos données grâce à la sauvegarde en un clic depuis un périphérique externe.
+
+La navigation de gauche comprend trois modules :
+
+- **Sauvegarder en local** : enregistrer les données source sur un espace de stockage de l'appareil ;
+- **Sauvegarder à distance** : sauvegarder les données vers un NAS distant, un cloud ou un autre serveur ;
+- **Sauvegarde en un clic** : déclencher rapidement une sauvegarde via un périphérique de stockage externe et le bouton d'alimentation de l'appareil.
+
+![Backup to Local](/images/fr/app-guide/backup-img/local-backup.png)
+
+## Créer une tâche de sauvegarde
+
+1. Accédez à la page « Sauvegarder en local » ou « Sauvegarder à distance », puis cliquez sur **Créer une tâche de sauvegarde**.
+2. Dans la boîte de dialogue « Sélectionner la source de sauvegarde », choisissez la source :
+   - **Appareil local** : chemin local du NAS ou stockage externe ;
+   - **Stockage cloud** : Google Drive, Dropbox, Microsoft OneDrive ;
+   - **Protocole de fichiers** : services de fichiers distants tels que SMB, WebDAV et FTP.
+3. Cliquez sur **Confirmer**, puis suivez l'assistant pour sélectionner successivement le chemin source, la destination de sauvegarde et la planification de la tâche.
+4. Après avoir vérifié la configuration, créez la tâche. La liste des tâches permet de consulter l'état d'exécution et l'historique.
+
+![Create Backup Task](/images/fr/app-guide/backup-img/create-task.png)
+
+<Callout title="Conseil" type="info">
+  Pour utiliser un stockage cloud comme source de sauvegarde, vous devez d'abord autoriser le compte du cloud concerné ; pour les protocoles SMB/WebDAV/FTP, vous devez renseigner l'adresse du serveur, le compte et le mot de passe.
+</Callout>
+
+## Gérer les tâches de sauvegarde
+
+Dans la liste des tâches, vous pouvez :
+
+- consulter l'état de la tâche, la dernière heure d'exécution et le résultat ;
+- démarrer, suspendre ou supprimer manuellement une tâche ;
+- modifier le chemin source, la destination et la planification d'exécution d'une tâche.
+
+## Sauvegarde en un clic
+
+La « Sauvegarde en un clic » est destinée à la sauvegarde rapide depuis un périphérique de stockage externe :
+
+1. Assurez-vous que l'interrupteur de sauvegarde en un clic est activé.
+2. Connectez un périphérique de stockage externe (clé USB/disque dur portable) au NAS.
+3. Appuyez brièvement sur le bouton d'alimentation de l'appareil ; le système sauvegarde alors automatiquement les données du périphérique externe vers le NAS.
+
+![One-touch Backup](/images/fr/app-guide/backup-img/one-touch.png)
+
+<Callout title="Attention" type="warn">
+  - Le sens d'exécution de la sauvegarde en un clic dépend des paramètres de l'appareil ; avant l'exécution, vérifiez le sens de la sauvegarde afin d'éviter d'écraser des données dans le mauvais sens.
+  - Il est recommandé de vérifier régulièrement le résultat des tâches de sauvegarde afin de garantir leur efficacité dans la durée.
+  - Pour les données importantes, il est conseillé de suivre la « règle de sauvegarde 3-2-1 » : au moins 3 copies des données, sur 2 types de supports, dont 1 copie hors site.
+</Callout>

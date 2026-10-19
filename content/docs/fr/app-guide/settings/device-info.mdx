@@ -1,0 +1,87 @@
+---
+sourceHash: 39fd6aa82e45
+title: Informations sur l'appareil
+description: Consulter et modifier les informations de base, le matériel et le réseau de l'appareil
+---
+
+La page Informations sur l'appareil permet de confirmer l'identité et l'état de fonctionnement de l'appareil. Vous pouvez y consulter la version du système, les caractéristiques matérielles, le numéro de série et l'adresse de chaque port réseau, ainsi que modifier le nom de l'appareil ou copier le Station ID et l'adresse IP.
+
+## Informations de base de l'appareil
+
+| Champ/Opération | Description |
+| --- | --- |
+| Nom de l'appareil | Affiche le nom actuel de l'appareil. Cliquez sur l'icône d'édition à droite du nom pour le modifier ; le nom accepte de 1 à 15 lettres anglaises, chiffres et `-`, et `-` ne doit pas figurer au début ni à la fin. |
+| Station ID | Identifiant d'accès à distance de l'appareil. Généré après l'activation du service d'accès à distance ; cliquez pour le copier. Pour le modifier, cliquez sur l'ID pour lancer la procédure de modification. |
+| Version du système | Numéro de version actuel de StationOS Pro, par exemple `v1.1.0.17`. Si une nouvelle version est détectée, une notification de nouvelle version peut s'afficher. |
+| Durée de fonctionnement | Durée de fonctionnement continue depuis le dernier démarrage. |
+| Dernier démarrage | Heure système du dernier démarrage. |
+
+![Device Info](/images/fr/app-guide/settings-img/device-info.png)
+
+## Informations matérielles
+
+Les informations matérielles sont réparties en trois blocs :
+
+| Bloc | Champs | Utilisation |
+| --- | --- | --- |
+| CPU | Modèle du CPU, fréquence, nombre de cœurs, nombre de threads | Évaluer les performances du processeur et sa capacité à traiter des tâches parallèles. |
+| Mémoire | Capacité mémoire | Évaluer l'espace d'exécution disponible pour les applications, les conteneurs, l'indexation et les tâches IA. |
+| Module d'extension IA | Modèle et puissance de calcul du module IA, par exemple RK1828, 20 TOPS INT8 | Vérifier si l'appareil dispose d'un accélérateur matériel IA et de son niveau de puissance de calcul. |
+
+## Détails de l'appareil
+
+| Champ | Description |
+| --- | --- |
+| Modèle de l'appareil | Modèle commercial de l'appareil, par exemple DA400. |
+| Numéro de série | L'un des identifiants uniques de l'appareil. Cliquez sur le bouton de copie pour le copier rapidement ; souvent utilisé pour l'enregistrement, la garantie et le support technique. |
+
+## Informations réseau
+
+Les informations réseau sont présentées par port réseau, par exemple « Connexion filaire 1 » et « Connexion filaire 2 ». Après avoir sélectionné un port, vous pouvez consulter :
+
+| Champ | Description |
+| --- | --- |
+| Nom du port réseau | Nom d'interface reconnu par le système, par exemple `enP2p33s0`. |
+| Configuration réseau | Mode duplex et MTU, par exemple Full-duplex, MTU1500. |
+| Adresse IPv4 | Adresse IPv4 actuelle ; cliquez sur le bouton de copie pour la copier. |
+| État de connexion IPv4 | Indique si IPv4 est connecté. |
+| Adresse IPv6 | Adresse IPv6 actuelle ; `-` s'affiche en l'absence d'adresse. |
+| État de connexion IPv6 | Indique si IPv6 est connecté. |
+
+<Callout title="Conseil" type="info">
+  Si l'IP indiquée dans les informations de l'appareil diffère de l'adresse que vous utilisez actuellement, cela peut être dû au fait qu'un appareil multi-ports est connecté simultanément à plusieurs liaisons. Fiez-vous au sous-réseau réellement utilisé par le client, ou consultez les paramètres réseau pour examiner la passerelle et le DNS de chaque interface.
+</Callout>
+
+## Conseils d'utilisation des champs
+
+| Scénario | Champs à consulter |
+| --- | --- |
+| Le navigateur ne peut pas accéder à l'appareil | Adresses IPv4/IPv6, état de connexion et nom du port réseau dans les informations réseau. |
+| Le client distant ne peut pas ajouter l'appareil | Station ID, version du système, état de l'interrupteur d'accès à distance. |
+| Déterminer si l'appareil peut exécuter de l'IA ou des conteneurs | Cœurs/threads du CPU, capacité mémoire, puissance de calcul du module IA. |
+| Contacter le support technique ou la garantie | Modèle de l'appareil, numéro de série, version du système, durée de fonctionnement. |
+| Diagnostiquer des redémarrages répétés | Dernier démarrage, durée de fonctionnement, en complément des journaux système du Centre des journaux. |
+| Confirmer une liaison multi-ports | Adresse, mode duplex, MTU et état de connexion sous chaque onglet de port réseau. |
+
+## Interprétation des états
+
+| État/Manifestation | Signification | Traitement recommandé |
+| --- | --- | --- |
+| IPv4 connecté mais IPv6 affiché `-` | La liaison actuelle n'a pas obtenu d'IPv6 ; cela n'affecte pas nécessairement l'accès IPv4. | Vérifier SLAAC/DHCPv6 du routeur uniquement si IPv6 est nécessaire. |
+| Un port réseau indique « non connecté » | Câble réseau non branché, port du commutateur défaillant ou échec de négociation de liaison. | Remplacer le câble/port, puis consulter l'état de l'interface dans les paramètres réseau. |
+| Durée de fonctionnement très courte | L'appareil vient de démarrer ou a subi un redémarrage anormal. | Filtrer l'utilisateur System dans le Centre des journaux pour consulter les arrêts, redémarrages et mises à jour. |
+| Notification de nouvelle version | Le serveur de mise à jour signale un nouveau micrologiciel. | Consulter les notes de version dans Mise à jour et restauration, sauvegarder avant de mettre à niveau. |
+
+## Questions fréquentes
+
+### La modification du nom de l'appareil affecte-t-elle l'accès aux fichiers ?
+
+Le nom de l'appareil sert principalement à identifier l'appareil et à certaines notifications ; il ne modifie généralement pas les chemins de stockage ni les comptes. Si un client accède aux services par nom d'hôte, il devra se reconnecter avec le nouveau nom d'hôte ; l'accès par IP n'est généralement pas affecté.
+
+### Pourquoi plusieurs ports réseau ont-ils chacun une IP ?
+
+Un appareil multi-ports peut être connecté simultanément à plusieurs liaisons. Les informations de chaque port sont affichées séparément ; le client doit utiliser l'adresse du même sous-réseau. Si vous avez besoin d'une agrégation de bande passante ou d'une redondance de liaison, vous pouvez évaluer le pont réseau ou l'agrégation de liens dans les paramètres réseau.
+
+### Le Station ID peut-il servir de compte ?
+
+Non. Le Station ID est un identifiant d'accès à distance de l'appareil, et non un compte de connexion. L'accès à distance nécessite toujours la saisie d'un utilisateur local et d'un mot de passe de l'appareil ; l'e-mail associé sert à relier le compte d'accès à distance et l'authentification d'identité.

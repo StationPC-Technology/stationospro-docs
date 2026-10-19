@@ -1,0 +1,76 @@
+---
+sourceHash: f5e072bc8e3f
+title: Hora y zona horaria
+description: Configurar la zona horaria del sistema, la sincronización automática por NTP o la hora manual
+---
+
+La página Hora y zona horaria se utiliza para garantizar que la hora del dispositivo sea exacta. Una hora correcta es muy importante para la ordenación de registros, las tareas programadas, la validación de certificados, la verificación en dos pasos y las comunicaciones HTTPS.
+
+![Time](/images/es/app-guide/settings-img/time.png)
+
+## Zona horaria
+
+| Opción | Descripción |
+| --- | --- |
+| Timezone | Seleccione la zona horaria del dispositivo, por ejemplo, `(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi`. |
+| Búsqueda/Filtro | El cuadro desplegable de zonas horarias permite buscar por ciudad o desfase UTC para localizar rápidamente la zona horaria deseada. |
+
+Si la región donde está desplegado el dispositivo difiere de la ubicación del usuario, se recomienda configurar la zona horaria según la ubicación real del dispositivo para evitar desviaciones entre la hora de ejecución de las tareas y la esperada localmente.
+
+## Hora
+
+### Sincronización automática
+
+| Opción | Descripción |
+| --- | --- |
+| Auto Sync | El servidor NTP calibra periódicamente la hora del sistema. Recomendado para el uso habitual. |
+| Servidor NTP | Se puede seleccionar `pool.ntp.org`, `time.google.com`, `time.cloudflare.com`, `time.apple.com`, `time.windows.com`, `time.nist.gov`, `ntp.tencent.com`, `ntp.aliyun.com`, etc., o introducir una dirección NTP personalizada. |
+| Hora actual | La página muestra en tiempo real la hora actual del sistema. |
+
+<Callout title="Consejo" type="info">
+  Si el dispositivo no puede acceder al servidor NTP seleccionado, compruebe el DNS, las reglas de salida del cortafuegos y el puerto UDP 123. En entornos de red de China continental, se pueden probar prioritariamente las direcciones proporcionadas por proveedores de servicios NTP.
+</Callout>
+
+### Configuración manual
+
+| Opción | Descripción |
+| --- | --- |
+| Manual Set | Especifica manualmente la fecha y la hora. |
+| Date | Seleccione la fecha con un formato como `2026-10-14`. |
+| Time | Introduzca la hora con un formato como `17:46:26`. |
+| Aviso de advertencia | El sistema recuerda que debe garantizar la exactitud de la hora; una desviación excesiva puede provocar fallos en las solicitudes de red o anomalías en los servicios. |
+
+La configuración manual es adecuada para redes aisladas o entornos sin acceso a NTP. Tras completar la configuración, haga clic en **Aplicar** para guardarla.
+
+<Callout title="Atención" type="warn">
+  No configure una hora fuera del período de validez de los certificados ni con una diferencia excesiva respecto a la hora real; de lo contrario, HTTPS, el acceso remoto, la comprobación de actualizaciones y la verificación en dos pasos pueden fallar.
+</Callout>
+
+## Elección entre NTP y configuración manual
+
+| Escenario | Recomendación |
+| --- | --- |
+| Con acceso a Internet | Sincronización automática. |
+| Red interna aislada | Configuración manual o conexión a un servidor NTP de la red interna. |
+| Fallo de certificados por desviación horaria | Cambiar primero a un NTP disponible y confirmar que la hora vuelve al rango de validez del certificado. |
+| Desviación en la ejecución de tareas programadas | Comprobar la zona horaria y el NTP; no limitarse a cambiar la hora. |
+| Equipos en distintas zonas horarias | Configurar según la zona horaria real del dispositivo para mantener la coherencia de la hora de los registros. |
+
+## Efecto de las anomalías horarias
+
+| Función | Posible efecto |
+| --- | --- |
+| HTTPS/Certificados | Falla la validación porque el certificado aún no es válido o ha expirado. |
+| Verificación en dos pasos/OTP | La ventana temporal del código dinámico no coincide. |
+| Auditoría de registros | El orden y la hora de los eventos no son fiables. |
+| Tareas programadas | Las tareas de encendido y apagado o de copia de seguridad se adelantan o se retrasan. |
+| Sincronización en la nube/API | Falla la firma de la solicitud o la validación del token. |
+| Comprobación de actualizaciones | Es posible que el origen de actualizaciones rechace la solicitud. |
+
+## Recomendaciones para la solución de problemas
+
+1. Confirme primero la zona horaria y después la hora; si se combinan dos errores, resultará difícil determinar la causa.
+2. Si NTP no funciona, pruebe el DNS y la salida UDP 123.
+3. Tras cambiar de proveedor NTP, espere un ciclo de sincronización.
+4. Aplique de inmediato la configuración manual; no permanezca mucho tiempo con una hora temporal.
+5. Tras modificar la hora, vuelva a iniciar sesión en el cliente para actualizar la sesión y la caché.

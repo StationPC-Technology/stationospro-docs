@@ -1,0 +1,87 @@
+---
+sourceHash: 39fd6aa82e45
+title: Información del dispositivo
+description: Consultar y modificar la información básica, la información de hardware y la información de red del dispositivo
+---
+
+La página Información del dispositivo se utiliza para confirmar la identidad y el estado de funcionamiento del dispositivo. En esta página puede consultar la versión del sistema, las especificaciones de hardware, el número de serie y la dirección de cada puerto de red, así como modificar el nombre del dispositivo o copiar el Station ID y la dirección IP.
+
+## Información básica del dispositivo
+
+| Campo/Operación | Descripción |
+| --- | --- |
+| Nombre del dispositivo | Muestra el nombre actual del dispositivo. Haga clic en el icono de edición a la derecha del nombre para modificarlo; el nombre admite de 1 a 15 caracteres entre letras inglesas, números y `-`, y `-` no puede estar al principio ni al final. |
+| Station ID | Identificador de acceso remoto del dispositivo. Se genera tras activar el servicio de acceso remoto y se puede copiar haciendo clic; si desea modificarlo, haga clic en el ID para iniciar el proceso de modificación. |
+| Versión del sistema | El número de versión actual de StationOS Pro, por ejemplo, `v1.1.0.17`. Si se detecta una nueva versión, es posible que se muestre un aviso de nueva versión. |
+| Tiempo de funcionamiento del sistema | El tiempo que lleva funcionando el sistema desde el último arranque. |
+| Hora del último encendido | La hora del sistema del último arranque. |
+
+![Device Info](/images/es/app-guide/settings-img/device-info.png)
+
+## Información de hardware
+
+La información de hardware se divide en tres bloques:
+
+| Bloque | Campos | Uso |
+| --- | --- | --- |
+| CPU | Modelo de CPU, frecuencia, número de núcleos y número de hilos | Determinar el rendimiento del procesador y su capacidad para tareas paralelas. |
+| Memoria | Capacidad de memoria | Determinar el espacio de ejecución disponible para aplicaciones, contenedores, índices y tareas de IA. |
+| Expansión de módulo de IA | Modelo y capacidad de cálculo del módulo de IA, por ejemplo, RK1828, 20 TOPS INT8 | Confirmar si el dispositivo dispone de hardware de aceleración de IA y su nivel de capacidad de cálculo. |
+
+## Detalles del dispositivo
+
+| Campo | Descripción |
+| --- | --- |
+| Modelo del dispositivo | El modelo del producto, por ejemplo, DA400. |
+| Número de serie | Uno de los identificadores únicos del dispositivo. Haga clic en el botón de copiar para copiarlo rápidamente; se utiliza habitualmente para el registro, la garantía y el soporte técnico. |
+
+## Información de red
+
+La información de red se muestra por puerto de red, por ejemplo, «Conexión por cable 1» y «Conexión por cable 2». Tras seleccionar un puerto de red, puede consultar:
+
+| Campo | Descripción |
+| --- | --- |
+| Nombre del puerto de red | El nombre de la interfaz reconocido por el sistema, por ejemplo, `enP2p33s0`. |
+| Configuración de red | El modo dúplex y la MTU, por ejemplo, Full-duplex, MTU1500. |
+| Dirección IPv4 | La dirección IPv4 actual; haga clic en el botón de copiar para copiarla. |
+| Estado de conexión IPv4 | Indica si IPv4 está conectado. |
+| Dirección IPv6 | La dirección IPv6 actual; si no hay dirección, se muestra `-`. |
+| Estado de conexión IPv6 | Indica si IPv6 está conectado. |
+
+<Callout title="Consejo" type="info">
+  Si la IP de la información del dispositivo no coincide con la dirección con la que accede actualmente, es posible que un dispositivo con varios puertos de red esté conectado a varios enlaces a la vez. Tome como referencia la subred a la que está conectado realmente el cliente o consulte con más detalle la puerta de enlace y el DNS de cada interfaz en la Configuración de red.
+</Callout>
+
+## Recomendaciones de uso de los campos
+
+| Escenario | Campos recomendados |
+| --- | --- |
+| El navegador no puede acceder al dispositivo | Direcciones IPv4/IPv6, estado de conexión y nombre del puerto de red en la información de red. |
+| El cliente remoto no puede añadir el dispositivo | Station ID, versión del sistema y estado del interruptor de acceso remoto. |
+| Determinar si se pueden ejecutar IA o contenedores | Núcleos e hilos de CPU, capacidad de memoria y capacidad de cálculo del módulo de IA. |
+| Contactar con el soporte técnico o la garantía | Modelo del dispositivo, número de serie, versión del sistema y tiempo de funcionamiento. |
+| Solucionar reinicios repetidos | Hora del último encendido y tiempo de funcionamiento del sistema, junto con los registros del sistema del Centro de registros. |
+| Confirmar enlaces con varios puertos de red | Dirección, modo dúplex, MTU y estado de conexión de cada pestaña de puerto de red. |
+
+## Interpretación de los estados
+
+| Estado/Manifestación | Significado | Tratamiento recomendado |
+| --- | --- | --- |
+| IPv4 conectado pero IPv6 muestra `-` | El enlace actual no ha obtenido IPv6; esto no afecta necesariamente al acceso por IPv4. | Comprobar SLAAC/DHCPv6 en el router solo si se necesita IPv6. |
+| Un puerto de red muestra que no está conectado | El cable de red no está insertado, el puerto del conmutador presenta una anomalía o la negociación del enlace ha fallado. | Cambiar el cable o el puerto y, a continuación, consultar el estado de la interfaz en la Configuración de red. |
+| Tiempo de funcionamiento muy corto | El dispositivo acaba de encenderse o se ha reiniciado de forma anómala. | En el Centro de registros, filtrar por el usuario System para consultar los registros de apagado, reinicio y actualización. |
+| Aviso de nueva versión | El servidor de actualizaciones devuelve un nuevo firmware. | Consultar las notas de la versión en Actualización y restauración y realizar una copia de seguridad antes de actualizar. |
+
+## Preguntas frecuentes
+
+### ¿Modificar el nombre del dispositivo afecta al acceso a los archivos?
+
+El nombre del dispositivo se utiliza principalmente para identificarlo y en algunos escenarios de notificación, y por lo general no cambia las rutas de almacenamiento ni las cuentas. Si el cliente accede a los servicios mediante el nombre de host, deberá volver a conectarse con el nuevo nombre de host tras la modificación; el acceso mediante IP normalmente no se ve afectado.
+
+### ¿Por qué varios puertos de red tienen IP?
+
+Los dispositivos con varios puertos de red pueden conectarse a varios enlaces al mismo tiempo. La información de cada puerto de red se muestra de forma independiente y el cliente debe utilizar la dirección de su misma subred. Si necesita agregar ancho de banda o redundancia de enlaces, puede evaluar un puente de red o la agregación de enlaces en la Configuración de red.
+
+### ¿Se puede utilizar el Station ID como cuenta?
+
+No. El Station ID es el identificador de acceso remoto del dispositivo, no una cuenta de inicio de sesión. El acceso remoto sigue requiriendo el usuario y la contraseña locales del dispositivo; el correo electrónico vinculado se utiliza para asociar la cuenta de acceso remoto con la verificación de identidad.

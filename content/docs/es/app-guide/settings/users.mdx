@@ -1,0 +1,121 @@
+---
+sourceHash: 641a37933370
+title: Gestión de usuarios
+description: Gestionar cuentas de usuario, roles, grupos de usuarios y cuotas de almacenamiento
+---
+
+La página Gestión de usuarios se divide en **Usuarios** y **Grupos de usuarios**. El administrador puede crear cuentas locales, controlar el estado de las cuentas, establecer roles y espacios de almacenamiento accesibles, y organizar a los miembros por lotes mediante grupos de usuarios.
+
+## Pestaña Usuarios
+
+### Diseño de la página
+
+- **Lista de usuarios a la izquierda**: muestra todos los usuarios y permite buscarlos por nombre; la lista muestra el avatar, el nombre de usuario, el rol y el estado.
+- **Detalles del usuario a la derecha**: muestra la información básica del usuario seleccionado, los espacios de almacenamiento accesibles y los grupos de usuarios a los que pertenece.
+- **Añadir usuario**: haga clic en el botón de añadir situado encima de la lista de la izquierda para crear una cuenta local.
+
+![Users](/images/es/app-guide/settings-img/users.png)
+
+### Roles y estados de usuario
+
+| Opción | Valor | Permisos/Efecto |
+| --- | --- | --- |
+| Rol | Administrador | Puede iniciar sesión en la Configuración del sistema y gestionar la configuración del sistema, los usuarios, el almacenamiento, la seguridad y las aplicaciones. |
+| Rol | Usuario normal | Utiliza las funciones de archivos y aplicaciones dentro del alcance autorizado; no puede gestionar la Configuración del sistema. |
+| Estado | Activado | El usuario puede iniciar sesión con normalidad. |
+| Estado | Desactivado | El usuario no puede iniciar sesión en el dispositivo; los recursos compartidos, las tareas o los permisos de archivos existentes no implican que los datos se hayan eliminado de inmediato. |
+
+### Crear o editar un usuario
+
+Al crear y editar un usuario pueden intervenir los siguientes datos:
+
+| Campo/Función | Descripción |
+| --- | --- |
+| Nombre de usuario | Admite letras inglesas, números y `-` dentro de la longitud especificada; `-` no puede estar al principio ni al final, y algunos nombres reservados no se pueden utilizar. |
+| Avatar | Sube o cambia el avatar del usuario; la imagen debe cumplir las restricciones de formato y tamaño. |
+| Contraseña de inicio de sesión/Nueva contraseña | Admite de 6 a 30 caracteres entre letras, números y `@#*-_`, y debe contener tanto letras como números. |
+| Confirmar contraseña | Vuelva a introducir la contraseña; ambas introducciones deben coincidir. |
+| Editar información del usuario | Modifica datos básicos como el avatar, el nombre de usuario, el rol y el estado. |
+| Cambiar contraseña | Establece una nueva contraseña para el usuario; tras el cambio, deberá iniciar sesión con la nueva contraseña. |
+| Establecer como administrador | Eleva a un usuario normal a administrador. El sistema solicitará confirmación antes de la elevación. |
+| Desactivar/Activar | Prohíbe temporalmente o restaura el inicio de sesión del usuario; no equivale a eliminar al usuario. |
+| Eliminar usuario | Elimina la cuenta y los datos de su carpeta personal. El sistema avisará de que no se puede recuperar; confirme primero que no hay tareas ni recursos compartidos que dependan de ese usuario. |
+
+### Espacios de almacenamiento accesibles
+
+En **Espacios de almacenamiento accesibles** de los detalles del usuario, haga clic en **Editar** para configurar los volúmenes de almacenamiento y la capacidad que puede utilizar el usuario:
+
+| Campo | Descripción |
+| --- | --- |
+| Espacio de almacenamiento | Muestra el nombre del volumen, la capacidad utilizada, la capacidad total y la capacidad máxima disponible para ese usuario. |
+| Capacidad máxima disponible | Se puede seleccionar `Unlimited` o introducir una cuota concreta. La cuota no puede superar el rango disponible del volumen de almacenamiento. |
+| Guardar | Tras guardar, se actualiza de inmediato el alcance de escritura del usuario. La cuota solo limita la capacidad de escritura de ese usuario y no significa que los datos ya estén ocupados. |
+
+<Callout title="Atención" type="warn">
+  Eliminar un usuario también elimina los datos de su carpeta personal, y la operación no se puede deshacer. Antes de eliminarlo, migre los archivos de equipo, realice una copia de seguridad de los datos personales y confirme que las tareas de copia de seguridad, los enlaces compartidos, las tareas de sincronización y los permisos de las aplicaciones ya no dependen de esa cuenta.
+</Callout>
+
+## Pestaña Grupos de usuarios
+
+### Diseño de la página
+
+- **Lista de grupos a la izquierda**: muestra todos los grupos de usuarios y el número de miembros, y permite buscar; los grupos integrados como Admin y Standard User no se pueden eliminar sin más.
+- **Detalles del grupo a la derecha**: muestra el nombre del grupo, las notas, la lista de miembros y el rol de cada miembro.
+- **Añadir grupo de usuarios**: crea un grupo de usuarios personalizado.
+- **Añadir miembros**: seleccione uno o varios usuarios existentes para añadirlos al grupo.
+- **Editar grupo de usuarios**: modifica el nombre, las notas o los miembros del grupo.
+- **Eliminar grupo de usuarios**: elimina un grupo personalizado; por lo general, eliminar un grupo no elimina las cuentas de sus miembros, pero afecta al acceso a los recursos autorizados en función del grupo.
+
+### Campos habituales
+
+| Campo | Descripción |
+| --- | --- |
+| Nombre del grupo de usuarios | Se utiliza para identificar el grupo; se recomienda nombrarlo por departamento, rol familiar o proyecto. |
+| Notas | Opcional; registra el uso del grupo o el alcance de la autorización. |
+| Miembros | Lista de usuarios del grupo; se puede buscar. |
+| Rol del miembro | Muestra el rol del miembro en el sistema, por ejemplo, Admin. |
+
+<Callout title="Recomendación" type="info">
+  Cuando varios usuarios necesiten los mismos permisos sobre archivos o aplicaciones, priorice la autorización mediante grupos de usuarios. Posteriormente solo será necesario ajustar los miembros del grupo, sin modificar cada cuenta individualmente.
+</Callout>
+
+## Proceso completo para añadir un usuario
+
+| Paso | Operación | Comprobación clave |
+| --- | --- | --- |
+| 1 | Haga clic en **Añadir usuario** | Se abre el asistente para añadir un usuario. |
+| 2 | Complete la información básica | El nombre de usuario cumple el formato; la contraseña contiene letras y números; ambas contraseñas coinciden. |
+| 3 | Establezca el avatar | Seleccione solo archivos de imagen de no más de 2 MB. |
+| 4 | Seleccione el tipo de usuario/rol | Para el uso habitual, priorice el usuario normal y evite que todos tengan permisos de administrador. |
+| 5 | Configure los espacios de almacenamiento accesibles | Determine en qué volúmenes puede escribir y si se limita la capacidad. |
+| 6 | Establezca el grupo de usuarios al que pertenece | Añada el usuario a los grupos organizados por departamento, rol familiar o proyecto. |
+| 7 | Confirme y cree | Revise la cuota, el rol y el aviso de eliminación de datos personales. |
+
+## Permisos y efecto en los datos
+
+| Operación | Efecto inmediato | Efecto en los datos | Recuperabilidad |
+| --- | --- | --- | --- |
+| Cambiar la contraseña | Se cierra la sesión de la cuenta en todos los dispositivos. | No elimina datos. | Se puede volver a cambiar. |
+| Desactivar el usuario | El usuario no puede iniciar sesión; las sesiones relacionadas no se pueden seguir utilizando. | Conserva los datos del usuario. | Se puede volver a activar. |
+| Establecer como administrador | Puede acceder a la Configuración del sistema y gestionar el sistema. | No elimina datos, pero los permisos se amplían notablemente. | Se puede retirar la condición de administrador. |
+| Retirar de un grupo de usuarios | Los permisos de recursos compartidos o de aplicaciones autorizados por el grupo cambian en consecuencia. | No elimina la carpeta personal. | Se puede volver a añadir al grupo. |
+| Eliminar el usuario | La cuenta no puede iniciar sesión. | Se eliminan todos los datos de la carpeta personal. | No se puede recuperar. |
+| Eliminar el grupo de usuarios | El grupo de miembros se disuelve. | Normalmente no elimina las cuentas de los miembros, pero la autorización del grupo deja de ser válida. | Es necesario volver a crear el grupo y autorizarlo de nuevo. |
+
+## Recomendaciones sobre cuotas de almacenamiento
+
+- **Dispositivo doméstico**: se puede establecer una cuota para cada miembro para evitar que las fotos y los vídeos personales llenen el volumen compartido.
+- **Dispositivo de equipo**: aplique una política de capacidad común por departamento o grupo de proyecto y ajuste los casos especiales de forma individual.
+- **Usuario de copia de seguridad**: reserve margen según el tamaño de los datos de origen de la copia y compruebe periódicamente la capacidad utilizada.
+- **Cuenta dedicada a aplicaciones**: se recomienda limitar la capacidad para evitar que los registros o la caché de las aplicaciones crezcan sin límite.
+
+La cuota solo limita la capacidad de escritura de ese usuario en este volumen de almacenamiento; los archivos existentes, los archivos de equipo y los datos del sistema pueden contabilizarse por separado, y la capacidad utilizada que muestra la página se basa en las estadísticas reales de almacenamiento.
+
+## Recomendaciones para la solución de problemas
+
+| Problema | Aspecto que comprobar |
+| --- | --- |
+| El usuario no puede iniciar sesión | Si la cuenta está desactivada, si se ha modificado la contraseña y si la IP está bloqueada por las reglas de protección de Seguridad. |
+| El usuario no ve el directorio compartido | Espacios de almacenamiento accesibles, pertenencia a grupos de usuarios y alcance de directorios visibles de los protocolos de compartición de archivos. |
+| Indica que no hay espacio suficiente al escribir | Cuota del usuario, capacidad restante del volumen de almacenamiento y si el disco es de solo lectura o está degradado. |
+| Los permisos no surten efecto tras cambiar el grupo | La caché o la sesión del cliente no se ha actualizado; vuelva a iniciar sesión o a conectarse al servicio de archivos. |

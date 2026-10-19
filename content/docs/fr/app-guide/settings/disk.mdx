@@ -1,0 +1,123 @@
+---
+sourceHash: 052186091294
+title: Disques durs
+description: Consulter les informations des disques, vérifier leur état de santé et effectuer la maintenance
+---
+
+La page Disques durs permet de consulter les disques internes et externes reconnus par l'appareil. Vous pouvez y vérifier la capacité, l'interface, la température et les heures de fonctionnement des disques, accéder aux détails de santé pour lancer un test S.M.A.R.T, ou effectuer des opérations de maintenance telles que le formatage et l'éjection sécurisée sur les disques inutilisés.
+
+## Liste des disques
+
+La partie supérieure de la page propose trois filtres :
+
+| Onglet | Description |
+| --- | --- |
+| Tous | Afficher simultanément les disques internes et externes ; la vue « Tous » regroupe les disques par disques internes et disques externes. |
+| Internes | Afficher uniquement les disques installés à l'intérieur de l'appareil. |
+| Externes | Afficher uniquement les périphériques de stockage externes tels que les disques USB. |
+
+![Disk](/images/fr/app-guide/settings-img/disk.png)
+
+## Informations de la carte de disque
+
+Chaque carte de disque affiche :
+
+| Champ | Description |
+| --- | --- |
+| Nom du disque | Nom d'identification attribué par le système, par exemple DiskA, Disknvme0n1. |
+| Utilisation/Espace de stockage associé | Afficher l'utilisation : libre, non monté, volume de stockage associé, pool de cache, etc. |
+| Capacité totale | Capacité totale disponible du disque. |
+| Type de disque | HDD, SSD, etc. |
+| État de santé | Normal, anormal, avertissement ou inconnu. |
+| Modèle | Modèle du fabricant du disque. |
+| Interface | SATA, NVMe, USB, etc. |
+| Numéro de série | Numéro de série unique du disque ; cliquez pour le copier. |
+| Fournisseur | Marque ou fabricant du disque. |
+| Température | Température actuelle du disque. Une température durablement élevée augmente le risque de panne. |
+| Heures de fonctionnement | Durée cumulée de mise sous tension du disque, utile pour évaluer son ancienneté. |
+| Partition | Les disques externes ou partiellement occupés peuvent afficher des informations de partition. |
+
+## Opérations sur les disques
+
+Cliquez sur le bouton d'options à droite de la carte de disque ; les opérations disponibles dépendent de l'utilisation actuelle du disque :
+
+| Opération | Objet concerné | Description |
+| --- | --- | --- |
+| Formater le disque | Disques libres, disques externes ou partitions inutilisées | Effacer les données du disque et recréer un système de fichiers. Il est possible de formater le disque entier ou une partition spécifique. |
+| Éjection sécurisée | Disques externes | Arrêter les services associés puis retirer le disque en toute sécurité, afin de réduire le risque de corruption des données. |
+| Détails de santé | Disques compatibles avec la vérification de santé | Ouvrir la page de test S.M.A.R.T et des attributs de santé. |
+| Désactiver le disque | Disques internes membres compatibles avec la désactivation | Retirer le disque de l'espace de stockage associé. La désactivation peut affecter la redondance du stockage ; à exécuter avec prudence. |
+| Indicateur de lecture seule | Disques en lecture seule | Lorsqu'un disque est en lecture seule, les opérations d'écriture telles que le formatage sont désactivées. |
+
+### Paramètres de formatage
+
+| Option | Valeurs disponibles | Description |
+| --- | --- | --- |
+| Objet du formatage | Disque entier / Partition | Choisir d'effacer tout le disque ou seulement une partition. |
+| Système de fichiers après formatage | exFAT / EXT4 | exFAT convient à une utilisation multiplateforme Windows et macOS ; EXT4 est le système de fichiers courant sous Linux et convient à une connexion permanente au NAS. |
+
+<Callout title="Opération dangereuse" type="error">
+  Le formatage supprime toutes les données du disque ou de la partition cible et ne peut pas être interrompu une fois lancé. Ne coupez pas l'alimentation, ne redémarrez pas et ne retirez pas le disque pendant le formatage.
+</Callout>
+
+## Détails de santé du disque
+
+Après avoir cliqué sur **Détails de santé**, vous pouvez consulter les informations de santé du disque et lancer un test.
+
+![Disk Health](/images/fr/app-guide/settings-img/disk-health.png)
+
+### Modes de test
+
+| Mode de test | Durée estimée | Description |
+| --- | --- | --- |
+| Test rapide | Environ 2 minutes | Test de diagnostic de base vérifiant les erreurs mécaniques et électriques ; adapté aux contrôles réguliers. |
+| Test complet | Environ 2 heures 30 minutes | Analyse complète du disque, plus précise mais plus longue. Les deux tests n'affectent pas l'utilisation normale du disque. |
+
+### État et résultats du test
+
+- **Démarrer le test** : soumettre la tâche de test.
+- **Test en cours** : consulter la progression actuelle et arrêter le test si nécessaire.
+- **Résultat du test** : afficher la conclusion actuelle du test.
+- **Tableau des attributs S.M.A.R.T** : afficher le numéro, l'indicateur, le résultat, la valeur actuelle, la valeur la plus basse, la valeur de référence et les données brutes. Les valeurs critiques sont définies par le fabricant du disque ; une entrée anormale ne signifie pas nécessairement que le disque est endommagé, mais elle nécessite une surveillance continue.
+
+<Callout title="Conseils de maintenance" type="warn">
+  Si l'état de santé est anormal, si la température reste élevée ou si plusieurs indicateurs S.M.A.R.T s'approchent des valeurs critiques, sauvegardez immédiatement les données importantes du disque et du volume de stockage associé, puis remplacez le disque dès que possible.
+</Callout>
+
+## Interprétation des indicateurs de santé et d'utilisation
+
+| Indicateur | Signification | Recommandation |
+| --- | --- | --- |
+| Normal | La vérification de santé du disque est normale. | Maintenir des contrôles réguliers et des sauvegardes. |
+| Warning | Attributs suspects ou température élevée. | Sauvegarder immédiatement les données et continuer à surveiller. |
+| Abnormal/Serious | Résultat du test anormal. | Arrêter les écritures non essentielles et remplacer le disque dès que possible. |
+| Unknown | Aucune donnée de santé valide obtenue, ou disque/contrôleur de pont non compatible avec un S.M.A.R.T complet. | Changer le mode de connexion ou consulter les détails du disque. |
+| Storage volume N | Le disque appartient à ce volume de stockage. | Vérifier l'état du volume et sa capacité de redondance avant toute opération. |
+| Cache pool | Le disque est utilisé pour le cache SSD. | Supprimer d'abord le cache dans l'espace de stockage, puis retirer le disque. |
+| Unused | Le disque n'est pas occupé par une structure de stockage. | Peut servir à créer un volume, un cache ou une autre configuration. |
+| Not mounted | Le disque externe n'est pas monté. | Vérifier le système de fichiers, l'état de connexion et la santé du disque. |
+| Read-only | Le disque ou le système de fichiers est protégé en écriture. | Sauvegarder d'abord les données ; ne pas forcer le formatage. |
+| Formatting | Le disque est en cours de formatage. | Attendre la fin ; ne pas couper l'alimentation ni retirer le disque. |
+
+## Décision de formatage
+
+| Objectif | Recommandation |
+| --- | --- |
+| Lecture et écriture directes sous Windows et macOS | exFAT. |
+| Utilisation à long terme uniquement avec le NAS, priorité à la stabilité | EXT4. |
+| Le disque a déjà présenté des anomalies | Lancer d'abord un test de santé et sauvegarder les données, puis décider du formatage. |
+| Souhaite uniquement nettoyer une partition | Choisir le formatage de partition pour éviter d'effacer tout le disque par erreur. |
+| Le disque contient les données du système ou des membres du stockage | Ne pas formater ; vérifier d'abord le volume et l'utilisation concernés. |
+
+## Points d'attention S.M.A.R.T
+
+- **Reallocated Sectors Count** : une augmentation continue des secteurs réalloués indique une instabilité du support.
+- **Current Pending Sector** : l'augmentation des secteurs en attente de remappage peut annoncer des secteurs défectueux.
+- **Offline Uncorrectable** : erreurs non corrigeables ; sauvegardez les données dès que possible.
+- **Temperature** : une température élevée prolongée accélère le vieillissement.
+- **Power-On Time** : à rapprocher de l'ancienneté pour évaluer la garantie et le plan de remplacement.
+- **Raw Data** : les méthodes d'encodage varient selon les fabricants ; ne comparez pas uniquement les valeurs numériques.
+
+<Callout title="Conseils de test" type="info">
+  Le test rapide convient aux contrôles réguliers ; lors d'un remplacement de disque, d'une dégradation de volume, de déconnexions fréquentes ou d'erreurs d'E/S, il est recommandé d'effectuer un test complet. Le test n'affecte pas l'utilisation normale, mais les résultats peuvent être perturbés en période de forte charge.
+</Callout>

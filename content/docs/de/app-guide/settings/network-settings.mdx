@@ -1,0 +1,146 @@
+---
+sourceHash: 8cee25966a47
+title: Netzwerkeinstellungen
+description: Konfigurieren von Gateway, DNS, Netzwerkkarten, Bridge und Link Aggregation
+---
+
+Die Seite „Netzwerkeinstellungen“ ist in **Allgemein** und **Netzwerkverbindungen** unterteilt. Die Seite „Allgemein“ verwaltet globales Gateway, DNS und erweiterte Auflösungsrichtlinien; die Seite „Netzwerkverbindungen“ verwaltet die IP-Parameter der einzelnen Netzwerkkarten sowie Bridge und Link Aggregation.
+
+## Allgemein
+
+![Network General](/images/de/app-guide/settings-img/network-general.png)
+
+### Standard-Gateway
+
+| Feld | Beschreibung |
+| --- | --- |
+| Standard-Gateway | Aktuelles IPv4-Standard-Gateway, z. B. `172.16.0.1`. Wird bevorzugt verwendet, wenn das Gerät auf andere Netze oder das Internet zugreift. |
+| IPv6-Standard-Gateway | Aktuelles IPv6-Standard-Gateway; wird `-` angezeigt, wenn es nicht konfiguriert oder nicht verfügbar ist. |
+
+### DNS-Server
+
+| Option | Beschreibung |
+| --- | --- |
+| DNS-Server manuell konfigurieren | Ohne Aktivierung wird DNS automatisch per DHCP usw. bezogen; nach Aktivierung kann er manuell eingegeben werden. |
+| Primärer DNS-Server | Pflichtfeld. Bevorzugter Server für die Namensauflösung, z. B. `202.96.134.33`. |
+| Sekundärer DNS-Server | Optional. Wird verwendet, wenn der primäre DNS nicht verfügbar ist, z. B. `202.96.128.86`. |
+
+### Erweiterte Einstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| Mehrere Gateways aktivieren | Erlaubt dem System die Verwendung mehrerer Gateways. Geeignet, wenn das Gerät mit mehreren Netzen oder mehreren Uplinks verbunden ist. |
+| DNS-Auflösung bevorzugt IPv4 | Bei Domains mit sowohl IPv4- als auch IPv6-Einträgen wird IPv4 bevorzugt, um langsame Zugriffe durch nicht erreichbare IPv6-Netze zu vermeiden. |
+| IP-Konflikterkennung aktivieren | Erkennt Adresskonflikte im lokalen Netzwerk und hilft, Konflikte zwischen statischen IPs und anderen Geräten zu finden. |
+| Anwenden | Speichert die Änderungen der aktuellen Seite; ohne Änderungen ist die Schaltfläche nicht verfügbar. |
+
+<Callout title="Hinweis" type="warn">
+  Wenn der aktuelle Browser über das Netzwerk auf das Gerät zugreift, kann die Verbindung nach Änderungen an Gateway, DNS oder Netzwerkkarten-IP unterbrochen werden. Bestätigen Sie, dass die neuen Parameter routingfähig sind, und halten Sie einen Wiederherstellungsweg über die neue IP oder die Konsole bereit.
+</Callout>
+
+## Netzwerkverbindungen
+
+![Network Connections](/images/de/app-guide/settings-img/network-connections.png)
+
+### Liste der Netzwerkkarten
+
+Jede Netzwerkkarte zeigt:
+
+| Feld | Beschreibung |
+| --- | --- |
+| Schnittstellenname | Z. B. Port 1 (`enP2p33s0`) und Port 2 (`enP4p65s0`). |
+| Geschwindigkeit | Aktuell ausgehandelte Geschwindigkeit, z. B. 1 Gbit/s. |
+| Duplexmodus | Vollduplex oder Halbduplex. |
+| MTU | Aktuelle maximale Übertragungseinheit, z. B. MTU1500. |
+| Verbindungsstatus | Verbunden, nicht verbunden, nicht verfügbar usw. |
+| MAC-Adresse | Hardwareadresse der Netzwerkkarte. |
+| IPv4-Adresse / Subnetzmaske / Gateway | IPv4-Verbindungsparameter; die Adresse kann kopiert werden. |
+| DNS | Liste der IPv4-DNS-Server. |
+| IPv6-Adresse / Gateway / DNS | IPv6-Verbindungsparameter; bei nicht konfigurierten Werten wird `-` angezeigt. |
+| Netzwerktyp | Ethernet, Bridge, Link Aggregation usw. |
+
+### Netzwerkkarte bearbeiten
+
+Nach dem Klicken auf die Bearbeitungsschaltfläche der Netzwerkkarte können folgende Einstellungen geändert werden:
+
+| Einstellung | Modus | Felder und Regeln |
+| --- | --- | --- |
+| IPv4 | Automatisch | Adresse, Maske, Gateway und DNS werden per DHCP bezogen; manuelle Eingabefelder sind deaktiviert. |
+| IPv4 | Manuell | IPv4-Adresse und Subnetzmaske sind Pflichtfelder; Gateway, primärer DNS und sekundärer DNS sind optional. Die Adresse muss ein gültiges IPv4-Format haben, die Subnetzmaske muss eine zusammenhängende Maske sein. |
+| MTU | Automatisch | Verwendet die Standard-MTU des Systems. |
+| MTU | Manuell | Eingabe von 1280 bis 9000 möglich. Prüfen Sie vor der Änderung, ob Switch und Link die entsprechende Framegröße unterstützen. |
+
+### Bridge erstellen
+
+**Create Bridge** kann zwei oder mehr physische Netzwerkkarten zu einem gemeinsamen Bridge-Netzwerk zusammenfassen:
+
+1. Klicken Sie auf **Create Bridge**.
+2. Wählen Sie mindestens zwei verfügbare physische Netzwerkkarten aus.
+3. Nach der Bestätigung erstellt das System eine Bridge-Schnittstelle.
+4. Nach der Erstellung können die IP-Parameter wie bei einer normalen Schnittstelle bearbeitet werden.
+
+<Callout title="Tipp" type="info">
+  Bridges werden häufig verwendet, damit virtuelle Maschinen, Container oder isolierte Netzwerke direkt am physischen LAN teilnehmen können. Das Erstellen einer Bridge kann die Verbindungsart der ursprünglichen Netzwerkkarte ändern; wählen Sie daher nicht versehentlich die aktuell für die Verwaltung genutzte Karte aus.
+</Callout>
+
+### Link Aggregation erstellen
+
+**Create Link Aggregation** kann mehrere Netzwerkkarten zu einer logischen Schnittstelle zusammenfassen, um Bandbreitenbündelung oder Link-Redundanz zu erreichen. Das System verlangt Netzwerkkarten mit identischen Spezifikationen.
+
+| Kategorie | Modus | Merkmale und Anforderungen |
+| --- | --- | --- |
+| Ohne Switch-Konfiguration | Adaptive Load Balancing – bond6 | Empfohlen. Das System verteilt den Datenverkehr automatisch auf mehrere Ports; der Switch muss keine Aggregation unterstützen. |
+| Ohne Switch-Konfiguration | Active/Backup – bond1 | Aktiv/Standby-Modus. Der Backup-Port ist normalerweise inaktiv und übernimmt bei Ausfall des Hauptports automatisch; hohe Zuverlässigkeit, jedoch keine Bandbreitenbündelung. |
+| Switch-Konfiguration erforderlich | Round Robin – bond0 | Verteilt den Datenverkehr reihum; beide Ports übertragen gleichzeitig und die Geschwindigkeit kann deutlich steigen. Der Switch muss statische Aggregation unterstützen und korrekt konfiguriert sein. |
+| Switch-Konfiguration erforderlich | Balance XOR – bond2 | Verteilt Links hashbasiert; der Switch muss statische Aggregation unterstützen. In Umgebungen mit mehreren Switches sind Stacking und korrekte Konfiguration erforderlich. |
+| Switch-Konfiguration erforderlich | Dynamic Link Aggregation – bond4 | Dynamische Aggregation nach IEEE 802.3ad; der Switch muss LACP unterstützen und korrekt konfiguriert sein. Bei mehreren Switches ist Stacking erforderlich. |
+
+### Netzwerkmodus aufheben
+
+Bei Bridge- oder Link-Aggregation-Schnittstellen kann der Netzwerkmodus über weitere Aktionen aufgehoben werden. Das System weist darauf hin, dass der Vorgang die entsprechende logische Schnittstelle betrifft; nach der Bestätigung werden die Mitglieds-Netzwerkkarten wiederhergestellt.
+
+<Callout title="Empfehlung" type="warn">
+  Der Link-Aggregation-Modus muss zur Switch-Konfiguration passen. Wenn ein Modus gewählt wird, der Switch-Unterstützung erfordert, der Switch aber nicht konfiguriert ist, kann es zu Netzwerkunterbrechungen oder wiederholten Anomalien am Aggregationsport kommen.
+</Callout>
+
+## Vorbereitung vor Netzwerkänderungen
+
+1. Notieren Sie aktuelle IP, Maske, Gateway, DNS, MTU und Schnittstellennamen.
+2. Stellen Sie sicher, dass ein Wiederherstellungsweg über LAN, Konsole oder einen zweiten Netzwerkport besteht.
+3. Prüfen Sie VLAN, Portgeschwindigkeit, Aggregation und Firewall-Richtlinien des Switches.
+4. Stellen Sie sicher, dass die neue statische IP nicht mit anderen Geräten kollidiert.
+5. Bei Link Aggregation schließen Sie die entsprechende Konfiguration zuerst am Switch ab und prüfen den Modus.
+6. Ändern Sie nicht mehrere Netzwerkbedingungen gleichzeitig; prüfen Sie die Verbindung nach jeder Änderung.
+
+## Interpretation des Schnittstellenstatus
+
+| Status/Feld | Bedeutung |
+| --- | --- |
+| Connected | Der Link ist aufgebaut und eine Adresse kann bezogen werden. |
+| Disconnected | Netzwerkkabel/Link ist nicht aufgebaut. |
+| 1Gbps / 2.5Gbps / 10Gbps | Aktuell ausgehandelte Geschwindigkeit, begrenzt durch Geräte an beiden Enden und Verkabelung. |
+| Full Duplex | Gleichzeitiges Senden und Empfangen möglich; Halbduplex ist weniger effizient. |
+| MTU1500 | Standard-Ethernet-MTU; Jumbo-MTU erfordert Unterstützung auf dem gesamten Link. |
+| `-` | Kein Wert verfügbar oder der Protokollstapel ist nicht konfiguriert. |
+| Bridge | Eine Bridge aus mehreren physischen Schnittstellen. |
+| Bond | Eine logische Link-Aggregation-Schnittstelle aus mehreren Netzwerkkarten. |
+
+## Auswahl zwischen Bridge und Link Aggregation
+
+| Anforderung | Auswahl |
+| --- | --- |
+| Virtuelle Maschinen/Container direkt am physischen LAN teilnehmen lassen | Bridge. |
+| Bandbreite zweier Netzwerkkarten bündeln, ohne Switch-Konfiguration | bond6. |
+| Aktiv/Standby-Ausfallsicherung mit Priorität auf Umschaltung | bond1. |
+| Switch bereits mit statischer Aggregation konfiguriert, Durchsatz im Vordergrund | bond0 oder bond2. |
+| Switch unterstützt LACP, standardisierte dynamische Aggregation erforderlich | bond4. |
+| Nur IP/DNS des NAS ändern | Normale Schnittstellenbearbeitung; keine Bridge oder Aggregation erstellen. |
+
+## Häufige Methoden zur Wiederherstellung der Verbindung
+
+- Über die IP eines anderen, nicht geänderten Netzwerkports zugreifen.
+- Den Computer in dasselbe VLAN/Netz bringen und das Gerät erneut suchen.
+- Die neue Adresse in der DHCP-Lease-Liste des Routers suchen.
+- Bei ausschließlich DNS-bedingten Problemen vorübergehend direkt über die IP zugreifen.
+- Wenn der Aggregationsport nicht erreichbar ist, Mitgliedsports trennen und die Konfiguration über einen einzelnen Port wiederherstellen.
+- Bei schwerwiegenden Netzwerkkonfigurationsfehlern kann unter „Update und Wiederherstellung“ eine Netzwerkzurücksetzung erwogen werden.

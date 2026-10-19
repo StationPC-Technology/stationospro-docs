@@ -1,0 +1,227 @@
+---
+sourceHash: cb1af2d8dfdf
+title: Seguridad
+description: Configurar los puertos de acceso, la verificación en dos pasos, la protección por IP, el cortafuegos, los certificados y el análisis del dispositivo
+---
+
+La página Seguridad contiene seis pestañas: **Configuración de puertos**, **Seguridad de la cuenta**, **Protección**, **Cortafuegos**, **Certificados** y **Análisis del dispositivo**, que permiten restringir los accesos al sistema, controlar el origen de las conexiones, cifrar la transmisión y consultar los interruptores relacionados con la privacidad.
+
+## Configuración de puertos
+
+![Port Settings](/images/es/app-guide/settings-img/security-port-settings.png)
+
+### Información actual
+
+La página muestra los puertos actuales de acceso a la administración web:
+
+| Campo | Valor predeterminado | Descripción |
+| --- | --- | --- |
+| Puerto HTTP | 9500 | Acceso al panel de administración mediante HTTP. |
+| Puerto HTTPS | 9501 | Acceso al panel de administración mediante HTTPS. |
+
+### Ventana emergente de configuración de puertos
+
+| Opción | Descripción |
+| --- | --- |
+| Número de puerto HTTP | Obligatorio, en el rango de 1 a 65535; no puede ser igual que el puerto HTTPS. |
+| Número de puerto HTTPS | Obligatorio, en el rango de 1 a 65535. No puede ser 0 cuando se activa la conexión HTTPS obligatoria o la redirección de los puertos predeterminados. |
+| Forzar la conexión HTTPS | Redirige las conexiones HTTP a conexiones HTTPS. |
+| Redirigir los puertos 80 y 443 | Redirige el puerto 80 al puerto HTTP y el 443 al puerto HTTPS; una vez activado, se puede acceder al dispositivo sin indicar el puerto. |
+
+<Callout title="Atención" type="warn">
+  Cuando se activa la redirección de los puertos predeterminados, los puertos HTTP/HTTPS no pueden ser 80 ni 443. Tras modificar los puertos, vuelva a abrir el panel de administración con los nuevos puertos y confirme que las reglas de redirección del cortafuegos o del router se han actualizado en consecuencia.
+</Callout>
+
+## Seguridad de la cuenta
+
+La página Seguridad de la cuenta controla la política de verificación en dos pasos a nivel del sistema.
+
+![Account Security](/images/es/app-guide/settings-img/security-account-security.png)
+
+| Opción | Descripción |
+| --- | --- |
+| Forzar el uso de la verificación en dos pasos | Una vez activado, los usuarios sujetos a la política deben completar la segunda verificación OTP al iniciar sesión. |
+| Todos los usuarios | La política se aplica a todos los usuarios. |
+| Solo administradores | Solo se obliga a las cuentas de administrador a usar la verificación en dos pasos. |
+| Usuarios especificados | Solo se obliga a los usuarios o grupos de usuarios seleccionados a usar la verificación en dos pasos. |
+| Editar usuarios especificados | Añade o elimina destinatarios de la política en el selector de usuarios/grupos de usuarios. |
+
+<Callout title="Requisitos previos" type="info">
+  La verificación en dos pasos depende del servicio de notificaciones por correo. Antes de activarla, configure el correo del remitente en «Configuración del sistema → Configuración de notificaciones». Si se desactiva el servicio de correo, es posible que los códigos de verificación de la verificación en dos pasos no se puedan enviar.
+</Callout>
+
+## Protección
+
+La página Protección se utiliza para bloquear automáticamente las IP de inicio de sesión anómalas y mantener listas de permitidos y de bloqueados.
+
+![Protection](/images/es/app-guide/settings-img/security-protection.png)
+
+### Bloquear IP anómalas
+
+| Opción | Descripción |
+| --- | --- |
+| Interruptor del servicio | Una vez activado, el sistema intercepta los inicios de sesión desde IP anómalas según las reglas. |
+| Editar reglas | Configura el umbral de bloqueo automático, el tiempo de recuento y el tiempo de desbloqueo. |
+
+### Reglas de bloqueo automático
+
+| Campo | Valor predeterminado | Rango | Descripción |
+| --- | --- | --- | --- |
+| Número de intentos de inicio de sesión | 10 veces | 1~100 | Número de fallos necesarios para activar el bloqueo. |
+| Dentro de un periodo de | 5 minutos | 1~10080 minutos | Ventana temporal para contar los fallos. |
+| Regla de desbloqueo automático | 1 hora | 30 minutos/1 hora/1 día/7 días/30 días/permanente | Tiempo de desbloqueo de la IP bloqueada. |
+
+### Lista de permitidos y lista de bloqueados
+
+| Lista | Prioridad y efecto |
+| --- | --- |
+| Lista de permitidos | Las IP/CIDR de la lista siempre pueden conectarse e iniciar sesión, sin verse afectadas por las reglas de bloqueo, y tienen prioridad sobre la lista de bloqueados. |
+| Lista de bloqueados | Las IP/CIDR de la lista tienen siempre restringidas la conexión y el inicio de sesión. |
+
+La tabla de listas muestra la IP del cliente, la hora del último acceso, la hora de expiración (lista de bloqueados), el indicador de permanente y las notas. Admite:
+
+| Operación | Descripción |
+| --- | --- |
+| Añadir | Introduzca una o varias IP/CIDR, separando varias direcciones con saltos de línea o comas; en la lista de bloqueados se puede seleccionar el tiempo de desbloqueo. |
+| Notas | Máximo 180 caracteres; se utilizan para indicar el origen o el uso. |
+| Eliminar | Seleccione uno o varios registros y elimínelos para levantar la restricción correspondiente. |
+
+## Cortafuegos
+
+La página Cortafuegos controla el tráfico de red según las reglas de entrada y salida.
+
+![Firewall](/images/es/app-guide/settings-img/security-firewall.png)
+
+### Configuración básica
+
+| Opción | Descripción |
+| --- | --- |
+| Interruptor del cortafuegos | Una vez activado, el sistema controla el tráfico según las reglas de entrada/salida. |
+| Configuración avanzada | Configura el modo de funcionamiento y la autorización predeterminada de la red local. |
+
+### Configuración avanzada
+
+| Opción | Descripción |
+| --- | --- |
+| Modo de funcionamiento | Auto prioriza el modo XDP native; Generic utiliza la pila de red tradicional del kernel. Se puede cambiar si aparecen problemas de compatibilidad. |
+| Red local | Con «Permitir acceso de forma predeterminada» activado, el tráfico de la red local se permite de forma predeterminada, lo que reduce la probabilidad de bloquear por error el panel de administración. |
+
+### Reglas de entrada y reglas de salida
+
+| Campo | Descripción |
+| --- | --- |
+| Conexión de red | Todas las interfaces o una interfaz de red especificada. |
+| Puerto | Un puerto único, puertos separados por comas o un rango, por ejemplo, `80`, `443`, `1-65535`. |
+| Protocolo | Todos, TCP, UDP, ICMP. |
+| IP de origen / IP de destino | IP o CIDR personalizada; en las reglas de entrada se mira la IP de origen y en las de salida, la IP de destino. |
+| Permiso | Permitir o denegar. |
+| Estado | Activa o desactivada. |
+| Notas | Descripción del uso de la regla. |
+| Orden | Las reglas se pueden arrastrar para ordenarlas; cuanto más arriba, mayor prioridad. |
+| Si ninguna de las siguientes reglas coincide | Establece la política predeterminada de permitir o denegar el acceso. |
+
+<Callout title="Operación peligrosa" type="error">
+  Una regla de cortafuegos incorrecta puede dejar inaccesibles el panel de administración, el acceso remoto o los servicios de aplicaciones. Antes de configurarlo, se recomienda mantener la conexión de administración actual y permitir primero el puerto de administración, el puerto SSH y la red local.
+</Callout>
+
+## Certificados
+
+La página Certificados se utiliza para gestionar los certificados usados por HTTPS, FTPS, WebDAV y el acceso remoto del sistema.
+
+![Certificate](/images/es/app-guide/settings-img/security-certificate.png)
+
+### Lista de certificados
+
+| Campo | Descripción |
+| --- | --- |
+| Nombre del certificado | Un nombre reconocible por el usuario. |
+| Tipo de certificado | Certificado autofirmado del sistema, certificado de Let's Encrypt o certificado importado. |
+| Entidad emisora | El emisor del certificado. |
+| Dominios alternativos | Otros dominios cubiertos por el certificado; si no hay, se muestra `-`. |
+| Período de validez | Fecha de expiración. |
+| Renovación automática | Los certificados del sistema o de Let's Encrypt se pueden renovar automáticamente antes de que expiren. |
+| Estado | Válido, próximo a expirar o expirado. |
+| Acciones | Ver/editar detalles, actualizar, descargar y eliminar. Una vez eliminado, no se puede recuperar. |
+
+### Añadir certificado
+
+| Método | Descripción |
+| --- | --- |
+| Importar certificado | Cargue desde el dispositivo o seleccione en el NAS el archivo del certificado, el archivo de clave privada y, opcionalmente, el certificado intermedio. Adecuado para usuarios que ya disponen de un certificado emitido por una CA. |
+| Obtener certificado | Obtiene un certificado gratuito de Let's Encrypt y lo renueva automáticamente. Es necesario introducir un correo electrónico y seleccionar un dominio DDNS o un dominio personalizado y el proveedor. |
+
+### Notas sobre la obtención de certificados de Let's Encrypt
+
+- Los certificados gratuitos tienen límites de frecuencia y cantidad de solicitudes.
+- La validación HTTP requiere redirigir el puerto 80 al NAS; la validación DNS requiere compatibilidad del proveedor.
+- El dominio debe apuntar correctamente a la IP pública actual.
+- Tras obtenerlo correctamente, el sistema renovará el certificado automáticamente antes de que expire.
+
+### Configuración de servicios
+
+**Service Config** se utiliza para seleccionar el certificado correspondiente para FTPS, WebDAV y el acceso remoto. Tras confirmarlo, los servicios relacionados utilizarán el certificado seleccionado para establecer conexiones cifradas.
+
+## Análisis del dispositivo
+
+La página Análisis del dispositivo contiene dos interruptores relacionados con la privacidad.
+
+![Device Analytics](/images/es/app-guide/settings-img/security-device-analytics.png)
+
+| Opción | Descripción |
+| --- | --- |
+| Participar en el programa de mejora del análisis del dispositivo | El sistema recopila algunos datos de uso anónimos para analizar el uso del producto, mejorar la estabilidad y optimizar funciones. Puede darse de baja en cualquier momento. |
+| Activar el servicio webfind | Una vez activado, permite descubrir dispositivos Station OS en la red local. El sistema recopila direcciones IP y información de puertos para prestar este servicio. |
+
+Ambas descripciones enlazan a la política de privacidad. Si no desea participar en la recopilación de datos ni ofrecer la capacidad de descubrimiento en la red local, puede desactivar los interruptores correspondientes.
+
+<Callout title="Recomendaciones de seguridad básica" type="info">
+  Se recomienda activar HTTPS/HTTPS obligatorio, la verificación en dos pasos, la protección contra IP anómalas y el cortafuegos; abrir solo los puertos necesarios; configurar la renovación automática de los certificados; y, para el acceso desde Internet, priorizar el Station ID o una VPN.
+</Callout>
+
+## Recomendaciones sobre la política de puertos
+
+| Escenario | Recomendación |
+| --- | --- |
+| Red local doméstica | Se puede mantener HTTP/HTTPS y guardar el estado de inicio de sesión solo en dispositivos de confianza. |
+| Internet o red compartida | Activar HTTPS/HTTPS obligatorio para evitar el envío de contraseñas sin cifrar. |
+| Solo se desea omitir el puerto | Activar la redirección 80/443, pero asegurarse de que las reglas del router y del cortafuegos estén sincronizadas. |
+| Cambiar el puerto predeterminado | Elegir un puerto no ocupado entre 1024 y 65535 que no entre en conflicto con SMB/FTP/SSH. |
+| Acceso remoto | Priorizar el Station ID o una VPN y no exponer directamente los puertos de administración. |
+
+## Comparación de políticas de verificación en dos pasos
+
+| Alcance | Ventajas | Aplicación |
+| --- | --- | --- |
+| Todos los usuarios | Nivel de seguridad básica más alto. | Dispositivos con archivos confidenciales o de uso compartido por varias personas. |
+| Solo administradores | Equilibra la seguridad y la comodidad de los usuarios normales. | Dispositivos domésticos o con permisos de cuenta normales bajos. |
+| Usuarios especificados | Control preciso de las cuentas de alto riesgo. | Cuentas especiales como las de copia de seguridad, finanzas u operaciones. |
+
+Tras activar la política, los usuarios dentro del alcance especificado deben completar la configuración del autenticador o de la verificación por correo en su configuración personal; el administrador debe confirmar primero que el servicio de correo está disponible.
+
+## Recomendaciones de diseño de la protección por IP
+
+- **Lista de permitidos**: redes de oficina fijas, salidas domésticas, salidas de VPN y direcciones de bastión.
+- **Lista de bloqueados**: orígenes con intentos de inicio de sesión repetidos, subredes comprometidas y orígenes de escaneo identificados.
+- **Umbral**: en dispositivos domésticos puede ser más estricto; en entornos de uso compartido o con salida por proxy deben evitarse umbrales demasiado bajos.
+- **Tiempo de desbloqueo**: en dispositivos críticos puede ser más largo; en redes temporales se puede elegir un tiempo corto para facilitar la recuperación.
+- **Aviso sobre VPN**: los cambios en la IP de salida afectan a los resultados de detección; si es necesario, utilice una salida fija o una dirección de detección personalizada.
+
+## Proceso de diseño de reglas de cortafuegos
+
+1. Permitir primero el puerto de administración, el puerto SSH y la subred de la red local.
+2. Identificar los servicios de entrada y sus puertos, por ejemplo, HTTPS, WebDAV y FTPS.
+3. Crear reglas con el alcance mínimo según la IP de origen, el protocolo y el puerto.
+4. Utilizar reglas de denegación para bloquear orígenes que claramente no se necesiten.
+5. Arrastrar para ajustar la prioridad; cuanto más arriba, antes se aplica la coincidencia.
+6. Establecer la política predeterminada; si no está familiarizado con los cortafuegos, mantenga primero la política de permitir acceso y restrinja después de verificar las reglas.
+7. Mantener una sesión de administración conectada hasta confirmar que las nuevas reglas son fiables.
+
+## Solución de problemas de certificados
+
+| Problema | Comprobación |
+| --- | --- |
+| El navegador indica que el dominio del certificado no coincide | Si el dominio de acceso coincide con los dominios alternativos del certificado. |
+| Falla la solicitud a Let's Encrypt | Resolución del dominio, redirección del puerto 80, permisos de la API y límites de frecuencia. |
+| No se puede acceder por HTTPS | Puerto HTTPS, cortafuegos y si se ha seleccionado un certificado en la configuración del servicio. |
+| El certificado no se renueva automáticamente | Hora del sistema, resolución DNS y accesibilidad de los puertos 80/443. |
+| El cliente no confía en el certificado tras importarlo | Falta el certificado intermedio o se está utilizando un certificado autofirmado. |

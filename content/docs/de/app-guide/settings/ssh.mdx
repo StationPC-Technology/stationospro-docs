@@ -1,0 +1,69 @@
+---
+sourceHash: 3b5cca3c75e8
+title: SSH
+description: Verwalten von SSH-Dienstport, Gültigkeitsdauer, Verschlüsselungsalgorithmen und SFTP
+---
+
+Die Seite „SSH“ dient zum Ein- und Ausschalten des entfernten Kommandozeilendienstes. Administratoren können über SSH Diagnosebefehle ausführen und Systemprobleme untersuchen; bei aktiviertem SFTP können Dateien außerdem über den SSH-Kanal übertragen werden.
+
+![SSH](/images/de/app-guide/settings-img/ssh.png)
+
+## Grundeinstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| Aktivieren | Schaltet den SSH-Dienst ein. Nach dem Ausschalten ist keine Verbindung zum Gerät über SSH/SFTP möglich. |
+| Port | Listening-Port von SSH, Standard 22. Er kann auf einen anderen freien Port geändert werden, um die Angriffsfläche durch Scans zu verringern. |
+| Gültigkeitsdauer | Zeitraum, in dem der Dienst aktiv bleibt; wählbar sind 10 Minuten, 30 Minuten, 1 Stunde, 3 Stunden, 6 Stunden oder unbegrenzt. Kurzfristiges Aktivieren eignet sich für temporäre Fehlersuche; nach Ablauf wird der Dienst automatisch beendet. |
+| Erweiterte Einstellungen | Konfiguration von Verschlüsselungsstärke, Zugriffsbereich und SFTP. |
+| Anwenden | Speichert Änderungen an Port, Gültigkeitsdauer und erweiterten Einstellungen. |
+
+## Erweiterte Einstellungen
+
+| Option | Beschreibung |
+| --- | --- |
+| Verschlüsselungsalgorithmus | Wählbar sind Hoch, Mittel und Niedrig. „Hoch“ wird empfohlen; verringern Sie die Stärke nur, wenn ältere Clients keine Verbindung aushandeln können. |
+| Zugriffsbeschränkung | Ist **Nur lokales Netzwerk** aktiviert, akzeptiert SSH nur Verbindungen aus dem lokalen Netzwerk; SSH-Zugriffe aus dem Internet werden gesperrt. |
+| SFTP | Nach Aktivierung können SFTP-Clients mit dem SSH-Konto Dateien übertragen. Nach dem Ausschalten bleibt nur die SSH-Kommandozeile verfügbar. |
+
+## Verbindungsbeispiel
+
+1. Öffnen Sie auf dem Computer ein Terminal oder einen SSH-Client.
+2. Geben Sie `ssh Benutzername@Geräte-IP -p Port` ein.
+3. Melden Sie sich mit dem lokalen Konto und Passwort des Geräts an.
+4. Bei Verwendung von SFTP wählen Sie im Client das Protokoll SFTP, tragen die Geräte-IP als Adresse und den aktuellen SSH-Port als Port ein.
+
+<Callout title="Sicherheitsempfehlung" type="warn">
+  - Geben Sie SSH nicht dauerhaft für das Internet frei; wenn eine Fernwartung erforderlich ist, verwenden Sie eine kurze Gültigkeitsdauer und aktivieren Sie „Nur lokales Netzwerk“ oder den Zugriff über VPN.
+  - Vermeiden Sie Standardports wie 22, schwache Passwörter und die Weitergabe von Administratorkennwörtern an nicht vertrauenswürdige Personen.
+  - SSH-Befehle können den Systemzustand direkt verändern; die Ausführung von Befehlen unbekannter Herkunft kann Dienststörungen oder Datenverlust verursachen.
+</Callout>
+
+## Empfehlungen für Nutzungsmuster
+
+| Szenario | Empfohlene Konfiguration |
+| --- | --- |
+| Temporäre technische Unterstützung | 10/30 Minuten, nur lokales Netzwerk. |
+| Alltägliche Wartung im internen Netz | Unbegrenzt + nur lokales Netzwerk, hohe Verschlüsselungsstärke beibehalten. |
+| Fehlersuche aus der Ferne | Über VPN oder Station ID-Fernzugriff ins interne Netz gelangen, dann kurzzeitig SSH aktivieren. |
+| Dateiübertragung erforderlich | SFTP aktivieren und ein kontrolliertes Konto sowie ein klar definiertes Verzeichnis verwenden. |
+| Älterer Client kann keine Verbindung herstellen | Zuerst Konto, Passwort und Port prüfen; erst wenn neue Algorithmen nachweislich nicht unterstützt werden, die Verschlüsselungsstufe vorübergehend senken. |
+
+## Ablauf
+
+1. Bestätigen Sie, dass eine Wartung über die Kommandozeile erforderlich ist; bevorzugen Sie nach Möglichkeit die Weboberfläche.
+2. Legen Sie einen Nicht-Standardport und eine kurze Gültigkeitsdauer fest.
+3. Öffnen Sie die erweiterten Einstellungen und behalten Sie einen hohen Verschlüsselungsalgorithmus bei.
+4. Aktivieren Sie „Nur lokales Netzwerk“ und bei Bedarf SFTP.
+5. Klicken Sie auf Anwenden und testen Sie die Verbindung mit einem Client.
+6. Deaktivieren Sie SSH nach Abschluss der Wartung.
+
+## Fehlerbehebung
+
+| Erscheinung | Prüfung |
+| --- | --- |
+| Connection refused | SSH nicht aktiviert, falscher Port, Dienst lauscht nicht. |
+| Timeout | Firewall, Routing, Beschränkung auf lokales Netzwerk, IP nicht erreichbar. |
+| Auth failed | Falscher Benutzername/Passwort, Benutzer deaktiviert, unzureichende Berechtigungen. |
+| Algorithmusaushandlung fehlgeschlagen | Client zu alt oder Verschlüsselungsalgorithmus inkompatibel. |
+| SFTP verbindet, aber Schreiben nicht möglich | Verzeichnisberechtigungen, schreibgeschütztes Speichervolume, Benutzerkontingent voll. |

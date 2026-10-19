@@ -1,4 +1,15 @@
 {
   "title": "앱 튜토리얼",
-  "pages": ["overview"]
+  "defaultOpen": true,
+  "pages": [
+    "overview",
+    "app-center",
+    "files",
+    "backup",
+    "docker",
+    "log-center",
+    "monitor",
+    "settings",
+    "station-ai"
+  ]
 }

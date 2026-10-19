@@ -1,0 +1,146 @@
+---
+sourceHash: 8cee25966a47
+title: Paramètres réseau
+description: Configurer la passerelle, le DNS, les cartes réseau, le pont réseau et l'agrégation de liens
+---
+
+La page Paramètres réseau comporte deux onglets : **Général** et **Connexions réseau**. L'onglet Général gère la passerelle globale, le DNS et les stratégies avancées de résolution ; l'onglet Connexions réseau gère les paramètres IP de chaque carte réseau, ainsi que les ponts réseau et l'agrégation de liens.
+
+## Général
+
+![Network General](/images/fr/app-guide/settings-img/network-general.png)
+
+### Passerelle par défaut
+
+| Champ | Description |
+| --- | --- |
+| Passerelle par défaut | Passerelle IPv4 par défaut actuelle, par exemple `172.16.0.1`. Utilisée en priorité lorsque l'appareil accède à d'autres sous-réseaux ou à Internet. |
+| Passerelle IPv6 par défaut | Passerelle IPv6 par défaut actuelle ; `-` s'affiche si elle n'est pas configurée ou indisponible. |
+
+### Serveur DNS
+
+| Option | Description |
+| --- | --- |
+| Configurer manuellement le serveur DNS | Lorsque cette option n'est pas cochée, le DNS est obtenu automatiquement (via DHCP, etc.) ; une fois cochée, vous pouvez le saisir manuellement. |
+| Serveur DNS principal | Obligatoire. Serveur prioritaire pour la résolution de noms, par exemple `202.96.134.33`. |
+| Serveur DNS secondaire | Facultatif. Utilisé lorsque le DNS principal est indisponible, par exemple `202.96.128.86`. |
+
+### Paramètres avancés
+
+| Option | Description |
+| --- | --- |
+| Activer les passerelles multiples | Permet au système d'utiliser plusieurs passerelles. Adapté aux appareils connectés à plusieurs sous-réseaux ou à plusieurs liaisons montantes. |
+| Prioriser IPv4 pour la résolution DNS | Lorsqu'un nom de domaine dispose à la fois d'enregistrements IPv4/IPv6, privilégier IPv4 afin d'éviter une lenteur d'accès due à un réseau IPv6 partiellement inaccessible. |
+| Activer la détection de conflit IP | Détecter les conflits d'adresses sur le réseau local et aider à identifier les conflits entre une IP statique et d'autres appareils. |
+| Appliquer | Enregistrer les modifications de la page actuelle ; le bouton est indisponible en l'absence de modification. |
+
+<Callout title="Attention" type="warn">
+  Si le navigateur actuel accède à l'appareil via le réseau, la connexion peut être interrompue après modification de la passerelle, du DNS ou de l'IP d'une carte réseau. Vérifiez que les nouveaux paramètres sont routables et préparez un moyen de rétablir la connexion via la nouvelle IP ou la console.
+</Callout>
+
+## Connexions réseau
+
+![Network Connections](/images/fr/app-guide/settings-img/network-connections.png)
+
+### Liste des cartes réseau
+
+Chaque carte réseau affiche :
+
+| Champ | Description |
+| --- | --- |
+| Nom de l'interface | Par exemple Port 1 (`enP2p33s0`), Port 2 (`enP4p65s0`). |
+| Débit | Débit négocié actuel, par exemple 1 Gbit/s. |
+| Mode duplex | Duplex intégral ou semi-duplex. |
+| MTU | Unité de transmission maximale actuelle, par exemple MTU1500. |
+| État de connexion | Connecté, non connecté, indisponible, etc. |
+| Adresse MAC | Adresse matérielle de la carte réseau. |
+| Adresse IPv4 / Masque de sous-réseau / Passerelle | Paramètres de connexion IPv4 ; l'adresse peut être copiée à côté. |
+| DNS | Liste des serveurs DNS IPv4. |
+| Adresse IPv6 / Passerelle / DNS | Paramètres de connexion IPv6 ; `-` s'affiche si non configurés. |
+| Type de réseau | Ethernet, pont réseau, agrégation de liens, etc. |
+
+### Modifier une carte réseau
+
+Après avoir cliqué sur le bouton d'édition d'une carte réseau, vous pouvez modifier :
+
+| Paramètre | Mode | Champs et règles |
+| --- | --- | --- |
+| IPv4 | Automatique | L'adresse, le masque, la passerelle et le DNS sont obtenus automatiquement via DHCP ; la saisie manuelle est désactivée. |
+| IPv4 | Manuel | Adresse IPv4 et masque de sous-réseau obligatoires ; passerelle, DNS principal et DNS secondaire facultatifs. L'adresse doit être au format IPv4 valide et le masque doit être un masque contigu. |
+| MTU | Automatique | Utiliser la MTU par défaut du système. |
+| MTU | Manuel | Saisir une valeur de 1280 à 9000. Avant modification, vérifiez que le commutateur et la liaison prennent en charge la taille de trame correspondante. |
+
+### Créer un pont réseau
+
+**Create Bridge** permet d'ajouter deux cartes réseau physiques ou plus au sein d'un même réseau ponté :
+
+1. Cliquez sur **Create Bridge**.
+2. Sélectionnez au moins deux cartes réseau physiques disponibles.
+3. Après confirmation, le système crée l'interface de pont.
+4. L'interface créée peut être éditée comme une interface ordinaire pour ses paramètres IP.
+
+<Callout title="Conseil" type="info">
+  Les ponts réseau servent souvent à connecter directement des machines virtuelles, des conteneurs ou un réseau isolé au réseau local physique. La création d'un pont peut modifier le mode de connexion des cartes réseau d'origine ; évitez de sélectionner par erreur la carte réseau d'administration actuelle.
+</Callout>
+
+### Créer une agrégation de liens
+
+**Create Link Aggregation** permet de fusionner plusieurs cartes réseau en une interface logique afin d'agréger la bande passante ou d'assurer une redondance de liaison. Le système exige des cartes réseau de même spécification.
+
+| Catégorie | Mode | Caractéristiques et exigences |
+| --- | --- | --- |
+| Sans configuration du commutateur | Adaptive Load Balancing – bond6 | Recommandé. Le système répartit automatiquement le trafic entre plusieurs ports réseau, sans nécessiter la prise en charge de l'agrégation par le commutateur. |
+| Sans configuration du commutateur | Active/Backup – bond1 | Mode actif/secours. Le port de secours reste inactif en temps normal et prend le relais automatiquement en cas de défaillance du port principal ; fiabilité élevée, mais pas d'agrégation de bande passante. |
+| Configuration du commutateur requise | Round Robin – bond0 | Répartition des paquets en alternance ; les deux ports transmettent simultanément, ce qui peut augmenter nettement le débit ; nécessite un commutateur compatible et correctement configuré pour l'agrégation statique. |
+| Configuration du commutateur requise | Balance XOR – bond2 | Répartition des liaisons basée sur un hachage ; nécessite un commutateur prenant en charge l'agrégation statique ; en cas de commutateurs multiples, ils doivent être empilés et correctement configurés. |
+| Configuration du commutateur requise | Dynamic Link Aggregation – bond4 | Agrégation dynamique IEEE 802.3ad ; nécessite un commutateur compatible LACP et correctement configuré ; en cas de commutateurs multiples, ils doivent être empilés. |
+
+### Dissocier le mode réseau
+
+Pour une interface de pont réseau ou d'agrégation de liens, vous pouvez dissocier le mode réseau via les options supplémentaires. Le système signale l'impact sur l'interface logique concernée ; après confirmation, les cartes réseau membres sont rétablies.
+
+<Callout title="Recommandations d'utilisation" type="warn">
+  Le mode d'agrégation de liens doit correspondre à la configuration du commutateur. Si vous choisissez un mode nécessitant la prise en charge du commutateur alors que celui-ci n'est pas configuré, une interruption réseau ou des anomalies répétées de l'interface agrégée peuvent survenir.
+</Callout>
+
+## Préparation avant de modifier le réseau
+
+1. Notez l'IP, le masque, la passerelle, le DNS, la MTU et le nom d'interface actuels.
+2. Assurez-vous de disposer d'un chemin de récupération via le réseau local, la console ou un second port réseau.
+3. Vérifiez les VLAN, le débit des ports, l'agrégation et les stratégies de pare-feu du commutateur.
+4. Vérifiez que la nouvelle IP statique n'entre pas en conflit avec un autre appareil.
+5. En cas d'agrégation de liens, effectuez d'abord la configuration correspondante côté commutateur et vérifiez le mode.
+6. Ne modifiez pas plusieurs paramètres réseau à la fois ; validez la connexion après chaque modification.
+
+## Interprétation des états d'interface
+
+| État/Champ | Signification |
+| --- | --- |
+| Connected | La liaison est établie et une adresse peut être obtenue. |
+| Disconnected | Le câble réseau/la liaison n'est pas établi. |
+| 1Gbps / 2.5Gbps / 10Gbps | Débit négocié actuel, limité par les équipements aux deux extrémités et le câblage. |
+| Full Duplex | Émission et réception simultanées ; le semi-duplex est moins efficace. |
+| MTU1500 | MTU Ethernet standard ; la MTU jumbo nécessite la prise en charge de toute la liaison. |
+| `-` | Aucune valeur obtenue ou pile de protocoles non configurée. |
+| Bridge | Pont réseau composé de plusieurs interfaces physiques. |
+| Bond | Interface logique d'agrégation de liens composée de plusieurs cartes réseau. |
+
+## Choix entre pont réseau et agrégation de liens
+
+| Besoin | Choix |
+| --- | --- |
+| Faire entrer directement des machines virtuelles/conteneurs dans le réseau local physique | Pont réseau. |
+| Agréger la bande passante de deux cartes réseau sans configuration du commutateur | bond6. |
+| Redondance actif/secours avec priorité au basculement | bond1. |
+| Commutateur déjà configuré en agrégation statique, objectif de débit concurrent | bond0 ou bond2. |
+| Commutateur compatible LACP, besoin d'une agrégation dynamique standard | bond4. |
+| Modifier uniquement l'IP/DNS du NAS | Édition d'interface ordinaire ; ne pas créer de pont ni d'agrégation. |
+
+## Méthodes courantes pour rétablir la connexion
+
+- Accéder via l'IP d'un autre port réseau non modifié.
+- Connecter l'ordinateur au même VLAN/sous-réseau, puis rescanner l'appareil.
+- Rechercher la nouvelle adresse dans la liste des baux DHCP du routeur.
+- Si seul le DNS est en cause, accéder temporairement directement par IP.
+- Si l'interface agrégée est injoignable, déconnecter les ports membres et rétablir la configuration via un port unique.
+- En cas d'erreur grave de configuration réseau, évaluer la réinitialisation du réseau dans Mise à jour et restauration.

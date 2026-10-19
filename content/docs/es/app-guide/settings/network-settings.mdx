@@ -1,0 +1,146 @@
+---
+sourceHash: 8cee25966a47
+title: Configuración de red
+description: Configurar la puerta de enlace, DNS, tarjetas de red, puentes de red y agregación de enlaces
+---
+
+La página Configuración de red se divide en **General** y **Conexiones de red**. La página General se encarga de la puerta de enlace global, el DNS y las políticas avanzadas de resolución; la página Conexiones de red se encarga de los parámetros IP de cada tarjeta de red, los puentes de red y la agregación de enlaces.
+
+## General
+
+![Network General](/images/es/app-guide/settings-img/network-general.png)
+
+### Puerta de enlace predeterminada
+
+| Campo | Descripción |
+| --- | --- |
+| Puerta de enlace predeterminada | La puerta de enlace IPv4 actual, por ejemplo, `172.16.0.1`. Se utiliza de forma prioritaria cuando el dispositivo accede a otras subredes o a Internet. |
+| Puerta de enlace IPv6 predeterminada | La puerta de enlace IPv6 actual; se muestra `-` si no está configurada o no está disponible. |
+
+### Servidores DNS
+
+| Opción | Descripción |
+| --- | --- |
+| Configurar manualmente los servidores DNS | Si no está marcada, el DNS se obtiene automáticamente mediante DHCP u otros medios; si se marca, se puede introducir manualmente. |
+| Servidor DNS principal | Obligatorio. El servidor preferido para la resolución de nombres de dominio, por ejemplo, `202.96.134.33`. |
+| Servidor DNS alternativo | Opcional. Se utiliza cuando el DNS principal no está disponible, por ejemplo, `202.96.128.86`. |
+
+### Configuración avanzada
+
+| Opción | Descripción |
+| --- | --- |
+| Activar varias puertas de enlace | Permite que el sistema utilice varias puertas de enlace. Adecuado para dispositivos conectados a varias subredes o a varios enlaces ascendentes. |
+| Priorizar IPv4 en la resolución DNS | Cuando un dominio tiene registros IPv4 e IPv6, se prioriza IPv4, lo que evita la lentitud de acceso provocada por algunas redes IPv6 no disponibles. |
+| Activar la detección de conflictos de IP | Detecta conflictos de direcciones en la red local y ayuda a identificar problemas de conflicto entre una IP estática y otros dispositivos. |
+| Aplicar | Guarda los cambios de la página actual al hacer clic; si no hay cambios, el botón no está disponible. |
+
+<Callout title="Atención" type="warn">
+  Si el navegador actual accede al dispositivo a través de la red, la conexión puede interrumpirse tras modificar la puerta de enlace, el DNS o la IP de la tarjeta de red. Confirme que los nuevos parámetros se pueden enrutar y prepárese para recuperar la conexión mediante la nueva IP o la consola.
+</Callout>
+
+## Conexiones de red
+
+![Network Connections](/images/es/app-guide/settings-img/network-connections.png)
+
+### Lista de tarjetas de red
+
+Cada tarjeta de red muestra:
+
+| Campo | Descripción |
+| --- | --- |
+| Nombre de la interfaz | Por ejemplo, Port 1 (`enP2p33s0`), Port 2 (`enP4p65s0`). |
+| Velocidad | La velocidad negociada actual, por ejemplo, 1Gbps. |
+| Modo dúplex | Dúplex completo o semidúplex. |
+| MTU | La unidad máxima de transmisión actual, por ejemplo, MTU1500. |
+| Estado de conexión | Conectado, no conectado, no disponible, etc. |
+| Dirección MAC | La dirección de hardware de la tarjeta de red. |
+| Dirección IPv4 / Máscara de subred / Puerta de enlace | Parámetros de conexión IPv4; la dirección se puede copiar junto a ella. |
+| DNS | Lista de servidores DNS IPv4. |
+| Dirección IPv6 / Puerta de enlace / DNS | Parámetros de conexión IPv6; se muestra `-` si no están configurados. |
+| Tipo de red | Ethernet, puente de red, agregación de enlaces, etc. |
+
+### Editar la tarjeta de red
+
+Tras hacer clic en el botón de edición de la tarjeta de red, puede modificar:
+
+| Configuración | Modo | Campos y reglas |
+| --- | --- | --- |
+| IPv4 | Automático | La dirección, la máscara, la puerta de enlace y el DNS se obtienen automáticamente mediante DHCP; los cuadros de entrada manual están desactivados. |
+| IPv4 | Manual | La dirección IPv4 y la máscara de subred son obligatorias; se pueden introducir la puerta de enlace, el DNS principal y el DNS alternativo. La dirección debe tener un formato IPv4 válido y la máscara de subred debe ser una máscara contigua. |
+| MTU | Automático | Utiliza la MTU predeterminada del sistema. |
+| MTU | Manual | Permite introducir un valor de 1280 a 9000. Antes de modificarla, confirme que el conmutador y el enlace admiten el tamaño de trama correspondiente. |
+
+### Crear un puente de red
+
+**Create Bridge** permite añadir dos o más tarjetas de red físicas a la misma red puente:
+
+1. Haga clic en **Create Bridge**.
+2. Seleccione al menos dos tarjetas de red físicas disponibles.
+3. Tras confirmar, el sistema crea la interfaz de puente de red.
+4. Una vez creada, se pueden editar los parámetros IP como en una interfaz normal.
+
+<Callout title="Consejo" type="info">
+  Los puentes de red se utilizan habitualmente para conectar directamente máquinas virtuales, contenedores o redes aisladas a la red local física. Crear un puente de red puede cambiar el modo de conexión de la tarjeta de red original; evite seleccionar por error la tarjeta de red de administración actual.
+</Callout>
+
+### Crear una agregación de enlaces
+
+**Create Link Aggregation** permite combinar varias tarjetas de red en una única interfaz lógica para agregar ancho de banda o crear una copia de seguridad de enlaces. El sistema exige utilizar tarjetas de red de las mismas especificaciones.
+
+| Categoría | Modo | Características y requisitos |
+| --- | --- | --- |
+| Sin configuración del conmutador | Adaptive Load Balancing – bond6 | Recomendado. El sistema distribuye automáticamente el tráfico entre varios puertos de red y no requiere que el conmutador admita agregación. |
+| Sin configuración del conmutador | Active/Backup – bond1 | Modo activo/respaldo. El puerto de respaldo normalmente está inactivo y cambia automáticamente si falla el principal; ofrece alta fiabilidad, pero no agrega ancho de banda. |
+| Requiere configuración del conmutador | Round Robin – bond0 | Distribuye el tráfico por turnos; ambos puertos transmiten al mismo tiempo y puede aumentar significativamente la velocidad; requiere que el conmutador admita y configure correctamente la agregación estática. |
+| Requiere configuración del conmutador | Balance XOR – bond2 | Distribuye los enlaces mediante hash; requiere que el conmutador admita la agregación estática y, en escenarios con varios conmutadores, que estén apilados y configurados correctamente. |
+| Requiere configuración del conmutador | Dynamic Link Aggregation – bond4 | Agregación dinámica IEEE 802.3ad; requiere que el conmutador admita LACP y esté configurado correctamente; con varios conmutadores, deben estar apilados. |
+
+### Deshacer el modo de red
+
+En las interfaces de puente de red o de agregación de enlaces, se puede deshacer el modo de red mediante la opción de más operaciones. El sistema avisará de que la operación afecta a la interfaz lógica correspondiente y, tras confirmarla, restaurará las tarjetas de red miembro.
+
+<Callout title="Recomendaciones de uso" type="warn">
+  El modo de agregación de enlaces debe coincidir con la configuración del conmutador. Si se selecciona un modo que requiere compatibilidad del conmutador pero este no está configurado, se pueden producir interrupciones de red o anomalías recurrentes en el puerto agregado.
+</Callout>
+
+## Preparación antes de modificar la red
+
+1. Registre la IP, la máscara, la puerta de enlace, el DNS, la MTU y el nombre de la interfaz actuales.
+2. Confirme que dispone de una vía de recuperación mediante red local, consola o un segundo puerto de red.
+3. Confirme las VLAN, la velocidad de los puertos, la agregación y las políticas de cortafuegos del conmutador.
+4. Confirme que la nueva IP estática no entra en conflicto con otros dispositivos.
+5. Si utiliza agregación de enlaces, complete primero la configuración correspondiente en el conmutador y compruebe el modo.
+6. No modifique varias condiciones de red al mismo tiempo; verifique la conexión después de cada modificación.
+
+## Interpretación de los estados de la interfaz
+
+| Estado/Campo | Significado |
+| --- | --- |
+| Connected | El enlace se ha establecido y se puede obtener una dirección. |
+| Disconnected | El cable o el enlace no se ha establecido. |
+| 1Gbps / 2.5Gbps / 10Gbps | Velocidad negociada actual, limitada por los dispositivos de ambos extremos y el cableado. |
+| Full Duplex | Puede enviar y recibir al mismo tiempo; el semidúplex es menos eficiente. |
+| MTU1500 | MTU estándar de Ethernet; la MTU Jumbo requiere compatibilidad en todo el enlace. |
+| `-` | No se ha obtenido un valor o esa pila de protocolos no está configurada. |
+| Bridge | Puente de red compuesto por varias interfaces físicas. |
+| Bond | Interfaz lógica de agregación de enlaces compuesta por varias tarjetas de red. |
+
+## Elección entre puente de red y agregación de enlaces
+
+| Necesidad | Elección |
+| --- | --- |
+| Permitir que máquinas virtuales/contenedores entren directamente en la red local física | Puente de red. |
+| Agregar el ancho de banda de dos tarjetas de red sin configuración del conmutador | bond6. |
+| Tolerancia a fallos activo/respaldo con prioridad al cambio | bond1. |
+| El conmutador ya tiene configurada agregación estática y se busca rendimiento concurrente | bond0 o bond2. |
+| El conmutador admite LACP y se necesita agregación dinámica estándar | bond4. |
+| Solo modificar la IP/DNS del NAS | Editar la interfaz normal; no crear un puente de red ni una agregación. |
+
+## Métodos habituales para recuperar la conexión
+
+- Acceder mediante la IP de otro puerto de red que no se haya modificado.
+- Conectar el ordenador a la misma VLAN/subred y volver a buscar el dispositivo.
+- Buscar la nueva dirección en la lista de concesiones DHCP del router.
+- Si solo hay una anomalía de DNS, acceder temporalmente mediante la IP directamente.
+- Si el puerto agregado pierde la conexión, desconectar los puertos miembro y recuperar la configuración con un solo puerto.
+- En caso de errores graves de configuración de red, evaluar el restablecimiento de red en Actualización y restauración.

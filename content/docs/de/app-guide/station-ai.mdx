@@ -1,0 +1,57 @@
+---
+sourceHash: eccab6d7e528
+title: Station AI
+description: Anleitung zur Verwendung des KI-Assistenten Station AI
+---
+
+Station AI ist der in StationOS Pro integrierte KI-Assistent. Er basiert auf einem lokal bereitgestellten großen Sprachmodell (standardmäßig Qwen3-8B) und unterstützt natürliche Dialogsitzungen, Fragen und Antworten zur Wissensdatenbank, Dokumentübersetzung und Dokumentzusammenfassungen. Über die Unterhaltung können Sie außerdem direkt den Gerätestatus abfragen und Systemvorgänge ausführen.
+
+## Oberfläche
+
+Die linke Navigationsleiste des Station AI-Fensters enthält:
+
+- **Neue Unterhaltung**: Eine neue Unterhaltung beginnen;
+- **Wissensdatenbank**: Wissensdatenbanken verwalten und durchsuchen;
+- **Verlauf**: Frühere Sitzungen anzeigen;
+- **Einstellungen**: Modell- und Unterhaltungsparameter konfigurieren.
+
+![Station AI Chat](/images/de/app-guide/station-ai-img/chat.png)
+
+## Mit der KI sprechen
+
+1. Geben Sie im Eingabefeld eine Frage ein und klicken Sie auf die Senden-Schaltfläche (oder drücken Sie die Eingabetaste).
+2. Die KI erzeugt anhand des integrierten Modells eine Antwort und greift bei Gerätestatus oder Vorgängen automatisch auf Systemfunktionen zu.
+
+Die Seite für neue Unterhaltungen bietet häufig verwendete Schnellbefehle, die per Klick gestartet werden können:
+
+- **NAS-Funktionen vorstellen**: Stellt die NAS-Funktionen vor;
+- **Gerät neu starten**: Startet das Gerät neu;
+- **Gerät ausschalten**: Schaltet das Gerät aus;
+- **Festplatteninformationen und -status des aktuellen Geräts abfragen**: Fragt Festplatteninformationen und -status ab.
+
+Unterhalb des Eingabefelds stehen außerdem folgende Funktionen zur Verfügung:
+
+- **Hinzufügen**: Dateien als Kontext für die Unterhaltung hochladen;
+- **Modellauswahl**: Zeigt das aktuell verwendete Modell an (z. B. Qwen3-8B);
+- **Dokumentübersetzung**: Ein Dokument zur Übersetzung hochladen;
+- **Dokumentzusammenfassung**: Ein Dokument hochladen, um automatisch eine Zusammenfassung zu erzeugen.
+
+<Callout title="Hinweis" type="warn">
+  Bevor Sie über die KI sensible Vorgänge wie Neustart oder Ausschalten ausführen, stellen Sie sicher, dass auf dem Gerät keine wichtigen Aufgaben laufen, um Datenverlust zu vermeiden.
+</Callout>
+
+## Wissensdatenbank
+
+Mit der Wissensdatenbank können Sie Dokumente auf das NAS importieren; die KI erstellt einen Index und beantwortet anschließend präzise Fragen dazu:
+
+1. Wechseln Sie zur Registerkarte **Wissensdatenbank**.
+2. Klicken Sie auf **Wissensdatenbank erstellen**.
+3. Laden Sie Dokumentdateien hoch (gängige Dokumentformate werden unterstützt); das System analysiert sie automatisch und erstellt den Index.
+4. In der Liste der Wissensdatenbanken sehen Sie Name, Größe und Dateianzahl. Durch Klicken auf **Chat** starten Sie eine Frage-Antwort-Sitzung auf Basis dieser Wissensdatenbank.
+
+![Knowledge Base](/images/de/app-guide/station-ai-img/knowledge-base.png)
+
+<Callout title="Tipp" type="info">
+  - Bei großen oder zahlreichen Dateien kann die Indexerstellung einige Zeit dauern. Bitte haben Sie etwas Geduld.
+  - Modelle können unter „Systemeinstellungen → KI-Modelle“ angezeigt und verwaltet werden. Die lokale Inferenz beansprucht NPU-/CPU-Ressourcen; verarbeiten Sie große Dokumentmengen daher möglichst in Leerlaufzeiten.
+</Callout>

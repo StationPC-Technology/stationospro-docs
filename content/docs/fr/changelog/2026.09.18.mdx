@@ -1,0 +1,79 @@
+---
+sourceHash: b0c450609f40
+title: 'Notes de mise à jour du système 2026.09.18'
+---
+
+## À lire avant la mise à jour
+Produits concernés
+Cette mise à jour concerne les produits exécutant le système StationOS Pro. Avant la mise à niveau, vérifiez l'architecture du processeur correspondante selon le modèle du produit.
+
+● Série DA : série DA400
+
+Rappels de mise à niveau
+1. Pour utiliser les fonctionnalités décrites dans cet article, mettez à niveau le micrologiciel système, la suite d'applications ou le client vers la version correspondante ou une version ultérieure.
+2. Les nouvelles fonctionnalités de certaines suites d'applications nécessitent une version spécifique du micrologiciel système. Si la version du micrologiciel système est inférieure à la version minimale compatible, les notifications de mise à jour des applications peuvent ne pas être reçues ou les fonctionnalités concernées peuvent ne pas fonctionner correctement.
+
+## Micrologiciel système StationOS Pro
+### Informations de version
+Version du micrologiciel système : v1.0.0.18
+
+Cette mise à jour implique des ajustements d'interface. Pour garantir le bon fonctionnement des fonctionnalités, il est recommandé de mettre à niveau le micrologiciel, le client et les applications concernées vers les dernières versions.
+
+### Système et comptes
+
+- Nouveau : paramètre du programme d'amélioration de l'utilisation de l'appareil, avec choix de participation lors de l'enregistrement.
+- Nouveau : connexion plus sécurisée, règles de signal sonore du buzzer plus uniformes.
+- Optimisation : journaux système plus concis, nettoyage plus complet lors de la restauration des paramètres d'usine.
+- Correction : nom d'appareil incorrect au premier démarrage, échec de synchronisation de l'heure, jour manquant pour l'arrêt planifié du dimanche, disparition des notifications de mise à jour, fenêtres de confirmation ne se fermant pas, etc.
+
+### IA et recherche
+
+- Nouveau : l'état des modèles IA est mis à jour en temps réel, la précision de la reconnaissance faciale est ajustable et la reconnaissance des lieux est plus précise.
+- Optimisation : installation, chargement et désinstallation des fonctionnalités IA plus stables ; les images non prises en charge sont automatiquement ignorées.
+- Correction : informations réseau parfois inaccessibles par l'IA, faux échec de chargement de modèle, fonction de reconnaissance faciale indisponible après restauration d'usine, recherche bloquée ou résultats anormaux, etc.
+
+### Stockage et disques
+
+- Optimisation : affichage plus cohérent et plus réactif de la température, de l'état de santé et de l'espace restant des disques.
+- Optimisation : actualisation plus rapide après insertion ou formatage d'un disque externe.
+- Correction : récupération anormale après dégradation d'une grappe, disque inutilisable après remplacement, affichage inexact de l'état des disques, anomalies de quota d'espace de stockage, etc.
+
+### Gestionnaire de fichiers
+
+- Nouveau : affichage des vignettes des images sur les disques externes.
+- Optimisation : détection des doublons plus rapide et moins gourmande en ressources ; copie et déplacement de fichiers poursuivis en arrière-plan ; messages d'échec de téléversement plus clairs.
+- Correction : anomalie de sélection lors de la détection des doublons, état des favoris non synchronisé, aperçu anormal des images/Word/Excel, affichage d'informations techniques dans les erreurs de téléversement, etc.
+
+### Centre d'applications
+
+- Nouveau : choix de l'emplacement d'installation et de téléchargement des applications, affichage de la progression d'installation plus uniforme.
+- Optimisation : affichage plus clair de l'installation des applications, des fenêtres de configuration et de l'état d'exécution.
+- Correction : conflits lors du redéploiement d'applications, état bloqué sur « déploiement en cours », journaux de déploiement vides, applications arrêtées normalement signalées à tort comme anormales, etc.
+
+### Réseau et accès à distance
+
+- Nouveau : diagnostic plus simple des causes en cas de problème de montage distant.
+- Optimisation : messages d'erreur de connexion distante plus clairs, accès réseau plus stable.
+- Correction : résidus de montage distant, instabilité du montage FTP distant, répertoires distants inaccessibles, affichage erroné de la page réseau, etc.
+
+### Sauvegarde et restauration
+
+- Optimisation : sauvegarde des albums plus stable.
+- Correction : permissions incorrectes de la sauvegarde en un clic des dossiers d'équipe, répertoires partagés non synchronisés pour les nouveaux comptes, données manquantes pour certaines fonctions après restauration d'usine, etc.
+
+## Client
+### Client iOS et Android
+Version de l'application : v1.0.0
+
+- Optimisation du processus de création d'espace de stockage : animations et progression pour les trois phases d'initialisation, de création et de formatage, avec un résultat de réussite ou d'échec clair.
+- Refonte des détails des médias et de l'affichage EXIF pour les photos, images animées, Live Photos et vidéos, avec ajout du lieu, de la date de prise de vue et des informations vidéo.
+- Optimisation du panneau de détails du lecteur de médias, des gestes, des commandes de lecture vidéo et des opérations sur les médias de la galerie.
+- Amélioration de la netteté de l'aperçu des photos favorites sur la page d'accueil, affichage du lieu et de la date de prise de vue, et optimisation de l'actualisation de l'album après mise à jour de la sauvegarde.
+- Stabilisation de l'ordre de la liste de sauvegarde des albums, de la progression du téléversement, du chargement par lots et des états terminé, échoué et annulé.
+- Amélioration de l'affichage de l'état des disques en lecture seule et des disques externes, restriction des opérations de téléversement, suppression, déplacement et renommage sur les stockages en lecture seule, tout en conservant la copie vers un répertoire inscriptible.
+- Optimisation du choix de l'espace cible pour la copie, le déplacement et le téléversement de fichiers : Mes fichiers, Fichiers d'équipe, Stockage externe et Mes favoris.
+- Optimisation des info-bulles des courbes de surveillance des ressources, avec prise en charge de l'heure d'échantillonnage, du détail de l'utilisation CPU et d'un affichage des limites plus clair.
+- Les adresses IP ou DDNS sans port renseigné tentent automatiquement une connexion HTTP ; amélioration de l'authentification en temps réel et du mécanisme de repli en cas d'échec.
+- Ajout de la réinitialisation du réseau, protégée par une vérification de sécurité ; optimisation des paramètres de mise à jour système, de réveil réseau et de mise sous tension automatique.
+- Optimisation de la configuration des notifications e-mail, du préfixe d'objet, de l'e-mail de test, de la carte accélératrice IA et de l'affichage de la surveillance des ressources.
+- Optimisation du montage distant, de la reconnaissance des types de fichiers, du retour d'état des pages et de l'expérience du processus de création en thème clair/sombre.

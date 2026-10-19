@@ -1,0 +1,123 @@
+---
+sourceHash: 052186091294
+title: Festplatte
+description: Festplatteninformationen anzeigen, Gesundheitsstatus prüfen und Festplattenwartung durchführen
+---
+
+Die Seite „Festplatte“ dient der Anzeige der vom Gerät erkannten internen und externen Festplatten. Hier können Sie Kapazität, Schnittstelle, Temperatur und Betriebsstunden der Festplatten prüfen, in den Gesundheitsdetails eine S.M.A.R.T-Prüfung ausführen oder nicht verwendete Festplatten formatieren bzw. sicher auswerfen.
+
+## Festplattenliste
+
+Oben auf der Seite stehen drei Filterregisterkarten zur Verfügung:
+
+| Registerkarte | Beschreibung |
+| --- | --- |
+| Alle | Zeigt interne und externe Festplatten gleichzeitig an; in der Ansicht „Alle“ wird nach internen und externen Festplatten gruppiert. |
+| Intern | Zeigt nur die im Gerät eingebauten Festplatten an. |
+| Extern | Zeigt nur externe Speichergeräte wie USB-Festplatten an. |
+
+![Disk](/images/de/app-guide/settings-img/disk.png)
+
+## Informationen auf den Festplattenkarten
+
+Jede Festplattenkarte zeigt:
+
+| Feld | Beschreibung |
+| --- | --- |
+| Festplattenname | Vom System vergebener Erkennungsname, z. B. DiskA oder Disknvme0n1. |
+| Verwendung/Zugehöriger Speicherbereich | Zeigt Verwendungen wie Leerlauf, nicht eingebunden, zugehöriges Speichervolume oder Cache-Pool. |
+| Gesamtkapazität | Gesamte verfügbare Kapazität der Festplatte. |
+| Festplattentyp | HDD, SSD usw. |
+| Gesundheitsstatus | Normal, Fehler, Warnung oder unbekannt. |
+| Modell | Modellbezeichnung des Festplattenherstellers. |
+| Schnittstelle | SATA, NVMe, USB usw. |
+| Seriennummer | Eindeutige Seriennummer der Festplatte, per Klick kopierbar. |
+| Anbieter | Marke oder Hersteller der Festplatte. |
+| Temperatur | Aktuelle Festplattentemperatur. Dauerhaft zu hohe Temperaturen erhöhen das Ausfallrisiko. |
+| Betriebsstunden | Kumulierte Einschaltdauer der Festplatte, nützlich zur Einschätzung der Nutzungsdauer. |
+| Partition | Bei externen oder nicht vollständig belegten Festplatten können Partitionsinformationen angezeigt werden. |
+
+## Festplattenvorgänge
+
+Klicken Sie rechts auf der Festplattenkarte auf die Schaltfläche „Mehr“. Die verfügbaren Vorgänge hängen von der aktuellen Verwendung der Festplatte ab:
+
+| Vorgang | Geeignet für | Beschreibung |
+| --- | --- | --- |
+| Festplatte formatieren | Leerlauf-, externe oder nicht verwendete Partitionen | Löscht die Festplattendaten und erstellt ein neues Dateisystem. Es kann die gesamte Festplatte oder eine bestimmte Partition formatiert werden. |
+| Sicher auswerfen | Externe Festplatten | Stoppt zugehörige Dienste und entfernt die Festplatte sicher, um das Risiko von Datenbeschädigung zu verringern. |
+| Gesundheitsdetails | Festplatten mit Unterstützung für Gesundheitsprüfungen | Öffnet die Seite für S.M.A.R.T-Prüfung und Gesundheitseigenschaften. |
+| Festplatte deaktivieren | Interne Mitgliedsplatten, die sich deaktivieren lassen | Entfernt die Festplatte aus dem zugehörigen Speicherbereich. Die Deaktivierung kann die Speicherredundanz beeinträchtigen und ist mit Vorsicht auszuführen. |
+| Nur-Lese-Kennzeichnung | Schreibgeschützte Festplatten | Bei schreibgeschützten Festplatten sind Schreibvorgänge wie Formatieren deaktiviert. |
+
+### Formatierungseinstellungen
+
+| Option | Auswahlwerte | Beschreibung |
+| --- | --- | --- |
+| Formatierungsobjekt | Gesamte Festplatte / Partition | Legt fest, ob die gesamte Festplatte oder nur eine Partition gelöscht wird. |
+| Dateisystem nach der Formatierung | exFAT / EXT4 | exFAT eignet sich für die plattformübergreifende Nutzung unter Windows und macOS; EXT4 ist ein unter Linux verbreitetes Dateisystem und eignet sich für die dauerhafte Nutzung am NAS. |
+
+<Callout title="Gefährlicher Vorgang" type="error">
+  Beim Formatieren werden alle Daten auf der Zielfestplatte bzw. -partition gelöscht. Nach dem Start kann der Vorgang nicht abgebrochen werden. Unterbrechen Sie während der Formatierung nicht die Stromversorgung, starten Sie das Gerät nicht neu und ziehen Sie die Festplatte nicht ab.
+</Callout>
+
+## Festplatten-Gesundheitsdetails
+
+Durch Klicken auf **Gesundheitsdetails** können Sie den Gesundheitsstatus der Festplatte anzeigen und Prüfungen ausführen.
+
+![Disk Health](/images/de/app-guide/settings-img/disk-health.png)
+
+### Prüfmethoden
+
+| Prüfmethode | Voraussichtliche Dauer | Beschreibung |
+| --- | --- | --- |
+| Schnellprüfung | Ca. 2 Minuten | Grundlegende Diagnoseprüfung zur Erkennung mechanischer und elektrischer Fehler; eignet sich für die routinemäßige Kontrolle. |
+| Vollständige Prüfung | Ca. 2 Stunden 30 Minuten | Umfassende Prüfung der Festplatte mit genaueren Ergebnissen, jedoch längerer Dauer. Beide Prüfungen beeinträchtigen die normale Nutzung der Festplatte nicht. |
+
+### Prüfstatus und Ergebnisse
+
+- **Prüfung starten**: Reicht eine Prüfaufgabe ein.
+- **Wird geprüft**: Der aktuelle Fortschritt kann angezeigt und die Prüfung bei Bedarf gestoppt werden.
+- **Prüfergebnis**: Zeigt das aktuelle Prüfergebnis an.
+- **S.M.A.R.T-Attributtabelle**: Zeigt Nummer, Kennzahl, Ergebnis, aktuellen Wert, schlechtesten Wert, Referenzwert und Rohdaten. Grenzwerte werden vom Festplattenhersteller definiert; auffällige Werte bedeuten nicht zwangsläufig einen sofortigen Defekt, sollten aber weiter beobachtet werden.
+
+<Callout title="Wartungsempfehlung" type="warn">
+  Wenn der Gesundheitsstatus anomal ist, die Temperatur dauerhaft hoch bleibt oder mehrere S.M.A.R.T-Kennzahlen sich dem Grenzwert nähern, sichern Sie umgehend die wichtigen Daten auf dieser Festplatte und dem zugehörigen Speichervolume und tauschen Sie die Festplatte so bald wie möglich aus.
+</Callout>
+
+## Interpretation von Gesundheits- und Verwendungskennzeichnungen
+
+| Kennzeichnung | Bedeutung | Empfehlung |
+| --- | --- | --- |
+| Normal | Die Festplatten-Gesundheitsprüfung ist unauffällig. | Regelmäßige Prüfungen und Sicherungen beibehalten. |
+| Warning | Verdächtige Attribute oder erhöhte Temperatur. | Daten sofort sichern und weiter beobachten. |
+| Abnormal/Serious | Das Prüfergebnis ist anomal. | Nicht notwendige Schreibvorgänge stoppen und die Festplatte bald austauschen. |
+| Unknown | Keine gültigen Gesundheitsdaten verfügbar oder Festplatte/Bridge-Gerät unterstützt nicht das vollständige S.M.A.R.T. | Verbindungsart ändern oder Festplattendetails prüfen. |
+| Storage volume N | Die Festplatte gehört zu diesem Speichervolume. | Vor Vorgängen den Volume-Status und die Redundanzfähigkeit prüfen. |
+| Cache pool | Die Festplatte wird als SSD-Cache verwendet. | Zuerst im Speicherbereich den Cache löschen, dann die Festplatte entfernen. |
+| Unused | Die Festplatte wird nicht von der Speicherstruktur belegt. | Kann für Volumes, Cache oder andere Konfigurationen verwendet werden. |
+| Not mounted | Die externe Festplatte ist nicht eingebunden. | Dateisystem, Verbindungsstatus und Festplattenzustand prüfen. |
+| Read-only | Festplatte oder Dateisystem ist schreibgeschützt. | Zuerst Daten sichern, nicht gewaltsam formatieren. |
+| Formatting | Die Festplatte wird gerade formatiert. | Auf den Abschluss warten, nicht ausschalten oder abziehen. |
+
+## Entscheidungshilfe zur Formatierung
+
+| Ziel | Empfehlung |
+| --- | --- |
+| Direktes Lesen und Schreiben unter Windows und macOS | exFAT. |
+| Ausschließliche dauerhafte Nutzung am NAS, Stabilität im Vordergrund | EXT4. |
+| Die Festplatte war bereits auffällig | Zuerst Gesundheitsprüfung ausführen und Daten sichern, dann über die Formatierung entscheiden. |
+| Nur eine Partition bereinigen | Partition formatieren, um versehentliches Löschen der gesamten Festplatte zu vermeiden. |
+| Die Festplatte enthält System- oder Speicherverbunddaten | Nicht formatieren; zuerst zugehöriges Volume und Verwendung prüfen. |
+
+## Wichtige S.M.A.R.T-Kennzahlen
+
+- **Reallocated Sectors Count**: Eine stetig steigende Zahl neu zugewiesener Sektoren deutet auf ein instabiles Medium hin.
+- **Current Pending Sector**: Eine Zunahme ausstehender Sektoren kann auf fehlerhafte Sektoren hindeuten.
+- **Offline Uncorrectable**: Nicht korrigierbare Fehler; Daten sollten umgehend gesichert werden.
+- **Temperature**: Dauerhaft hohe Temperaturen beschleunigen die Alterung.
+- **Power-On Time**: Zusammen mit der Nutzungsdauer für Garantie- und Austauschplanung heranziehen.
+- **Raw Data**: Hersteller verwenden unterschiedliche Codierungen; die Zahlenwerte allein sind nicht direkt vergleichbar.
+
+<Callout title="Prüfempfehlung" type="info">
+  Die Schnellprüfung eignet sich für die routinemäßige Kontrolle; bei Festplattenaustausch, Volume-Degradierung, häufigen Verbindungsabbrüchen oder I/O-Fehlern empfiehlt sich eine vollständige Prüfung. Die Prüfung beeinträchtigt die normale Nutzung nicht, die Ergebnisse können jedoch bei hoher Last beeinflusst werden.
+</Callout>

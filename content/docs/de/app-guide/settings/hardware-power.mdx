@@ -1,0 +1,134 @@
+---
+sourceHash: 8498127943c7
+title: Hardware und Stromversorgung
+description: Konfigurieren von Signalton, Kühlungslüfter, Arbeitsspeicherkomprimierung, automatischem Ein-/Ausschalten und Festplattenruhezustand
+---
+
+Die Seite „Hardware und Stromversorgung“ ist in **Allgemein** und **Stromversorgung** unterteilt. Die Seite „Allgemein“ steuert Signalton, Kühlung und Arbeitsspeicherkomprimierung; die Seite „Stromversorgung“ steuert das Verhalten bei Stromrückkehr, Wake-on-LAN, zeitgesteuertes Ein-/Ausschalten und den Festplattenruhezustand.
+
+## Allgemein
+
+![Hardware General](/images/de/app-guide/settings-img/hardware-general.png)
+
+### Signalton
+
+Nach dem Klicken auf die Schaltfläche für die Signalton-Einstellungen können Sie auswählen, welche Ereignisse einen Signalton auslösen:
+
+| Kategorie | Ereignis | Beschreibung |
+| --- | --- | --- |
+| Allgemein | Gerät wird eingeschaltet | Während des Einschaltvorgangs ertönt ein Signalton. |
+| Allgemein | Gerät wird ausgeschaltet | Während des Ausschaltvorgangs ertönt ein Signalton. |
+| Allgemein | One-Click-Backup erfolgreich | Hinweis, wenn eine One-Click-Backup-Aufgabe abgeschlossen ist. |
+| Gerätefehler | Temperatur zu hoch | Alarm, wenn die Gerätetemperatur den sicheren Bereich überschreitet. |
+| Gerätefehler | Speicherbereich fehlerhaft | Alarm bei anomalem Status von Speichervolume oder Festplatte. |
+| Gerätefehler | Lüfterfehler | Alarm, wenn der Lüfter stehen bleibt oder anomal läuft. |
+
+Nach dem Speichern löst nur die ausgewählten Ereignisse einen Signalton aus. Wenn das Gerät im Schlafzimmer oder in einer ruhigen Umgebung steht, können Sie nur Hinweise auf risikoreiche Fehler beibehalten.
+
+### Kühlungslüfter
+
+| Modus | Beschreibung |
+| --- | --- |
+| Normal | Passt die Drehzahl automatisch an die Gerätetemperatur an und gleicht Kühlung und Geräuschentwicklung aus; für die meisten Szenarien geeignet. |
+| Leise | Geringe Geräuschentwicklung und niedrige Drehzahl, die Gerätetemperatur kann jedoch steigen. Geeignet für geräuschempfindliche Umgebungen mit geringer Last. |
+| Volle Geschwindigkeit | Erzwingt die maximale Drehzahl für maximale Kühlung, verursacht jedoch mehr Geräusche. Geeignet für hohe Last, heiße Umgebungen oder vorübergehend bei Kühlungsproblemen. |
+
+Die Karte auf der Seite zeigt den aktuellen Modus an, z. B. „Aktueller Modus: Normal“.
+
+### Arbeitsspeicherkomprimierung
+
+| Option | Beschreibung |
+| --- | --- |
+| Schalter für Arbeitsspeicherkomprimierung | Nach Aktivierung kann Arbeitsspeicher freigegeben und das Lesen von Daten beschleunigt werden, sodass das System effizienter läuft. |
+
+Die Arbeitsspeicherkomprimierung verbraucht etwas CPU-Leistung im Austausch für mehr verfügbaren Arbeitsspeicher. Für normale Benutzer empfiehlt sich die Standardeinstellung; bei Aufgaben mit hoher CPU-Last und geringem Arbeitsspeicherdruck kann die Einstellung anhand tatsächlicher Leistungstests angepasst werden.
+
+## Stromversorgung
+
+![Power](/images/de/app-guide/settings-img/power.png)
+
+### Automatisches Einschalten bei Stromrückkehr
+
+| Option | Beschreibung |
+| --- | --- |
+| Power On When Power Returns | Das Gerät startet automatisch, wenn die externe Stromversorgung wiederhergestellt ist. Geeignet in Kombination mit einer stabilen UPS oder für unbeaufsichtigte Neustartszenarien. |
+
+### Wake-on-LAN
+
+| Option | Beschreibung |
+| --- | --- |
+| Wake On LAN (WOL) | Bei ausgeschaltetem oder im Ruhezustand befindlichem Gerät kann es über ein Magic Packet im lokalen Netzwerk aufgeweckt werden. Netzwerkkarte, Mainboard und Router-Umgebung müssen dies unterstützen. |
+
+### Zeitgesteuertes Ein-/Ausschalten
+
+| Option | Beschreibung |
+| --- | --- |
+| Scheduled Power On / Off-Schalter | Nach Aktivierung wird das Gerät nach Plan automatisch ein- oder ausgeschaltet. Beim ersten Aktivieren werden Sie angeleitet, den ersten Plan hinzuzufügen. |
+| Add Schedule | Fügt einen neuen Plan hinzu. |
+| Day | Wählbar sind täglich sowie Montag bis Sonntag. |
+| Time | Ausführungszeit des Plans. |
+| Action | Einschalten oder Ausschalten. |
+| Actions | Bearbeiten oder Löschen vorhandener Pläne. |
+
+Mehrere Pläne werden wöchentlich wiederholt ausgeführt; doppelte oder ungültige Pläne werden vom System geprüft. Wenn Sie das automatische Einschalten verwenden, stellen Sie sicher, dass Stromversorgung und BIOS-/Firmware-Richtlinien des Geräts den zeitgesteuerten Start unterstützen.
+
+### Festplattenruhezustand
+
+Der Festplattenruhezustand gilt nur für mechanische Festplatten, die den Ruhezustand unterstützen; interne und externe Festplatten können getrennt konfiguriert werden. Systemfestplatten unterstützen den Ruhezustand möglicherweise nicht.
+
+| Option | Beschreibung |
+| --- | --- |
+| Enable Internal Disk Sleep | Aktiviert den Ruhezustand interner Festplatten. |
+| Enable External Disk Sleep | Aktiviert den Ruhezustand externer Festplatten. |
+| Wake Internal Disks When a User Logs In | Weckt interne Festplatten automatisch auf, wenn sich ein Benutzer anmeldet. |
+| Wake External Disks When a User Logs In | Weckt externe Festplatten automatisch auf, wenn sich ein Benutzer anmeldet. |
+| Idle Time | Ruhezustand nach Leerlaufdauer; wählbar sind 10, 20 oder 30 Minuten sowie 1, 2 oder 3 Stunden. |
+
+<Callout title="Hinweis" type="info">
+  Häufige Zugriffe erschweren es der Festplatte, in den Ruhezustand zu wechseln. Wenn Backup-, Indexierungs-, Download-, Überwachungsaufzeichnungs- oder Container-Anwendungen kontinuierlich auf die Festplatte schreiben, verlängern Sie die Leerlaufzeit entsprechend oder aktivieren Sie den Ruhezustand nur für unkritische Festplatten.
+</Callout>
+
+## Signalton-Strategie
+
+| Szenario | Empfehlung |
+| --- | --- |
+| Serverraum oder Büro | Temperatur zu hoch, Lüfterfehler und Speicherfehler beibehalten. |
+| Schlafzimmer oder ruhiges Wohnzimmer | Nur schwerwiegende Fehler beibehalten, Ein-/Ausschalttöne deaktivieren. |
+| Unbeaufsichtigte Remote-Bereitstellung | Alle Fehlerhinweise aktivieren, um Überhitzung oder Speicheranomalien sofort zu bemerken. |
+| One-Click-Backup wichtig | Hinweis auf erfolgreiches Backup beibehalten. |
+
+## Auswahl des Lüftermodus
+
+| Bedingung | Empfehlung |
+| --- | --- |
+| Normaler Hausgebrauch | Normal. |
+| Nachts mit geringer Last | Leise, am nächsten Tag kann wieder auf Normal gewechselt werden. |
+| Heiße Umgebung, Downloads mit Volllast, Container-/KI-Aufgaben | Volle Geschwindigkeit. |
+| Lüfterfehler-Warnung | Zuerst ausschalten und den Lüfter prüfen; verlassen Sie sich nicht dauerhaft auf die volle Geschwindigkeit, um den Fehler zu überdecken. |
+
+## Kombinationen von Energie-Richtlinien
+
+| Ziel | Empfohlene Kombination |
+| --- | --- |
+| Zeitgesteuerte Energieeinsparung im Haushalt | Zeitgesteuertes Ausschalten + manuelles/netzwerkbasiertes Aufwecken. |
+| Nach Stromausfall automatisch verfügbar | Automatisches Einschalten bei Stromrückkehr. |
+| Fernwartung | WOL + zuverlässiges LAN/VPN + feste IP oder DHCP-Reservierung. |
+| Dauerbetrieb wichtiger Dienste | Zeitpläne mit Vorsicht verwenden, UPS und redundanten Speicher konfigurieren. |
+
+## Hinweise zum zeitgesteuerten Ein-/Ausschalten
+
+- Das automatische Einschalten hängt zusätzlich von der Hardware-/Firmware-Unterstützung des Geräts ab.
+- Vor dem Ausschalten sollte bestätigt werden, dass Backup-, Synchronisierungs-, Download-, Indexierungs-, Aufzeichnungs- und Container-Aufgaben unterbrochen werden können.
+- Stellen Sie nicht für denselben Zeitpunkt sowohl Ein- als auch Ausschalten ein.
+- Bei doppelten Plänen prüft das System; dennoch sollten Sie die Pläne manuell überprüfen.
+- Verwenden Sie NTP für eine genaue Zeit, da sonst die Ausführungszeit der Pläne abweichen kann.
+
+## Fehlerbehebung beim Festplattenruhezustand
+
+| Erscheinung | Prüfung |
+| --- | --- |
+| Festplatte wechselt nie in den Ruhezustand | Greifen Protokollzentrum, Backup, Indexierung, Container, Überwachung oder Downloads kontinuierlich zu? |
+| Häufiges Aufwecken/Einschlafen | Ist die Leerlaufzeit zu kurz, fragen Clients SMB/WebDAV regelmäßig ab? |
+| Langsamer Zugriff nach dem Ruhezustand | Es handelt sich um die Aufwachzeit; Leerlaufzeit verkürzen oder Ruhezustand deaktivieren. |
+| Externe Festplatte wechselt nicht in den Ruhezustand | Unterstützen externe Festplatte/USB-Bridge den Ruhezustand? |
+| Systemfestplatte wechselt nicht in den Ruhezustand | Systemfestplatten müssen in der Regel dauerhaft Dienste bereitstellen und unterstützen den Ruhezustand möglicherweise nicht. |

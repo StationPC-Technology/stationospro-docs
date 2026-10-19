@@ -1,0 +1,168 @@
+---
+sourceHash: ae5b2e7fcf16
+title: Speicherbereich
+description: Verwalten von Speichervolumes, RAID, Hot-Spare-Festplatten und SSD-Cache-Beschleunigung
+---
+
+Die Seite „Speicherbereich“ ist in **Speicherbereich** und **SSD-Cache-Beschleunigung** unterteilt. Die Registerkarte „Speicherbereich“ dient dem Erstellen und Verwalten von Volumes aus einer oder mehreren Festplatten; die Registerkarte „SSD-Cache“ dient dazu, eine schnelle SSD als Cache für ein HDD-Volume zu verwenden und die Zugriffsleistung auf häufig genutzte Daten zu verbessern.
+
+## Registerkarte „Speicherbereich“
+
+![Storage](/images/de/app-guide/settings-img/storage.png)
+
+### Liste der Speichervolumes
+
+Jede Karte eines Speichervolumes zeigt:
+
+| Feld | Beschreibung |
+| --- | --- |
+| Name | Name des Speichervolumes, z. B. Storage volume1. |
+| Gesundheitsstatus | Status wie Normal oder Degraded; bei Anomalien sollten die Festplatten umgehend geprüft werden. |
+| Speichermodus/RAID | Basic, JBOD, RAID0, RAID1, RAID5, RAID6, RAID10 usw. |
+| Kapazität | Belegte Kapazität / Gesamtkapazität. |
+| Festplattentyp | HDD, SSD usw. |
+| Schnittstelle | SATA, NVMe usw. |
+| Dateisystem | Das vom aktuellen Volume verwendete Dateisystem, z. B. Btrfs. |
+| Verwendete Festplatten | Zeigt die Festplatten und Kapazitäten, aus denen das Volume besteht; durch Klicken auf eine Festplatte werden deren Informationen angezeigt. |
+
+### Vorgänge für Speichervolumes
+
+Auf der Karte eines Speichervolumes oder im Menü „Mehr“ stehen möglicherweise folgende Vorgänge zur Verfügung:
+
+| Vorgang | Beschreibung |
+| --- | --- |
+| Speicherbereich erstellen | Initialisiert freie Festplatten als neues Speichervolume. Beim Erstellen werden die ausgewählten Festplatten formatiert. |
+| Speichermodus ändern | Ändert unter kompatiblen Bedingungen den RAID-Typ; hierbei müssen möglicherweise Festplatten hinzugefügt oder entfernt werden. |
+| Festplatte hinzufügen | Erweitert unterstützte RAID-Volumes; neue Festplatten werden formatiert. |
+| Hot-Spare-Festplatte hinzufügen/entfernen | Weist einem RAID-Volume eine Ersatzfestplatte zu. Fällt eine Mitgliedsplatte aus, kann die Hot-Spare-Festplatte automatisch an der Wiederherstellung teilnehmen. |
+| Festplatte austauschen | Ersetzt eine Mitgliedsplatte bei Defekt oder Kapazitätserweiterung. |
+| Reparieren/Prüfen | Dient der Untersuchung und Wiederherstellung bei anomalen Zuständen. |
+
+### RAID und Speichermodi
+
+| Modus | Festplattenanforderung | Vorteile | Risiken/Einschränkungen |
+| --- | --- | --- | --- |
+| Basic | 1 Festplatte | Volle Nutzung der Kapazität einer einzelnen Festplatte | Kein Datenschutz; bei Ausfall der Festplatte gehen deren Daten verloren |
+| JBOD | Mindestens 1 Festplatte | Mehrere Festplatten werden zu einem nutzbaren Speicher zusammengefasst; einfache Erweiterung | Keine Redundanz; der Ausfall einer beliebigen Mitgliedsplatte kann zum Verlust aller Daten des gesamten Speichers führen |
+| RAID 0 | Mindestens 2 Festplatten | Höchste Lese-/Schreibgeschwindigkeit, hohe Kapazitätsausnutzung | Kein Datenschutz; der Ausfall einer beliebigen Festplatte führt zum Verlust aller Daten |
+| RAID 1 | Mindestens 2 Festplatten | Spiegelungsschutz; Ausfall von n-1 Festplatten ohne Datenverlust | Geringe Kapazitätsausnutzung |
+| RAID 5 | Mindestens 3 Festplatten | Gute Balance aus Leistung und Schutz; Wiederherstellung nach Ausfall einer Festplatte über Paritätsdaten | Schreiben relativ langsam, Wiederherstellung dauert länger |
+| RAID 6 | Mindestens 4 Festplatten | Doppelte Parität; Ausfall von 2 Festplatten gleichzeitig möglich | Schreibgeschwindigkeit und Speicherplatznutzung sinken weiter |
+| RAID 10 | Mindestens 4 Festplatten und gerade Anzahl | Erst Spiegelung, dann Striping; hohe Leistung und hoher Schutz | Speicherplatznutzung etwa die Hälfte |
+
+### Auswahl des Dateisystems
+
+Im Erstellungsassistenten kann das Dateisystem gewählt werden:
+
+| Dateisystem | Eignung |
+| --- | --- |
+| Btrfs | Unterstützt Snapshots, Subvolumes und effizientes Kopieren; geeignet für Heimanwender oder leichte Entwickler, die flexible Sicherungen und Versionsverwaltung benötigen. |
+| EXT4 | Ausgereift und stabil; geeignet für klassische Dateidienste, ressourcenbeschränkte Geräte oder Büroumgebungen mit Fokus auf Stabilität. |
+
+### Ablauf zum Erstellen eines Speicherbereichs
+
+1. Klicken Sie auf **Speicherbereich erstellen**.
+2. Wählen Sie freie Festplatten aus. Das System berechnet in Echtzeit die verfügbaren RAID-Modi und die voraussichtliche Kapazität.
+3. Wählen Sie Speichermodus/RAID und bestätigen Sie Angaben wie verfügbare Kapazität und Datenschutzkapazität.
+4. Wählen Sie das Dateisystemformat.
+5. Wählen Sie die Benutzer aus, die diesen Speicherbereich verwenden dürfen, und legen Sie bei Bedarf Kapazitätsgrenzen für normale Benutzer fest.
+6. Bestätigen Sie die Zusammenfassung und die Formatierungswarnung.
+7. Starten Sie die Erstellung und warten Sie, bis die Formatierung abgeschlossen ist.
+
+<Callout title="Gefährlicher Vorgang" type="error">
+  Das Erstellen, Ändern, Erweitern oder Austauschen von Speichervolumes kann die ausgewählten Festplatten formatieren und alle Daten darauf löschen. Unterbrechen Sie nach dem Start weder die Stromversorgung noch starten Sie das Gerät neu oder ziehen Sie Festplatten ab. Sichern Sie unbedingt zuvor wichtige Daten.
+</Callout>
+
+## Registerkarte „SSD-Cache-Beschleunigung“
+
+Der SSD-Cache speichert häufig genutzte Daten auf einer schnellen SSD und verkürzt die Wartezeit beim Lesen von der HDD. Für diese Funktion muss mindestens eine nicht belegte SSD im Gerät installiert sein.
+
+![SSD Cache](/images/de/app-guide/settings-img/storage-ssd-cache.png)
+
+### SSD-Cache erstellen
+
+| Konfiguration | Beschreibung |
+| --- | --- |
+| Beschleunigungsziel | Wählen Sie das zu beschleunigende HDD-Speichervolume aus. |
+| Cache-SSD | Wählen Sie eine freie SSD aus; ist keine verfügbar, muss zuerst eine Festplatte installiert oder freigegeben werden. |
+| Cache-Name | Kann standardmäßig automatisch erzeugt oder nach Verwendungszweck benannt werden. |
+| Cache-Modus | Nur-Lese-Cache oder Lese-/Schreib-Cache. |
+| Cache-RAID | Bei mehreren SSDs kann ein RAID-Modus für den Cache gewählt werden. |
+| Cache-Kapazität | Maximale Kapazität oder benutzerdefinierte Kapazität wählbar; die verbleibende Kapazität kann weiteren Volumes zugewiesen werden. |
+| Risikobestätigung | Es muss bestätigt werden, dass die Risiken bei Cache-Erstellung, Formatierung der SSD und Stromausfall beim Lese-/Schreib-Cache verstanden wurden. |
+
+### Vergleich der Cache-Modi
+
+| Modus | Beschreibung |
+| --- | --- |
+| Nur-Lese-Cache | Cached nur häufig gelesene Daten; bei SSD-Ausfall oder Stromausfall ist das Risiko für die Quelldaten gering. |
+| Lese-/Schreib-Cache | Beschleunigt Lesen und Schreiben und bietet bessere Leistung; bei SSD-Ausfall oder anomalem Stromausfall können noch nicht zurückgeschriebene Daten beeinträchtigt werden. |
+
+### Cache-Verwaltung
+
+| Vorgang | Beschreibung |
+| --- | --- |
+| Status anzeigen | Zeigt Cache-Name, Modus, Kapazität, Trefferrate und zugehöriges Volume. |
+| Cache löschen | Hebt die Bindung zwischen Cache und Volume auf. Vor dem Löschen eines Lese-/Schreib-Caches stellt das System sicher, dass Daten zurückgeschrieben werden; schalten Sie währenddessen das Gerät nicht aus und entfernen Sie die SSD nicht. |
+| Cache reparieren | Bei degradiertem oder beschädigtem Cache können Sie gemäß den Hinweisen alle Cache-Festplatten wieder anschließen und eine Reparatur versuchen. |
+| Vorhandenen Cache zuweisen | Nutzt die verbleibende Kapazität eines vorhandenen Cache-Pools zur Beschleunigung weiterer Volumes. |
+
+<Callout title="Datensicherheit" type="warn">
+  Beim Erstellen eines SSD-Caches werden die Daten der ausgewählten SSD gelöscht. Ein Lese-/Schreib-Cache erfordert eine zuverlässige Stromversorgung; anomaler Stromausfall oder SSD-Ausfall kann Datenrisiken verursachen. Bevor Sie eine SSD entfernen, müssen Sie den zugehörigen Cache unbedingt zuerst im System löschen.
+</Callout>
+
+## Interpretation des Speicherstatus
+
+| Status/Kennzeichnung | Bedeutung | Empfohlene Maßnahme |
+| --- | --- | --- |
+| Normal | Das Speichervolume kann normal gelesen und beschrieben werden. | Routinemäßige Sicherungen und Festplattenprüfungen beibehalten. |
+| Degraded | Die RAID-Redundanz ist verringert, Daten sind jedoch meist weiter zugänglich. | Daten sofort sichern, Mitgliedsplatten prüfen und Festplatten schnell reparieren oder austauschen. |
+| Damaged/Anomalie | Speicherstruktur oder Mitgliedsplatte ist schwerwiegend gestört. | Weitere Schreibvorgänge vermeiden, lesbare Daten sichern und den Support kontaktieren. |
+| Syncing/Wiederherstellung | RAID wird synchronisiert oder neu aufgebaut. | Stromversorgung stabil halten; nicht neu starten, ausschalten oder Festplatten abziehen. |
+| Formatting | Wird gerade formatiert. | Auf den Abschluss warten, Vorgang nicht unterbrechen. |
+| Read-only | Das System hat nach Erkennung von Risiken bei Verbindung, Festplatte oder Dateisystem einen Schreibschutz aktiviert. | Festplatten und Verbindung prüfen, Daten sichern und gemäß den Hinweisen reparieren. |
+| Hot Spare | Die Festplatte steht bereit und kann bei Ausfall einer Mitgliedsplatte automatisch an der Wiederherstellung teilnehmen. | Hot-Spare-Festplatte gesund halten und nicht anderweitig verwenden. |
+
+## Checkliste vor dem Erstellen oder Ändern
+
+1. Bestätigen Sie, dass auf den ausgewählten Festplatten keine zu erhaltenden Daten liegen.
+2. Prüfen Sie Gesundheitsstatus, Temperatur, Betriebsstunden und S.M.A.R.T-Ergebnisse der Festplatten.
+3. Bestätigen Sie, dass Anzahl, Schnittstellen und Kapazität der Festplatten die Anforderungen des Ziel-RAID erfüllen.
+4. Verstehen Sie die voraussichtliche Nutzkapazität, Datenschutzkapazität und ungenutzte Kapazität.
+5. Stoppen Sie Backup-, Download-, Synchronisierungs-, Container-, Indexierungs- und Datenbankschreibaufgaben.
+6. Sorgen Sie für unterbrechungsfreie Stromversorgung oder vermeiden Sie Zeiten mit instabiler Stromversorgung.
+7. Notieren Sie Namen des aktuellen Speichervolumes, Nummern der Mitgliedsplatten und Einbindungspfade.
+
+## Empfehlungen zur RAID-Auswahl
+
+| Anforderung | Empfohlener Modus |
+| --- | --- |
+| Maximale Kapazität einer einzelnen Festplatte, Redundanz nicht relevant | Basic |
+| Mehrere Festplatten sequenziell zusammenfassen, später erweitern | JBOD |
+| Temporärer Cache, wiederherstellbare Daten, Geschwindigkeit im Vordergrund | RAID 0 |
+| Zwei Festplatten zum Schutz wichtiger Fotos und Dokumente | RAID 1 |
+| Haushalt oder kleines Team mit Balance aus Kapazität, Leistung und Schutz | RAID 5 |
+| Höhere Fehlertoleranz bei ausreichender Festplattenanzahl | RAID 6 |
+| Hohe Leistung mit Spiegelungsschutz | RAID 10 |
+
+<Callout title="Kapazitätshinweis" type="info">
+  Die nutzbare RAID-Kapazität wird durch Parität, Spiegelung und Kapazitätsunterschiede der Festplatten beeinflusst. Bei RAID aus Festplatten unterschiedlicher Kapazität wird üblicherweise nach der kleineren Kapazität oder den Modusregeln gerechnet. Maßgeblich für die endgültige Beurteilung ist die voraussichtliche Kapazität im Erstellungsassistenten.
+</Callout>
+
+## Strategie für Hot-Spare-Festplatten
+
+- **Globales Hot Spare/Hot Spare im Pool**: Übernimmt automatisch, wenn eine Mitgliedsplatte des zugehörigen Speicherbereichs ausfällt, und verkürzt das Wiederherstellungsfenster.
+- **Geeignete Szenarien**: Remote-Bereitstellungen, bei denen ein sofortiger Festplattentausch schwierig ist, wichtige Geschäftsvolumes sowie RAID 6/10 mit vielen Festplatten.
+- **Hinweise**: Eine Hot-Spare-Festplatte ist kein Backup; während der Synchronisierung kann die Leistung sinken, und das ursprüngliche Volume bleibt bis Abschluss der Wiederherstellung degradiert.
+
+## Empfehlungen zur Auswahl des SSD-Caches
+
+| Szenario | Empfehlung |
+| --- | --- |
+| Vor allem wiederholte Lesezugriffe auf häufig genutzte Daten beschleunigen | Nur-Lese-Cache, geringeres Risiko. |
+| Schreibantwort verbessern, UPS vorhanden | Lese-/Schreib-Cache kann geprüft werden. |
+| Keine UPS oder äußerst wichtige Daten | Lese-/Schreib-Cache vermeiden und vorrangig HDD-/RAID-Leistung verbessern. |
+| Mehrere Benutzer greifen gleichzeitig auf dasselbe Verzeichnis zu | Nur-Lese-Cache bringt deutlicheren Nutzen. |
+| Viele kleine Dateien mit zufälligen Schreibvorgängen | Muss zusammen mit dem Schreibmuster der Anwendung und der SSD-Lebensdauer bewertet werden. |
+
+Beim Erstellen oder Löschen eines Lese-/Schreib-Caches muss das System möglicherweise noch nicht zurückgeschriebene Daten von der SSD auf die HDD synchronisieren. Schalten Sie währenddessen das Gerät nicht aus, starten Sie es nicht neu und entfernen Sie die SSD nicht.

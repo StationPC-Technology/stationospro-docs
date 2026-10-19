@@ -1,0 +1,123 @@
+---
+sourceHash: 052186091294
+title: Discos
+description: Consultar la información de los discos, comprobar el estado de salud y realizar operaciones de mantenimiento de los discos
+---
+
+La página Discos se utiliza para consultar los discos internos y externos reconocidos por el dispositivo. Aquí puede confirmar la capacidad, la interfaz, la temperatura y las horas de funcionamiento de los discos, acceder a los detalles de salud para ejecutar pruebas S.M.A.R.T o realizar operaciones de mantenimiento como el formateo y la expulsión segura en discos no utilizados.
+
+## Lista de discos
+
+La parte superior de la página ofrece tres pestañas de filtro:
+
+| Pestaña | Descripción |
+| --- | --- |
+| Todos | Muestra a la vez los discos internos y externos; en la vista «Todos» se agrupan por discos internos y discos externos. |
+| Internos | Muestra únicamente los discos instalados dentro del dispositivo. |
+| Externos | Muestra únicamente los dispositivos de almacenamiento externo, como los conectados por USB. |
+
+![Disk](/images/es/app-guide/settings-img/disk.png)
+
+## Información de la tarjeta de disco
+
+Cada tarjeta de disco muestra:
+
+| Campo | Descripción |
+| --- | --- |
+| Nombre del disco | El nombre identificativo asignado por el sistema, por ejemplo, DiskA o Disknvme0n1. |
+| Uso/Espacio de almacenamiento al que pertenece | Muestra usos como libre, no montado, volumen de almacenamiento al que pertenece o grupo de caché. |
+| Capacidad total | La capacidad total disponible del disco. |
+| Tipo de disco | HDD, SSD, etc. |
+| Estado de salud | Normal, anómalo, advertencia o desconocido. |
+| Modelo | El modelo del fabricante del disco. |
+| Interfaz | SATA, NVMe, USB, etc. |
+| Número de serie | El número de serie único del disco; se puede copiar haciendo clic. |
+| Proveedor | La marca o el fabricante del disco. |
+| Temperatura | La temperatura actual del disco. Una temperatura elevada sostenida aumenta el riesgo de fallo. |
+| Horas de funcionamiento | El tiempo acumulado de funcionamiento del disco; puede utilizarse para evaluar su antigüedad. |
+| Particiones | Los discos externos o los discos no ocupados por completo pueden mostrar información de particiones. |
+
+## Operaciones con discos
+
+Haga clic en el botón de más opciones a la derecha de la tarjeta de disco; las operaciones disponibles dependen del uso actual del disco:
+
+| Operación | Destinatario | Descripción |
+| --- | --- | --- |
+| Formatear disco | Discos libres, discos externos o particiones no utilizadas | Borra los datos del disco y vuelve a crear el sistema de archivos. Permite formatear todo el disco o una partición concreta. |
+| Expulsión segura | Discos externos | Detiene los servicios relacionados y extrae el disco de forma segura, lo que reduce el riesgo de daños en los datos. |
+| Detalles de salud | Discos compatibles con la comprobación de salud | Abre la página de pruebas S.M.A.R.T y de atributos de salud. |
+| Desactivar disco | Discos miembros internos compatibles con la desactivación | Elimina el disco del espacio de almacenamiento asociado. La desactivación puede afectar a la redundancia del almacenamiento y debe realizarse con prudencia. |
+| Indicador de solo lectura | Discos de solo lectura | Cuando el disco está en estado de solo lectura, se desactivan las operaciones de escritura, como el formateo. |
+
+### Configuración de formateo
+
+| Opción | Valores disponibles | Descripción |
+| --- | --- | --- |
+| Objeto de formateo | Todo el disco / Partición | Permite borrar todo el disco o solo una partición concreta. |
+| Sistema de archivos tras el formateo | exFAT / EXT4 | exFAT es adecuado para el uso multiplataforma en Windows y macOS; EXT4 es un sistema de archivos habitual en Linux y adecuado para un uso prolongado con el NAS. |
+
+<Callout title="Operación peligrosa" type="error">
+  El formateo elimina todos los datos del disco o de la partición de destino, y la operación no se puede detener una vez iniciada. No corte la alimentación, reinicie ni extraiga o inserte el disco durante el formateo.
+</Callout>
+
+## Detalles de salud del disco
+
+Tras hacer clic en **Detalles de salud**, puede consultar la información del estado de salud del disco y ejecutar pruebas.
+
+![Disk Health](/images/es/app-guide/settings-img/disk-health.png)
+
+### Métodos de comprobación
+
+| Método de comprobación | Tiempo estimado | Descripción |
+| --- | --- | --- |
+| Comprobación rápida | Aproximadamente 2 minutos | Prueba de diagnóstico básica que detecta errores mecánicos y eléctricos; adecuada para inspecciones rutinarias. |
+| Comprobación completa | Aproximadamente 2 horas y 30 minutos | Analiza el disco por completo; el resultado es más preciso y requiere más tiempo. Ninguna de las dos comprobaciones afecta al uso normal del disco. |
+
+### Estado y resultados de la comprobación
+
+- **Iniciar comprobación**: envía la tarea de comprobación.
+- **Comprobando**: permite consultar el progreso actual y detener la comprobación si es necesario.
+- **Resultado de la comprobación**: muestra la conclusión actual de la comprobación.
+- **Tabla de atributos S.M.A.R.T**: muestra el número, el indicador, el resultado, el valor actual, el peor valor, el valor de referencia y los datos en bruto. Los valores críticos los define el fabricante del disco; un elemento anómalo no implica necesariamente que el disco esté dañado de inmediato, pero requiere un seguimiento continuo.
+
+<Callout title="Recomendaciones de mantenimiento" type="warn">
+  Si el estado de salud es anómalo, la temperatura es constantemente alta o varios indicadores S.M.A.R.T se acercan al valor crítico, realice de inmediato una copia de seguridad de los datos importantes del disco y del volumen de almacenamiento asociado, y sustituya el disco cuanto antes.
+</Callout>
+
+## Interpretación de los indicadores de salud y uso
+
+| Indicador | Significado | Recomendación |
+| --- | --- | --- |
+| Normal | La comprobación de salud del disco es normal. | Mantener las comprobaciones periódicas y las copias de seguridad. |
+| Warning | Aparecen atributos sospechosos o la temperatura es alta. | Realizar una copia de seguridad de los datos de inmediato y seguir observando. |
+| Abnormal/Serious | El resultado de la comprobación es anómalo. | Detener las escrituras no esenciales y sustituir el disco cuanto antes. |
+| Unknown | No se han obtenido datos de salud válidos, o el disco o el dispositivo puente no admiten S.M.A.R.T completo. | Cambiar el método de conexión o consultar los detalles del disco. |
+| Storage volume N | El disco pertenece a ese volumen de almacenamiento. | Confirmar el estado del volumen y su capacidad de redundancia antes de operar. |
+| Cache pool | El disco se utiliza para la caché SSD. | Eliminar primero la caché en Espacio de almacenamiento y después retirar el disco. |
+| Unused | El disco no está ocupado por la estructura de almacenamiento. | Puede utilizarse para crear volúmenes, caché u otras configuraciones. |
+| Not mounted | El disco externo no está montado. | Comprobar el sistema de archivos, el estado de la conexión y la salud del disco. |
+| Read-only | El disco o el sistema de archivos están protegidos contra escritura. | Realizar primero una copia de seguridad de los datos; no fuerce el formateo. |
+| Formatting | El disco se está formateando. | Espere a que finalice; no corte la alimentación ni extraiga el disco. |
+
+## Decisión de formateo
+
+| Objetivo | Recomendación |
+| --- | --- |
+| Lectura y escritura directa tanto en Windows como en macOS | exFAT. |
+| Uso prolongado solo con el NAS y prioridad a la estabilidad | EXT4. |
+| El disco ha presentado anomalías anteriormente | Ejecutar primero una comprobación de salud y realizar una copia de seguridad de los datos, y después decidir si se formatea. |
+| Solo se desea limpiar una partición | Seleccionar el formateo de la partición para evitar borrar todo el disco por error. |
+| El disco contiene datos del sistema o de miembros de almacenamiento | No formatear; confirmar primero el volumen al que pertenece y su uso. |
+
+## Puntos de atención de S.M.A.R.T
+
+- **Reallocated Sectors Count**: un aumento continuo de los sectores reasignados indica inestabilidad del medio.
+- **Current Pending Sector**: el aumento de los sectores pendientes de reasignación puede indicar sectores defectuosos.
+- **Offline Uncorrectable**: errores que no se pueden corregir; debe realizar una copia de seguridad de los datos cuanto antes.
+- **Temperature**: las temperaturas altas prolongadas aceleran el envejecimiento.
+- **Power-On Time**: evaluar la garantía y el plan de sustitución junto con la antigüedad de uso.
+- **Raw Data**: cada fabricante utiliza una codificación distinta; no basta con comparar el tamaño de los valores.
+
+<Callout title="Recomendaciones de comprobación" type="info">
+  La comprobación rápida es adecuada para inspecciones rutinarias; cuando se sustituye un disco, un volumen se degrada, se producen desconexiones frecuentes o aparecen errores de E/S, se recomienda ejecutar la comprobación completa. La comprobación no afecta al uso normal, pero los resultados pueden verse afectados durante períodos de alta carga.
+</Callout>

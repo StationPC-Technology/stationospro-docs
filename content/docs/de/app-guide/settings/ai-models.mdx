@@ -1,0 +1,158 @@
+---
+sourceHash: 60a796a6b4e6
+title: KI-Modelle
+description: Verwalten der KI-Basisfunktionen, lokaler großer Modelle und des Speicherorts für Indexdaten
+---
+
+Die Seite „KI-Modelle“ ist in die drei Registerkarten **Basisfunktionen**, **Modellverwaltung** und **Speicherort** unterteilt. Hier steuern Sie die lokalen Erkennungsfunktionen und großen Sprachmodell-Dateien, die von der globalen Suche und Station AI verwendet werden, sowie den Ablageort von Modellen und Indexdaten.
+
+## Basisfunktionen
+
+Die Seite „Basisfunktionen“ verwaltet die KI-Funktionsmodule, die für die globale Suche und die Inhaltserkennung erforderlich sind.
+
+![AI Basic Capabilities](/images/de/app-guide/settings-img/ai-models.png)
+
+### Funktionsmodule
+
+| Funktion | Aufgabe | Auswirkung bei Deaktivierung |
+| --- | --- | --- |
+| Gesichtserkennung | Erkennt Personen und gruppiert sie; unterstützt Gesichtssuche und intelligente Alben. | Gesichtssuche, Personengruppierung und ähnliche Funktionen sind nicht verfügbar. |
+| Texterkennung | Erkennt Text in Bildern, sodass Bildinhalte über Stichwörter gefunden werden können. | OCR für Bilder und die Suche nach Bildtext sind eingeschränkt. |
+| Dateierkennung | Indexiert Dateinamen, Pfade, Dokumentinhalte und Semantik, um die globale Suche zu verbessern. | Die Suche nach Dokumentinhalten und Semantik ist eingeschränkt. |
+| Visuelle Inhaltserkennung | Erkennt Szenen und Objekte in Bildern/Videos und nutzt sie für die inhaltliche Suche. | Bild-zu-Bild-Suche sowie Szenen-/Objektsuche sind eingeschränkt. |
+
+### Status- und Indexinformationen
+
+Für Module wie Texterkennung, Dateierkennung und visuelle Inhaltserkennung werden folgende Angaben angezeigt:
+
+| Feld | Beschreibung |
+| --- | --- |
+| Erkannte Dateien | Anzahl der bereits indexierten Dateien. |
+| Indexierung fehlgeschlagen | Anzahl der Dateien, für die kein Index erstellt werden konnte. Ursachen können beschädigte Dateien, nicht unterstützte Formate, Berechtigungsprobleme oder vorübergehend nicht verfügbarer Speicher sein. |
+| Letzte Indexierungszeit | Zeitpunkt der letzten abgeschlossenen Indexierung. |
+| Funktionsstatus | Normal, deaktiviert, wird installiert, wird aktualisiert, wird neu aufgebaut, wird migriert, Fehler, pausiert wegen geringem Speicherplatz usw. |
+| Wartungsvorgänge | Funktionen können installiert, aktualisiert, aktiviert/deaktiviert, repariert oder der Index neu aufgebaut werden. |
+
+<Callout title="Tipp" type="info">
+  Nach dem erstmaligen Aktivieren einer Funktion muss ein Index erstellt werden. Die Dauer hängt von Dateianzahl, Dokumenttyp und Speicherleistung ab. Während der Indexierung kann das Gerät weiter verwendet werden, die Suchergebnisse sind jedoch möglicherweise unvollständig.
+</Callout>
+
+## Modellverwaltung
+
+Die Seite „Modellverwaltung“ dient zum Herunterladen, Aktivieren, Aktualisieren und Deinstallieren lokaler großer Modelle. Außerdem kann der Zugriff über eine OpenAI-kompatible API verwaltet werden.
+
+![AI Model Management](/images/de/app-guide/settings-img/ai-model-management.png)
+
+### Modellkarten
+
+Für jedes Modell werden folgende Angaben angezeigt:
+
+| Feld | Beschreibung |
+| --- | --- |
+| Modellname | Zum Beispiel Qwen3.5-0.8B, Qwen3-8B oder Gemma4-E4B. |
+| Typ | Fähigkeitstyp des Modells, z. B. Text Generation oder Any-to-Any. |
+| Größe | Voraussichtlich belegter Speicherplatz der Modelldatei. |
+| Status | Nicht heruntergeladen, wird heruntergeladen, heruntergeladen, aktuell in Verwendung usw. |
+| Aktivieren/Deaktivieren | Steuert, ob das Modell in der Liste verfügbarer Modelle erscheint. |
+| Deinstallieren/Löschen | Löscht die lokale Modelldatei; bei Bedarf kann das Modell später erneut heruntergeladen werden. |
+| Modell konfigurieren | Modellspezifische Einstellungen anzeigen oder ändern. |
+
+### API-Zugriff
+
+Durch Klicken auf **API Access** können Sie den Zugriff über eine OpenAI-kompatible Schnittstelle verwalten:
+
+| Funktion | Beschreibung |
+| --- | --- |
+| API-Adresse | Zeigt die Zugriffsadresse des lokalen Modells oder Dienstes an. |
+| API Key | Erstellen, Anzeigen, Aktualisieren oder Löschen von Zugriffsschlüsseln. |
+| Aufrufhinweise | Kann von Drittanbieter-Anwendungen oder Entwicklungsskripten verwendet werden, die mit der OpenAI-API kompatibel sind. |
+
+<Callout title="Hinweis" type="warn">
+  Das Löschen eines lokalen Modells entfernt dauerhaft alle lokalen Dateien dieses Modells. Wird das Modell gerade verwendet, kann das System auf ein anderes verfügbares Modell oder die OpenAI-kompatible API ausweichen.
+</Callout>
+
+## Speicherort
+
+Die Seite „Speicherort“ verwaltet den Ablageort lokaler Modelle und Indexdaten und bietet einen Schutz bei geringem Speicherplatz.
+
+![AI Storage](/images/de/app-guide/settings-img/ai-model-storage.png)
+
+### Speicherort für lokale Modelle
+
+| Feld/Vorgang | Beschreibung |
+| --- | --- |
+| Aktuelles Speichervolume | Zeigt Volume-Name, RAID-Typ und verfügbare Kapazität. |
+| Speicher ändern | Migriert lokale große Modelldateien auf ein anderes Speichervolume. Während der Migration sind die lokalen Modelle vorübergehend nicht verfügbar. |
+| Status | Normal, wenig Speicherplatz, schreibgeschützt, nicht verfügbar, wird migriert usw. |
+
+### Speicherort für Indexdaten
+
+| Feld | Beschreibung |
+| --- | --- |
+| Status | Gesamter Gesundheitszustand des Indexpools. |
+| Dateiindex | Belegung durch Basisindizes wie Dateinamen und Pfade. |
+| Textinhalte | Belegung durch OCR sowie Dokumenttext- und Vektordaten. |
+| Bildinhalte | Belegung durch visuelle Bildvektordaten. |
+| Verfügbarer Speicherplatz | Verbleibender Speicherplatz für Indexdaten. |
+| Schwellenwert für wenig Speicherplatz | Schwellenwert, der den Schutz auslöst; im aktuellen Beispiel werden Aufgaben bei weniger als 10 GB pausiert. |
+| Speicher ändern | Migriert Indexdaten an einen anderen Speicherort. |
+
+### Schutz bei geringem Speicherplatz
+
+Ist diese Funktion aktiviert, pausiert das System automatisch Modell-Downloads und den Neuaufbau des Index, wenn der verfügbare Speicherplatz den festgelegten Schwellenwert unterschreitet, damit ein volllaufender Speicher keine Dienststörungen verursacht. Nach der Wiederherstellung des Speicherplatzes können Aufgaben manuell fortgesetzt werden.
+
+<Callout title="Empfehlung" type="info">
+  Große Modelle und Indexdaten wachsen mit der Dateianzahl. Platzieren Sie Modelle und Indizes auf einem SSD-Speichervolume mit ausreichender Kapazität und gutem Zustand und lassen Sie den Schutz bei geringem Speicherplatz aktiviert.
+</Callout>
+
+## Funktionsstatus und Behandlung
+
+| Status | Bedeutung | Empfehlung |
+| --- | --- | --- |
+| Normal | Die Funktion ist verfügbar. | Modelle aktuell halten und den Index regelmäßig neu aufbauen. |
+| Deaktiviert | Der Administrator oder Benutzer hat die Funktion ausgeschaltet. | Bei Bedarf wieder aktivieren. |
+| Wird installiert/aktualisiert | Abhängigkeiten und Modelle werden heruntergeladen oder aktualisiert. | Netzwerk und Speicher verfügbar halten. |
+| Wird neu aufgebaut | Indexdaten werden neu erstellt. | Auf den Abschluss warten und keine großen Dateiverschiebungen durchführen. |
+| Wird migriert | Modell oder Index wird auf ein neues Volume verschoben. | Lokale Modelle sind möglicherweise vorübergehend nicht verfügbar. |
+| Pausiert wegen geringem Speicherplatz | Der verfügbare Speicherplatz liegt unter dem Schwellenwert. | Speicherplatz freigeben oder auf ein größeres Volume migrieren. |
+| Schreibgeschützt | Der Speicherort ist schreibgeschützt. | Volume-Status prüfen und den Speicherort ändern. |
+| Fehler/Fehlgeschlagen | Abhängigkeit, Speicher oder Dienst ist gestört. | Protokollzentrum prüfen und Reparatur oder Neuaufbau versuchen. |
+
+## Empfehlungen zur Indexwartung
+
+| Vorgang | Geeignete Situation |
+| --- | --- |
+| Alle installieren/aktualisieren | Erstmaliges Aktivieren von Funktionen oder neue Funktionsversionen. |
+| Reparieren | Indexstatus fehlerhaft, einige Dateien nicht durchsuchbar. |
+| Index neu aufbauen | Nach umfangreichen Dateiverschiebungen oder Migration des Indexspeichers sind Ergebnisse unvollständig. |
+| Funktion deaktivieren | Keine Gesichts-, OCR-, Dokument-Semantik- oder visuelle Suche erforderlich. |
+| Speicher migrieren | Aktuelles Volume hat zu wenig Platz oder soll durch eine schnellere SSD ersetzt werden. |
+
+<Callout title="Indexumfang" type="info">
+  Der Index erfasst nur Dateien, die das System lesen kann und auf die es Berechtigung hat. Verschlüsselte Dateien, derzeit nicht unterstützte Formate, beschädigte Dateien oder Verzeichnisse ohne ausreichende Berechtigungen können in der Statistik „Indexierung fehlgeschlagen“ erscheinen.
+</Callout>
+
+## Modellauswahl und Wartung
+
+| Punkt | Empfehlung |
+| --- | --- |
+| Modelle mit wenigen Parametern | Geringerer Ressourcenbedarf und schnellere Antworten; geeignet für leichte Frage-Antwort-Szenarien und leistungsschwächere Geräte. |
+| Modelle mit vielen Parametern | Stärkeres Verständnis und bessere Generierung, aber höherer Arbeitsspeicher-/Speicherbedarf und möglicherweise langsamere Antworten. |
+| Any-to-Any-Modelle | Geeignet für Szenarien mit verschiedenen Ein- und Ausgabeformen; der Download ist in der Regel größer. |
+| Lokale Modelle | Daten verlassen das Gerät nicht; geeignet für Datenschutzszenarien, jedoch durch die Hardware-Rechenleistung begrenzt. |
+| OpenAI-kompatible API | Kann externe Dienste anbinden; Base URL, Modellname und API Key müssen konfiguriert werden. |
+| Modell löschen | Gibt Speicherplatz frei; ein erneuter Download ist möglich, verbraucht aber Datenvolumen und Zeit. |
+
+## Hinweise zur Nutzung von API Access
+
+- API Keys speichern nur die notwendigen Anmeldeinformationen; übermitteln Sie sie nicht an Code-Repositories und teilen Sie sie nicht öffentlich.
+- Die Aufrufadresse sollte nur für vertrauenswürdige interne Netze oder durch Reverse-Proxy/Firewall eingeschränkte Clients erreichbar sein.
+- Wenn ein Key kompromittiert wurde, löschen oder aktualisieren Sie ihn sofort.
+- Externe Aufrufe unterliegen weiterhin der Geräteauslastung, dem Modellstatus und dem verfügbaren Speicherplatz.
+
+## Hinweise zur Speichermigration
+
+1. Bestätigen Sie vor der Migration, dass das Zielvolume größer ist als die Summe aus Modell- und Indexdaten, und planen Sie Wachstumsreserve ein.
+2. Ändern Sie während der Migration keine Modellkonfigurationen und starten Sie das Gerät nicht neu.
+3. Bis die Migration lokaler Modelle abgeschlossen ist, ist die Chat-Funktion möglicherweise vorübergehend nicht verfügbar.
+4. Führen Sie nach der Indexmigration eine Suchprüfung durch und bauen Sie den Index bei Bedarf neu auf.
