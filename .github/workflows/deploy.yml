@@ -89,12 +89,27 @@ jobs:
 
       - name: "Preflight: Cloud Assistant status"
         run: |
-          aliyun sts GetCallerIdentity
-          aliyun ecs DescribeCloudAssistantStatus \
-            --RegionId "$ALIYUN_REGION" \
-            --InstanceId.1 "$ECS_INSTANCE_ID" \
-            | jq -e '.InstanceCloudAssistantStatusSet.InstanceCloudAssistantStatus[0]
-                     | select((.CloudAssistantStatus | tostring) == "true")'
+          set -o pipefail
+
+          if ! IDENTITY="$(aliyun sts GetCallerIdentity 2>&1)"; then
+            echo "::error::GetCallerIdentity failed: $(printf '%s' "$IDENTITY" | tr '\n' ' ' | cut -c1-1500)"
+            exit 1
+          fi
+          echo "$IDENTITY"
+
+          if ! STATUS_JSON="$(aliyun ecs DescribeCloudAssistantStatus \
+              --RegionId "$ALIYUN_REGION" \
+              --InstanceId.1 "$ECS_INSTANCE_ID" 2>&1)"; then
+            echo "::error::DescribeCloudAssistantStatus failed: $(printf '%s' "$STATUS_JSON" | tr '\n' ' ' | cut -c1-1500)"
+            exit 1
+          fi
+          echo "$STATUS_JSON"
+
+          if ! printf '%s' "$STATUS_JSON" | jq -e '.InstanceCloudAssistantStatusSet.InstanceCloudAssistantStatus[0]
+                     | select((.CloudAssistantStatus | tostring) == "true")' >/dev/null; then
+            echo "::error::Cloud Assistant not online: $(printf '%s' "$STATUS_JSON" | tr '\n' ' ' | cut -c1-1500)"
+            exit 1
+          fi
 
       - name: Deploy through RunCommand
         run: |
