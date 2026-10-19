@@ -30,7 +30,7 @@ npm start              # 运行生产构建
 ### 多语言内容与 i18n（最重要的约定）
 
 - **`content/docs/zh/` 是唯一人工编写的文档源**（源语言为简体中文，见 `src/lib/i18n.ts` 的 `sourceLanguage`）。
-- **其余 7 种语言（zh-Hant/en/ja/ko/de/fr/es）由 LLM 翻译流程生成**（`/translate-docs` skill，规范在 `.claude/skills/translate-docs/`），不要直接手改译文。
+- **其余 7 种语言（zh-Hant/en/ja/ko/de/fr/es）由 LLM 翻译流程生成**（`/translate-docs` skill，规范在 `.claude/skills/translate-docs/`），不要直接手改译文。基于水位线文件 `.translate-sync-commit` 做增量同步：小改动、已提交改动、pull 下同事的改动都只 patch 译文对应位置；新文件/大改/`--full` 才全篇翻译。
 - 所有语言的目录结构和文件名**必须与 zh 完全一致**；`meta.json` 的 `pages` 数组跨语言一致，仅 `title` 本地化。
 - **翻译过期检测**：每篇译文 frontmatter 有 `sourceHash`（中文源 sha256 前 12 位），中文修改后 hash 不匹配即报错，需重跑 `/translate-docs`。相关脚本：`scripts/check-content.mjs`（校验）、`scripts/update-sourcehash.mjs`（同步 hash）。
 - 术语表与分语言风格注意点在 `.claude/skills/translate-docs/glossary.json`（品牌名永不翻译、各语言固定译法）。

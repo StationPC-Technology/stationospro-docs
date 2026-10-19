@@ -1,0 +1,36 @@
+---
+sourceHash: 840325127d83
+title: Liste de compatibilité HDD 3,5 pouces
+---
+
+## Remarques sur la compatibilité matérielle
+Les modèles répertoriés dans le tableau ci-dessous ont tous été validés par le laboratoire StationPC et peuvent être utilisés en toute confiance. Les produits de la série DA400 sont eux-mêmes compatibles avec la grande majorité des modèles de disques durs disponibles sur le marché ; le fait qu'un modèle ne figure pas dans la liste ne signifie pas qu'il n'est pas pris en charge. La liste de compatibilité sera mise à jour régulièrement : nous poursuivrons nos tests afin d'y ajouter progressivement d'autres modèles de disques durs.
+
+1. **Baies et interfaces** : le DA400 est équipé de 4 baies SATA pour disques durs, prenant en charge les disques durs mécaniques de 3,5 pouces ainsi que les SSD SATA de 2,5 pouces ; les disques durs à interface SAS ne sont pas pris en charge pour le moment.
+2. **Capacité par disque** : la capacité minimale prise en charge est d'environ 100GB (ce qui correspond aux disques durs du commerce dont la capacité annoncée est de 120GB ou plus), et la capacité maximale est de 32TB.
+3. **Évitez les disques durs à enregistrement shinglé (SMR)** : les disques SMR offrent des performances d'écriture instables et leur emploi est particulièrement déconseillé pour la création d'un RAID 1 / RAID 5. Pour savoir si un disque dur est de type SMR, renseignez-vous auprès de votre revendeur ou recherchez le modèle exact sur Internet.
+4. **Recommandations RAID** : pour créer un RAID 5, privilégiez des disques durs de classe entreprise ou des disques durs NAS ; à défaut, les risques potentiels pour vos données sont plus élevés.
+5. **Disques durs personnalisés par certaines marques** : l'utilisation de disques durs personnalisés par certaines marques est déconseillée, car ils peuvent ne pas être reconnus ou présenter des anomalies inexpliquées.
+6. **Disques durs recommandés** : privilégiez des disques durs NAS de grandes marques, comme la série IronWolf de Seagate ou les séries Red Plus / Red Pro de Western Digital.
+
+<Callout title="Astuce" type="idea">
+Les disques durs de 3,5 pouces et de 2,5 pouces utilisent des vis de fixation de spécifications différentes. Pour connaître la méthode d'installation, reportez-vous au [Guide d'installation du DA400](../quick-start/da400-install).
+</Callout>
+
+## Liste de compatibilité
+
+| Marque           | Modèle                            | Format      | Protocole | Capacité |
+| ---------------- | --------------------------------- | ----------- | --------- | -------- |
+| Seagate          | ST32000VE000 (IronWolf Pro)       | 3,5 pouces  | SATA      | 32TB     |
+| Seagate          | ST2000LM015 (BarraCuda)           | 2,5 pouces  | SATA      | 2TB      |
+| Seagate          | ST1000DM003                       | 3,5 pouces  | SATA      | 1TB      |
+| Seagate          | ST1000VX005 (SkyHawk)             | 3,5 pouces  | SATA      | 1TB      |
+| Western Digital  | HUS726T4TALA6L4 (Ultrastar HC310) | 3,5 pouces  | SATA      | 4TB      |
+| Western Digital  | WD40EZAX                          | 3,5 pouces  | SATA      | 4TB      |
+| Western Digital  | WD20EFPX-68C4TN0 (Red Plus)       | 3,5 pouces  | SATA      | 2TB      |
+| Western Digital  | WD2003FYYS                        | 3,5 pouces  | SATA      | 2TB      |
+| Western Digital  | WD10EZEX (Blue)                   | 3,5 pouces  | SATA      | 1TB      |
+| Western Digital  | WD5000AAKX (Blue)                 | 3,5 pouces  | SATA      | 500GB    |
+| Western Digital  | WD5000AAKS (Blue)                 | 3,5 pouces  | SATA      | 500GB    |
+| Western Digital  | WD1600AAJS (Blue)                 | 3,5 pouces  | SATA      | 160GB    |
+| Toshiba          | HDWG480 (N300)                    | 3,5 pouces  | SATA      | 8TB      |

@@ -14,7 +14,7 @@
  */
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { join, relative } from 'node:path';
+import { join, relative, dirname, posix } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const CONTENT = join(ROOT, 'content/docs');
@@ -167,11 +167,18 @@ for (const locale of TARGET_LOCALES) {
 
 const localePrefixRe = new RegExp(`^(?:(${[SOURCE_LOCALE, ...TARGET_LOCALES].join('|')})/)?docs(?:/(.*))?$`);
 
-/** 把 URL path 解析成 [locale, slug]；返回 null 表示不是站内文档链接 */
-function parseDocLink(href) {
+/** 把链接 href 解析成 [locale, slug]；返回 null 表示不是站内文档链接。
+ *  fromLocale/fromFile：链接所在文件（posix 相对 locale 根的路径，不含扩展名），
+ *  用于解析 ./、../ 开头的相对链接（fumadocs 不重写这类链接，浏览器按当前
+ *  页面路径解析，因此必须是 locale 内的相对位置）。 */
+function parseDocLink(href, fromLocale, fromFile) {
   let path = href.split('#')[0].split('?')[0];
   if (!path) return null; // 纯锚点
   if (/^[a-z]+:\/\//i.test(href) || href.startsWith('mailto:')) return null; // 外链/邮件
+  if (path.startsWith('./') || path.startsWith('../')) {
+    const slug = posix.normalize(posix.join(dirname(fromFile), path)).replace(/\.mdx?$/, '');
+    return { locale: fromLocale, slug, explicit: undefined, path };
+  }
   path = path.replace(/^\/+|\/+$/g, '');
   if (path === '') return null;
   // /zh/docs/<slug> | /docs/<slug>(默认语言 en) | /en/docs/<slug>(会 301)
@@ -195,8 +202,14 @@ for (const locale of [SOURCE_LOCALE, ...TARGET_LOCALES]) {
     while ((m = mdxLinkRe.exec(cleaned)) !== null) {
       const href = m[2] ?? m[3];
       if (!href) continue;
-      const target = parseDocLink(href);
+      const target = parseDocLink(href, locale, f);
       if (!target) continue;
+      // fumadocs 不会重写 MDX 相对链接，带 .mdx/.md 后缀的站内链接会原样输出
+      // 到 href 并被浏览器解析成不存在的路由（运行时 404），必须使用无后缀形式。
+      if (/\.(mdx|md)$/i.test(href.split('#')[0].split('?')[0])) {
+        err(`[链接] ${locale}/${f}.mdx 站内链接不应带 .mdx/.md 后缀（fumadocs 不重写相对链接，运行时 404）: "${href}"`);
+        continue;
+      }
       if (target.explicit && target.explicit !== locale) {
         warn(`[链接] ${locale}/${f}.mdx 硬编码了其他语言链接 "${href}"（i18n 会自行协商语言，建议去掉 /zh 或 /en 前缀）`);
         continue;

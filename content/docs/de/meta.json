@@ -1,4 +1,4 @@
 {
   "title": "Hilfe-Center",
-  "pages": ["index", "quick-start", "app-guide","explore", "faq", "changelog", "contact"]
+  "pages": ["index", "quick-start", "app-guide","explore", "compatible", "faq", "changelog", "contact"]
 }

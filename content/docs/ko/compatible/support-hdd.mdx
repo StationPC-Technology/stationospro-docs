@@ -1,0 +1,37 @@
+---
+sourceHash: 840325127d83
+title: 3.5인치 HDD 호환성 목록
+---
+
+## 하드웨어 호환 안내
+
+아래 표에 나열된 모델은 모두 StationPC 랩에서 검증을 거쳤으므로 안심하고 사용하실 수 있습니다. DA400 시리즈 제품 자체는 시중의 대부분의 하드디스크 모델과 호환되며, 목록에 없다고 해서 지원하지 않는 것은 아닙니다. 호환 목록은 수시로 업데이트되며, 저희는 앞으로도 지속적으로 더 많은 하드디스크 모델을 테스트하여 추가할 예정입니다.
+
+1. **베이와 인터페이스**: DA400에는 SATA 하드디스크 베이가 4개 장착되어 있으며, 3.5인치 HDD와 2.5인치 SATA SSD를 지원합니다. SAS 인터페이스 하드디스크는 아직 지원하지 않습니다.
+2. **단일 디스크 용량**: 최소 약 100GB(시판 제품 기준 표기 용량 120GB 이상의 하드디스크에 해당)부터 최대 32TB까지 지원합니다.
+3. **SMR(셔링 기록) 방식 하드디스크는 피하세요**: SMR 방식 하드디스크는 쓰기 성능이 불안정하므로, 특히 RAID 1 / RAID 5 구성에는 사용하지 않는 것이 좋습니다. 하드디스크가 SMR 방식인지 여부는 판매점에 문의하거나 해당 모델명으로 인터넷에서 검색하여 확인할 수 있습니다.
+4. **RAID 권장 사항**: RAID 5를 구성할 때는 엔터프라이즈급 하드디스크 또는 NAS용 하드디스크를 선택하는 것이 좋습니다. 그렇지 않으면 잠재적인 데이터 위험이 높아집니다.
+5. **브랜드 전용 하드디스크**: 일부 브랜드 전용 하드디스크는 인식되지 않거나 원인을 알 수 없는 이상 동작이 발생할 수 있으므로 사용하지 않는 것이 좋습니다.
+6. **권장 하드디스크**: 대형 브랜드의 NAS급 하드디스크(예: Seagate IronWolf 시리즈, Western Digital Red Plus / Pro 시리즈)를 사용하는 것이 좋습니다.
+
+<Callout title="참고" type="idea">
+3.5인치와 2.5인치 하드디스크는 규격이 다른 고정 나사를 사용합니다. 설치 방법은 [DA400 설치 가이드](../quick-start/da400-install)를 참고하세요.
+</Callout>
+
+## 호환 목록
+
+| 브랜드                    | 모델                              | 크기     | 프로토콜 | 용량  |
+| ------------------------- | --------------------------------- | -------- | -------- | ----- |
+| Seagate                   | ST32000VE000(IronWolf Pro)        | 3.5인치  | SATA     | 32TB  |
+| Seagate                   | ST2000LM015(BarraCuda)            | 2.5인치  | SATA     | 2TB   |
+| Seagate                   | ST1000DM003                       | 3.5인치  | SATA     | 1TB   |
+| Seagate                   | ST1000VX005(SkyHawk)              | 3.5인치  | SATA     | 1TB   |
+| Western Digital           | HUS726T4TALA6L4(Ultrastar HC310)  | 3.5인치  | SATA     | 4TB   |
+| Western Digital           | WD40EZAX                          | 3.5인치  | SATA     | 4TB   |
+| Western Digital           | WD20EFPX-68C4TN0(Red Plus)        | 3.5인치  | SATA     | 2TB   |
+| Western Digital           | WD2003FYYS                        | 3.5인치  | SATA     | 2TB   |
+| Western Digital           | WD10EZEX(Blue)                    | 3.5인치  | SATA     | 1TB   |
+| Western Digital           | WD5000AAKX(Blue)                  | 3.5인치  | SATA     | 500GB |
+| Western Digital           | WD5000AAKS(Blue)                  | 3.5인치  | SATA     | 500GB |
+| Western Digital           | WD1600AAJS(Blue)                  | 3.5인치  | SATA     | 160GB |
+| Toshiba                   | HDWG480(N300)                     | 3.5인치  | SATA     | 8TB   |

@@ -1,0 +1,35 @@
+---
+sourceHash: 840325127d83
+title: 3.5 吋機械硬碟相容性列表
+---
+
+## 硬體相容說明
+下表所列型號均經 StationPC 實驗室驗證，可放心使用。DA400 系列產品本身可相容市面上絕大多數硬碟型號，未列入列表不代表不支援。相容列表會不定期更新，我們將持續測試並補充更多硬碟型號。
+1. **硬碟槽與介面**：DA400 配備 4 個 SATA 硬碟槽，支援 3.5 吋機械硬碟，也支援 2.5 吋 SATA 固態硬碟；暫不支援 SAS 介面硬碟。
+2. **單顆硬碟容量**：最小支援約 100GB（對應市售標示容量 120GB 以上的硬碟），最大支援 32TB。
+3. **避免使用疊瓦式（SMR）硬碟**：SMR 硬碟寫入效能不穩定，尤其不建議用於組建 RAID 1 / RAID 5。硬碟是否為疊瓦式，可向經銷商洽詢，或依據具體型號上網查詢。
+4. **RAID 建議**：組建 RAID 5 時，建議選用企業級硬碟或 NAS 硬碟，否則潛在資料風險較高。
+5. **品牌客製化硬碟**：不建議使用某些品牌客製化的硬碟，可能發生無法辨識或莫名異常的情況。
+6. **推薦硬碟**：建議使用大品牌 NAS 級硬碟，例如 Seagate IronWolf 系列、Western Digital Red Plus / Pro 系列。
+
+<Callout title="提示" type="idea">
+3.5 吋與 2.5 吋硬碟使用不同規格的固定螺絲，安裝方法請參考 [DA400 安裝指南](../quick-start/da400-install)。
+</Callout>
+
+## 相容列表
+
+| 品牌                     | 型號                                  | 尺寸    | 協定 | 容量  |
+| ------------------------ | ------------------------------------- | ------- | ---- | ----- |
+| Seagate                  | ST32000VE000（IronWolf Pro）          | 3.5 吋  | SATA | 32TB  |
+| Seagate                  | ST2000LM015（BarraCuda）              | 2.5 吋  | SATA | 2TB   |
+| Seagate                  | ST1000DM003                           | 3.5 吋  | SATA | 1TB   |
+| Seagate                  | ST1000VX005（SkyHawk）                | 3.5 吋  | SATA | 1TB   |
+| Western Digital          | HUS726T4TALA6L4（Ultrastar HC310）    | 3.5 吋  | SATA | 4TB   |
+| Western Digital          | WD40EZAX                              | 3.5 吋  | SATA | 4TB   |
+| Western Digital          | WD20EFPX-68C4TN0（Red Plus）          | 3.5 吋  | SATA | 2TB   |
+| Western Digital          | WD2003FYYS                            | 3.5 吋  | SATA | 2TB   |
+| Western Digital          | WD10EZEX（Blue）                      | 3.5 吋  | SATA | 1TB   |
+| Western Digital          | WD5000AAKX（Blue）                    | 3.5 吋  | SATA | 500GB |
+| Western Digital          | WD5000AAKS（Blue）                    | 3.5 吋  | SATA | 500GB |
+| Western Digital          | WD1600AAJS（Blue）                    | 3.5 吋  | SATA | 160GB |
+| Toshiba                  | HDWG480（N300）                       | 3.5 吋  | SATA | 8TB   |

@@ -1,0 +1,36 @@
+---
+sourceHash: 840325127d83
+title: Kompatibilitätsliste für 3,5-Zoll-HDDs
+---
+
+## Hinweise zur Hardware-Kompatibilität
+Alle in der folgenden Tabelle aufgeführten Modelle wurden im StationPC-Labor geprüft und können bedenkenlos verwendet werden. Die Geräte der DA400-Serie sind ab Werk mit den allermeisten auf dem Markt erhältlichen Festplattenmodellen kompatibel; dass ein Modell nicht in der Liste aufgeführt ist, bedeutet nicht, dass es nicht unterstützt wird. Die Kompatibilitätsliste wird in unregelmäßigen Abständen aktualisiert – wir testen laufend und ergänzen weitere Festplattenmodelle.
+
+1. **Schächte und Schnittstellen**: Der DA400 ist mit 4 SATA-Festplattenschächten ausgestattet und unterstützt sowohl 3,5-Zoll-HDDs als auch 2,5-Zoll-SATA-SSDs; Festplatten mit SAS-Schnittstelle werden derzeit nicht unterstützt.
+2. **Kapazität pro Festplatte**: Die minimal unterstützte Kapazität liegt bei etwa 100GB (entsprechend Festplatten mit einer deklarierten Marktkapazität von 120GB oder mehr), die maximal unterstützte Kapazität bei 32TB.
+3. **SMR-Festplatten vermeiden**: SMR-Festplatten weisen eine instabile Schreibleistung auf und sind insbesondere für den Aufbau von RAID 1 / RAID 5 nicht zu empfehlen. Ob es sich bei einer Festplatte um eine SMR-Festplatte handelt, können Sie beim Händler erfragen oder anhand der genauen Modellbezeichnung im Internet nachschlagen.
+4. **RAID-Empfehlung**: Für den Aufbau eines RAID 5 werden Enterprise-Festplatten oder NAS-Festplatten empfohlen, da andernfalls ein erhöhtes Datenrisiko besteht.
+5. **Festplatten mit Herstellersonderausführung**: Von bestimmten Marken individuell angefertigte Festplatten sind nicht zu empfehlen, da sie unter Umständen nicht erkannt werden oder unerklärliche Störungen verursachen.
+6. **Empfohlene Festplatten**: Es werden NAS-Festplatten großer Marken empfohlen, z. B. die Serie Seagate IronWolf oder die Serien Western Digital Red Plus / Red Pro.
+
+<Callout title="Hinweis" type="idea">
+3,5-Zoll- und 2,5-Zoll-Festplatten verwenden unterschiedliche Befestigungsschrauben. Informationen zum Einbau finden Sie in der [DA400 Einbauanleitung](../quick-start/da400-install).
+</Callout>
+
+## Kompatibilitätsliste
+
+| Hersteller               | Modell                                | Größe    | Protokoll | Kapazität |
+| ------------------------ | ------------------------------------- | -------- | --------- | --------- |
+| Seagate                  | ST32000VE000 (IronWolf Pro)           | 3,5 Zoll | SATA      | 32TB      |
+| Seagate                  | ST2000LM015 (BarraCuda)               | 2,5 Zoll | SATA      | 2TB       |
+| Seagate                  | ST1000DM003                           | 3,5 Zoll | SATA      | 1TB       |
+| Seagate                  | ST1000VX005 (SkyHawk)                 | 3,5 Zoll | SATA      | 1TB       |
+| Western Digital          | HUS726T4TALA6L4 (Ultrastar HC310)     | 3,5 Zoll | SATA      | 4TB       |
+| Western Digital          | WD40EZAX                              | 3,5 Zoll | SATA      | 4TB       |
+| Western Digital          | WD20EFPX-68C4TN0 (Red Plus)           | 3,5 Zoll | SATA      | 2TB       |
+| Western Digital          | WD2003FYYS                            | 3,5 Zoll | SATA      | 2TB       |
+| Western Digital          | WD10EZEX (Blue)                       | 3,5 Zoll | SATA      | 1TB       |
+| Western Digital          | WD5000AAKX (Blue)                     | 3,5 Zoll | SATA      | 500GB     |
+| Western Digital          | WD5000AAKS (Blue)                     | 3,5 Zoll | SATA      | 500GB     |
+| Western Digital          | WD1600AAJS (Blue)                     | 3,5 Zoll | SATA      | 160GB     |
+| Toshiba                  | HDWG480 (N300)                        | 3,5 Zoll | SATA      | 8TB       |
