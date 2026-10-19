@@ -11,7 +11,12 @@ RUN apk add --no-cache git
 COPY package.json package-lock.json ./
 COPY . .
 
-RUN npm ci
+# 依赖安装：增加 npm 网络重试，避免 GitHub Actions 构建期 registry 抖动导致失败
+# （lockfile 的 resolved 统一为官方 registry.npmjs.org，镜像内无需额外配置源）
+RUN npm config set fetch-retries 5 \
+ && npm config set fetch-retry-mintimeout 20000 \
+ && npm config set fetch-retry-maxtimeout 120000 \
+ && npm ci --no-audit --no-fund
 
 # NEXT_PUBLIC_* 是构建时内联变量，通过 ARG 注入（来源：GitHub Actions build-args）
 ARG NEXT_PUBLIC_SITE_URL
