@@ -228,7 +228,7 @@ sudo grep -c '^FEEDBACK_API_' /etc/stationnas-docs.env
 - 使用 LF 行尾；从 Windows 复制过可执行 `sudo dos2unix /etc/stationnas-docs.env`。
 - 文件权限必须是 `600 root:root`。
 
-如果旧容器里没有这两个变量，从 GitHub Secrets 页面取出值，用编辑器写入 `/etc/stationnas-docs.env`，不要用 `echo` 把值留在 shell history。
+如果旧容器里没有这两个变量（例如容器启动早于密钥配置），注意 GitHub Secrets 创建后无法回显，不能作为取值来源。请向反馈服务提供方重新获取，或在服务端轮换出新的 URL/TOKEN，再用编辑器写入 `/etc/stationnas-docs.env`；不要用 `echo` 把值留在 shell history。
 
 ### 7. GHCR 镜像访问
 
