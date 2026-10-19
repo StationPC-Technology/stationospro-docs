@@ -1,0 +1,87 @@
+---
+sourceHash: b0c450609f40
+title: '2026.09.18 System Update Notes'
+---
+
+## Please Read Before Updating
+
+### Applicable Products
+This update applies to products running the StationOS Pro system. Before upgrading, please confirm the corresponding processor architecture according to
+the product model.
+
+- DA Series: DA400 Series
+
+### Upgrade Notice
+1. If you need to use the features described in this document, please upgrade the system firmware, application suite, or client to the corresponding
+version or later.
+2. Some new features in the application suite require a specified system firmware version. If the system firmware version is lower than the minimum
+compatible version, application update notifications may not be received, or related features may not function properly.
+
+## StationOS Pro System Firmware
+
+### Version Information
+System firmware version: v1.0.0.18
+
+This update includes interface changes. To ensure proper functionality, we recommend upgrading the firmware, client, and related applications to the
+latest versions.
+
+### System & Account
+
+- Added: Device improvement program settings; you can choose whether to join during registration.
+- Added: Safer login connections and more consistent buzzer alerts.
+- Improved: System logs are cleaner, and factory reset now cleans device data more thoroughly.
+- Fixed: Incorrect first-boot device name, time sync failures, Sunday scheduled shutdown, missing update banner, and confirmation dialogs that stayed
+open.
+
+### AI & Search
+
+- Added: Real-time AI model status updates, adjustable face recognition accuracy, and better location recognition.
+- Improved: AI installation, loading, and uninstalling are more stable. Unsupported images are skipped automatically.
+- Fixed: AI occasionally failing to get network information, false model-load failures, face features missing after factory reset, and search becoming
+stuck or returning odd results.
+
+### Storage & Disks
+
+- Improved: Disk temperature, health status, and remaining space are now more consistent and update more quickly.
+- Improved: External drives refresh faster after being inserted or formatted.
+- Fixed: Problems with degraded RAID recovery, disks not being reusable after replacement, inaccurate disk status, and abnormal storage quotas.
+
+### Files
+
+- Added: Thumbnail previews for images on external drives.
+- Improved: Duplicate-file cleanup is faster and lighter; copy/move tasks can continue in the background; upload errors are easier to understand.
+- Fixed: Duplicate-file selection issues, favorite status not syncing, image/Word/Excel preview problems, and upload errors showing technical details.
+
+### App Center
+
+- Added: App install-location and download-location selection, with a clearer installation progress view.
+- Improved: App installation, configuration dialogs, and running-status display.
+- Fixed: App redeployment conflicts, apps stuck in “deploying,” blank deployment logs, and stopped apps being incorrectly marked as abnormal.
+
+### Network & Remote Access
+
+- Added: Easier troubleshooting when remote mounts have problems.
+- Improved: Clearer remote-connection errors and more stable network access.
+- Fixed: Leftover remote mounts, unstable FTP remote mounts, remote folders not opening, and network page display errors.
+
+### Backup & Recovery
+
+- Improved: Photo backup is more stable.
+- Fixed: Team-folder one-click backup permissions, shared-folder syncing for new accounts, and missing feature data after factory reset.
+
+## Client
+## iOS & Android Client
+App version: v1.0.0
+
+- Improved storage-space creation with initializing, creating, and formatting animation and progress, plus clear success or failure feedback.
+- Reworked photo, animated-image, Live Photo, and video details and EXIF display with location, capture time, and video information.
+- Improved media-viewer detail panels, gesture interactions, video controls, and gallery media actions.
+- Improved Home favorite-photo previews with clearer thumbnails, location/date display, and smoother refresh after backup updates.
+- Stabilized photo-backup ordering, upload progress, batch loading, and completion, failure, and cancellation states.
+- Improved read-only disk and external-drive status display, blocking upload, delete, move, and rename operations on read-only storage while keeping copies to writable destinations available.
+- Improved file copy, move, and upload destination selection across My Files, Team Files, External Storage, and My Favorites.
+- Improved Resource Monitor chart tooltips with sample times, CPU usage details, and clearer boundary handling.
+- IP addresses and DDNS hostnames without a port can now automatically try HTTP, with stronger real-time connection authentication and fallback behavior.
+- Added Network Reset with security verification, and improved system updates, Wake on LAN, and Auto Boot on Power settings.
+- Improved email notifications, subject prefixes, test emails, AI Accelerator, and Resource Monitor display.
+- Improved remote mounts, file-type recognition, page feedback, and storage-creation behavior across light and dark themes.

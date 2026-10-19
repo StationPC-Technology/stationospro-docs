@@ -1,0 +1,143 @@
+---
+sourceHash: ae5b2e7fcf16
+title: Storage
+description: Manage volumes, RAID, hot spares, and SSD cache
+---
+
+Storage contains **Storage** and **SSD Cache Acceleration** tabs.
+
+## Storage tab
+
+![Storage](/images/common/app-guide/settings-img/storage.png)
+
+### Volume list
+
+| Field | Description |
+| --- | --- |
+| Name | Volume name, such as Storage volume1. |
+| Health status | Normal, Degraded, and similar states. |
+| Storage mode/RAID | Basic, JBOD, RAID 0/1/5/6/10, or another supported mode. |
+| Capacity | Used / total capacity. |
+| Disk type / interface | HDD/SSD and SATA/NVMe information. |
+| File system | Btrfs, EXT4, or another supported file system. |
+| Disks used | Member disks and capacities. |
+
+### Volume actions
+
+| Action | Description |
+| --- | --- |
+| Create Storage | Initialize free disks as a new volume; selected disks are formatted. |
+| Modify storage mode | Change RAID where supported. |
+| Add disk | Expand a compatible volume; newly added disks are formatted. |
+| Add/remove hot spare | Assign or remove a standby disk for faster failure recovery. |
+| Replace disk | Replace a member during failure or capacity upgrades. |
+| Repair/check | Diagnose or recover an abnormal volume. |
+
+### RAID and storage modes
+
+| Mode | Disks | Advantage | Risk/limitation |
+| --- | --- | --- | --- |
+| Basic | 1 | Uses full disk capacity | No protection |
+| JBOD | 1+ | Concatenates disks and expands easily | No redundancy; one disk failure can lose the space |
+| RAID 0 | 2+ | Fastest reads/writes | Any member failure loses all data |
+| RAID 1 | 2+ | Mirroring survives n-1 failures | Low capacity efficiency |
+| RAID 5 | 3+ | Balanced performance and single-disk parity | Slower writes and longer recovery |
+| RAID 6 | 4+ | Survives two failures with dual parity | Lower write speed and capacity efficiency |
+| RAID 10 | 4+, even count | RAID 0 performance plus RAID 1 protection | About half capacity is usable |
+
+### File systems
+
+| File system | Fit |
+| --- | --- |
+| Btrfs | Snapshots, subvolumes, and efficient copies for flexible backup/versioning. |
+| EXT4 | Mature stability for conventional file services. |
+
+### Create a volume
+
+1. Select **Create Storage**.
+2. Choose free disks and review dynamically calculated RAID modes.
+3. Select a mode and confirm capacity estimates.
+4. Select a file system.
+5. Select users and optional quotas.
+6. Confirm the summary and formatting warning.
+7. Start creation and wait for completion.
+
+<Callout title="Danger" type="error">
+  Creating, modifying, expanding, or replacing a volume can format selected disks and delete all data. Do not power off, restart, or remove disks after starting. Back up important data first.
+</Callout>
+
+## SSD Cache Acceleration tab
+
+SSD cache keeps hot data on SSDs. At least one unused SSD is required.
+
+![SSD Cache](/images/common/app-guide/settings-img/storage-ssd-cache.png)
+
+| Setting | Description |
+| --- | --- |
+| Acceleration target | HDD volume to accelerate. |
+| Cache SSD | Unused SSD used as cache. |
+| Cache name | Default or custom name. |
+| Cache mode | Read-only or read-write cache. |
+| Cache RAID | Supported RAID mode when multiple SSDs are used. |
+| Cache capacity | Maximum or custom capacity; remaining capacity can serve other volumes. |
+| Risk confirmation | Acknowledge formatting and cache risk. |
+
+Read-only cache has lower source-data risk; read-write cache is faster but sensitive to power loss and SSD failure. Before removing an SSD, remove its cache in the system and allow read-write data to finish writing back.
+
+<Callout title="Data safety" type="warn">
+  Creating SSD cache erases selected SSD data. Use reliable power for read-write cache and always remove the cache through the system first.
+</Callout>
+
+## Storage status interpretation
+
+| State | Meaning | Action |
+| --- | --- | --- |
+| Normal | Volume is readable and writable. | Keep backups and routine health checks. |
+| Degraded | Redundancy is reduced, but data may remain accessible. | Back up immediately and repair/replace the failed disk. |
+| Damaged | Storage structure or member disk is seriously abnormal. | Stop writes, back up readable data, and contact support. |
+| Syncing | RAID is synchronizing or rebuilding. | Keep power stable; do not restart or remove disks. |
+| Formatting | Format is in progress. | Wait without interruption. |
+| Read-only | The system disabled writes to protect data. | Check disks/connections, back up, and repair as guided. |
+| Hot spare | Disk is standing by for automatic recovery. | Keep it healthy and available. |
+
+## Pre-change checklist
+
+1. Confirm selected disks contain no data you need.
+2. Review health, temperature, power-on time, and S.M.A.R.T results.
+3. Confirm disk count, interface, and capacity meet RAID requirements.
+4. Understand estimated available, protected, and unused capacity.
+5. Stop backups, downloads, sync jobs, containers, indexing, and database writes.
+6. Avoid unstable power sources.
+7. Record volume names, member disk IDs, and mount paths.
+
+## RAID selection guidance
+
+| Requirement | Recommended |
+| --- | --- |
+| Maximum single-disk capacity | Basic |
+| Concatenate disks and expand later | JBOD |
+| Temporary, rebuildable cache with maximum speed | RAID 0 |
+| Two-disk protection for important files | RAID 1 |
+| Balanced home/small-team capacity and protection | RAID 5 |
+| Higher fault tolerance with enough disks | RAID 6 |
+| High performance plus mirroring | RAID 10 |
+
+<Callout title="Capacity note" type="info">
+  RAID capacity is affected by parity, mirrors, and capacity differences. Mixed-capacity arrays are calculated according to the selected mode. The wizard's estimated capacity is authoritative.
+</Callout>
+
+## Hot-spare strategy
+
+A hot spare automatically takes over when a member disk fails, shortening the recovery window. It is useful for remote deployments, important volumes, or arrays with many disks. A hot spare is not a backup, and the volume remains degraded until synchronization completes.
+
+## SSD cache guidance
+
+| Scenario | Suggestion |
+| --- | --- |
+| Repeated hot reads | Read-only cache; lower risk. |
+| Write acceleration with UPS | Evaluate read-write cache. |
+| No UPS or critical data | Avoid read-write cache. |
+| Many users reading the same directory | Read-only cache often helps. |
+| Heavy random small-file writes | Evaluate workload and SSD endurance carefully. |
+
+During read-write cache creation or removal, unwritten data may need to be synchronized back to HDD. Do not power off, restart, or remove the SSD.

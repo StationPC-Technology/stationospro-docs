@@ -1,0 +1,101 @@
+---
+sourceHash: 8cee25966a47
+title: Network Settings
+description: Configure gateways, DNS, interfaces, bridges, and link aggregation
+---
+
+Network Settings contains **General** and **Network Connections** tabs.
+
+## General
+
+![Network General](/images/common/app-guide/settings-img/network-general.png)
+
+| Setting | Description |
+| --- | --- |
+| Default Gateway | Current IPv4 gateway. |
+| IPv6 Default Gateway | Current IPv6 gateway, or `-`. |
+| Manually configure DNS server | Use automatic DNS when unchecked; check it to enter servers manually. |
+| Primary DNS server | Required preferred DNS server. |
+| Secondary DNS server | Optional fallback server. |
+| Enable multi-gateway | Allows multiple gateways for multi-segment or multi-uplink environments. |
+| Prefer IPv4 for DNS resolution | Chooses IPv4 when both address families are available. |
+| Enable IP conflict detection | Detects duplicate IPs in the LAN. |
+| Apply | Saves changes; disabled until a change is made. |
+
+<Callout title="Caution" type="warn">
+  If you are managing the device over the network, changing the gateway, DNS, or IP can disconnect your session. Verify the new parameters and keep a recovery path available.
+</Callout>
+
+## Network connections
+
+![Network Connections](/images/common/app-guide/settings-img/network-connections.png)
+
+### Interface cards
+
+Each card shows interface name, speed, duplex, MTU, status, MAC, IPv4 address/mask/gateway, DNS, and IPv6 details.
+
+### Edit an interface
+
+| Setting | Modes and fields |
+| --- | --- |
+| IPv4 | **Auto** uses DHCP. **Manual** requires a valid IPv4 address and continuous subnet mask; gateway and primary/secondary DNS are optional but must be valid IPv4 addresses. |
+| MTU | **Auto** uses the default. **Manual** accepts 1280–9000 when the switch and links support it. |
+
+### Create Bridge
+
+Select two or more available physical interfaces to create a bridge. After creation, the bridge can be edited like a normal interface.
+
+### Create Link Aggregation
+
+Use network cards of the same specifications:
+
+| Requirement | Mode | Description |
+| --- | --- | --- |
+| No switch support | Adaptive Load Balancing – bond6 | Recommended; automatically distributes traffic over ports. |
+| No switch support | Active/Backup – bond1 | Backup port activates only when the primary fails. |
+| Switch required | Round Robin – bond0 | Static-aggregation switch required; ports share traffic simultaneously. |
+| Switch required | Balance XOR – bond2 | Hash-based balance; requires static aggregation and correctly stacked switches if applicable. |
+| Switch required | Dynamic – bond4 | IEEE 802.3ad/LACP; the switch must support and be configured for LACP. |
+
+Bridge and aggregation interfaces can be unset from the more-actions menu; confirm the warning before changing a management interface.
+
+<Callout title="Caution" type="warn">
+  Aggregation modes must match switch configuration. Unsupported switch settings can cause network loss or a flapping aggregate interface.
+</Callout>
+
+## Before changing networking
+
+1. Record current IP, mask, gateway, DNS, MTU, and interface names.
+2. Confirm a LAN, console, or second-interface recovery path.
+3. Check switch VLAN, speed, aggregation, and firewall policy.
+4. Ensure a static IP does not conflict.
+5. Configure the switch first for link aggregation and verify the mode.
+6. Change one condition at a time and test before continuing.
+
+## Interface-state interpretation
+
+| State/field | Meaning |
+| --- | --- |
+| Connected | Link is up and an address can be acquired. |
+| Disconnected | Cable or physical link is down. |
+| 1Gbps / 2.5Gbps / 10Gbps | Negotiated speed, limited by both ends and cabling. |
+| Full Duplex | Simultaneous send/receive; half duplex is less efficient. |
+| MTU1500 | Standard Ethernet MTU; jumbo MTU requires the entire path. |
+| `-` | No value acquired or protocol stack not configured. |
+| Bridge | Logical bridge built from physical interfaces. |
+| Bond | Logical link-aggregation interface. |
+
+## Bridge versus aggregation
+
+| Requirement | Choose |
+| --- | --- |
+| Put VMs/containers directly on the physical LAN | Bridge |
+| Combine NIC throughput without switch configuration | bond6 |
+| Primary/backup failover | bond1 |
+| Switch already supports static aggregation | bond0 or bond2 |
+| Standard dynamic LACP aggregation | bond4 |
+| Only change IP/DNS | Edit the normal interface |
+
+## Recovery methods
+
+Use another unmodified interface, connect a computer to the same VLAN/subnet, check the router DHCP lease list, access the IP directly if only DNS fails, disconnect bond members to restore a single port, or evaluate network reset in Update & Restore.

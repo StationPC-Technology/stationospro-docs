@@ -1,0 +1,89 @@
+---
+sourceHash: 60a796a6b4e6
+title: AI Models
+description: Manage AI capabilities, local models, and AI storage locations
+---
+
+AI Models contains **Basic Capabilities**, **Model Management**, and **Storage Location** tabs.
+
+## Basic capabilities
+
+![AI Basic Capabilities](/images/common/app-guide/settings-img/ai-models.png)
+
+| Capability | Function | Effect when disabled |
+| --- | --- | --- |
+| Face Recognition | Recognizes and groups people; supports face search and smart albums. | Face search and person grouping are unavailable. |
+| Text Recognition | OCR text in images for keyword search. | Image OCR search is limited. |
+| File Recognition | Indexes names, paths, document content, and semantics. | Document-content and semantic search are limited. |
+| Visual Content Recognition | Recognizes scenes/objects in images and videos for content search. | Visual and scene search are limited. |
+
+Indexed capabilities show recognized-file count, failed count, latest indexing time, status, and maintenance actions such as install, update, enable/disable, repair, and rebuild.
+
+## Model management
+
+![AI Model Management](/images/common/app-guide/settings-img/ai-model-management.png)
+
+| Field/action | Description |
+| --- | --- |
+| Model card | Shows model name, type such as Text Generation, size, and state. |
+| Enable / stop | Controls whether a model appears in the available model list. |
+| Uninstall/delete | Removes local model files; the model can be downloaded again later. |
+| Configure model | Opens model configuration. |
+| API Access | Manages the OpenAI-compatible endpoint and API keys for external callers. |
+
+<Callout title="Caution" type="warn">
+  Deleting a local model permanently removes its local files. An active model may switch to another local model or an OpenAI-compatible API.
+</Callout>
+
+## Storage location
+
+![AI Storage](/images/common/app-guide/settings-img/ai-model-storage.png)
+
+| Section | Fields/actions |
+| --- | --- |
+| Local Model Storage | Current volume, RAID, available capacity, status, and **Change Storage**. Migration temporarily makes local models unavailable. |
+| Index Data Storage | Status, file index size, text content size, image content size, available space, low-space threshold, and storage change. |
+| Low-Space Protection | Pauses model downloads and index rebuilds when free space falls below the threshold. |
+
+<Callout title="Tip" type="info">
+  Put models and indexes on a healthy volume with enough free space, preferably an SSD, and keep low-space protection enabled.
+</Callout>
+
+## Capability states and handling
+
+| State | Meaning | Action |
+| --- | --- | --- |
+| Normal | Capability is available. | Keep models updated and rebuild indexes when needed. |
+| Disabled | Capability was turned off. | Enable it again when required. |
+| Installing/updating | Dependencies or models are being fetched. | Keep network and storage available. |
+| Rebuilding | Index data is being rebuilt. | Wait; avoid large file moves. |
+| Migrating | Models or indexes are moving. | Local models may be temporarily unavailable. |
+| Paused low space | Free space is below the threshold. | Clean or migrate storage. |
+| Read-only | Storage is read-only. | Check the volume and change the location. |
+| Error/failed | Dependency, storage, or service failure. | Check Log Center, then repair or rebuild. |
+
+## Index maintenance
+
+| Action | Use |
+| --- | --- |
+| Install/update all | First enable, or when a newer capability version exists. |
+| Repair | Abnormal index state or incomplete search results. |
+| Rebuild | After many files move or index storage migrates. |
+| Disable | Face, OCR, document semantic, or visual search is not needed. |
+| Migrate storage | Current volume is low or a faster SSD is available. |
+
+<Callout title="Index scope" type="info">
+  Indexing covers files the system can read and access. Encrypted, unsupported, damaged, or permission-restricted files may appear as failed index entries.
+</Callout>
+
+## Model guidance
+
+Smaller models respond faster and use fewer resources; larger models offer stronger understanding but need more memory/storage. Any-to-Any models support multiple modalities and are usually larger. Local models improve privacy but are limited by hardware. OpenAI-compatible APIs require a Base URL, model name, and API Key.
+
+## API-key safety
+
+Do not store keys in public repositories. Restrict access with a firewall or reverse proxy, and delete or rotate a key immediately after leakage.
+
+## Storage-migration notes
+
+Confirm the target volume has enough space for models plus indexes and future growth. Do not change model settings or restart during migration. After migration, test search and rebuild the index if results are incomplete.

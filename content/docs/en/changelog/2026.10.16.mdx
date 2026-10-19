@@ -1,0 +1,73 @@
+---
+sourceHash: c278699369f0
+title: '2026.10.16 System Update Notes'
+---
+
+## Please Read Before Updating
+
+### Applicable Products
+This update applies to products running the StationOS Pro system. Before upgrading, please confirm the corresponding processor architecture according to the product model.
+
+- DA Series: DA400 Series
+
+### Upgrade Notice
+1. If you need to use the features described in this document, please upgrade the system firmware, application suite, or client to the corresponding version or later.
+2. Some new features in the application suite require a specified system firmware version. If the system firmware version is lower than the minimum compatible version, application update notifications may not be received, or related features may not function properly.
+
+## StationOS Pro System Firmware
+
+### Version Information
+System firmware version: v1.1.0
+
+This update includes interface changes. To ensure proper functionality, we recommend upgrading the firmware, client, and related applications to the latest versions.
+
+### System & Device
+- Added VPU resource monitoring for utilization, memory, temperature, and runtime status.
+- Improved AI accelerator data collection and caching for lower sampling overhead and more consistent status.
+- Added exclusive locking and pending-reboot protection to system update deployment.
+- Improved session-presence snapshots and system logging to reduce redundant log output.
+- Fixed vendor configuration leftovers after factory reset and several device-state and shutdown-sync issues.
+
+### Storage & Disks
+- Improved degraded-array recovery, late-member detection, and disk-health evaluation for more reliable recovery and disk reuse.
+- Unified SMART attributes, error logs, temperature, and I/O status to reduce false health warnings.
+- Improved storage-pool and storage-space reconciliation so normally mounted spaces are not marked abnormal.
+- Fixed false fault states during storage-space creation and deletion.
+
+### Files & Media
+- Improved video thumbnails by sampling based on video duration, shortening first-frame generation, and fixing keyframe alignment.
+- Improved memory control for HDR and high-resolution transcoding to avoid limits with 8K video.
+- Fixed corrupted sources causing demux loops, leaked transcoding tasks, or unreleased processes after switching videos.
+- Improved FTP remote mounts and connection reuse for faster cloud-drive directory listing.
+- Improved duplicate-file search memory usage, duplicate recommendations, and scanning of unknown extensions.
+
+### App Center & Docker
+- Improved missing-volume protection and Docker startup retries to avoid retry storms from invalid configurations.
+- Improved Compose deployment, redeployment, log display, and application-state synchronization.
+- Improved installation tasks, install/download directory configuration, and confirmation for unconfigured directories.
+
+### AI & Search
+- Added local Qwen3.5 models and improved RK1828 runtime packages and model-list loading.
+- Improved event-driven local-model status updates for more accurate install, load, and uninstall feedback.
+- Improved backoff retries after face-model migration failures and recovery of face features after factory reset.
+- Improved photo-index wait estimates, duplicate search, and vector-search recovery.
+
+### Network, Remote Access & Notifications
+- Added Device Improvement Program settings with registration-time synchronization.
+- Improved remote access with WebSocket ticket and Bearer Token authentication, connection switching, and reconnect behavior.
+- Improved buzzer and shutdown-configuration snapshot events for consistent notifications.
+- Fixed stale states and error messages during network loss, remote mounts, and network switching.
+
+## Client
+### iOS & Android Client
+App version: v1.1.0
+
+- Added Device Improvement Program settings during registration.
+- Added login-device management with automatic list refresh and permission control.
+- Improved the Home storage card with live volume updates after expansion and fixed a crash when the card was disposed.
+- Improved album expand/collapse, grouped photo-upload selection, and animation interactions, including favorite, date, and location display.
+- Improved 4K transcoded playback, progress synchronization, seeking, and subtitle switching; fixed stalls, crashes, and frozen frames.
+- Fixed incorrect peripheral UUID, source-device, and task-status display in one-touch backup.
+- Restricted upload, delete, move, and rename operations on read-only external storage to prevent accidental changes.
+- Improved Resource Monitor chart tooltips with sample timestamps and clearer process-name overflow handling.
+- Improved app installation path configuration with confirmation for unconfigured directories and restart prompts after path changes.

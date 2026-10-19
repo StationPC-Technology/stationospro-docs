@@ -1,0 +1,89 @@
+---
+sourceHash: 8498127943c7
+title: Hardware & Power
+description: Configure buzzer, fan, memory compression, power schedules, and disk sleep
+---
+
+Hardware & Power contains **General** and **Power** tabs.
+
+## General
+
+![Hardware General](/images/common/app-guide/settings-img/hardware-general.png)
+
+### Buzzer
+
+| Category | Event |
+| --- | --- |
+| General | Device power on, device power off, one-click backup success |
+| Device error | Temperature too high, storage-space error, fan error |
+
+Select only the events that should sound an alert, then save.
+
+### Cooling fan
+
+| Mode | Description |
+| --- | --- |
+| Normal | Automatically adjusts speed by temperature and balances cooling/noise. |
+| Quiet | Lower noise and speed; device temperature may rise. |
+| Full Speed | Maximum cooling with higher noise. |
+
+### Memory compression
+
+Enables memory compression to free RAM and accelerate data access. It trades a little CPU for more effective memory and normally can remain at the default setting.
+
+## Power
+
+![Power](/images/common/app-guide/settings-img/power.png)
+
+| Feature | Description |
+| --- | --- |
+| Power On When Power Returns | Starts the device after external power is restored. |
+| Wake On LAN | Allows a shutdown device to be woken with a LAN magic packet when hardware/network conditions support it. |
+| Scheduled Power On/Off | Enables recurring power-on/off plans. |
+| Add Schedule | Defines day(s), time, and power-on or power-off action. Existing schedules can be edited or deleted. |
+
+### Disk sleep
+
+Disk sleep applies to supported mechanical drives; internal and external drives are configured separately.
+
+| Setting | Description |
+| --- | --- |
+| Enable internal disk sleep | Sleeps internal drives after idle. |
+| Enable external disk sleep | Sleeps external drives after idle. |
+| Wake disks when a user logs in | Automatically wakes corresponding drives at login. |
+| Idle time | 10/20/30 minutes, 1/2/3 hours. |
+
+<Callout title="Tip" type="info">
+  Continuous reads/writes prevent sleep. If backups, indexing, downloads, surveillance, or containers access disks, use a longer idle time.
+</Callout>
+
+## Buzzer strategy
+
+Keep high-temperature, storage, and fan errors enabled in offices or unmanned locations. In bedrooms or quiet rooms, keep only serious errors and disable startup/shutdown tones. Enable backup-success tones if immediate audio confirmation is useful.
+
+## Fan guidance
+
+Use Normal for routine home operation, Quiet for low-load nights, and Full Speed for high temperature, heavy downloads, containers, or AI workloads. If a fan error appears, inspect the fan rather than masking the fault with full speed.
+
+## Power-policy combinations
+
+| Goal | Combination |
+| --- | --- |
+| Save power at scheduled times | Scheduled shutdown + manual/WOL startup. |
+| Recover after outage | Power On When Power Returns. |
+| Remote maintenance | WOL + reliable LAN/VPN + reserved DHCP address. |
+| Continuous service | Use schedules cautiously and add UPS/redundant storage. |
+
+## Schedule cautions
+
+Automatic power-on also depends on hardware/firmware support. Confirm backup, sync, download, indexing, recording, and container jobs can be interrupted. Avoid duplicate or conflicting plans and keep system time accurate through NTP.
+
+## Disk-sleep troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| Never sleeps | Logs, backup, indexing, containers, monitoring, or downloads continuously accessing disks. |
+| Frequent wake/sleep cycles | Idle time too short or clients polling SMB/WebDAV. |
+| Slow first access after sleep | Normal wake delay; shorten idle time or disable sleep. |
+| External disk never sleeps | Drive or USB bridge support. |
+| System disk never sleeps | System services usually require continuous access. |

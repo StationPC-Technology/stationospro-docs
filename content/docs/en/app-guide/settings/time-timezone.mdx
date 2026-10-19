@@ -1,0 +1,47 @@
+---
+sourceHash: f5e072bc8e3f
+title: Time & Time Zone
+description: Set time zone and NTP or manual system time
+---
+
+Correct time is important for logs, scheduled tasks, certificate validation, and secure network requests.
+
+![Time](/images/common/app-guide/settings-img/time.png)
+
+## Timezone
+
+Select the actual deployment time zone, for example `(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi`. The dropdown can be searched.
+
+## Time
+
+### Auto Sync
+
+Use an NTP server such as `pool.ntp.org`, `time.google.com`, `time.cloudflare.com`, `time.apple.com`, `time.windows.com`, `time.nist.gov`, `ntp.tencent.com`, or `ntp.aliyun.com`, or enter a custom server. The page also shows current time.
+
+If synchronization fails, check DNS, outbound firewall rules, and UDP port 123.
+
+### Manual Set
+
+Choose **Manual Set**, enter date and time, and apply the change. The page warns that large deviations can cause network requests or services to fail; do not set a time outside certificate validity.
+
+<Callout title="Caution" type="warn">
+  Manual time should only be used when NTP is unavailable. Return to automatic synchronization as soon as possible.
+</Callout>
+
+## NTP versus manual time
+
+| Scenario | Recommendation |
+| --- | --- |
+| Internet available | Auto Sync. |
+| Isolated network | Manual time or an internal NTP server. |
+| Certificate/time failure | Use a reachable NTP server and restore time to the valid range. |
+| Scheduled tasks off by hours | Check timezone and NTP, not only the clock value. |
+| Distributed team | Use the device's physical timezone for consistent logs. |
+
+## Effects of incorrect time
+
+Incorrect time can break HTTPS certificate validation, OTP windows, audit ordering, scheduled tasks, cloud/API signatures, and update checks.
+
+## Troubleshooting
+
+Confirm timezone before time. If NTP fails, test DNS and outbound UDP 123. Wait for a synchronization cycle after changing servers. Apply manual time immediately and sign in again after correction.

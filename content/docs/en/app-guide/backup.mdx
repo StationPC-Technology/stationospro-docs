@@ -1,0 +1,55 @@
+---
+sourceHash: d0f9bb512ad3
+title: Backup
+description: Backup app user guide
+---
+
+The Backup app provides unified backup task management. Back up data to another storage space on this device, to a remote NAS or cloud drive, or trigger a quick backup of external media with one-touch backup.
+
+The left navigation contains three modules:
+
+- **Backup to local**: store backup source data on this device's storage;
+- **Backup to remote**: back up to a remote NAS, cloud drive, or other server;
+- **One-touch backup**: quickly back up an external storage device using the power button.
+
+![Backup to Local](/images/common/app-guide/backup-img/local-backup.png)
+
+## Creating a Backup Task
+
+1. Open "Backup to local" or "Backup to remote" and click **Create backup task**.
+2. In the "Select Backup Source" dialog, choose the backup source:
+   - **Local Device**: a path on this NAS or an external storage device;
+   - **Cloud Storage**: Google Drive, Dropbox, or Microsoft OneDrive;
+   - **File Protocol**: remote file services such as SMB, WebDAV, and FTP.
+3. Click **Confirm**, then follow the wizard to choose the source path, destination, and schedule.
+4. Confirm the configuration to create the task. The task list shows run status and history.
+
+![Create Backup Task](/images/common/app-guide/backup-img/create-task.png)
+
+<Callout title="Tip" type="info">
+  When using cloud storage as a backup source, complete account authorization for the provider first. For SMB/WebDAV/FTP, fill in the server address, username, and password.
+</Callout>
+
+## Managing Backup Tasks
+
+In the task list you can:
+
+- Check task status, last run time, and results;
+- Start, pause, or delete tasks manually;
+- Modify source path, destination, and schedule.
+
+## One-touch Backup
+
+"One-touch backup" is designed for quick backups from external storage devices:
+
+1. Make sure the one-touch backup switch is enabled.
+2. Connect the external storage device (USB drive or portable hard drive) to the NAS.
+3. Briefly press the device power button. The system automatically backs up the external device data to the NAS.
+
+![One-touch Backup](/images/common/app-guide/backup-img/one-touch.png)
+
+<Callout title="Caution" type="warn">
+  - The backup direction depends on device settings. Verify it before starting to avoid overwriting data in the wrong direction.
+  - Check backup results regularly to make sure your backups stay effective.
+  - For critical data, follow the 3-2-1 rule: keep at least 3 copies, on 2 different media, with 1 copy off-site.
+</Callout>

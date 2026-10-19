@@ -1,16 +1,11 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import '../global.css';
-import { Inter } from 'next/font/google';
 import { i18nProvider } from 'fumadocs-ui/i18n';
 import { translations } from '@/lib/layout.shared';
 import { getLocaleConfig } from '@/lib/i18n';
 import type { Metadata } from 'next';
 import { siteUrl } from '@/lib/shared';
 import { Analytics } from '@/components/analytics';
-
-const inter = Inter({
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -24,7 +19,7 @@ export default async function Layout({ params, children }: LayoutProps<'/[lang]'
     <html
       lang={locale.tag}
       dir={locale.direction}
-      className={inter.className}
+      className="font-sans"
       suppressHydrationWarning
     >
       <body className="flex flex-col min-h-screen">

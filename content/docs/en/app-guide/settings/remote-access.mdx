@@ -1,0 +1,90 @@
+---
+sourceHash: 5b882db8dcb1
+title: Remote Access
+description: Configure Station ID access, DDNS, and account unbinding
+---
+
+Remote Access contains **Remote Access** and **DDNS** tabs. Station ID provides managed internet access; DDNS maps your own domain to the current public IP.
+
+## Station ID Remote Access
+
+![Remote Access](/images/common/app-guide/settings-img/remote-access.png)
+
+| Field/action | Description |
+| --- | --- |
+| Station ID Remote Access | Enables internet access. Identity verification and agreement acceptance are required. |
+| Station ID | 4–30 lowercase letters, digits, and `-`; `-` cannot be first or last. Select to change it. |
+| Bind Email | Shows the linked account. An email must be bound before the service can be enabled. |
+
+Access methods:
+
+| Method | Use |
+| --- | --- |
+| Web | Open `https://scnas.cloud/<Station ID>/web`. |
+| Client | Enter the Station ID in the StationCloud client. |
+
+To unbind, sign in at `login.stationpc.com`, open **My Devices** or device management, and unbind this device. Closing remote access disconnects the current remote session.
+
+## DDNS
+
+DDNS periodically checks the public IP and updates your DNS provider.
+
+![DDNS](/images/common/app-guide/settings-img/ddns.png)
+
+The list shows provider, domain, status, latest update time, and actions such as edit, refresh, enable/disable, and delete.
+
+### Add or edit a configuration
+
+| Field | Description |
+| --- | --- |
+| Provider | Required. Cloudflare, DNSPod.cn, No-IP.com, Duck DNS, FreeDNS, ChangeIP.com, DynDNS, and others may be returned by the service. |
+| Domain | Required unique domain, such as `nas.example.com`. |
+| AccessKey / API Token / account | Provider-specific required credential; label changes by provider. |
+| SecretKey / API Secret / password | Provider-specific secret. Leave blank while editing to keep the saved secret. |
+| IPv4 / IPv6 | At least one version must be enabled. Choose automatic public IP detection, an interface address, or a custom detection URL. |
+| Update interval | Every 1, 5, 10, 15, 30, or 60 minutes. |
+| Test connection | Reports not connected, testing, updated, or failed. |
+| Enable configuration | Enables this DDNS record. |
+
+<Callout title="Requirement" type="warn">
+  DDNS does not bypass NAT. For direct internet access, configure router port forwarding or use Station ID. Expose only necessary services and protect them with HTTPS, strong passwords, and two-step verification.
+</Callout>
+
+## Station ID rules
+
+| Item | Description |
+| --- | --- |
+| Character rule | 4–30 lowercase letters, digits, and hyphens; hyphens cannot be first/last. |
+| Uniqueness | An ID already used by another device cannot be reused. |
+| Generation | Remote Access must be enabled and an account bound. |
+| Change effect | Old web/client addresses stop working. |
+| Security | Station ID is not a password; a local account is still required. |
+| Unbind effect | Remote access becomes unavailable until bound again. |
+
+## Typical enable flow
+
+1. Configure email notifications.
+2. Bind and verify an email address.
+3. Set a valid Station ID.
+4. Accept the user agreement and privacy policy.
+5. Enable Remote Access.
+6. Test from an external browser or client.
+7. Enable HTTPS, strong passwords, and two-step verification.
+
+## DDNS fields
+
+| Field | Details |
+| --- | --- |
+| Provider | Determines DNS API and credential fields. |
+| Domain | Must be a complete domain hosted at the selected provider. |
+| AccessKey/API Token | DNS credential; grant only minimum DNS permissions. |
+| SecretKey/API Secret | Paired secret; leave blank while editing to keep it. |
+| IPv4 automatic detection | Public IPv4 detection service. |
+| Interface address | Use a specific device interface address, suitable for fixed public IP. |
+| Custom URL | Use a custom endpoint to return the IP address. |
+| IPv6 | Disabled by default; automatic or interface modes are available. |
+| Update interval | Shorter intervals react faster but issue more requests. |
+
+## DDNS troubleshooting
+
+Check credentials and API permissions for test failures. If resolution is stale, inspect DNS cache, TTL, and detected public IP. If the resolved IP is correct but access fails, inspect port forwarding, firewall, service port, and ISP restrictions. Disable VPN or use a custom detection URL when VPN detection is inaccurate.

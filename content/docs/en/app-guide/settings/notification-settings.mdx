@@ -1,0 +1,67 @@
+---
+sourceHash: 2ecf6524f7ef
+title: Notification Settings
+description: Configure email notifications, subject prefixes, and language
+---
+
+Notification Settings contains **Email** and **Notification Language** tabs.
+
+## Email
+
+![Email Notification](/images/common/app-guide/settings-img/notifications.png)
+
+| Feature | Description |
+| --- | --- |
+| Email notification service | Sends account-security messages such as emergency two-step verification codes and password-reset emails. |
+| Sender email | Shows the configured sender or **Not configured**. |
+| Edit | Configures provider and SMTP credentials. |
+| Email Subject Prefix | Uses the device name or a custom prefix. |
+| Send Test Email | Sends a message to a specified recipient to verify settings. |
+
+<Callout title="Dependency" type="warn">
+  Two-step verification requires email notifications. If verification is enforced, close it before disabling email service.
+</Callout>
+
+### Provider presets
+
+Gmail, QQ Mail, 126 Mail, and 163 Mail use a sender email and SMTP authorization code. Presets commonly use SSL port 465; ensure outbound firewall rules permit it.
+
+### Custom email
+
+| Field | Description |
+| --- | --- |
+| SMTP server | Required provider address. |
+| Port | Required; common values are 25 for none, 465 for SSL, and 587 for TLS. |
+| Security type | None, SSL, or TLS. |
+| Username/password | Required SMTP credentials. |
+| Sender name | Optional display name. |
+| Sender email | Required external sender address. |
+
+### Test email
+
+Enter a valid recipient and send. If the message does not arrive, check the authorization code, port, security type, and firewall outbound rule.
+
+## Notification language
+
+![Notification Language](/images/common/app-guide/settings-img/notification-language.png)
+
+Choose Simplified Chinese, Traditional Chinese, English, Japanese, Korean, German, French, or Spanish, then select **Apply**. This controls notification content language, not necessarily the desktop interface language.
+
+## Email troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| Authorization-code error | SMTP enabled, complete code copied, and login password not used accidentally. |
+| SMTP timeout | Server address, port, security type, and outbound firewall rule. |
+| SSL port with TLS selected | Match provider documentation; commonly 465/SSL and 587/TLS. |
+| Message in spam | Sender name, SPF/DKIM/DMARC, and custom-domain DNS. |
+| Test succeeds but code missing | Recipient spam folder, language, two-step policy, and delay. |
+| Disable blocked | Two-step verification depends on email; close the policy first. |
+
+## Custom-SMTP checklist
+
+Confirm the SMTP address, matching port/security type, username, password or authorization code, sender email, outbound port, and test delivery. Check the recipient spam folder after sending.
+
+## Language and multiple devices
+
+Notification language affects future email/SMS content. Historical messages are not retranslated. When multiple devices share a sender, use distinct subject prefixes such as device name, location, or purpose.

@@ -1,0 +1,148 @@
+---
+sourceHash: 96725f95e296
+title: File Sharing Protocol
+description: Configure SMB, WebDAV, FTP, NFS, and Time Machine
+---
+
+File Sharing Protocol contains **SMB**, **WebDAV**, **FTP**, and **NFS** tabs. Each page includes a service switch, protocol settings, visible-folder-scope entry point, and client connection instructions.
+
+![File Sharing](/images/common/app-guide/settings-img/file-sharing.png)
+
+## Visible folder scope
+
+SMB, WebDAV, and FTP provide **Set Visible Folder Scope**. It controls which file areas are visible through each protocol:
+
+| Area | Description |
+| --- | --- |
+| My Files and shares from others | Current user's personal directory and files shared to that user. |
+| Team folders | Shared team directories. |
+| External storage | Files on USB and other external drives. |
+| Remote mount | Directories mounted from remote NAS devices, servers, or cloud drives. |
+| App files | Application data directories. |
+
+For each area, choose:
+
+| Mode | Effect |
+| --- | --- |
+| All visible | Current and future folders are accessible through the protocol. |
+| Custom folders | Only selected first-level folders are visible. |
+| None / all forbidden | No folder in that area can be viewed through the protocol. |
+
+<Callout title="Naming limitation" type="info">
+  First-level folders cannot be accessed through file-sharing protocols when their names contain spaces or characters such as `! " # % & ' ( ) * + , / : ; < = > ? @ [ ] ^ { } | ~`. Use letters, digits, words, underscores, or hyphens for first-level directory names.
+</Callout>
+
+## SMB
+
+SMB is the common protocol for Windows, macOS, and most desktop clients.
+
+| Feature | Description |
+| --- | --- |
+| SMB service | Enables SMB file sharing on the LAN. |
+| Advanced settings | SMB3 multichannel, SMB1, NTLMv1, and macOS filename compatibility. |
+| Set visible folder scope | Opens file-manager scope configuration for protocol visibility. |
+| Time Machine service | Allows Mac devices to back up to this NAS with Time Machine. Requires SMB. |
+| Time Machine folder | Shows or sets the backup location and opens the folder. |
+| Connection methods | macOS Finder and Windows instructions plus `smb://IP` / `\\IP` addresses. |
+| Other connection info | Device IPs, default port 445, and hostname. |
+
+### SMB advanced options
+
+| Option | Description |
+| --- | --- |
+| SMB3 multichannel | Uses multiple connections in parallel for speed and reliability. |
+| SMB1 | Legacy compatibility only; the protocol has weak security. |
+| NTLMv1 | Compatible with some media players and set-top boxes but is an insecure authentication protocol. |
+| Convert special characters in filenames for macOS | Improves macOS filename compatibility. |
+
+### Time Machine
+
+Select a storage location and choose **Limit size** with a GB/TB value, or **No limit size**. A limit cannot exceed total volume capacity.
+
+![SMB](/images/common/app-guide/settings-img/file-sharing.png)
+
+## WebDAV
+
+WebDAV serves files over HTTP/HTTPS and is often used by mobile apps and third-party clients.
+
+![WebDAV](/images/common/app-guide/settings-img/file-sharing-webdav.png)
+
+| Feature | Description |
+| --- | --- |
+| WebDAV service | Enables LAN WebDAV access. |
+| HTTP / HTTPS | Enable either or both protocols. Ports must be valid and unique; default HTTP is 5005. |
+| Debug mode | Outputs detailed logs and can affect performance; use only for troubleshooting. |
+| Connection methods | macOS and Windows steps using `http://IP:port`. |
+
+## FTP
+
+FTP supports cross-platform transfers and includes unencrypted FTP plus FTPS.
+
+![FTP](/images/common/app-guide/settings-img/file-sharing-ftp.png)
+
+| Setting | Description |
+| --- | --- |
+| FTP | Standard unencrypted protocol. |
+| FTPS | FTP over SSL/TLS for encrypted transfer. |
+| FTP port | Default 21; valid range is 1–65535. |
+| Passive port range | Default or custom range within 55536–65535; maximum cannot be lower than minimum. |
+| Idle timeout | Disconnect idle clients after 1–120 minutes. |
+| Connection methods | macOS and Windows instructions using `ftp://IP:21`. |
+
+## NFS
+
+NFS lets compatible clients mount shared folders directly. The interface notes that LAN devices can mount shares without account verification.
+
+![NFS](/images/common/app-guide/settings-img/file-sharing-nfs.png)
+
+NFS provides a service switch, visible-folder-scope entry point after the service is enabled, and macOS/Windows connection addresses such as `nfs://IP/path`.
+
+<Callout title="Security" type="warn">
+  Use NFS only on trusted networks because it may not require account authentication. Prefer SMB3, HTTPS, FTPS, or SFTP over SMB1, NTLMv1, and cleartext FTP/HTTP.
+</Callout>
+
+## Service-switch effects
+
+| Action | Client effect | Data effect |
+| --- | --- | --- |
+| Enable protocol | Compatible clients can attempt connection. | File permissions are unchanged. |
+| Disable protocol | Existing protocol connections fail or disconnect. | Files are not deleted. |
+| Change port | Old addresses stop working. | Files are not deleted. |
+| Change visible scope | Some directories disappear from clients. | Directories remain; only protocol visibility changes. |
+| Format the source volume | The protocol can remain enabled, but source data is cleared. | Files in the volume are deleted. |
+
+## Accounts and permission layers
+
+Protocol access uses local device accounts, but effective access also depends on:
+
+1. User enabled state;
+2. Accessible storage and quota;
+3. Group membership;
+4. File/directory permissions;
+5. Protocol visible-folder scope;
+6. Firewall and IP lists;
+7. Volume read-only state.
+
+## Default addresses and ports
+
+| Protocol | Default port | Typical address |
+| --- | --- | --- |
+| SMB | 445 | `smb://IP`, `\\IP` |
+| WebDAV | 5005, configurable | `http://IP:port` |
+| FTP/FTPS | 21, configurable | `ftp://IP:port` |
+| NFS | Determined by export path | `nfs://IP/share-path` |
+
+## Troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| Client cannot connect | Service switch, IP/port, firewall, routing, and client subnet. |
+| Connects but directories are missing | Visible scope, account permissions, and special characters in folder names. |
+| Authentication error | User state, password changes, and whether the protocol requires a local account. |
+| Slow transfer | Link speed/duplex, SMB multichannel, aggregation, disk load, CPU/memory. |
+| Cannot connect after port change | Client address, firewall, and router forwarding. |
+| macOS filename issue | Enable macOS filename conversion and review directory names. |
+
+<Callout title="Least exposure" type="warn">
+  Enable only required protocols. Use NFS only on trusted networks. Prefer remote access or VPN over exposing SMB, FTP, or management ports directly to the internet.
+</Callout>
