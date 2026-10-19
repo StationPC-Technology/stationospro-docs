@@ -173,14 +173,19 @@ acs:ram::<account-id>:role/github-actions-deploy
         "ecs:DescribeCloudAssistantStatus"
       ],
       "Resource": [
-        "acs:ecs:*:*:instance/<instance-id>"
+        "acs:ecs:*:*:instance/*",
+        "acs:ecs:*:*:command/*"
       ]
     }
   ]
 }
 ```
 
-把该策略附加到 `github-actions-deploy` 角色。如果 `RunCommand` 返回 `Forbidden.RAM`，先确认实例 ID、地域和账号 ID；仍失败再把 `Resource` 临时放宽为 `*` 排错，不要默认使用 `*`。
+把该策略附加到 `github-actions-deploy` 角色。
+
+注意：云助手 API 的资源级授权按阿里云文档使用 `instance/*`。不要写成具体实例 `acs:ecs:*:*:instance/<instance-id>`，实测会在 `DescribeCloudAssistantStatus` 返回 `Forbidden.RAM`。该角色仍受 OIDC 信任策略限制（只有 `main` 分支可 AssumeRole），并且所有调用都可在 ActionTrail 中审计；如需进一步收紧，可后续改用资源组或标签条件，而不是收敛到单个实例 ARN。
+
+如果附加策略后仍返回 `Forbidden.RAM`，依次检查：策略是否真的授予给了该角色、`ALIYUN_REGION` 是否为实例所在地域、`ECS_INSTANCE_ID` 是否与实例一致。
 
 ### 5. 配置 GitHub Variables
 
