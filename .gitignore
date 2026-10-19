@@ -10,6 +10,7 @@
 /out/
 /build
 *.tsbuildinfo
+/.playwright-mcp/
 
 # misc
 .DS_Store
