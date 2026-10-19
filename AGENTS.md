@@ -68,7 +68,7 @@
 - 优先复用 Fumadocs 组件、既有 UI 组件与样式；共享 MDX 渲染改动集中在 `src/components/mdx.tsx`。
 - 环境变量模板为 `.env.example`。本地值放在已忽略的 `.env.local`，不要提交密钥。
 - `NEXT_PUBLIC_SITE_URL` 用于公开站点元数据；`NEXT_PUBLIC_POSTHOG_KEY`、`NEXT_PUBLIC_POSTHOG_HOST` 用于统计。`NEXT_PUBLIC_*` 在构建时内联，修改后需重新构建。未配置 PostHog key 时统计不初始化。
-- `FEEDBACK_API_URL`、`FEEDBACK_API_TOKEN` 是服务端运行时变量；token 不得放入客户端或改为 `NEXT_PUBLIC_*`。缺少反馈地址时提交会失败，验证成功提交需配置可用的反馈服务。
+- `FEEDBACK_API_URL`、`FEEDBACK_API_TOKEN` 是服务端运行时变量；token 不得放入客户端或改为 `NEXT_PUBLIC_*`。生产环境从服务器 `/etc/stationnas-docs.env` 注入，不放 GitHub Secrets。缺少反馈地址时提交会失败，验证成功提交需配置可用的反馈服务。
 
 ## 开发与验证
 
@@ -102,7 +102,7 @@ PORT=3458 node .next/standalone/server.js
 ## 部署与交付
 
 - 生产部署参考 `docs/deployment/DEPLOYMENT.md`，实际流程以 `.github/workflows/deploy.yml` 和 `Dockerfile` 为准。
-- 推送 `main` 自动构建并推送 GHCR 镜像，再通过 SSH 部署到服务器；应用端口映射至宿主机 `127.0.0.1:3000`，由 nginx 提供 HTTPS。不要将推送 `main` 当作普通验证步骤。
+- 推送 `main` 自动构建并推送 GHCR 镜像，再通过 GitHub OIDC 换取阿里云 STS 临时凭证、由云助手 RunCommand 部署到 ECS（无需公网 SSH）；应用端口映射至宿主机 `127.0.0.1:3000`，由 nginx 提供 HTTPS。不要将推送 `main` 当作普通验证步骤。
 - Docker 构建需要先复制源码再运行 `npm ci`，因为 postinstall 依赖 `source.config.ts` 和内容文件；运行镜像需包含 standalone、`.next/static` 和 `public`。
 - 提交保持单一主题，使用简短祈使句，可沿用历史中的 `docs:`、`feat:`、`fix:`、`refactor:` 前缀。保留用户已有改动，只暂存本次任务相关文件。
 - PR 说明具体变更与验证结果；视觉调整附截图，新增路由、配置变化、翻译缺口需明确说明。完成报告简洁说明修改内容及任何未完成的验证。

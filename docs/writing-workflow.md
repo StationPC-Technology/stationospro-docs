@@ -106,7 +106,7 @@ git push origin main
 | 阶段 | 机制 |
 |---|---|
 | 质量门禁 | `.github/workflows/quality.yml` 在 push / PR 时跑 `check:content` + `types:check` + `build` |
-| 自动部署 | `.github/workflows/deploy.yml`：push `main` 触发，构建 Docker 镜像（tag = commit sha）→ 推送 GHCR → SSH 部署到公司服务器 |
+| 自动部署 | `.github/workflows/deploy.yml`：push `main` 触发，构建 Docker 镜像（tag = commit sha）→ 推送 GHCR → 通过阿里云云助手 RunCommand 部署到 ECS（无需公网 22） |
 | 生效 | Next.js standalone 监听 `127.0.0.1:3000`，宿主机 nginx 反代 + HTTPS，约 1 个 workflow 周期后线上生效 |
 
 部署细节见 [部署指南](./deployment/DEPLOYMENT.md)。

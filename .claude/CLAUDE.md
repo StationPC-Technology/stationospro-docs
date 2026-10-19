@@ -50,7 +50,7 @@ npm start              # 运行生产构建
 - `/api/search`：站内搜索（中文用 CJK 分词，见 `src/lib/search-tokenizers.ts`）。
 - `/api/feedback`：文档反馈转发到外部 API（`src/lib/feedback.ts`）。
 - `llms.txt` / `llms-full.txt`：LLM 友好的全站文本。
-- 环境变量见 `.env.example`：`NEXT_PUBLIC_SITE_URL`（**构建时内联**，改值后需重新构建部署才生效）、`NEXT_PUBLIC_POSTHOG_KEY/HOST`（PostHog 分析）、`FEEDBACK_API_URL/TOKEN`。
+- 环境变量见 `.env.example`：`NEXT_PUBLIC_SITE_URL`（**构建时内联**，改值后需重新构建部署才生效）、`NEXT_PUBLIC_POSTHOG_KEY/HOST`（PostHog 分析）、`FEEDBACK_API_URL/TOKEN`（生产环境由服务器 `/etc/stationnas-docs.env` 注入，不放 GitHub Secrets）。
 
 ### 生成目录
 
@@ -64,4 +64,4 @@ npm start              # 运行生产构建
 
 ## 部署
 
-详见 `docs/deployment/DEPLOYMENT.md`。要点：推送 `main` 自动触发 GitHub Actions 构建 Docker 镜像 → 推送 GHCR → SSH 部署到公司服务器（Next.js standalone，监听 `127.0.0.1:3000`，宿主机 nginx 反代 + HTTPS）。回滚 = 用旧 commit sha 的镜像重新部署（GHCR 上完整保留历史镜像）。
+详见 `docs/deployment/DEPLOYMENT.md`。要点：推送 `main` 自动触发 GitHub Actions 构建 Docker 镜像 → 推送 GHCR → GitHub OIDC 换取阿里云 STS 临时凭证 → 云助手 RunCommand 在 ECS 上执行 `scripts/deploy-remote.sh`（Next.js standalone，监听 `127.0.0.1:3000`，宿主机 nginx 反代 + HTTPS）。部署链路不需要服务器开放公网 22。回滚 = 用旧 commit sha 的镜像重新部署，或 revert 对应 commit 重新构建。

@@ -1,6 +1,6 @@
 name: Deploy
 
-# push main 自动部署（含合并 GitLocalize 翻译 PR）；workflow_dispatch 用于手动重发/应急
+# push main 自动部署（含合并翻译 PR）；workflow_dispatch 用于手动重发/应急
 on:
   push:
     branches:
@@ -45,39 +45,99 @@ jobs:
             NEXT_PUBLIC_POSTHOG_HOST=${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}
 
   deploy:
-    name: Deploy to production server
+    name: Deploy via Alibaba Cloud Assistant
     needs: build-and-push
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      ALIYUN_REGION: ${{ vars.ALIYUN_REGION }}
+      ECS_INSTANCE_ID: ${{ vars.ECS_INSTANCE_ID }}
+      IMAGE: ${{ needs.build-and-push.outputs.image }}
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Alibaba Cloud CLI
+        run: |
+          /bin/bash -c "$(curl -fsSL https://aliyuncli.alicdn.com/install.sh)"
+          aliyun version
+
+      - name: Configure credentials via GitHub OIDC
+        uses: aliyun/configure-aliyun-credentials-action@v1
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          envs: FEEDBACK_API_URL,FEEDBACK_API_TOKEN
-          script: |
-            set -e
-            IMAGE=ghcr.io/stationpc/stationnas-docs:${{ github.sha }}
-            docker pull "$IMAGE"
-            docker rm -f stationnas-docs || true
-            docker run -d --name stationnas-docs \
-              --restart unless-stopped \
-              -p 127.0.0.1:3000:3000 \
-              -e FEEDBACK_API_URL="$FEEDBACK_API_URL" \
-              -e FEEDBACK_API_TOKEN="$FEEDBACK_API_TOKEN" \
-              --label "deploy.sha=${{ github.sha }}" \
-              "$IMAGE"
-            # 清理旧镜像：保留最近 5 个 sha 镜像（latest 指向最新，不受影响），删除更旧的
-            # 每次部署都会堆积一个带 <sha> tag 的镜像，长期不清理会占满磁盘
-            docker image ls ghcr.io/stationpc/stationnas-docs \
-              --format '{{.CreatedAt}}|{{.ID}}|{{.Tag}}' \
-              | grep -v '|latest$' \
-              | sort -r \
-              | tail -n +6 \
-              | cut -d'|' -f3 \
-              | sed 's#^#ghcr.io/stationpc/stationnas-docs:#' \
-              | xargs -r -n1 docker rmi || true
-        env:
-          FEEDBACK_API_URL: ${{ secrets.FEEDBACK_API_URL }}
-          FEEDBACK_API_TOKEN: ${{ secrets.FEEDBACK_API_TOKEN }}
+          oidc-provider-arn: ${{ vars.ALIYUN_OIDC_PROVIDER_ARN }}
+          role-to-assume: ${{ vars.ALIYUN_ROLE_ARN }}
+          role-session-name: github-actions-deploy-${{ github.run_id }}
+          role-session-expiration: 3600
+          audience: sts.aliyuncs.com
+
+      - name: "Preflight: Cloud Assistant status"
+        run: |
+          aliyun sts GetCallerIdentity
+          aliyun ecs DescribeCloudAssistantStatus \
+            --RegionId "$ALIYUN_REGION" \
+            --InstanceId.1 "$ECS_INSTANCE_ID" \
+            | jq -e '.InstanceCloudAssistantStatusSet.InstanceCloudAssistantStatus[0]
+                     | select((.CloudAssistantStatus | tostring) == "true")'
+
+      - name: Deploy through RunCommand
+        run: |
+          {
+            head -n 1 scripts/deploy-remote.sh
+            printf "export IMAGE='%s'\n" "$IMAGE"
+            tail -n +2 scripts/deploy-remote.sh
+          } > /tmp/deploy-remote.sh
+          SCRIPT_B64="$(base64 -w0 /tmp/deploy-remote.sh)"
+          echo "command bytes (base64): ${#SCRIPT_B64}"
+
+          RESP="$(aliyun ecs RunCommand \
+            --RegionId "$ALIYUN_REGION" \
+            --InstanceId.1 "$ECS_INSTANCE_ID" \
+            --Type RunShellScript \
+            --ContentEncoding Base64 \
+            --CommandContent "$SCRIPT_B64" \
+            --Timeout 1800)"
+          echo "$RESP"
+          INVOKE_ID="$(echo "$RESP" | jq -r '.InvokeId')"
+          [ -n "$INVOKE_ID" ] && [ "$INVOKE_ID" != "null" ] || { echo "No InvokeId"; exit 1; }
+
+          for i in $(seq 1 360); do
+            sleep 5
+            RESULT="$(aliyun ecs DescribeInvocationResults \
+              --RegionId "$ALIYUN_REGION" \
+              --InvokeId "$INVOKE_ID" \
+              --InstanceId "$ECS_INSTANCE_ID" \
+              --ContentEncoding PlainText 2>/dev/null || true)"
+            STATUS="$(echo "$RESULT" | jq -r '.Invocation.InvocationResults.InvocationResult[0].InvocationStatus // empty')"
+            EXIT_CODE="$(echo "$RESULT" | jq -r '.Invocation.InvocationResults.InvocationResult[0].ExitCode // empty')"
+            echo "[$i] status=$STATUS exitCode=$EXIT_CODE"
+            case "$STATUS" in
+              Success)
+                echo "$RESULT" | jq -r '.Invocation.InvocationResults.InvocationResult[0].Output // empty'
+                if [ "${EXIT_CODE:-0}" != "0" ]; then
+                  echo "Command exited with $EXIT_CODE"
+                  exit 1
+                fi
+                exit 0
+                ;;
+              Failed|Error|Timeout|Cancelled|Terminated|Stopped|Invalid|Aborted)
+                echo "$RESULT" | jq -r '.Invocation.InvocationResults.InvocationResult[0].Output // empty'
+                echo "$RESULT" | jq -r '.Invocation.InvocationResults.InvocationResult[0].ErrorInfo // empty'
+                echo "Cloud Assistant invocation failed: $STATUS"
+                exit 1
+                ;;
+              Pending|Running|Stopping|Scheduled|"")
+                ;;
+              *)
+                echo "Unexpected status: $STATUS"
+                ;;
+            esac
+          done
+          echo "Timed out waiting for Cloud Assistant invocation $INVOKE_ID"
+          exit 1
