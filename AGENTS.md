@@ -37,13 +37,15 @@
 
 ## 文档编写与翻译
 
-1. 用户文档先编辑 `content/docs/zh/`。不要独立手改其他语言来修正文案；译文通过 `.claude/skills/translate-docs/SKILL.md` 所述流程生成。执行翻译前读取该流程和同目录 `glossary.json`；支持该命令的环境可使用 `/translate-docs`。
+1. 用户文档先编辑 `content/docs/zh/`。不要独立手改其他语言来修正文案；译文通过 `translate-docs` 技能生成，唯一源是 `.agents/skills/translate-docs/SKILL.md`（Claude Code 通过 `.claude/skills/translate-docs` 符号链接读取同一份），术语表是同目录的 `glossary.json`。Claude Code 用 `/translate-docs [--full] [语言...]`；Codex 用 `$translate-docs`，参数写在同一消息里，如 `$translate-docs --full en ja`。当用户要求“翻译文档/同步译文/更新译文”，或 `npm run check:content` 报 `[翻译]`/`[结构]` 错误且原因确实是 zh 有改动时，使用该技能。技能被显式调用或按 `description` 自动匹配后，必须先读取 SKILL.md 再执行，不要凭记忆套流程。
 2. 普通页面文件名使用小写 kebab-case，例如 `quick-start/da400-install.mdx`；更新日志沿用 `changelog/YYYY.MM.DD.mdx`。frontmatter 提供 `title` 和 `description`，正文按实际设备和系统行为编写，不臆造功能、界面入口或型号支持范围。
 3. 新增、删除、重命名或重排页面时，同步相邻 `meta.json` 和相关内部链接。所有语言的目录、文件名及 `meta.json` 的 `pages` 数组必须与中文一致；导航 `title` 按语言翻译，`pages` 条目不翻译。
 4. 翻译正文、标题和描述时，保留代码、行内代码、URL、邮箱及 MDX 标签结构；品牌、型号和固定术语遵循术语表。繁体中文也需按术语表调整词汇。
-5. 每篇译文的 `sourceHash` 是中文源文件完整内容的 SHA-256 前 12 位；中文源不添加此字段。完成对应译文更新后再运行 `node scripts/update-sourcehash.mjs`，也可传入语言，如 `node scripts/update-sourcehash.mjs en ja`。
+5. 每篇译文的 `sourceHash` 是中文源文件完整内容的 SHA-256 前 12 位；中文源不添加此字段。完成对应译文更新后再运行 `npm run sync:sourcehash`，也可传入语言，如 `npm run sync:sourcehash -- en ja`（等价于 `node scripts/update-sourcehash.mjs en ja`）。
 6. **不要仅更新 hash 来消除过期错误。** 上述脚本会重写所选语言的全部译文 hash；执行前确认这些语言中所有过期页面均已翻译，避免把旧译文标记成最新。
 7. MDX 组件用法参考 `docs/fumadocs-components.md`，实际全局注册以 `src/components/mdx.tsx` 为准。未注册的组件在 frontmatter 后导入；大量页面共用的组件可统一注册。
+
+`.translate-sync-commit` 是团队共享的增量水位线：开始翻译前先 `git pull --ff-only`；只有 `npm run check:content` 0 错误时，才能用 `git rev-parse HEAD > .translate-sync-commit` 推进，并与译文一起提交。禁止手动写入比实际同步进度更晚的 commit，也不要为了消除过期报错而只更新 sourceHash。多人同时翻译时：pull 或合并后若该文件被远端更新或发生冲突，以远端水位线为起点；在合并后的工作区重新执行增量翻译与终检，全绿后再写入新的 HEAD。若本地已翻译但未提交时 pull 到新的 zh 改动，必须把这些改动一并同步后才能推进。
 
 新增语言时，更新 `locales.json`、`src/lib/i18n.ts` 的 `localeConfigs`、术语表和翻译流程中的语言说明，再生成完整译文树。检查脚本和图片回退配置已读取 `locales.json`，不要再维护独立语言清单。需要 CJK 搜索的新语言还应检查 `src/lib/search-tokenizers.ts` 的 Segmenter 映射。
 

@@ -1,17 +1,18 @@
 ---
 name: translate-docs
-description: 将 content/docs/zh/ 下新增或修改的中文文档同步到 7 种目标语言（繁體中文/English/日本語/한국어/Deutsch/Français/Español）并更新 sourceHash。基于水位线 commit 的增量 patch——小改动、已提交改动、同事同步下来的改动都只动译文对应位置；新文件或大改才全篇翻译。当用户要求翻译文档、同步译文、更新译文时使用。
+description: 翻译文档、同步译文、更新译文时使用。将 content/docs/zh/ 下新增或修改的中文文档同步到 7 种目标语言（繁體中文/English/日本語/한국어/Deutsch/Français/Español）并更新 sourceHash。基于水位线 commit 的增量 patch——小改动、已提交改动、同事同步下来的改动都只动译文对应位置；新文件或大改才全篇翻译。
 ---
 
 # 文档翻译与增量同步（zh → 7 种目标语言）
 
 本项目所有译文由本流程生成（已替代 GitLocalize）。`content/docs/zh/` 是唯一人工编写的源语言。
 
-## 调用参数
+## 调用方式与参数
 
-```
-/translate-docs [--full] [语言...]
-```
+- Claude Code：`/translate-docs [--full] [语言...]`
+- Codex CLI：`$translate-docs`，或先执行 `/skills` 选择本技能。`$` 只负责唤起技能，参数请写在同一消息中，例如 `$translate-docs --full en ja`，技能启动后从用户消息里解析 `--full` 与语言 id。
+
+两种工具的参数语义一致：
 
 - 无参数：自动判定模式（增量优先、按需回退全篇），同步全部 7 种语言；
 - `--full`（或用户说"全量重翻/全部重翻"）：强制全篇翻译——忽略过期状态与增量判定，对全部 zh 文档的译文整篇重写；完成后水位线照常推进；
@@ -30,6 +31,8 @@ description: 将 content/docs/zh/ 下新增或修改的中文文档同步到 7 �
 | es | `content/docs/es/` | Español |
 
 ## 执行流程
+
+开始前先执行 `git pull --ff-only`。如果本地已有未提交的译文，先提交或 stash；pull 后重新运行 `npm run check:content`，确认没有遗漏同事刚合入的中文改动。
 
 ### 1. 模式判定（先跑这个；`--full` 时跳过本步骤直接全篇）
 
@@ -69,7 +72,7 @@ description: 将 content/docs/zh/ 下新增或修改的中文文档同步到 7 �
 - 增量模式不得重写译文未受影响的内容（最小 patch 原则）；
 - 删除段落/列表项/表格行 → 删除译文对应项；新增 → 插入翻译；
 - **大 diff 判断**：单文件的改动覆盖超过约一半篇幅（如同事整篇重写），增量 patch 不划算，建议该文件改走全篇翻译；
-- 多文件多语言的大范围同步可用并行子 agent 按语言分派（每个 agent 发给：本 SKILL 流程说明、glossary.json 路径、文件清单与 diff hunks）。
+- 多文件多语言的大范围同步可并行处理：支持子 agent 的宿主（如 Claude Code、Codex CLI）可按语言分派，每个分派单元必须收到本 SKILL 的流程说明、glossary.json 路径、文件清单与 diff hunks；不支持子 agent 的宿主按语言顺序逐个处理。
 
 ### 3b. 全篇翻译模式（新文件 / 无 diff 回退 / 用户显式全量）
 
@@ -80,7 +83,7 @@ description: 将 content/docs/zh/ 下新增或修改的中文文档同步到 7 �
 3. **保护优先**：代码块、行内代码、URL、邮箱、HTML/MDX 标签结构一律原样保留；图片路径按术语表 `universalRules` 的规则把 `/images/common/` 机械替换为 `/images/<目标语言>/`（缺失图片由 rewrite 自动回退）；不确定的词优先查术语表而不是猜；
 4. 写入 `content/docs/<目标语言>/<path>.mdx`（目录结构和文件名必须与中文完全一致，目录不存在则创建）。
 
-批量翻译时可用并行子 agent 按语言分派（每个 agent 负责一种语言，发给它：本 SKILL 的流程说明、glossary.json 路径、文件清单）。
+批量翻译时可并行处理：支持子 agent 的宿主可按语言分派（每个 agent 负责一种语言，发给它：本 SKILL 的流程说明、glossary.json 路径、文件清单）；不支持子 agent 的宿主按语言顺序逐个完成。
 
 ### 4. meta.json（仅新增/删除文件时涉及）
 
@@ -91,9 +94,11 @@ description: 将 content/docs/zh/ 下新增或修改的中文文档同步到 7 �
 全部同步完成后运行：
 
 ```bash
-node scripts/update-sourcehash.mjs          # 全部语言
-node scripts/update-sourcehash.mjs en ja    # 只同步指定语言
+npm run sync:sourcehash              # 全部语言
+npm run sync:sourcehash -- en ja     # 只同步指定语言
 ```
+
+等价于 `node scripts/update-sourcehash.mjs [语言...]`。
 
 该脚本计算每个中文源文件的 sha256（前 12 位）并写入对应译文 frontmatter。注意：
 - 中文源文件**不要**写 sourceHash；
@@ -119,6 +124,7 @@ git rev-parse HEAD > .translate-sync-commit
 - `.translate-sync-commit` 记录"此 commit 时刻全部译文已同步"，是下次增量的 diff 基准；
 - **严格推进条件**：只有 check:content 全绿（0 过期）才推进。若本次只同步了部分文件、check 仍报其他文件过期，保持旧水位线不动（下次 diff 仍从旧水位线开始，不漏改动）；
 - 该文件需随代码一起提交——push 后团队共享同一水位线，同事 pull 下来的改动也能被增量覆盖。
+- 多人协作时，合并后的 `.translate-sync-commit` 冲突不要手工挑一个旧 hash：在合并后的工作区重新执行增量翻译与终检，全绿后用 `git rev-parse HEAD > .translate-sync-commit` 重新生成，并随本次提交一起提交。
 
 ## 禁止事项
 

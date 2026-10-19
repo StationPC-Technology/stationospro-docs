@@ -3,7 +3,7 @@ import locales from '../../locales.json';
 
 // 语言清单单一来源是根目录 locales.json（新增语言只改它 + 下面的 localeConfigs
 // 元数据 + glossary.json）。`content/docs/zh/**` 是唯一人工编写的源语言，其余
-// 语言由 LLM 翻译流程（.claude/skills/translate-docs）生成。
+// 语言由 LLM 翻译流程（.agents/skills/translate-docs）生成。
 export const languages: readonly string[] = locales.languages;
 export const defaultLanguage: string = locales.default;
 export const sourceLanguage: string = locales.source;

@@ -3,7 +3,7 @@ import type { Locale } from './i18n';
 
 // fumadocs-ui UI 字符串的多语言翻译。key 与 fumadocs-ui/i18n 的 Translations 类型
 // 一一对应；en 使用 fumadocs 默认英文，不在此维护；缺失的 key 自动回退英文。
-// 术语遵循 .claude/skills/translate-docs/glossary.json（zh-Hant 台湾用语等）。
+// 术语遵循 .agents/skills/translate-docs/glossary.json（zh-Hant 台湾用语等）。
 export const uiStrings: Partial<Record<Locale, Partial<Translations>>> = {
   zh: {
     search: '搜索',

@@ -59,10 +59,13 @@ npm run build           # 生产构建，暴露路由/渲染问题
 写完中文后，执行翻译 skill：
 
 ```
-/translate-docs
+/translate-docs        # Claude Code
+$translate-docs        # Codex CLI
 ```
 
-skill 会自动完成：`git diff` 识别改动文件（增量模式）→ 按 `.claude/skills/translate-docs/glossary.json` 术语表翻译 → 创建/更新各语言 meta.json → 运行 `node scripts/update-sourcehash.mjs` 同步 sourceHash → `npm run check:content` 终检。
+参数写在同一消息中，例如 `/translate-docs --full en ja` 或 `$translate-docs --full en ja`。
+
+skill 会自动完成：`git diff` 识别改动文件（增量模式）→ 按 `.agents/skills/translate-docs/glossary.json` 术语表翻译 → 创建/更新各语言 meta.json → 运行 `npm run sync:sourcehash` 同步 sourceHash → `npm run check:content` 终检。
 
 ### 质量防线
 
@@ -76,7 +79,7 @@ skill 会自动完成：`git diff` 识别改动文件（增量模式）→ 按 `
 
 ```bash
 git diff --name-only -- content/docs/zh   # 看哪些中文文件改过
-# 然后运行 /translate-docs 增量翻译
+# 然后运行 /translate-docs（Claude Code）或 $translate-docs（Codex）增量翻译
 ```
 
 ## 四、提交与推送
@@ -138,6 +141,6 @@ cp -r public/. .next/standalone/public/ && PORT=3458 node .next/standalone/serve
 
 1. 在 `src/lib/i18n.ts` 的 `localeConfigs` 和 `languages` 中增加对应语言；
 2. 在根目录 `locales.json` 登记语言清单（站点脚本与 next.config 的单一来源），并在 `scripts/check-content.mjs` 和 `scripts/update-sourcehash.mjs` 的语言列表中增加该语言；
-3. 在 `.claude/skills/translate-docs/glossary.json` 中补充该语言的 `fixed` 固定译法和 `notes` 风格注意点，并在 SKILL.md 的语言表中登记；
-4. 运行 `/translate-docs` 全量翻译生成 `content/docs/<lang>/`；
+3. 在 `.agents/skills/translate-docs/glossary.json` 中补充该语言的 `fixed` 固定译法和 `notes` 风格注意点，并在 SKILL.md 的语言表中登记；
+4. 运行 `/translate-docs`（Claude Code）或 `$translate-docs`（Codex）全量翻译生成 `content/docs/<lang>/`；
 5. 无其他平台配置需求；RTL 语言需额外检查布局。

@@ -30,10 +30,10 @@ npm start              # 运行生产构建
 ### 多语言内容与 i18n（最重要的约定）
 
 - **`content/docs/zh/` 是唯一人工编写的文档源**（源语言为简体中文，见 `src/lib/i18n.ts` 的 `sourceLanguage`）。
-- **其余 7 种语言（zh-Hant/en/ja/ko/de/fr/es）由 LLM 翻译流程生成**（`/translate-docs` skill，规范在 `.claude/skills/translate-docs/`），不要直接手改译文。基于水位线文件 `.translate-sync-commit` 做增量同步：小改动、已提交改动、pull 下同事的改动都只 patch 译文对应位置；新文件/大改/`--full` 才全篇翻译。
+- **其余 7 种语言（zh-Hant/en/ja/ko/de/fr/es）由 LLM 翻译流程生成**（`/translate-docs` skill，唯一源在 `.agents/skills/translate-docs/`；Claude Code 通过 `.claude/skills/translate-docs` 符号链接读取），不要直接手改译文。基于水位线文件 `.translate-sync-commit` 做增量同步：小改动、已提交改动、pull 下同事的改动都只 patch 译文对应位置；新文件/大改/`--full` 才全篇翻译。
 - 所有语言的目录结构和文件名**必须与 zh 完全一致**；`meta.json` 的 `pages` 数组跨语言一致，仅 `title` 本地化。
 - **翻译过期检测**：每篇译文 frontmatter 有 `sourceHash`（中文源 sha256 前 12 位），中文修改后 hash 不匹配即报错，需重跑 `/translate-docs`。相关脚本：`scripts/check-content.mjs`（校验）、`scripts/update-sourcehash.mjs`（同步 hash）。
-- 术语表与分语言风格注意点在 `.claude/skills/translate-docs/glossary.json`（品牌名永不翻译、各语言固定译法）。
+- 术语表与分语言风格注意点在 `.agents/skills/translate-docs/glossary.json`（品牌名永不翻译、各语言固定译法）。
 - **图片引用**：`zh/` 源直引 `/images/common/...`；译文统一引用 `/images/<语言>/...`。**本地化一张图 = 把文件放进 `public/images/<语言>/`，永远不需要改 MDX**（缺失图由 `next.config.mjs` 的 afterFiles rewrite 回退到 common）。图片不做构建期静态导入（`source.config.ts`），不参与语言协商（已从 `src/proxy.ts` matcher 排除）。
 - 默认语言 `en` 的 URL **不带前缀**：`/docs` 内部 rewrite 到 `/en/docs`，`/en/docs` 会 301 到 `/docs`，`/zh/docs` 等保持原样（`hideLocale: 'default-locale'`）。
 - 内容检查：`npm run check:content`（结构对齐 + meta.json + 过期检测 + 死链），CI 中在 types:check 之前运行。

@@ -8,6 +8,7 @@
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "check:content": "node scripts/check-content.mjs",
+    "sync:sourcehash": "node scripts/update-sourcehash.mjs",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
