@@ -57,11 +57,21 @@ jobs:
       id-token: write
     env:
       ALIYUN_REGION: ${{ vars.ALIYUN_REGION }}
+      # Aliyun CLI v3 在解析 endpoint/凭据前要求全局 region；
+      # 仅传 --RegionId 参数不够，缺少此项会以 exit code 3 报 "region can't be empty"
+      ALIBABA_CLOUD_REGION_ID: ${{ vars.ALIYUN_REGION }}
       ECS_INSTANCE_ID: ${{ vars.ECS_INSTANCE_ID }}
       IMAGE: ${{ needs.build-and-push.outputs.image }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Validate deploy variables
+        run: |
+          for name in ALIYUN_REGION ECS_INSTANCE_ID IMAGE; do
+            [ -n "${!name}" ] || { echo "ERROR: $name is empty (check repository Variables)"; exit 1; }
+          done
+          echo "region=$ALIYUN_REGION instance=$ECS_INSTANCE_ID image=$IMAGE"
 
       - name: Install Alibaba Cloud CLI
         run: |
