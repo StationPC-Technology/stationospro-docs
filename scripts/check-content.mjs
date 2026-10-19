@@ -135,9 +135,11 @@ for (const locale of [SOURCE_LOCALE, ...TARGET_LOCALES]) {
 // 各翻译语言 frontmatter 中的 sourceHash 记录了翻译时中文源文件的内容 hash。
 // 中文源一旦修改，hash 对不上即判定该译文过期，需重新运行翻译（/translate-docs）。
 
-/** 计算中文源文件内容 hash（与 skill 写入时使用同一算法：sha256 前 12 位） */
+/** 计算中文源文件内容 hash（与 skill 写入时使用同一算法：sha256 前 12 位）
+ * 统一按 LF 归一化，避免 core.autocrlf=true 的本地工作区（CRLF）与
+ * CI（LF）算出不同的 hash。 */
 function sourceHashOf(text) {
-  return createHash('sha256').update(text).digest('hex').slice(0, 12);
+  return createHash('sha256').update(text.replace(/\r\n/g, '\n')).digest('hex').slice(0, 12);
 }
 
 /** 从 MDX 文本中解析 frontmatter 里的 sourceHash 字段 */

@@ -28,7 +28,9 @@ for (const locale of locales) {
   }
 }
 
-const hash = (text) => createHash('sha256').update(text).digest('hex').slice(0, 12);
+// 统一按 LF 归一化：与本机 core.autocrlf 配置无关，保证本地与 CI 的 hash 一致
+const hash = (text) =>
+  createHash('sha256').update(text.replace(/\r\n/g, '\n')).digest('hex').slice(0, 12);
 
 /** 递归列出目录下所有 .mdx（相对 locale 根目录的 posix 风格路径，不含扩展名） */
 function listMdx(dir, base = dir) {
