@@ -1,4 +1,5 @@
 import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
+import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import {
   DocsBody,
   DocsDescription,
@@ -14,6 +15,7 @@ import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { gitConfig } from '@/lib/shared';
 import { localeConfigs } from '@/lib/i18n';
+import { baseOptions } from '@/lib/layout.shared';
 import { Feedback } from '@/components/feedback-adapter';
 
 export default async function Page(props: PageProps<'/[lang]/docs/[[...slug]]'>) {
@@ -23,29 +25,48 @@ export default async function Page(props: PageProps<'/[lang]/docs/[[...slug]]'>)
 
   const MDX = page.data.body;
   const markdownUrl = getPageMarkdownUrl(page).url;
+  const standalone = params.slug?.[0] === 'policies';
+  const layoutOptions = {
+    ...baseOptions(params.lang),
+    ...(standalone ? { sidebar: { enabled: false }, nav: { enabled: false } } : {}),
+  };
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
-      <div className="flex flex-row gap-2 items-center border-b pb-6">
-        <MarkdownCopyButton markdownUrl={markdownUrl} />
-        <ViewOptionsPopover
-          markdownUrl={markdownUrl}
-          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
-        />
-      </div>
-      <DocsBody>
-        <MDX
-          components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
-            a: createRelativeLink(source, page),
-          })}
-        />
-      </DocsBody>
-      <Feedback locale={params.lang} path={page.url} title={page.data.title} />
-      {page.data.lastModified && <PageLastUpdate date={page.data.lastModified} />}
-    </DocsPage>
+    <DocsLayout
+      tree={source.getPageTree(params.lang)}
+      {...layoutOptions}
+    >
+      <DocsPage
+        toc={page.data.toc}
+        full={standalone || page.data.full}
+        tableOfContent={standalone ? { enabled: false } : undefined}
+        tableOfContentPopover={standalone ? { enabled: false } : undefined}
+      >
+        <DocsTitle>{page.data.title}</DocsTitle>
+        <DocsDescription className="mb-0">
+          {page.data.description}
+        </DocsDescription>
+        <div className="flex flex-row gap-2 items-center border-b pb-6">
+          <MarkdownCopyButton markdownUrl={markdownUrl} />
+          <ViewOptionsPopover
+            markdownUrl={markdownUrl}
+            githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
+          />
+        </div>
+        <DocsBody>
+          <MDX
+            components={getMDXComponents({
+              // this allows you to link to other pages with relative file paths
+              a: createRelativeLink(source, page),
+            })}
+          />
+        </DocsBody>
+        <Feedback locale={params.lang} path={page.url} title={page.data.title} />
+        {page.data.lastModified && (
+          <PageLastUpdate date={page.data.lastModified} />
+        )}
+      </DocsPage>
+    </DocsLayout>
   );
 }
 
