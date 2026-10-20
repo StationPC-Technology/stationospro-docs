@@ -1,104 +1,67 @@
 ---
-sourceHash: 5afa7f26a43e
+sourceHash: 38bb8f41d5fa
 title: 'Liste de traitement des informations personnelles'
-description: Liste de traitement des informations personnelles de StationPC
+description: Liste de traitement des informations personnelles de StationHub
 ---
 
-Date de mise à jour : 29 septembre 2026
+Date de mise à jour : 20 octobre 2026
 
-## Présentation générale
+La présente liste répartit les traitements d’informations susceptibles d’être effectués par StationHub sur mobile, sur le Web et dans le client PC en trois parties : « scénario déclencheur – catégorie d’informations – lieu de conservation ». Elle vous aide à déterminer si une fonction entraîne une transmission réseau. Lorsque les fonctions cloud ne sont pas activées, le compte local et les fichiers du NAS sont principalement traités sur l’appareil local.
 
-La présente liste décrit les scénarios de traitement des informations personnelles de StationPC StationNAS sur mobile, sur le portail web et dans le client PC, en distinguant strictement le « mode de compte local hors ligne » et le « mode de compte cloud ».
+## I. Comptes et relations entre membres
 
-Les utilisateurs situés hors de Chine continentale peuvent uniquement s'inscrire avec une adresse e-mail ; nous ne collectons ni numéro de téléphone ni identifiant publicitaire. Nous ne collectons ni ne stockons de position précise : les informations de position ne sont utilisées que temporairement lors de la configuration réseau de l'appareil (lecture du nom du WiFi, déduction du code pays). Les données d'analyse d'utilisation du produit et de diagnostic des plantages sont traitées comme décrit dans la présente liste.
+| Scénario déclencheur | Finalité du traitement | Informations susceptibles d’être concernées | Lieu principal de conservation |
+| --- | --- | --- | --- |
+| Créer un compte local hors ligne | Gérer l’appareil sans compte cloud | Compte local, mot de passe local | NAS local de l’utilisateur |
+| Activer la double authentification d’un compte local | Envoyer un code de vérification et protéger le compte | Adresse e-mail de vérification, état du code | NAS local de l’utilisateur |
+| S’inscrire ou se connecter à un compte cloud | Vérifier l’identité, se connecter et gérer le compte | Numéro de téléphone (Chine continentale), adresse e-mail (autres régions), code de vérification, mot de passe, pseudonyme, avatar, ID de compte | Service de compte cloud |
+| Récupérer un mot de passe ou vérifier la propriété d’un compte | Traiter une demande de sécurité du compte | Informations du compte, numéro de série SN de l’appareil | Service de compte et journaux de sécurité |
+| Inviter un membre ou rejoindre un espace d’organisation | Gérer les appareils et répertoires partagés | ID d’organisation, rôle du membre, appartenance de l’appareil, relation d’invitation, historique des changements d’autorisation | Appareil local ou service d’organisation |
 
-Les données du compte local sont entièrement stockées sur le matériel local du NAS de l'utilisateur ; le cloud ne collecte ni ne stocke aucune information personnelle.
+## II. Accès à l’appareil et services réseau
 
-Sans votre autorisation explicite, nous ne lisons, n'analysons ni ne téléversons les fichiers privés stockés sur votre NAS.
+| Action de la fonction | Finalité du traitement | Informations susceptibles d’être concernées | Lieu principal de conservation |
+| --- | --- | --- | --- |
+| Associer, dissocier ou gérer un NAS | Établir la relation avec l’appareil et fournir les fonctions de maintenance | SN de l’appareil, modèle, version du micrologiciel, MAC, IP, nom de l’appareil, état en ligne, informations de garantie | Appareil local et service cloud de l’appareil |
+| Rechercher des appareils sur le réseau local | Découvrir les appareils disponibles sur le même réseau | Nom de l’appareil, IP, MAC, SN, version du micrologiciel, état de l’appareil, état du réveil réseau | Généralement utilisé temporairement sur le réseau local |
+| Consulter l’état de l’appareil | Fournir la gestion des autorisations et l’état de fonctionnement | États en ligne, hors ligne ou en veille, rôle du propriétaire/partagé | Appareil local ou service de l’appareil |
+| Utiliser une connexion à distance | Accéder ou gérer l’appareil depuis Internet | ID de connexion à distance, SN de l’appareil, IP, port du routeur, nom de domaine, état de la connexion | Service de connexion à distance et journaux nécessaires |
+| Sauvegarder ou restaurer la configuration de l’appareil | Migrer, réparer ou restaurer la configuration | Autorisations utilisateur, services de fichiers, configuration réseau, sécurité et système | NAS ou emplacement de sauvegarde indiqué par l’utilisateur |
 
-## 1. Inscription et connexion
+## III. Fonctionnement, analyse et maintenance de la sécurité
 
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Créer et utiliser un compte local hors ligne | Permettre la gestion locale de l'appareil sans dépendance au cloud | Compte local, mot de passe local (stockés uniquement localement sur le NAS) |
-| Double authentification du compte local (facultative) | Recevoir un code de vérification et renforcer la sécurité du compte local | Adresse e-mail d'urgence (stockée localement) |
-| Inscription et connexion au compte cloud | Vérifier l'identité, gérer le compte et sécuriser la connexion | Numéro de téléphone (Chine continentale uniquement) / adresse e-mail (hors Chine continentale uniquement), code de vérification, mot de passe, pseudonyme, avatar |
-| Vérification pour la récupération du mot de passe | Vérifier l'identité de l'utilisateur et garantir la sécurité du compte | Informations du compte, numéro de série SN de l'appareil |
+| Scénario déclencheur | Finalité du traitement | Informations susceptibles d’être concernées | Description |
+| --- | --- | --- | --- |
+| Plantage, anomalie ou problème de performances | Identifier les problèmes, corriger les vulnérabilités et améliorer la stabilité | Journaux de plantage, modèle de l’appareil, versions du système et des logiciels, journaux des opérations | Aucun OAID, GAID ou IDFA n’est collecté |
+| Analyse de l’utilisation du produit | Comprendre l’utilisation des fonctions et le parcours dans l’application | ID de compte, type d’utilisateur, nom de l’appareil, SN de l’appareil, modèles de l’appareil, versions de l’application et du système, événements de fonction | Traitée par un service d’analyse tiers et activée selon les paramètres de la fonction |
+| Audit de connexion et de sécurité | Identifier les connexions anormales et les accès non autorisés | Heure de connexion, IP, localisation au niveau de la ville, type de système, méthode de connexion, historique des opérations | Journaux de sécurité |
+| Gestion des appareils de confiance | Réduire les vérifications répétées et protéger le compte | Modèle de l’appareil de confiance, lieu de connexion, dernière connexion, liste des appareils | Service du compte ou de l’appareil |
+| Mises à jour système, notifications et maintenance de l’appareil | Envoyer les alertes d’état, de sauvegarde, de sécurité du compte et de mise à jour | État de l’appareil, progression des tâches, version et identifiants de notification nécessaires | Appareil local, service de notifications ou service du compte |
 
-## 2. Association et gestion de l'appareil
+## IV. Service client, centre d’applications et connexions tierces
 
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Associer et gérer un appareil NAS | Permettre l'association de l'appareil au cloud, son identification et sa gestion opérationnelle | SN de l'appareil, modèle, version du micrologiciel, MAC, IP, nom personnalisé de l'appareil, état en ligne, informations de garantie |
-| Surveillance de l'état de fonctionnement de l'appareil | Garantir la gestion des autorisations et la perception de l'état de l'appareil | État en ligne/hors ligne/veille de l'appareil, rôle de l'utilisateur (propriétaire/partagé) |
-| Statistiques d'évolution du produit | Optimiser les fonctions du produit selon la répartition des versions | Version du micrologiciel de l'appareil |
+| Scénario déclencheur | Finalité du traitement | Informations susceptibles d’être concernées | Conservation ou traitement |
+| --- | --- | --- | --- |
+| Service client en ligne, diagnostic et réparation | Identifier les problèmes et fournir une assistance après-vente | Coordonnées, SN de l’appareil, journaux d’opération ou d’erreur, informations réseau, captures d’écran et descriptions fournies volontairement | Traité uniquement dans l’étendue soumise ou autorisée |
+| Ticket ou demande technique depuis l’étranger | Traiter les problèmes des utilisateurs situés à l’étranger | Région, SN de l’appareil, description du problème, pseudonyme et type d’appareil facultatifs | Utilisé par le processus d’assistance |
+| Mise en correspondance d’une application dans le centre d’applications | Fournir à l’appareil une application tierce compatible | SN de l’appareil, modèle, version du micrologiciel, IP | Transmis aux services nécessaires du centre d’applications |
+| Signalement ou recours concernant une application tierce | Maintenir l’écosystème d’applications et traiter les retours | Nom de l’application, description du problème, captures d’écran, adresse e-mail de l’utilisateur | Traité par le service client et le personnel chargé des applications |
+| Connexion à un service cloud tiers | Synchroniser le NAS avec les fichiers du cloud tiers | Jeton temporaire du cloud tiers, état des tâches | Le jeton temporaire n’est conservé que si la fonction l’exige ; la suppression dépend du service tiers |
+| Sauvegarde et restauration des contacts du téléphone | Enregistrer les contacts sur le NAS de l’utilisateur | Nom, téléphone, e-mail et groupes des contacts | Conservé uniquement sur le NAS local indiqué par l’utilisateur |
 
-## 3. Découverte des appareils du réseau local
+## V. Études facultatives et optimisation de l’appareil
 
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Recherche des appareils du réseau local | Découvrir rapidement les appareils NAS disponibles sur le réseau local | Nom de l'appareil, IP, MAC, SN, version du micrologiciel, état de l'appareil, état de réveil réseau |
+| Mode de participation | Finalité du traitement | Informations susceptibles d’être concernées | Champ d’application |
+| --- | --- | --- | --- |
+| Participer volontairement à une étude d’expérience à l’étranger | Recueillir des avis et améliorer le produit | Adresse e-mail et compte cloud fournis volontairement par l’utilisateur | Régions situées hors de Chine continentale |
+| Participer volontairement au programme d’optimisation de l’appareil | Analyser les habitudes d’utilisation et la stabilité | ID de compte, ID d’appareil, IP, statistiques de comportement, journaux de plantage, informations de localisation et de réseau | Chine continentale, avec participation selon les instructions de la page |
 
-## 4. Exploitation et maintenance de la sécurité
+## VI. Limites concernant le contenu des fichiers et les données de localisation
 
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Maintenance de la stabilité du système et dépannage | Corriger les plantages, optimiser les performances et garantir la sécurité des services | Journaux de plantage, modèle de l'appareil, version du système, version du logiciel, journaux d'opérations<br />**Aucun identifiant publicitaire (OAID/GAID/IDFA) n'est collecté ; les données d'analyse du produit sont traitées comme indiqué dans la présente section** |
-| Analyse de l'utilisation du produit | Comprendre l'utilisation des fonctions et les parcours d'opération dans l'application afin d'améliorer continuellement le produit | ID de compte, type d'utilisateur, nom de l'appareil, SN de l'appareil, modèle de l'appareil, versions de l'application et du système, traitées par un service d'analyse tiers |
+1. Un compte local hors ligne n’envoie pas les données personnelles vers le cloud ; les données concernées sont conservées sur le NAS local de l’utilisateur.
+2. Sans votre autorisation active, nous ne lisons, n’analysons, ne parcourons ni ne téléversons les fichiers privés du NAS.
+3. Nous ne collectons ni ne conservons la localisation précise. Pendant la configuration réseau, le nom du WiFi peut être lu temporairement pour déduire le code pays ; les coordonnées ne sont ni transmises ni conservées de façon persistante.
+4. En dehors de la Chine continentale, nous ne collectons pas d’identifiants publicitaires. Les diagnostics de plantage et l’analyse du produit sont traités uniquement dans les scénarios décrits dans la présente liste.
+5. Vous pouvez consulter, corriger ou supprimer dans les paramètres de l’application les informations personnelles que vous contrôlez et demander la clôture de votre compte ; pour un espace d’organisation, il peut être nécessaire de contacter d’abord l’administrateur.
 
-## 5. Assistance technique et service après-vente
-
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Service client en ligne et diagnostic des pannes | Localiser les problèmes et fournir une assistance après-vente précise | Coordonnées du compte, SN de l'appareil, journaux d'opérations, journaux d'erreurs, informations réseau, captures d'écran et descriptions soumises volontairement par l'utilisateur |
-| Soumission de tickets à l'étranger | Traiter les problèmes techniques des utilisateurs à l'étranger | Région, SN de l'appareil, description du problème (facultatif : pseudonyme, type d'appareil) |
-
-## 6. Historique de connexion et appareils de confiance
-
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Enregistrement des connexions | Identifier les connexions anormales et prévenir les accès non autorisés | Heure de connexion, IP, position au niveau de la ville, type de système, méthode de connexion, enregistrement des opérations |
-| Gestion des appareils de confiance | Simplifier les connexions répétées et renforcer la sécurité du compte | Modèle de l'appareil de confiance, lieu de connexion, heure de la dernière connexion, liste des appareils |
-
-## 7. Service de connexion à distance
-
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Activer et utiliser la connexion à distance | Permettre l'accès depuis l'extérieur et la gestion à distance de l'appareil | ID de connexion à distance (généré à partir de l'identifiant unique de l'appareil), SN de l'appareil, IP, port de routage, nom de domaine |
-
-## 8. Centre d'applications et services tiers
-
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Utiliser les fonctions du Centre d'applications | Proposer à l'appareil des applications tierces adaptées | SN de l'appareil, modèle, version du micrologiciel, IP |
-| Signalement et contestation d'une application tierce | Maintenir l'écosystème applicatif et traiter les retours des utilisateurs | Nom de l'application, description du problème, captures d'écran justificatives, adresse e-mail de l'utilisateur |
-| Connexion à un service cloud tiers | Permettre la synchronisation des fichiers entre le NAS et un cloud tiers | Jeton temporaire du cloud tiers (stocké uniquement localement) |
-
-## 9. Sauvegarde et restauration de la configuration
-
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Sauvegarde et restauration de la configuration de l'appareil | Conserver la configuration du système pour la migration ou la récupération après réparation de l'appareil | Données de permissions utilisateur, de service de fichiers, de réseau, de sécurité et de configuration système |
-| Sauvegarde et restauration des contacts du téléphone | Sauvegarder les contacts du téléphone sur le NAS de l'utilisateur pour le changement d'appareil et la récupération des données | Nom, téléphone, e-mail et groupe des contacts (stockés uniquement localement sur le NAS de l'utilisateur) |
-
-## 10. Enquête sur l'expérience utilisateur (hors Chine continentale uniquement)
-
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Enquête sur l'expérience des utilisateurs à l'étranger | Recueillir les retours des utilisateurs à l'étranger et optimiser l'expérience du produit | Adresse e-mail et compte cloud fournis volontairement par l'utilisateur |
-
-## 11. Programme d'analyse de l'appareil (Chine continentale uniquement)
-
-| Scénario | Finalité | Champs collectés |
-| --- | --- | --- |
-| Participation volontaire au programme d'optimisation de l'appareil | Analyser les habitudes d'utilisation et améliorer la stabilité du produit | ID de compte, ID de l'appareil, IP, statistiques de comportement d'utilisation, journaux de plantage, informations de position et de réseau |
-
-## Informations complémentaires importantes
-
-Le compte local hors ligne ne téléverse aucune donnée personnelle vers le cloud ; toutes les données sont conservées uniquement localement sur le NAS de l'utilisateur.
-
-Sans votre autorisation active, nous ne lisons, ne téléversons ni n'analysons les fichiers privés stockés sur votre NAS.
-
-Les versions internationales ne collectent pas d'identifiant publicitaire. Nous ne collectons ni ne stockons de position précise : les informations de position ne sont utilisées que temporairement lors de la configuration réseau de l'appareil pour déduire le code pays. Les journaux de plantage et les données d'analyse du produit sont conservés comme indiqué à la section 4, aux fins de correction des pannes et d'amélioration du produit.
-
-Vous pouvez consulter, corriger et supprimer vos informations personnelles et résilier votre compte de manière autonome dans les paramètres de l'application.
+Cette liste doit être lue avec la [« Politique de confidentialité »](./privacy-policy), la [« Demande et utilisation des autorisations de l’application »](./permission-usage-statement) et la [« Liste de partage des informations personnelles avec des tiers »](./third-party-sdk-list). Nous la mettrons à jour si les fonctions, les composants ou les exigences légales évoluent.

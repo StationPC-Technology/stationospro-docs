@@ -1,63 +1,55 @@
 ---
-sourceHash: 71779781b70d
-title: 'Permission Request and Usage Statement'
-description: StationPC Permission Request and Usage Statement
+sourceHash: 44bc485f6818
+title: 'App Permission Request and Usage Statement'
+description: StationHub App Permission Request and Usage Statement
 ---
 
-Update Date Sep 29, 2026
+Updated: October 20, 2026
 
-## Preface
+StationHub requests a permission only when you enter the feature that needs it. Permission names in system prompts may vary across iOS, Android, Windows, and macOS versions. You decide whether to allow access; denying a permission does not affect unrelated core features.
 
-This statement describes the system permissions requested and used by StationPC App, PC and Mac clients. We follow the principle of **minimum necessity and on-demand application**. Permissions are dynamically requested only when you enter corresponding feature scenarios.
+## 1. Permission principles
 
-You may manage authorizations anytime in your device system settings. Revoking a permission only disables the related feature and will not affect core services.
+- A permission is requested when you first use the relevant feature, not all at launch.
+- It is used for the stated feature. Turning it off may disable that feature but does not automatically expose other data.
+- Third-party plugins or system services may show additional prompts; you remain in control.
+- Location is used only during setup to read the Wi-Fi name and derive a country code. We do not track in the background or upload or retain coordinates.
 
-Third-party plugins or services may request additional permissions. Granting permission does not equal permanent data collection.
+## 2. iPhone and iPad
 
-## iOS Permissions
+| System permission | Trigger | What we do | If disabled |
+| --- | --- | --- | --- |
+| Camera | QR binding, quick sign-in, avatar setup | Read the camera on the device to recognize a code or take an avatar photo | QR binding and avatar photos are unavailable |
+| Photos and videos | Album backup, selected-media upload, avatar setup | Read the media you select; iOS limited-photo access is supported | The related backup or upload cannot run |
+| Local network | Find and connect to a NAS on the same LAN | Discover LAN devices and make a local connection | LAN NAS discovery and connection are unavailable |
+| Notifications | Device status, backup progress, and account-security alerts | Send system notifications you allow | Related alerts are unavailable |
+| Bluetooth | Device binding and setup | Discover nearby devices and send setup information | Bluetooth binding and setup are unavailable |
+| Location while in use | Identify the Wi-Fi region during setup | Temporarily read the Wi-Fi name and derive a country code | You must choose the Wi-Fi and region manually |
 
-| Scenario | Purpose | Impact of Denying or Disabling the Permission |
-| --- | --- | --- |
-| Access device camera | Scan NAS device QR code for binding and quick login, take photos for avatar setting | Cannot scan QR codes to bind devices or take photos for avatar |
-| Access photo and video album | Back up local photos and videos to NAS, select media for upload and avatar setting; supports iOS Limited Photos Access | Cannot back up photos or upload images and videos |
-| Access local network | Discover and connect StationPC devices in the same LAN | Cannot discover or connect to NAS devices in the LAN |
-| Receive system notifications | Receive device status alerts, backup progress reminders and account security notifications (including time-sensitive notifications) | Cannot receive related alert notifications |
-| Access Bluetooth | Discover nearby devices and transfer network configuration during device binding and setup | Cannot bind or configure devices via Bluetooth |
-| Access location while using the app | Read the current Wi-Fi name during network setup, and temporarily derive the country code once to configure the device Wi-Fi region; no background positioning, coordinates are not uploaded or stored | Cannot auto-identify the current Wi-Fi and region; manual selection required |
+## 3. Android phones and tablets
 
-## Android Permissions
+| System permission | Trigger | Use | If disabled |
+| --- | --- | --- | --- |
+| Camera | QR binding and quick sign-in | Recognize codes on the device | Binding and sign-in by QR are unavailable |
+| Photos, videos, or local storage | File transfer and automatic album backup | Access files and media you select | Related file operations are unavailable |
+| Nearby devices, LAN, and Wi-Fi | Device discovery, local connection, and setup | Read network status needed for the connection | Devices cannot be discovered or connected locally |
+| Notifications | Task progress, device errors, and account-security alerts | Send push or local notifications | Related alerts are unavailable |
+| Bluetooth | Pairing and network initialization | Discover and connect setup devices | Bluetooth setup is unavailable |
+| Network location | Assisted setup recognition | Help identify the Wi-Fi region during setup | You must choose the region manually |
+| Background start | A continuous backup you turn on | Keep the backup task running | The system may interrupt the backup |
+| Clipboard | Recognize a sharing link and open file transfer | Read it only when the sharing-link feature is triggered | Sharing links are not recognized automatically |
 
-| Scenario | Purpose | Impact of Denying or Disabling the Permission |
-| --- | --- | --- |
-| Access device camera | Scan QR code for NAS device binding and quick login | Cannot scan QR codes to bind or log in to devices |
-| Access local storage | Implement file upload, download and automatic photo backup functions | Cannot upload or download files or auto back up the photo album |
-| Access local network and WiFi | Discover LAN devices and establish local connection | Cannot discover LAN devices or establish a local connection |
-| Receive push notifications | Remind users of task status, device exceptions and security events | Cannot receive task progress, device exception or security reminders |
-| Access Bluetooth | Support device pairing and network initialization | Cannot pair devices or complete network setup via Bluetooth |
-| Obtain network location information | Assist WiFi identification during configuration | Cannot auto-identify the current Wi-Fi and region; manual selection required |
-| Background auto-start | Sustain long-term backup tasks (manually enabled by users) | Background backup tasks may be interrupted |
-| Read clipboard content | Identify shared links to trigger file transfer functions | Cannot identify shared links to trigger file transfer |
+## 4. Windows and macOS clients
 
-## Windows Client Permissions
+| Platform | Permission or capability | Used for | If disabled |
+| --- | --- | --- | --- |
+| Windows | Desktop notifications | Show task progress, device status, and errors | Desktop alerts are unavailable |
+| Windows | Local file system | Upload, download, and folder sync | Local file operations are unavailable |
+| macOS | System notifications | Show backup progress and device status | System alerts are unavailable |
+| macOS | Local directories | File management, upload, download, and sync | Related file tasks are unavailable |
 
-| Scenario | Purpose | Impact of Denying or Disabling the Permission |
-| --- | --- | --- |
-| Receive desktop notifications | Display task progress, device status and exception reminders | Cannot receive task progress, device status or exception reminders |
-| Access local file system | Support local file upload, download and folder synchronization | Cannot upload or download local files or synchronize folders |
+## 5. Other information
 
-## Mac Client Permissions
+Permission does not mean continuous collection. Without your explicit authorization, we do not actively read or upload private NAS files, request background location, or collect advertising identifiers. You can revoke a permission in system settings; the next use will explain the affected feature and alternatives.
 
-| Scenario | Purpose | Impact of Denying or Disabling the Permission |
-| --- | --- | --- |
-| Receive system notifications | Feedback backup progress and device running status | Cannot receive backup progress or device status notifications |
-| Access local folders | Complete file management, upload, download and synchronization tasks | Cannot perform file management, upload, download or synchronization tasks |
-
-## Supplementary Notes
-
-1. All permissions are applied on-demand without batch authorization at startup.
-
-2. Disabling permissions only disables partial functions and does not affect basic login, device connection and file browsing services.
-
-3. Without user explicit authorization, StationPC will not actively read or upload private files stored in your NAS device.
-
-4. Background location is never requested and advertising identifiers are not collected. Location information is used temporarily only during device network setup to read the Wi-Fi name and derive the country code; coordinates are not uploaded or stored.
+If a feature is provided by a third-party app or service, also read the [Third-Party Personal Information Sharing List](./third-party-sdk-list) and that provider’s policy. For overall processing, see the [Privacy Policy](./privacy-policy).

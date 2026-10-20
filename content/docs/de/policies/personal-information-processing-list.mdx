@@ -1,104 +1,67 @@
 ---
-sourceHash: 5afa7f26a43e
+sourceHash: 38bb8f41d5fa
 title: 'Liste der Verarbeitung personenbezogener Daten'
-description: StationPC Liste der Verarbeitung personenbezogener Daten
+description: Liste der Verarbeitung personenbezogener Daten von StationHub
 ---
 
-Aktualisierungsdatum: 29. September 2026
+Aktualisierungsdatum: 20. Oktober 2026
 
-## Allgemeine Hinweise
+Diese Liste gliedert die in der mobilen, Web- und PC-Anwendung von StationHub möglichen Verarbeitungsvorgänge in „Auslöseszenario – Informationskategorie – Speicherort“. So können Sie besser beurteilen, ob eine Funktion eine Netzwerkübertragung auslöst. Wenn Cloud-Funktionen nicht aktiviert sind, werden lokale Konten und NAS-Dateien hauptsächlich lokal auf dem Gerät verarbeitet.
 
-Dieses Verzeichnis beschreibt die Szenarien der Verarbeitung personenbezogener Daten in der StationPC StationNAS Mobile-App, der Weboberfläche und dem PC-Client und unterscheidet strikt zwischen dem **lokalen Offline-Kontomodell** und dem **Cloud-Kontomodell**.
+## I. Konten und Mitgliedsbeziehungen
 
-Benutzer außerhalb des chinesischen Festlands können sich ausschließlich per E-Mail registrieren; Telefonnummern und Werbekennungen werden nicht erhoben. Präzise Standortdaten werden weder erhoben noch gespeichert: Standortinformationen werden nur vorübergehend bei der Netzwerkkonfiguration des Geräts verwendet (Lesen des WiFi-Namens, Ableiten des Ländercodes). Daten zur Produktnutzungsanalyse und Absturzdiagnose werden wie in diesem Verzeichnis beschrieben verarbeitet.
+| Auslöseszenario | Zweck der Verarbeitung | Mögliche Informationen | Hauptspeicherort |
+| --- | --- | --- | --- |
+| Lokales Offline-Konto erstellen | Geräte ohne Cloud-Konto verwalten | Lokales Konto, lokales Passwort | Lokales NAS des Nutzers |
+| Zwei-Faktor-Verifizierung für lokales Konto aktivieren | Verifizierungscode senden und Konto schützen | Verifizierungs-E-Mail, Status des Verifizierungscodes | Lokales NAS des Nutzers |
+| Cloud-Konto registrieren oder anmelden | Identität prüfen, Anmeldung und Kontoverwaltung abschließen | Telefonnummer (Festlandchina), E-Mail-Adresse (andere Regionen), Verifizierungscode, Passwort, Spitzname, Profilbild, Konto-ID | Cloud-Kontodienst |
+| Passwort wiederherstellen oder Kontoinhaberschaft prüfen | Sicherheitsanfragen des Kontos bearbeiten | Kontoinformationen, Geräte-SN-Seriennummer | Kontodienst und Sicherheitsprotokolle |
+| Mitglieder einladen oder Organisationsbereich beitreten | Freigegebene Geräte und Verzeichnisse verwalten | Organisations-ID, Mitgliedsrolle, Gerätezuordnung, Einladung, Berechtigungsänderungsprotokoll | Gerät lokal oder Organisationsdienst |
 
-Lokale Kontodaten werden vollständig auf der lokalen Hardware des Benutzer-NAS gespeichert; die Cloud erhebt und speichert keine personenbezogenen Daten.
+## II. Gerätezugang und Netzwerkdienste
 
-Ohne ausdrückliche Autorisierung durch den Benutzer lesen, scannen oder laden wir keine privaten Dateidaten auf Ihrem NAS hoch.
+| Funktionsaktion | Zweck der Verarbeitung | Mögliche Informationen | Hauptspeicherort |
+| --- | --- | --- | --- |
+| NAS binden, entbinden oder verwalten | Gerätebeziehung herstellen und Betriebsfunktionen bereitstellen | Geräte-SN, Modell, Firmwareversion, MAC, IP, Gerätename, Onlinezustand, Garantieinformationen | Gerät lokal und Cloud-Gerätedienst |
+| Geräte im lokalen Netzwerk suchen | Verfügbare Geräte im selben Netzwerk finden | Gerätename, IP, MAC, SN, Firmwareversion, Gerätezustand, Wake-on-LAN-Status | Normalerweise vorübergehend nur im lokalen Netzwerk |
+| Gerätestatus anzeigen | Berechtigungen und Betriebszustand bereitstellen | Online-, Offline- und Ruhezustand, Besitzer-/Freigabemitgliedsrolle | Gerät lokal oder Gerätedienst |
+| Fernverbindung verwenden | Gerät aus dem Internet aufrufen oder verwalten | Fernverbindungs-ID, Geräte-SN, IP, Routerport, Domain, Verbindungsstatus | Fernverbindungsdienst und notwendige Protokolle |
+| Gerätekonfiguration sichern oder wiederherstellen | Gerät migrieren, reparieren oder Konfiguration wiederherstellen | Benutzerberechtigungen, Dateidienst-, Netzwerk-, Sicherheits- und Systemkonfiguration | Vom Nutzer bestimmtes NAS oder Sicherungsort |
 
-## 1. Registrierung und Anmeldung
+## III. Betrieb, Analyse und Sicherheit
 
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Erstellen und Anmelden eines lokalen Offline-Kontos | Lokale Geräteverwaltung ohne Cloud-Abhängigkeit | Lokales Konto, lokales Passwort (nur lokal auf dem NAS gespeichert) |
-| Zwei-Faktor-Verifizierung für lokale Konten (optional) | Empfangen von Verifizierungscodes, Erhöhung der Sicherheit lokaler Konten | Notfall-Verifizierungs-E-Mail (lokal gespeichert) |
-| Registrierung und Anmeldung eines Cloud-Kontos | Identitätsprüfung, Kontoverwaltung und sichere Anmeldung | Telefonnummer (nur chinesisches Festland) / E-Mail (nur außerhalb des chinesischen Festlands), Verifizierungscode, Passwort, Nickname, Profilbild |
-| Verifizierung bei der Passwortwiederherstellung | Prüfung der Benutzeridentität, Schutz der Kontosicherheit | Kontoinformationen, Geräte-SN |
+| Auslöseszenario | Zweck der Verarbeitung | Mögliche Informationen | Hinweise |
+| --- | --- | --- | --- |
+| Absturz, Fehler oder Leistungsproblem | Probleme lokalisieren, Schwachstellen beheben und Stabilität verbessern | Absturzprotokolle, Gerätemodell, System-/Softwareversion, Betriebsprotokolle | OAID, GAID und IDFA werden nicht erhoben |
+| Produktnutzungsanalyse | Funktionsnutzung und Wege innerhalb der App verstehen | Konto-ID, Nutzertyp, Gerätename, Geräte-SN, Gerätemodell, App- und Systemversion, Funktionsereignisse | Verarbeitung über Drittanbieter-Analysedienst, je nach Funktionseinstellung aktiviert |
+| Anmeldung und Sicherheitsprüfung | Ungewöhnliche Anmeldungen und unbefugten Zugriff erkennen | Anmeldezeit, IP, Standort auf Stadtebene, Systemtyp, Anmeldemethode, Vorgangsprotokoll | Sicherheitsprotokolle |
+| Vertrauenswürdige Geräte verwalten | Wiederholte Prüfungen reduzieren und Konto schützen | Modell vertrauenswürdiger Geräte, Anmeldeort, letzte Anmeldung, Geräteliste | Konto- oder Gerätedienst |
+| Systemupdates, Benachrichtigungen und Gerätebetrieb | Gerätestatus-, Sicherungs-, Kontosicherheits- und Updatehinweise senden | Gerätestatus, Aufgabenfortschritt, Version und notwendige Benachrichtigungskennung | Gerät lokal, Benachrichtigungs- oder Kontodienst |
 
-## 2. Gerätebindung und -verwaltung
+## IV. Kundenservice, App Center und Verbindungen zu Dritten
 
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Binden und Verwalten von NAS-Geräten | Cloud-Verknüpfung, Geräteidentifikation und Betriebsverwaltung | Geräte-SN, Modell, Firmwareversion, MAC, IP, benutzerdefinierter Gerätename, Online-Status, Garantieinformationen |
-| Überwachung des Gerätebetriebsstatus | Gewährleistung von Berechtigungsverwaltung und Statuswahrnehmung | Online-/Offline-/Ruhezustand des Geräts, Benutzerrolle (Eigentümer/Teilnehmer) |
-| Statistik zur Produktweiterentwicklung | Optimierung der Produktfunktionen anhand der Versionsverteilung | Geräte-Firmwareversion |
+| Auslöseszenario | Zweck der Verarbeitung | Mögliche Informationen | Speicher- oder Verarbeitungshinweise |
+| --- | --- | --- | --- |
+| Online-Kundenservice, Fehlerdiagnose und Reparatur | Probleme lokalisieren und Kundendienst leisten | Kontaktdaten, Geräte-SN, Betriebs-/Fehlerprotokolle, Netzwerkinformationen, freiwillig eingereichte Screenshots und Beschreibungen | Nur im Umfang der Einreichung oder Genehmigung |
+| Ausländisches Ticket oder technische Anfrage | Probleme von Nutzern außerhalb Chinas bearbeiten | Region, Geräte-SN, Problembeschreibung, optionaler Spitzname und Gerätetyp | Im Supportprozess verwendet |
+| Apps im App Center abgleichen | Passende Drittanbieter-Apps für Geräte bereitstellen | Geräte-SN, Modell, Firmwareversion, IP | An den für das App Center erforderlichen Dienst |
+| Meldung oder Einspruch zu Drittanbieter-App | App-Ökosystem pflegen und Feedback bearbeiten | App-Name, Problembeschreibung, Screenshotbelege, Nutzer-E-Mail | Durch Kundenservice und App-Verwaltung bearbeitet |
+| Drittanbieter-Cloud-Dienst verbinden | NAS mit Dateien eines Drittanbieter-Clouds synchronisieren | Temporäres Token des Drittanbieter-Clouds, Aufgabenstatus | Token nur funktionsbedingt; Löschung nach Regeln des Drittanbieters |
+| Telefonkontakte sichern und wiederherstellen | Kontakte auf dem eigenen NAS speichern | Kontaktname, Telefonnummer, E-Mail, Gruppe | Nur auf dem vom Nutzer bestimmten NAS lokal |
 
-## 3. Geräteerkennung im LAN
+## V. Optionale Umfragen und Geräteoptimierung
 
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Suche nach Geräten im LAN | Schnelles Auffinden verfügbarer NAS-Geräte im LAN | Gerätename, IP, MAC, SN, Firmwareversion, Gerätestatus, Wake-on-LAN-Status |
+| Teilnahmeart | Zweck der Verarbeitung | Mögliche Informationen | Geltungsbereich |
+| --- | --- | --- | --- |
+| Freiwillige Teilnahme an Erfahrungserhebung im Ausland | Meinungen sammeln und Produkt verbessern | Vom Nutzer bereitgestellte E-Mail, Cloud-Konto | Außerhalb des chinesischen Festlands |
+| Freiwillige Teilnahme am Geräteoptimierungsprogramm | Nutzungsgewohnheiten und Stabilität analysieren | Konto-ID, Geräte-ID, IP, Verhaltensstatistiken, Absturzprotokolle, Standort- und Netzwerkinformationen | Festlandchina; Teilnahme nach Seitenhinweis |
 
-## 4. Betrieb und Sicherheitswartung
+## VI. Grenzen für Dateiinhalte und Standortdaten
 
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Stabiler Systembetrieb und Fehleranalyse | Beheben von Abstürzen, Optimieren der Leistung, Gewährleisten der Dienstsicherheit | Absturzprotokolle, Gerätemodell, Systemversion, Softwareversion, Betriebsprotokolle<br />**Es werden keine Werbekennungen (OAID/GAID/IDFA) erhoben; Produktanalysedaten werden wie in diesem Abschnitt beschrieben verarbeitet** |
-| Produktnutzungsanalyse | Verständnis der Funktionsnutzung und der Bedienpfade in der App zur kontinuierlichen Produktverbesserung | Konto-ID, Benutzertyp, Gerätename, Geräte-SN, Gerätemodell, App- und Systemversion, verarbeitet über einen Drittanbieter-Analysedienst |
+1. Ein lokales Offline-Konto lädt personenbezogene Daten nicht in die Cloud hoch; die Daten werden lokal auf dem NAS des Nutzers gespeichert.
+2. Ohne Ihre aktive Genehmigung lesen, scannen, analysieren oder laden wir keine privaten Dateien auf dem NAS hoch.
+3. Wir erheben oder speichern keine präzisen Standortdaten. Während der Netzwerkkonfiguration kann der WLAN-Name vorübergehend gelesen und ein Ländercode abgeleitet werden; Koordinaten werden weder übermittelt noch dauerhaft gespeichert.
+4. Außerhalb des chinesischen Festlands werden keine Werbekennungen erhoben. Absturzdiagnose und Produktanalyse erfolgen nur in den in dieser Liste beschriebenen Szenarien.
+5. Sie können in den App-Einstellungen personenbezogene Daten, die Sie kontrollieren, abfragen, berichtigen oder löschen und die Kontolöschung beantragen. Für Anfragen in einem Organisationsbereich müssen Sie sich möglicherweise zuerst an den Organisationsadministrator wenden.
 
-## 5. Technischer Support und Kundendienst
-
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Online-Kundendienst und Fehlerdiagnose | Problemlokalisierung und präzise Kundendienstunterstützung | Kontaktinformationen des Kontos, Geräte-SN, Betriebsprotokolle, Fehlerprotokolle, Netzwerkinformationen, vom Benutzer aktiv übermittelte Screenshots und Beschreibungen |
-| Einreichung von Tickets im Ausland | Bearbeitung technischer Probleme ausländischer Benutzer | Region, Geräte-SN, Problembeschreibung (optional: Nickname, Gerätetyp) |
-
-## 6. Anmeldeverlauf und vertrauenswürdige Geräte
-
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Aufzeichnung des Anmeldeverhaltens | Erkennen anomaler Anmeldungen, Schutz vor unbefugtem Zugriff | Anmeldezeit, IP, Standort auf Stadtebene, Systemtyp, Anmeldeart, Vorgangsprotokolle |
-| Verwaltung vertrauenswürdiger Geräte | Vereinfachung wiederholter Anmeldungen, Erhöhung der Kontosicherheit | Modell vertrauenswürdiger Geräte, Anmeldeort, letzte Anmeldezeit, Geräteliste |
-
-## 7. Remote-Verbindungsdienst
-
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Aktivieren und Nutzen der Remote-Verbindung | Zugang aus dem externen Netz und remote Geräteverwaltung | Remote-Verbindungs-ID (auf Basis der eindeutigen Gerätekennung erzeugt), Geräte-SN, IP, Router-Port, Domain |
-
-## 8. App Center und Drittanbieterdienste
-
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Nutzung der App-Center-Funktionen | Zuordnung geeigneter Drittanbieter-Apps zum Gerät | Geräte-SN, Modell, Firmwareversion, IP |
-| Meldung und Beschwerde zu Drittanbieter-Apps | Pflege des App-Ökosystems, Bearbeitung von Benutzerfeedback | App-Name, Problembeschreibung, Screenshot als Nachweis, Benutzer-E-Mail |
-| Anbindung an Drittanbieter-Clouddienste | Dateisynchronisierung zwischen NAS und Drittanbieter-Cloud | Temporäres Token der Drittanbieter-Cloud (nur lokal gespeichert) |
-
-## 9. Konfigurationssicherung und -wiederherstellung
-
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Sicherung und Wiederherstellung der Gerätekonfiguration | Speichern der Systemkonfiguration für Gerätemigration und Reparaturwiederherstellung | Benutzerberechtigungen, Dateidienst-, Netzwerk-, Sicherheits- und Systemkonfigurationsdaten |
-| Sicherung und Wiederherstellung des Handy-Telefonbuchs | Sicherung des Handy-Telefonbuchs auf dem eigenen NAS für Gerätewechsel und Datenwiederherstellung | Kontaktname, Telefonnummer, E-Mail, Gruppe (nur lokal auf dem eigenen NAS gespeichert) |
-
-## 10. Nutzererfahrungsumfrage (nur außerhalb des chinesischen Festlands)
-
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Nutzererfahrungsumfrage im Ausland | Sammlung von Feedback ausländischer Benutzer zur Optimierung des Produkterlebnisses | Vom Benutzer freiwillig angegebene E-Mail-Adresse und Cloud-Konto |
-
-## 11. Geräteanalyseprogramm (nur chinesisches Festland)
-
-| Szenario | Zweck | Erhobene Felder |
-| --- | --- | --- |
-| Freiwillige Teilnahme am Geräteoptimierungsprogramm | Analyse von Nutzungsgewohnheiten, Erhöhung der Produktstabilität | Konto-ID, Geräte-ID, IP, Nutzungsverhaltensstatistiken, Absturzprotokolle, Standort- und Netzwerkinformationen |
-
-## Wichtige ergänzende Hinweise
-
-Lokale Offline-Konten laden keine personenbezogenen Daten in die Cloud hoch; alle Daten werden ausschließlich lokal auf dem NAS des Benutzers gespeichert.
-
-Ohne aktive Autorisierung durch den Benutzer lesen, laden oder analysieren wir keine privaten Dateidaten auf dem NAS des Benutzers.
-
-Die Auslandsversion erhebt keine Werbekennungen. Präzise Standortdaten werden weder erhoben noch gespeichert: Standortinformationen werden nur vorübergehend bei der Netzwerkkonfiguration des Geräts zur Ableitung des Ländercodes verwendet. Absturzprotokolle und Produktanalysedaten werden gemäß Abschnitt 4 für Fehlerbehebung und Produktverbesserung aufbewahrt.
-
-Benutzer können in den App-Einstellungen selbstständig personenbezogene Daten einsehen, berichtigen und löschen sowie ihr Konto kündigen.
+Diese Liste ist zusammen mit der [Datenschutzrichtlinie](./privacy-policy), der [Erklärung zur Beantragung und Nutzung von App-Berechtigungen](./permission-usage-statement) und der [Liste der Weitergabe personenbezogener Daten an Dritte](./third-party-sdk-list) zu lesen. Wir aktualisieren die Liste, wenn sich Funktionen, Komponenten oder gesetzliche Anforderungen ändern.

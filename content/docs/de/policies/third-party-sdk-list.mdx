@@ -1,59 +1,44 @@
 ---
-sourceHash: ebc1a75925ba
+sourceHash: ff6cf8221e91
 title: 'Liste der Weitergabe personenbezogener Daten an Dritte'
-description: StationPC Liste der Weitergabe personenbezogener Daten an Dritte
+description: Liste der Weitergabe personenbezogener Daten von StationHub an Dritte
 ---
 
-Aktualisierungsdatum: 29. September 2026
+Aktualisierungsdatum: 20. Oktober 2026
 
-Um den vollständigen und stabilen Betrieb der StationPC-Funktionen zu gewährleisten, integrieren wir SDKs, Anwendungsprogrammierschnittstellen (APIs), Plug-ins und andere Drittanbieterkomponenten externer Partner. Dieses Dokument führt die betreffenden Partner auf; die vollständigen Regeln zur Verarbeitung personenbezogener Daten durch Dritte entnehmen Sie bitte der jeweiligen Datenschutzrichtlinie des Drittanbieters.
+Die mobile StationHub-App verwendet einige Open-Source-Komponenten und Dienste Dritter für Benachrichtigungen, Medienwiedergabe, QR-Scans, Absturzdiagnose, Produktanalyse und Fernverbindungen. Diese Liste beschreibt die derzeitige mobile Integration nach dem Muster „Was tut die Komponente, wann läuft sie, welche Informationen verarbeitet sie und verlassen die Informationen das Gerät?“. Nach Änderungen an Versionen oder Richtlinien von Anbietern kann sich der Umfang ändern; maßgeblich sind die jeweils aktuellen öffentlichen Richtlinien der Anbieter.
 
-Bitte beachten Sie, dass Drittanbieterkomponenten im Zuge von Versionsaktualisierungen und Richtlinienänderungen ihren Umfang der Datenverarbeitung anpassen können; maßgeblich sind die offiziellen Veröffentlichungen der jeweiligen Drittanbieter-Dienstleister.
+## 1. Lokal ausgeführte Komponenten
 
-## Mobile App
+Die folgenden Komponenten laufen hauptsächlich auf dem Telefon und senden keine personenbezogenen Daten an Server ihrer Maintainer:
 
-Anwendungsbereich: StationPC StationNAS App (Android / iOS)
+| Komponente | Verwendungsszenario | Mögliche aufgerufene Informationen | Verarbeitungsweise |
+| --- | --- | --- | --- |
+| `flutter_local_notifications` 19.4.1 / `com.dexterous.flutterlocalnotifications` | Sicherungsfortschritt, verbleibende Anzahl und Abschlussmeldungen | Benachrichtigungsberechtigung, anzuzeigender Benachrichtigungstext | Benachrichtigung lokal auf dem Gerät erzeugen |
+| `audio_service` / `com.ryanheise.audioservice` | Hintergrundwiedergabe oder Aufrechterhaltung der Aufgabe während einer Sicherung | Berechtigungen für Benachrichtigungen und Hintergrundbetrieb | Lokale Integration, keine Übertragung an Server Dritter |
+| `flutter_vlc_player` 7.4.2 / `MobileVLCKit` 3.6.1b1 | NAS-Videos in der App abspielen und Ausrichtung nach Drehung wechseln | Wiedergabestatus, Beschleunigungssensor und Gyroskop | Wiedergabe auf dem Gerät; Videos werden nicht an den Maintainer hochgeladen |
+| `flutter_scankit` 2.0.3 / `com.huawei.hms:scanplus:2.12.0.301` | Gerät hinzufügen, Anmeldung oder Bindung per QR-Code | Kamerabild, grundlegende für den Betrieb erforderliche Gerätedaten | QR-/Strichcode vorrangig auf dem Gerät erkennen; Verfügbarkeit und Verarbeitung von HMS siehe [Datenschutzerklärung von Huawei HMS Core](https://consumer.huawei.com/cn/privacy/hms-core-statement/) |
+| `mobile_scanner` 6.x / iOS `GoogleMLKit/BarcodeScanning` 7.0.0 / Android `com.google.mlkit:barcode-scanning` 17.3.0 | QR-Scan unter iOS, Ersatz-Scan unter Android | Kamerabild, Geräte- oder Diagnoseinformationen nach der Datenschutzrichtlinie des Anbieters | Bild auf dem Gerät erkennen; Geltungsbereich und Regeln der Google-Dienste siehe [Datenschutzrichtlinie von Google](https://policies.google.com/privacy) |
 
-Prüfdatum: 2026-09-24
+## 2. Komponenten, die Informationen an Anbieter übertragen
 
-Prüfgrundlage: pubspec.yaml / pubspec.lock / android/app/build.gradle / ios/Podfile.lock / package/ lokale Plug-ins / aktive Aufrufstellen in lib
+| Dienst oder SDK | Auslösende Bedingung | Übertragene oder verarbeitete Informationen | Zweck und öffentliche Richtlinie |
+| --- | --- | --- | --- |
+| Sentry (`sentry_flutter` 8.14.2 / Sentry HybridSDK 8.46.0) | App stürzt ab oder meldet einen Fehler | Gerätemodell, Systemversion, Gerätekennung, Fehler- und Absturzprotokolle, IP und andere Netzwerkdaten | Fehlerdiagnose und Stabilitätsanalyse; siehe [Datenschutzrichtlinie von Sentry](https://sentry.io/legal/privacy/) |
+| PostHog (`posthog_flutter` 5.0.0 / PostHog iOS 3.30.1) | Nutzung einer App-Funktion erzeugt ein Analyseereignis | Gerätekennung (ulid/Geräte-SN), Geräte- und Netzwerkdaten, Funktionsereignisse | Funktionsnutzung und Bedienpfade verstehen; Sitzungswiedergabe ist deaktiviert, siehe [Datenschutzrichtlinie von PostHog](https://posthog.com/privacy) |
+| peergine-P2P-Tunnel (`pg_lib_tunnel`, Android `pgjnitunnel.jar` / native iOS-Bibliothek) | Sie aktivieren Fernzugriff und greifen per P2P oder Relais auf das NAS zu | Geräte-SN/Kennungen (SN, UDID), IP, Port und für die Aushandlung der Verbindung erforderliche Netzwerkdaten | NAT-Durchdringung oder Relaiskanal herstellen; Relaisadressen sind `p2p.t-firefly.net` und `us.p2prelay.t-firefly.net`, keine eigenständige öffentliche Datenschutzrichtlinie |
 
-**Lokale Benachrichtigungen (SDK, flutter_local_notifications 19.4.1 / com.dexterous.flutterlocalnotifications)**<br />Name des Drittanbieters: MaikuB (Open-Source-Projekt)<br />Geltungsbereich: Weltweit (Komponente läuft lokal, kein Drittanbieter-Server)<br />Verwendungszweck: Benachrichtigung über die verbleibende Anzahl von Backups während der Sicherung sowie Erinnerung an abgeschlossene Aufgaben<br />Betroffene personenbezogene Daten: Berechtigung für lokale Benachrichtigungen; Benachrichtigungsinhalte werden nur lokal gespeichert und nicht hochgeladen<br />Nutzungsszenario: Während oder nach Abschluss einer Backup-Aufgabe wird lokal auf dem Gerät eine Benachrichtigung mit der verbleibenden Backup-Anzahl und dem Aufgabenstatus angezeigt<br />Art der Weitergabe: SDK (lokale Integration, keine Datenübertragung an Drittanbieter-Server)<br />Datenschutzregeln des Drittanbieters: [https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
+Sentry, PostHog und peergine verarbeiten Informationen nur, wenn die jeweilige Funktion aktiviert ist oder ein Ereignis eintritt. Allein durch die Installation der App lesen wir keine privaten NAS-Dateien aktiv. Ob Dateiinhalte übertragen werden, hängt von der aktivierten Funktion, dem Berechtigungsumfang und den Regeln des Zieldienstes ab.
 
-**Musikwiedergabe (SDK, audio_service / com.ryanheise.audioservice)**<br />Name des Drittanbieters: Ryan Heise (Open-Source-Projekt)<br />Geltungsbereich: Weltweit (Komponente läuft lokal, kein Drittanbieter-Server)<br />Verwendungszweck: Hintergrundwiedergabe und Aufrechterhaltung im Vordergrund während der Sicherung, damit Backup-Aufgaben nicht unterbrochen werden und das Benutzererlebnis verbessert wird<br />Betroffene personenbezogene Daten: Berechtigungen für Benachrichtigungen und Hintergrundausführung (keine Erhebung personenbezogener Daten)<br />Nutzungsszenario: Nach Aktivierung der automatischen Sicherung von Alben und Dateien bleibt die App im Hintergrund aktiv, damit Backup-Aufgaben nicht vom System unterbrochen werden<br />Art der Weitergabe: SDK (lokale Integration, keine Datenübertragung an Drittanbieter-Server)<br />Datenschutzregeln des Drittanbieters: [https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
+## 3. Grenzen der Weitergabe und Ihre Wahlmöglichkeiten
 
-**Videowiedergabe VLCPlayer (SDK, flutter_vlc_player 7.4.2 / MobileVLCKit 3.6.1b1)**<br />Name des Drittanbieters: VideoLAN (Open-Source-Organisation)<br />Geltungsbereich: Weltweit (Komponente läuft lokal, kein Drittanbieter-Server)<br />Verwendungszweck: Videowiedergabe in der App sowie Wechsel zwischen Quer- und Hochformat beim Drehen des Telefons<br />Betroffene personenbezogene Daten: Beschleunigungssensor/Gyroskop (zur Erkennung der Drehung, keine Erhebung personenbezogener Gerätedaten)<br />Nutzungsszenario: Wiedergabe von Videodateien auf dem NAS in der App; beim Drehen des Telefons wird automatisch zwischen Quer- und Hochformat gewechselt<br />Art der Weitergabe: SDK (lokale Integration, keine Datenübertragung an Drittanbieter-Server)<br />Datenschutzregeln des Drittanbieters: [https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
+1. Komponenten Dritter verarbeiten nur die für die in dieser Liste genannten Funktionen erforderlichen Informationen und verwenden sie nicht für unabhängige kommerzielle Zwecke ohne Funktionsbezug.
+2. Sie können Benachrichtigungen, Produktanalyse, Fernzugriff oder entsprechende Systemberechtigungen deaktivieren. Danach sind die jeweiligen Funktionen möglicherweise nicht verfügbar.
+3. Drittanbieterdienste können ihre Verarbeitung aufgrund von Version, Region, Infrastruktur oder Richtlinien ändern. Maßgeblich sind dann ihre offiziellen Mitteilungen.
+4. Wenn Sie Datenschutzrechte ausüben möchten, lesen Sie zuerst die öffentliche Richtlinie des betreffenden Anbieters. Bei Anfragen zu StationHub-Konto, Gerät oder App-Funktionen erreichen Sie uns über `service@spcnasos.com`.
 
-**Sentry-Protokollüberwachung (SDK, sentry_flutter 8.14.2 / Sentry HybridSDK 8.46.0)**<br />Name des Drittanbieters: Functional Software, Inc. (Sentry)<br />Geltungsbereich: Weltweit<br />Verwendungszweck: Aufzeichnung von Absturz- und Anomalieprotokollen für Fehleranalyse und Stabilitätsanalyse<br />Betroffene personenbezogene Daten: Geräteinformationen (Gerätemodell/Systemversion), eindeutige Gerätekennung, Protokollinformationen, Netzwerkinformationen (IP)<br />Nutzungsszenario: Bei Abstürzen oder Betriebsanomalien der App werden Absturz- und Fehlerprotokolle erfasst, um Fehler zu lokalisieren und die Produktstabilität zu verbessern<br />Art der Weitergabe: SDK<br />Datenschutzregeln des Drittanbieters: [https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
+## 4. Verwandte Dokumente
 
-**PostHog-Statistik zur Nutzerverhaltensanalyse (SDK, posthog_flutter 5.0.0 / PostHog iOS 3.30.1)**<br />Name des Drittanbieters: PostHog, Inc.<br />Geltungsbereich: Weltweit<br />Verwendungszweck: Betriebsstatistik und -analyse der App (Ereignisstatistik und Benutzeridentifikation; Sitzungswiedergabe deaktiviert)<br />Betroffene personenbezogene Daten: Eindeutige Gerätekennung (ulid/Geräte-SN), Geräteinformationen, Netzwerkinformationen<br />Nutzungsszenario: Statistik der bei der Nutzung der App-Funktionen erzeugten Ereignisse, um die Funktionsnutzung und die Bedienpfade in der App zu verstehen<br />Art der Weitergabe: SDK<br />Datenschutzregeln des Drittanbieters: [https://posthog.com/privacy](https://posthog.com/privacy)
-
-**Huawei Scan-Dienst HMS Scan Kit (SDK, flutter_scankit 2.0.3 / com.huawei.hms:scanplus:2.12.0.301)**<br />Name des Drittanbieters: Huawei Software Technologies Co., Ltd.<br />Geltungsbereich: Weltweit (chinesisches Festland und Ausland, abhängig von der Verfügbarkeit der Huawei HMS Core-Dienste)<br />Verwendungszweck: Scannen von QR-Codes/Barcodes (Geräte hinzufügen, Anmeldung/Bindung per Scan)<br />Betroffene personenbezogene Daten: Von der Kamera erfasste Bildinformationen (Erkennung auf dem Gerät, kein Upload des Originalbilds), grundlegende Geräteinformationen für den Betrieb der HMS-Dienste<br />Nutzungsszenario: Beim Hinzufügen von NAS-Geräten oder bei Anmeldung/Bindung per Scan wird die Kamera zum Scannen des Geräte-QR-Codes/Barcodes aufgerufen<br />Art der Weitergabe: SDK (Bilderkennung erfolgt auf dem Gerät, kein Upload des Originalbilds)<br />Datenschutzregeln des Drittanbieters: [https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/)
-
-**Google ML Kit Barcode-Erkennung (SDK, mobile_scanner 6.x / iOS GoogleMLKit/BarcodeScanning 7.0.0 / Android com.google.mlkit:barcode-scanning 17.3.0)**<br />Name des Drittanbieters: Google LLC<br />Geltungsbereich: Länder und Regionen außerhalb des chinesischen Festlands<br />Verwendungszweck: Scan-Erkennung (Scan auf iOS, Ersatz-Scan auf Android)<br />Betroffene personenbezogene Daten: Von der Kamera erfasste Bildinformationen (Erkennung auf dem Gerät, kein Upload), Geräte-/Diagnoseinformationen gemäß Google-Datenschutzrichtlinie<br />Nutzungsszenario: Beim Hinzufügen von NAS-Geräten oder bei Anmeldung/Bindung per Scan wird die Kamera zum Erkennen von QR-Codes/Barcodes aufgerufen<br />Art der Weitergabe: SDK (Bilderkennung erfolgt auf dem Gerät, kein Upload)<br />Datenschutzregeln des Drittanbieters: [https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-**peergine P2P-Tunnel (SDK, pg_lib_tunnel: Android pgjnitunnel.jar / iOS native Bibliothek)**<br />Name des Drittanbieters: peergine<br />Geltungsbereich: Weltweit (Relay-Server p2p.t-firefly.net / us.p2prelay.t-firefly.net werden vom Gerätehersteller bereitgestellt)<br />Verwendungszweck: Aufbau eines P2P-Hole-Punching-/Relay-Datentunnels (NAT-Durchdringung) beim Remote-Zugriff auf das NAS<br />Betroffene personenbezogene Daten: Geräteseriennummer/Gerätekennung (SN, UDID), IP-Adresse und Port, Netzwerkinformationen (für NAT-Traversal und Linkaushandlung)<br />Nutzungsszenario: Nach Aktivierung der Remote-Verbindung Zugriff auf das NAS zu Hause über den P2P-Tunnel aus dem externen Netz<br />Art der Weitergabe: SDK<br />Datenschutzregeln des Drittanbieters: Keine öffentliche Datenschutzrichtlinie
-
-## Compliance-Erklärung
-
-1. Ohne Ihre ausdrückliche Einwilligung geben wir Ihre personenbezogenen Daten nicht an Dritte für deren eigene kommerzielle Zwecke weiter.
-
-2. Die in diesem Produkt integrierten Drittanbieterdienste verarbeiten personenbezogene Daten ausschließlich für die vereinbarten Funktionszwecke.
-
-## Offizielle Datenschutzlinks der Drittanbieter
-
-- Lokale Benachrichtigungen flutter_local_notifications: [https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
-
-- Musikwiedergabe audio_service: [https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
-
-- Videowiedergabe VLCPlayer: [https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
-
-- Sentry-Protokollüberwachung: [https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
-
-- PostHog-Statistik zur Nutzerverhaltensanalyse: [https://posthog.com/privacy](https://posthog.com/privacy)
-
-- Huawei Scan-Dienst HMS Scan Kit: [https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/) (HMS Core-Datenschutzerklärung, manuelle Prüfung empfohlen)
-
-- Google ML Kit Barcode-Erkennung: [https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-- peergine P2P-Tunnel: Keine öffentliche Datenschutzrichtlinie
+- [Datenschutzrichtlinie](./privacy-policy)
+- [Liste der Verarbeitung personenbezogener Daten](./personal-information-processing-list)
+- [Erklärung zur Beantragung und Nutzung von App-Berechtigungen](./permission-usage-statement)

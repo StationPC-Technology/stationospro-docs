@@ -1,59 +1,44 @@
 ---
-sourceHash: ebc1a75925ba
+sourceHash: ff6cf8221e91
 title: '第三者個人情報共有一覧'
-description: StationPC 第三者個人情報共有一覧
+description: StationHub 第三者個人情報共有一覧
 ---
 
-更新日：2026年9月29日
+更新日：2026年10月20日
 
-StationPC の各機能を完全かつ安定的に動作させるため、当社は外部パートナーが提供する SDK、アプリケーションプログラミングインターフェース（API）、プラグインなどの第三者コンポーネントを組み込んでいます。本文書では関連する第三者のパートナーを一覧にしています。第三者が個人情報を処理する完全な規則については、対応する第三者のプライバシーポリシーをご確認ください。
+StationHubのモバイルアプリでは、通知、メディア再生、QRコード読み取り、クラッシュ診断、製品分析およびリモート接続のために、一部のオープンソースコンポーネントと第三者サービスを使用します。本一覧では、「コンポーネントの機能、実行時期、処理する情報、情報がデバイス外へ出るか」という観点から、現在のモバイルアプリの統合状況を示します。コンポーネントのバージョンやサービス提供者のポリシーが変更された場合、処理範囲も変わることがあります。サービス提供者が公開する最新のポリシーをご確認ください。
 
-第三者コンポーネントは、バージョンの更新やポリシーの改定によりデータ処理の範囲を調整する場合があります。各第三者サービスプロバイダーの公式公表内容を基準としてください。
+## 1. デバイス内で動作するコンポーネント
 
-## モバイル端末
+次のコンポーネントは主にスマートフォン内で実行され、個人情報をコンポーネントの管理者のサーバーへ送信しません。
 
-適用範囲：StationPC StationNAS App（Android / iOS）
+| コンポーネント | 利用場面 | アクセスする可能性のある情報 | 処理方法 |
+| --- | --- | --- | --- |
+| `flutter_local_notifications` 19.4.1 / `com.dexterous.flutterlocalnotifications` | バックアップの進行状況、残り件数、タスク完了の通知 | 通知権限、表示待ちの通知内容 | デバイス内で通知を生成 |
+| `audio_service` / `com.ryanheise.audioservice` | バックアップ中のバックグラウンド再生またはタスクの維持 | 通知およびバックグラウンド実行に関する権限 | ローカル統合。第三者サーバーへ送信しません |
+| `flutter_vlc_player` 7.4.2 / `MobileVLCKit` 3.6.1b1 | アプリ内でNAS動画を再生し、回転に応じて向きを切り替える | 動画再生状態、加速度センサーおよびジャイロスコープ | デバイス上で再生。動画をコンポーネント管理者へアップロードしません |
+| `flutter_scankit` 2.0.3 / `com.huawei.hms:scanplus:2.12.0.301` | デバイスの追加、QRコードログインまたは紐付け | カメラ映像、実行に必要な基本デバイス情報 | QRコード／バーコードは優先的にデバイス上で認識します。HMSの可用性と処理規則は[Huawei HMS Coreプライバシー声明](https://consumer.huawei.com/cn/privacy/hms-core-statement/)をご覧ください |
+| `mobile_scanner` 6.x / iOS `GoogleMLKit/BarcodeScanning` 7.0.0 / Android `com.google.mlkit:barcode-scanning` 17.3.0 | iOSのQRコード読み取り、Androidの予備読み取り | カメラ映像、サービス提供者のプライバシーポリシーに記載されたデバイスまたは診断情報 | 画像は端末上で認識します。Googleサービスの適用範囲と規則は[Googleプライバシーポリシー](https://policies.google.com/privacy)をご覧ください |
 
-確認日：2026-09-24
+## 2. サービス提供者へ情報を送信するコンポーネント
 
-確認根拠：pubspec.yaml / pubspec.lock / android/app/build.gradle / ios/Podfile.lock / package/ ローカルプラグイン / lib の有効な呼び出し箇所
+| サービスまたはSDK | 起動条件 | 送信または処理する情報 | 目的と公開ポリシー |
+| --- | --- | --- | --- |
+| Sentry（`sentry_flutter` 8.14.2 / Sentry HybridSDK 8.46.0） | アプリがクラッシュまたは異常が発生したとき | デバイスモデル、システムバージョン、デバイス識別子、エラー・クラッシュログ、IPなどのネットワーク情報 | 障害の特定と安定性分析。[Sentryプライバシーポリシー](https://sentry.io/legal/privacy/) |
+| PostHog（`posthog_flutter` 5.0.0 / PostHog iOS 3.30.1） | アプリ機能を利用して統計イベントが発生したとき | デバイス識別子（ulid／デバイスSN）、デバイス・ネットワーク情報、機能イベント | 機能の利用状況と操作経路の把握。セッションリプレイは無効。 [PostHogプライバシーポリシー](https://posthog.com/privacy) |
+| peergine P2Pトンネル（`pg_lib_tunnel`、Android `pgjnitunnel.jar`／iOSネイティブライブラリ） | リモート接続を有効にし、P2PまたはリレーでNASへアクセスするとき | デバイスSN／識別子（SN、UDID）、IP、ポート、リンク交渉に必要なネットワーク情報 | NAT越えまたはリレーチャネルの確立。リレーアドレスは `p2p.t-firefly.net` および `us.p2prelay.t-firefly.net`。独立した公開プライバシーポリシーはありません |
 
-**ローカル通知（SDK、flutter_local_notifications 19.4.1 / com.dexterous.flutterlocalnotifications）**<br />第三者会社名：MaikuB（オープンソースプロジェクト）<br />適用地域：全世界（コンポーネントはローカルで動作し、第三者サーバーはありません）<br />使用目的：バックアップ時に残りのバックアップ件数を通知し、タスク完了を通知<br />関わる個人情報：ローカル通知の権限。通知内容はローカルにのみ保存され、アップロードされません<br />使用シーン：バックアップタスクの実行中または完了時に、デバイス上でローカルに通知を表示し、残りのバックアップ件数とタスクの完了状況を知らせます<br />共有方法：SDK（ローカルに組み込み、第三者サーバーへデータを送信しません）<br />第三者の個人情報処理規則：[https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
+Sentry、PostHogおよびpeergineは、対応する機能が有効になった場合またはイベントが発生した場合にのみ情報を処理します。アプリをインストールしただけで、当社がNASの私有ファイルを主体的に読み取ることはありません。ファイル内容を送信するかどうかは、お客様が有効にした機能、許可の範囲および対象サービスの規則によって決まります。
 
-**音楽再生（SDK、audio_service / com.ryanheise.audioservice）**<br />第三者会社名：Ryan Heise（オープンソースプロジェクト）<br />適用地域：全世界（コンポーネントはローカルで動作し、第三者サーバーはありません）<br />使用目的：バックアップ時のバックグラウンド再生／フォアグラウンド維持により、バックアップタスクが中断されないようにし、ユーザー体験を向上<br />関わる個人情報：通知、バックグラウンド実行に関連する権限（個人情報は収集しません）<br />使用シーン：アルバムやファイルなどの自動バックアップを有効にした後、App がバックグラウンドで動作を継続し、バックアップタスクがシステムに中断されないようにします<br />共有方法：SDK（ローカルに組み込み、第三者サーバーへデータを送信しません）<br />第三者の個人情報処理規則：[https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
+## 3. 共有の範囲とお客様の選択
 
-**動画再生 VLCPlayer（SDK、flutter_vlc_player 7.4.2 / MobileVLCKit 3.6.1b1）**<br />第三者会社名：VideoLAN（オープンソース組織）<br />適用地域：全世界（コンポーネントはローカルで動作し、第三者サーバーはありません）<br />使用目的：アプリ内での動画再生、スマートフォンの回転時の縦横画面切り替え<br />関わる個人情報：加速度センサー／ジャイロスコープ（回転判定に使用し、デバイスの個人情報は収集しません）<br />使用シーン：App 内で NAS の動画ファイルを再生し、スマートフォンを回転すると自動的に縦横画面を切り替えます<br />共有方法：SDK（ローカルに組み込み、第三者サーバーへデータを送信しません）<br />第三者の個人情報処理規則：[https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
+1. 第三者コンポーネントは、本一覧に記載した機能を実現するために必要な情報だけを処理し、機能とは無関係な独立した商業目的には使用しません。
+2. 通知、製品分析、リモート接続または関連するシステム権限をオフにできます。オフにすると、対応する機能を利用できなくなる場合があります。
+3. 第三者サービスは、バージョン、地域、インフラストラクチャまたはポリシーの変更により処理方法を変更することがあります。その場合は公式発表を優先します。
+4. 個人情報に関する権利を行使する場合は、まず対応するサービス提供者の公開ポリシーをご確認ください。StationHubのアカウント、デバイスまたはアプリ機能に関する要求は、`service@spcnasos.com`までご連絡ください。
 
-**Sentry ログ監視（SDK、sentry_flutter 8.14.2 / Sentry HybridSDK 8.46.0）**<br />第三者会社名：Functional Software, Inc.（Sentry）<br />適用地域：全世界<br />使用目的：クラッシュと例外のログ記録、問題の調査と安定性分析に使用<br />関わる個人情報：デバイス情報（デバイスモデル／システムバージョン）、デバイスの一意の識別子、ログ情報、ネットワーク情報（IP）<br />使用シーン：App のクラッシュや実行異常が発生した際に、クラッシュとエラーのログを収集し、障害の特定と製品の安定性改善に使用します<br />共有方法：SDK<br />第三者の個人情報処理規則：[https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
+## 4. 関連文書
 
-**PostHog ユーザー行動統計分析（SDK、posthog_flutter 5.0.0 / PostHog iOS 3.30.1）**<br />第三者会社名：PostHog, Inc.<br />適用地域：全世界<br />使用目的：APP の運用統計と分析（イベント統計とユーザー識別。セッションリプレイは無効）<br />関わる個人情報：デバイスの一意の識別子（ulid/デバイス SN）、デバイス情報、ネットワーク情報<br />使用シーン：App の各機能を使用する際に発生する機能使用イベントの統計。機能の使用状況とアプリ内の操作経路を把握するために使用します<br />共有方法：SDK<br />第三者の個人情報処理規則：[https://posthog.com/privacy](https://posthog.com/privacy)
-
-**Huawei スキャンサービス HMS Scan Kit（SDK、flutter_scankit 2.0.3 / com.huawei.hms:scanplus:2.12.0.301）**<br />第三者会社名：華為軟件技術有限公司<br />適用地域：全世界（中国大陸および海外。Huawei HMS Core サービスの提供可能地域によります）<br />使用目的：QR コード／バーコードのスキャン（デバイスの追加、コードスキャンによるログイン／紐付け）<br />関わる個人情報：カメラで取得した画像情報（端末側で認識し、元画像はアップロードしません）、HMS サービスの実行に必要な基本的なデバイス情報<br />使用シーン：NAS デバイスの追加、コードスキャンによるログインまたはデバイスの紐付け時に、カメラを呼び出してデバイスの QR コード／バーコードをスキャンします<br />共有方法：SDK（画像はデバイス側で認識が完了し、元画像はアップロードされません）<br />第三者の個人情報処理規則：[https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/)
-
-**Google ML Kit バーコード認識（SDK、mobile_scanner 6.x / iOS GoogleMLKit/BarcodeScanning 7.0.0 / Android com.google.mlkit:barcode-scanning 17.3.0）**<br />第三者会社名：Google LLC<br />適用地域：中国大陸以外の国および地域<br />使用目的：コードスキャン認識（iOS 側のスキャン、Android 側の予備スキャン）<br />関わる個人情報：カメラで取得した画像情報（端末側で認識し、アップロードしません）、Google プライバシーポリシーに記載されたデバイス／診断情報<br />使用シーン：NAS デバイスの追加、コードスキャンによるログインまたはデバイスの紐付け時に、カメラを呼び出して QR コード／バーコードを認識します<br />共有方法：SDK（画像はデバイス側で認識が完了し、アップロードされません）<br />第三者の個人情報処理規則：[https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-**peergine P2P トンネル（SDK、pg_lib_tunnel：Android pgjnitunnel.jar / iOS ネイティブライブラリ）**<br />第三者会社名：peergine<br />適用地域：全世界（リレーサーバー p2p.t-firefly.net / us.p2prelay.t-firefly.net はデバイスメーカーが導入）<br />使用目的：NAS へのリモートアクセス時に P2P ホールパンチング／リレーによるデータトンネル（NAT 越え）を確立<br />関わる個人情報：デバイスのシリアル番号／デバイス識別子（SN、UDID）、IP アドレスとポート、ネットワーク情報（NAT 越えとリンクネゴシエーションに使用）<br />使用シーン：リモート接続機能を有効にした後、外部ネットワークから P2P トンネル経由で自宅の NAS デバイスにアクセスします<br />共有方法：SDK<br />第三者の個人情報処理規則：公開されたプライバシーポリシーはありません
-
-## コンプライアンス声明
-
-1. お客様の明確な同意なく、当社がお客様の個人情報を第三者の独自の商業目的のために共有することはありません。
-
-2. 本製品に組み込まれた第三者サービスは、合意された機能目的のためにのみ個人情報を処理します。
-
-## 第三者の公式プライバシーリンク
-
-- ローカル通知 flutter_local_notifications：[https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
-
-- 音楽再生 audio_service：[https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
-
-- 動画再生 VLCPlayer：[https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
-
-- Sentry ログ監視：[https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
-
-- PostHog ユーザー行動統計分析：[https://posthog.com/privacy](https://posthog.com/privacy)
-
-- Huawei スキャンサービス HMS Scan Kit：[https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/)（HMS Core プライバシー声明。人手による再確認を推奨）
-
-- Google ML Kit バーコード認識：[https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-- peergine P2P トンネル：公開されたプライバシーポリシーはありません
+- [「プライバシーポリシー」](./privacy-policy)
+- [「個人情報処理一覧」](./personal-information-processing-list)
+- [「アプリ権限の申請と利用状況に関する説明」](./permission-usage-statement)

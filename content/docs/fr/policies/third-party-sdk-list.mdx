@@ -1,59 +1,44 @@
 ---
-sourceHash: ebc1a75925ba
+sourceHash: ff6cf8221e91
 title: 'Liste de partage des informations personnelles avec des tiers'
-description: Liste de partage des informations personnelles de StationPC avec des tiers
+description: Liste de partage des informations personnelles de StationHub avec des tiers
 ---
 
-Date de mise à jour : 29 septembre 2026
+Date de mise à jour : 20 octobre 2026
 
-Afin de garantir le fonctionnement complet et stable des différentes fonctions de StationPC, nous intégrons des composants tiers fournis par des partenaires externes, tels que des SDK, des interfaces de programmation (API) et des plug-ins. Le présent document répertorie les tiers concernés ; pour connaître les règles complètes de traitement des informations personnelles par un tiers, veuillez consulter la politique de confidentialité de ce tiers.
+L’application mobile StationHub utilise certains composants open source et services tiers pour assurer les notifications, la lecture multimédia, le scan de codes, le diagnostic des plantages, l’analyse du produit et la connexion à distance. La présente liste décrit l’intégration mobile actuelle selon ce que fait chaque composant, le moment où il s’exécute, les informations traitées et le fait que ces informations quittent ou non l’appareil. Le périmètre de traitement peut évoluer lorsque les versions des composants ou les politiques des prestataires changent ; veuillez vous référer à la politique publique la plus récente de chaque prestataire.
 
-Veuillez noter que les composants tiers peuvent ajuster leur périmètre de traitement des données à l'occasion de mises à jour de version ou de révisions de leurs politiques ; les informations publiées officiellement par chaque prestataire tiers font foi.
+## 1. Composants exécutés localement
 
-## Application mobile
+Les composants suivants s’exécutent principalement sur le téléphone et n’envoient pas d’informations personnelles aux serveurs de leurs mainteneurs :
 
-Périmètre d'application : application StationPC StationNAS (Android / iOS)
+| Composant | Scénario d’utilisation | Informations susceptibles d’être consultées | Mode de traitement |
+| --- | --- | --- | --- |
+| `flutter_local_notifications` 19.4.1 / `com.dexterous.flutterlocalnotifications` | Progression des sauvegardes, nombre restant et rappel de fin de tâche | Autorisation de notification, contenu de la notification à afficher | Notification générée localement sur l’appareil |
+| `audio_service` / `com.ryanheise.audioservice` | Lecture en arrière-plan ou maintien de la tâche pendant une sauvegarde | Autorisations liées aux notifications et à l’exécution en arrière-plan | Intégration locale, sans transmission à un serveur tiers |
+| `flutter_vlc_player` 7.4.2 / `MobileVLCKit` 3.6.1b1 | Lecture de vidéos du NAS dans l’application et changement d’orientation lors de la rotation | État de lecture, accéléromètre et gyroscope | Lecture sur l’appareil ; les vidéos ne sont pas téléversées au mainteneur |
+| `flutter_scankit` 2.0.3 / `com.huawei.hms:scanplus:2.12.0.301` | Ajouter un appareil, se connecter ou associer un appareil par scan | Image de la caméra, informations de base nécessaires à l’exécution | Les codes QR/barres sont reconnus en priorité sur l’appareil ; la disponibilité et les règles de traitement de HMS sont indiquées dans la [Déclaration de confidentialité de Huawei HMS Core](https://consumer.huawei.com/cn/privacy/hms-core-statement/) |
+| `mobile_scanner` 6.x / iOS `GoogleMLKit/BarcodeScanning` 7.0.0 / Android `com.google.mlkit:barcode-scanning` 17.3.0 | Scan sur iOS et solution de secours sur Android | Image de la caméra, informations sur l’appareil ou le diagnostic décrites dans la politique du prestataire | Image reconnue sur l’appareil ; le champ d’application et les règles de Google sont indiqués dans la [Politique de confidentialité de Google](https://policies.google.com/privacy) |
 
-Date de vérification : 2026-09-24
+## 2. Composants transmettant des informations aux prestataires
 
-Base de vérification : pubspec.yaml / pubspec.lock / android/app/build.gradle / ios/Podfile.lock / package/ plug-ins locaux / points d'appel actifs dans lib
+| Service ou SDK | Condition de déclenchement | Informations transmises ou traitées | Finalité et politique publique |
+| --- | --- | --- | --- |
+| Sentry (`sentry_flutter` 8.14.2 / Sentry HybridSDK 8.46.0) | L’application plante ou rencontre une anomalie | Modèle de l’appareil, version du système, identifiant de l’appareil, journaux d’erreurs et de plantage, IP et autres informations réseau | Identifier les problèmes et analyser la stabilité ; voir la [Politique de confidentialité de Sentry](https://sentry.io/legal/privacy/) |
+| PostHog (`posthog_flutter` 5.0.0 / PostHog iOS 3.30.1) | Utilisation d’une fonction de l’application et génération d’un événement statistique | Identifiant de l’appareil (ulid/SN de l’appareil), informations de l’appareil et du réseau, événements de fonction | Comprendre l’utilisation des fonctions et le parcours dans l’application ; la relecture de session est désactivée, voir la [Politique de confidentialité de PostHog](https://posthog.com/privacy) |
+| Tunnel P2P peergine (`pg_lib_tunnel`, `pgjnitunnel.jar` sur Android / bibliothèque native iOS) | Vous activez la connexion à distance et accédez au NAS par P2P ou relais | SN/identifiant de l’appareil (SN, UDID), IP, port et informations réseau nécessaires à la négociation de la liaison | Établir un tunnel entre réseaux privés ou un relais ; les adresses de relais sont `p2p.t-firefly.net` et `us.p2prelay.t-firefly.net`, sans politique de confidentialité publique distincte |
 
-**Notifications locales (SDK, flutter_local_notifications 19.4.1 / com.dexterous.flutterlocalnotifications)**<br />Nom de l'entreprise tierce : MaikuB (projet open source)<br />Zone d'application : monde entier (composant exécuté localement, sans serveur tiers)<br />Finalité : notifier le nombre de sauvegardes restantes et l'achèvement des tâches lors d'une sauvegarde<br />Informations personnelles concernées : autorisation de notification locale ; le contenu des notifications est stocké uniquement localement et n'est pas téléversé<br />Scénario d'utilisation : afficher une notification locale sur l'appareil pendant ou à la fin d'une tâche de sauvegarde, pour rappeler le nombre de sauvegardes restantes et l'état d'achèvement<br />Mode de partage : SDK (intégration locale, aucune donnée transmise à un serveur tiers)<br />Règles de traitement des informations personnelles par le tiers : [https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
+Sentry, PostHog et peergine ne traitent les informations que lorsque la fonction correspondante est activée ou que l’événement se produit. L’installation de l’application ne nous autorise pas à lire activement les fichiers privés du NAS ; la transmission du contenu dépend de la fonction activée, de l’étendue des autorisations et des règles du service destinataire.
 
-**Lecture de musique (SDK, audio_service / com.ryanheise.audioservice)**<br />Nom de l'entreprise tierce : Ryan Heise (projet open source)<br />Zone d'application : monde entier (composant exécuté localement, sans serveur tiers)<br />Finalité : maintenir la lecture en arrière-plan et l'activité au premier plan pendant la sauvegarde, afin de garantir que les tâches de sauvegarde ne soient pas interrompues et d'améliorer l'expérience utilisateur<br />Informations personnelles concernées : autorisations liées aux notifications et à l'exécution en arrière-plan (aucune information personnelle collectée)<br />Scénario d'utilisation : après l'activation de la sauvegarde automatique de l'album, des fichiers, etc., l'application reste active en arrière-plan pour éviter l'interruption des tâches de sauvegarde par le système<br />Mode de partage : SDK (intégration locale, aucune donnée transmise à un serveur tiers)<br />Règles de traitement des informations personnelles par le tiers : [https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
+## 3. Limites du partage et vos choix
 
-**Lecture vidéo VLCPlayer (SDK, flutter_vlc_player 7.4.2 / MobileVLCKit 3.6.1b1)**<br />Nom de l'entreprise tierce : VideoLAN (organisation open source)<br />Zone d'application : monde entier (composant exécuté localement, sans serveur tiers)<br />Finalité : lecture vidéo dans l'application, bascule entre les modes paysage et portrait lors de la rotation du téléphone<br />Informations personnelles concernées : accéléromètre/gyroscope (pour la détection de rotation, aucune information personnelle de l'appareil collectée)<br />Scénario d'utilisation : lire des fichiers vidéo stockés sur le NAS dans l'application et basculer automatiquement entre paysage et portrait lors de la rotation du téléphone<br />Mode de partage : SDK (intégration locale, aucune donnée transmise à un serveur tiers)<br />Règles de traitement des informations personnelles par le tiers : [https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
+1. Les composants tiers traitent uniquement les informations nécessaires aux fonctions répertoriées dans la présente liste et ne les utilisent pas à des fins commerciales indépendantes sans rapport avec ces fonctions.
+2. Vous pouvez désactiver les notifications, l’analyse du produit, la connexion à distance ou les autorisations système concernées ; la fonction correspondante peut alors devenir indisponible.
+3. Les services tiers peuvent modifier leur traitement en fonction de la version, de la région, de l’infrastructure ou de leur politique ; leurs annonces officielles s’appliquent alors.
+4. Pour exercer vos droits sur vos informations personnelles, consultez d’abord la politique publique du prestataire concerné. Pour une demande relative au compte StationHub, à l’appareil ou aux fonctions de l’application, contactez-nous à `service@spcnasos.com`.
 
-**Surveillance des journaux Sentry (SDK, sentry_flutter 8.14.2 / Sentry HybridSDK 8.46.0)**<br />Nom de l'entreprise tierce : Functional Software, Inc. (Sentry)<br />Zone d'application : monde entier<br />Finalité : enregistrement des journaux de plantage et d'anomalie, pour le dépannage et l'analyse de la stabilité<br />Informations personnelles concernées : informations de l'appareil (modèle de l'appareil/version du système), identifiant unique de l'appareil, informations des journaux, informations de connexion réseau (IP)<br />Scénario d'utilisation : lors d'un plantage ou d'une anomalie de fonctionnement de l'application, collecter les journaux de plantage et d'erreur pour localiser les pannes et améliorer la stabilité du produit<br />Mode de partage : SDK<br />Règles de traitement des informations personnelles par le tiers : [https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
+## 4. Documents associés
 
-**Analyse statistique du comportement des utilisateurs PostHog (SDK, posthog_flutter 5.0.0 / PostHog iOS 3.30.1)**<br />Nom de l'entreprise tierce : PostHog, Inc.<br />Zone d'application : monde entier<br />Finalité : réaliser des statistiques et analyses d'exploitation de l'application (statistiques d'événements et identification des utilisateurs ; la relecture de session est désactivée)<br />Informations personnelles concernées : identifiant unique de l'appareil (ulid/SN de l'appareil), informations de l'appareil, informations réseau<br />Scénario d'utilisation : statistiques des événements d'utilisation des différentes fonctions de l'application, pour comprendre l'utilisation des fonctions et les parcours d'opération dans l'application<br />Mode de partage : SDK<br />Règles de traitement des informations personnelles par le tiers : [https://posthog.com/privacy](https://posthog.com/privacy)
-
-**Service de scan Huawei HMS Scan Kit (SDK, flutter_scankit 2.0.3 / com.huawei.hms:scanplus:2.12.0.301)**<br />Nom de l'entreprise tierce : Huawei Software Technologies Co., Ltd.<br />Zone d'application : monde entier (Chine continentale et étranger, selon la disponibilité du service Huawei HMS Core)<br />Finalité : scanner des codes QR/codes-barres (ajout d'appareil, connexion/association par scan)<br />Informations personnelles concernées : images capturées par l'appareil photo (reconnaissance sur l'appareil, image originale non téléversée), informations de base de l'appareil nécessaires au fonctionnement du service HMS<br />Scénario d'utilisation : lors de l'ajout d'un appareil NAS ou de la connexion/association par scan, appeler l'appareil photo pour scanner le code QR/code-barres de l'appareil<br />Mode de partage : SDK (l'image est reconnue sur l'appareil, l'image originale n'est pas téléversée)<br />Règles de traitement des informations personnelles par le tiers : [https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/)
-
-**Reconnaissance de codes-barres Google ML Kit (SDK, mobile_scanner 6.x / iOS GoogleMLKit/BarcodeScanning 7.0.0 / Android com.google.mlkit:barcode-scanning 17.3.0)**<br />Nom de l'entreprise tierce : Google LLC<br />Zone d'application : pays et régions hors Chine continentale<br />Finalité : reconnaissance par scan (scan sur iOS, scan de secours sur Android)<br />Informations personnelles concernées : images capturées par l'appareil photo (reconnaissance sur l'appareil, non téléversées), informations de l'appareil et de diagnostic décrites dans la politique de confidentialité de Google<br />Scénario d'utilisation : lors de l'ajout d'un appareil NAS ou de la connexion/association par scan, appeler l'appareil photo pour reconnaître le code QR/code-barres<br />Mode de partage : SDK (l'image est reconnue sur l'appareil, non téléversée)<br />Règles de traitement des informations personnelles par le tiers : [https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-**Tunnel P2P peergine (SDK, pg_lib_tunnel : Android pgjnitunnel.jar / bibliothèque native iOS)**<br />Nom de l'entreprise tierce : peergine<br />Zone d'application : monde entier (serveurs relais p2p.t-firefly.net / us.p2prelay.t-firefly.net déployés par le fabricant de l'appareil)<br />Finalité : établir un tunnel de données P2P par perçage/relais lors de l'accès à distance au NAS (traversée de réseau privé)<br />Informations personnelles concernées : numéro de série/identifiant de l'appareil (SN, UDID), adresse IP et port, informations réseau (pour la traversée NAT et la négociation de liaison)<br />Scénario d'utilisation : après l'activation de la connexion à distance, accéder au NAS domestique depuis l'extérieur via le tunnel P2P<br />Mode de partage : SDK<br />Règles de traitement des informations personnelles par le tiers : aucune politique de confidentialité publique
-
-## Déclaration de conformité
-
-1. Sans votre consentement explicite, nous ne partageons pas vos informations personnelles avec des tiers à leurs propres fins commerciales.
-
-2. Les services tiers intégrés au produit ne traitent les informations personnelles que pour les finalités fonctionnelles convenues.
-
-## Liens officiels vers les politiques de confidentialité des tiers
-
-- Notifications locales flutter_local_notifications : [https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
-
-- Lecture de musique audio_service : [https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
-
-- Lecture vidéo VLCPlayer : [https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
-
-- Surveillance des journaux Sentry : [https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
-
-- Analyse statistique du comportement des utilisateurs PostHog : [https://posthog.com/privacy](https://posthog.com/privacy)
-
-- Service de scan Huawei HMS Scan Kit : [https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/) (déclaration de confidentialité HMS Core, vérification manuelle recommandée)
-
-- Reconnaissance de codes-barres Google ML Kit : [https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-- Tunnel P2P peergine : aucune politique de confidentialité publique
+- [« Politique de confidentialité »](./privacy-policy)
+- [« Liste de traitement des informations personnelles »](./personal-information-processing-list)
+- [« Demande et utilisation des autorisations de l’application »](./permission-usage-statement)

@@ -1,59 +1,44 @@
 ---
-sourceHash: ebc1a75925ba
-title: 'List of Personal Information Shared with Third-Parties'
-description: StationPC List of Personal Information Shared with Third-Parties
+sourceHash: ff6cf8221e91
+title: 'Third-Party Personal Information Sharing List'
+description: StationHub Third-Party Personal Information Sharing List
 ---
 
-Update Date Sep 29, 2026
+Updated: October 20, 2026
 
-To deliver complete and stable functionalities for StationPC, we integrate third-party components including SDKs, application programming interfaces (APIs), and plugins supplied by external partners. This document lists relevant third-party partners. Please review each third-party’s privacy policy for full details on how they handle personal information.
+The StationHub mobile app uses selected open-source components and third-party services for notifications, media playback, scanning, crash diagnostics, product analytics, and remote connections. This list describes what each component does, when it runs, what it may process, and whether information leaves the device. Versions and provider policies may change; use the provider’s latest public policy as the reference.
 
-Please be aware that third-party components may adjust their data-processing scope due to version iterations or policy revisions. Please refer to official announcements released by respective third-party service providers.
+## 1. Components that run locally
 
-## Mobile Devices
+The following components mainly run on the phone and do not send personal information to the component maintainer’s servers:
 
-Scope: StationPC StationNAS App (Android / iOS)
+| Component | Scenario | Information it may access | Handling |
+| --- | --- | --- | --- |
+| `flutter_local_notifications` 19.4.1 / `com.dexterous.flutterlocalnotifications` | Backup progress, remaining items, and completion alerts | Notification permission and notification text | Creates notifications on the device |
+| `audio_service` / `com.ryanheise.audioservice` | Background playback or keeping a backup task alive | Notification and background-run permissions | Local integration; no transfer to third-party servers |
+| `flutter_vlc_player` 7.4.2 / `MobileVLCKit` 3.6.1b1 | Play NAS videos and change orientation | Playback state, accelerometer, and gyroscope | Plays on the device; video is not uploaded to the maintainer |
+| `flutter_scankit` 2.0.3 / `com.huawei.hms:scanplus:2.12.0.301` | Add a device, QR sign-in, or binding | Camera image and basic device information needed to run HMS | Codes are preferably recognized on-device; see the [Huawei HMS Core Privacy Statement](https://consumer.huawei.com/cn/privacy/hms-core-statement/) |
+| `mobile_scanner` 6.x / iOS `GoogleMLKit/BarcodeScanning` 7.0.0 / Android `com.google.mlkit:barcode-scanning` 17.3.0 | iOS scanning and Android fallback scanning | Camera image and device or diagnostic information described by the provider | Images are recognized on-device; see the [Google Privacy Policy](https://policies.google.com/privacy) |
 
-Verification date: 2026-09-24
+## 2. Components that transmit information to providers
 
-Basis: pubspec.yaml / pubspec.lock / android/app/build.gradle / ios/Podfile.lock / local plugins under package/ / active call sites in lib
+| Service or SDK | Trigger | Information transmitted or processed | Purpose and policy |
+| --- | --- | --- | --- |
+| Sentry (`sentry_flutter` 8.14.2 / Sentry HybridSDK 8.46.0) | App crash or error | Device model, system version, device identifier, error/crash logs, IP and other network information | Troubleshooting and stability analysis; [Sentry Privacy Policy](https://sentry.io/legal/privacy/) |
+| PostHog (`posthog_flutter` 5.0.0 / PostHog iOS 3.30.1) | App use that generates an analytics event | Device identifier (ulid/device SN), device and network information, feature events | Understand feature use and paths; session replay is off; [PostHog Privacy Policy](https://posthog.com/privacy) |
+| peergine P2P tunnel (`pg_lib_tunnel`, Android `pgjnitunnel.jar` / native iOS library) | You enable remote access through P2P or a relay | Device SN/identifier (SN, UDID), IP, port, and link-negotiation network data | Establish an overlay or relay path; relay addresses are `p2p.t-firefly.net` and `us.p2prelay.t-firefly.net`; no separate public privacy policy |
 
-**Local Notifications (SDK, flutter_local_notifications 19.4.1 / com.dexterous.flutterlocalnotifications)**<br />Third-Party Company Name: MaikuB (open-source project)<br />Applicable Region: Worldwide (the component runs locally; no third-party server)<br />Purpose: Notify the remaining backup count and task completion during backup<br />Personal Information Involved: Local notification permission; notification content is stored locally only and is not uploaded<br />Usage Scenario: While a backup task is running or upon completion, a local notification is shown on the device to indicate the remaining backup count and task completion<br />Sharing Method: SDK (integrated locally; no data transmitted to third-party servers)<br />Third-Party Personal Information Processing Rules: [https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
+Sentry, PostHog, and peergine process information only when the related feature is enabled or an event occurs. Installing the app does not make us read private NAS files; whether file content is transmitted depends on the feature, your authorization, and the destination provider’s rules.
 
-**Music Playback (SDK, audio_service / com.ryanheise.audioservice)**<br />Third-Party Company Name: Ryan Heise (open-source project)<br />Applicable Region: Worldwide (the component runs locally; no third-party server)<br />Purpose: Play audio in the background / keep the app alive during backup so that backup tasks are not interrupted, improving the user experience<br />Personal Information Involved: Notification and background-running related permissions (no personal information collected)<br />Usage Scenario: After automatic backup of photos, files, etc. is enabled, the app keeps running in the background so that backup tasks are not interrupted by the system<br />Sharing Method: SDK (integrated locally; no data transmitted to third-party servers)<br />Third-Party Personal Information Processing Rules: [https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
+## 3. Sharing boundaries and your choices
 
-**VLCPlayer Video Playback (SDK, flutter_vlc_player 7.4.2 / MobileVLCKit 3.6.1b1)**<br />Third-Party Company Name: VideoLAN (open-source organization)<br />Applicable Region: Worldwide (the component runs locally; no third-party server)<br />Purpose: In-app video playback, and automatic switching between landscape and portrait when the phone is rotated<br />Personal Information Involved: Accelerometer / gyroscope (used to detect rotation; no personal device information collected)<br />Usage Scenario: When playing video files stored on the NAS inside the app, the screen orientation switches automatically as the phone is rotated<br />Sharing Method: SDK (integrated locally; no data transmitted to third-party servers)<br />Third-Party Personal Information Processing Rules: [https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
+1. Third-party components process only the information needed for the functions listed here and not for unrelated independent commercial purposes.
+2. You can turn off notifications, product analytics, remote connections, or system permissions; the related feature may then be unavailable.
+3. Providers may change processing because of versions, regions, infrastructure, or policy updates. Their official notices then apply.
+4. For rights requests about a provider, review its public policy first. For StationHub accounts, devices, or app features, contact us at `service@spcnasos.com`.
 
-**Sentry Log Monitoring (SDK, sentry_flutter 8.14.2 / Sentry HybridSDK 8.46.0)**<br />Third-Party Company Name: Functional Software, Inc. (Sentry)<br />Applicable Region: Worldwide<br />Purpose: Crash and exception log recording for troubleshooting and stability analysis<br />Personal Information Involved: Device information (device model / system version), unique device identifier, log information, network information (IP)<br />Usage Scenario: When the app crashes or behaves abnormally, crash and error logs are collected for fault localization and product stability improvement<br />Sharing Method: SDK (integrated locally; no data transmitted to third-party servers)<br />Third-Party Personal Information Processing Rules: [https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
+## 4. Related documents
 
-**PostHog User Behaviour Analytics (SDK, posthog_flutter 5.0.0 / PostHog iOS 3.30.1)**<br />Third-Party Company Name: PostHog, Inc.<br />Applicable Region: Worldwide<br />Purpose: App operation statistics and analytics (event statistics and user identification; session replay disabled)<br />Personal Information Involved: Unique device identifier (ulid / device SN), device information, network information<br />Usage Scenario: Statistics on feature-usage events generated when you use app features, used to understand feature usage and in-app operation paths<br />Sharing Method: SDK (integrated locally; no data transmitted to third-party servers)<br />Third-Party Personal Information Processing Rules: [https://posthog.com/privacy](https://posthog.com/privacy)
-
-**HUAWEI Scan Kit (SDK, flutter_scankit 2.0.3 / com.huawei.hms:scanplus:2.12.0.301)**<br />Third-Party Company Name: Huawei Software Technologies Co., Ltd.<br />Applicable Region: Worldwide (Mainland China and overseas, depending on the availability of HUAWEI HMS Core services)<br />Purpose: Scanning QR codes / barcodes (adding devices, QR-code login / binding)<br />Personal Information Involved: Images captured by the camera (recognized on the device; original images are not uploaded), basic device information required for HMS services to run<br />Usage Scenario: When adding a NAS device, logging in or binding a device by QR code, the camera is used to scan the device QR code / barcode<br />Sharing Method: SDK (images are recognized on the device; original images are not uploaded)<br />Third-Party Personal Information Processing Rules: [https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/)
-
-**Google ML Kit Barcode Scanning (SDK, mobile_scanner 6.x / iOS GoogleMLKit/BarcodeScanning 7.0.0 / Android com.google.mlkit:barcode-scanning 17.3.0)**<br />Third-Party Company Name: Google LLC<br />Applicable Region: Countries and regions outside Mainland China<br />Purpose: Barcode recognition (QR scanning on iOS; fallback scanning on Android)<br />Personal Information Involved: Images captured by the camera (recognized on the device; not uploaded), device / diagnostic information as described in Google's privacy policy<br />Usage Scenario: When adding a NAS device, logging in or binding a device by QR code, the camera is used to recognize the QR code / barcode<br />Sharing Method: SDK (images are recognized on the device; not uploaded)<br />Third-Party Personal Information Processing Rules: [https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-**peergine P2P Tunnel (SDK, pg_lib_tunnel: Android pgjnitunnel.jar / iOS native library)**<br />Third-Party Company Name: peergine<br />Applicable Region: Worldwide (relay servers p2p.t-firefly.net / us.p2prelay.t-firefly.net are deployed by the device vendor)<br />Purpose: Establishing a P2P hole-punching / relay data tunnel for remote NAS access (NAT traversal)<br />Personal Information Involved: Device serial number / device identifier (SN, UDID), IP address and port, network information (used for NAT traversal and link negotiation)<br />Usage Scenario: After the remote connection feature is enabled, accessing the NAS device at home through the P2P tunnel from an external network<br />Sharing Method: SDK<br />Third-Party Personal Information Processing Rules: No public privacy policy available
-
-## Compliance Statement
-
-1. We will not share your personal information with third-parties for independent commercial purposes without your explicit consent.
-
-2. Third-party services integrated in our product only process personal information for the agreed functional purposes.
-
-## Third-Party Official Privacy Links
-
-- Local Notifications flutter_local_notifications: [https://github.com/MaikuB/flutter_local_notifications](https://github.com/MaikuB/flutter_local_notifications)
-
-- Music Playback audio_service: [https://github.com/ryanheise/audio_service](https://github.com/ryanheise/audio_service)
-
-- VLCPlayer Video Playback: [https://www.videolan.org/privacy/](https://www.videolan.org/privacy/)
-
-- Sentry Log Monitoring: [https://sentry.io/legal/privacy/](https://sentry.io/legal/privacy/)
-
-- PostHog User Behaviour Analytics: [https://posthog.com/privacy](https://posthog.com/privacy)
-
-- HUAWEI Scan Kit: [https://consumer.huawei.com/cn/privacy/hms-core-statement/](https://consumer.huawei.com/cn/privacy/hms-core-statement/) (HMS Core privacy statement; manual review recommended)
-
-- Google ML Kit Barcode Scanning: [https://policies.google.com/privacy](https://policies.google.com/privacy)
-
-- peergine P2P Tunnel: No public privacy policy available
+- [Privacy Policy](./privacy-policy)
+- [Personal Information Processing List](./personal-information-processing-list)
+- [App Permission Request and Usage Statement](./permission-usage-statement)

@@ -1,104 +1,67 @@
 ---
-sourceHash: 5afa7f26a43e
+sourceHash: 38bb8f41d5fa
 title: 'Personal Information Processing List'
-description: StationPC Personal Information Processing List
+description: StationHub Personal Information Processing List
 ---
 
-Update Date Sep 29, 2026
+Updated: October 20, 2026
 
-## General Description
+This list divides StationHub processing in mobile, web, and PC clients into “trigger — information — storage location” so you can see whether a feature may use network transmission. When cloud capabilities are off, local accounts and NAS files remain primarily on the device.
 
-This list describes the personal information processing scenarios of StationPC StationNAS App, Web and PC clients. We strictly distinguish between **local offline account mode** and **cloud account mode**.
+## 1. Accounts and membership
 
-For users outside Mainland China, only email registration is supported. No phone number or advertising identifiers will be collected. Precise location is never collected or stored; location is used temporarily only during device network setup to read the Wi-Fi name and derive the country code. Product analytics and crash diagnostics data are processed as described in this list.
+| Trigger | Purpose | Information that may be involved | Main location |
+| --- | --- | --- | --- |
+| Create a local offline account | Manage a device without a cloud account | Local account and password | User NAS |
+| Enable two-step verification for a local account | Send a code and protect the account | Verification email and code status | User NAS |
+| Register or sign in to a cloud account | Verify identity and manage the account | Phone number in Mainland China; email elsewhere; code, password, nickname, avatar, account ID | Cloud account service |
+| Recover a password or verify ownership | Handle account-security requests | Account details and device SN | Account service and security logs |
+| Invite a member or join an organization | Manage shared devices and folders | Organization ID, role, device ownership, invitation and permission records | Device or organization service |
 
-Local account data is fully stored on the local NAS hardware. No personal data will be collected or stored by StationPC StationNAS cloud servers.
+## 2. Device access and network services
 
-Without explicit user authorization, we will not read, scan or upload any private files stored in your NAS local storage.
+| Action | Purpose | Information that may be involved | Main location |
+| --- | --- | --- | --- |
+| Bind, unbind, or manage a NAS | Establish the device relationship and provide operations | Device SN, model, firmware, MAC, IP, name, status, warranty information | Device and cloud device service |
+| Search the local network | Find available devices on the same network | Name, IP, MAC, SN, firmware, status, Wake-on-LAN status | Usually temporary on the local network |
+| View device status | Provide access management and operating status | Online, offline, or sleep state; owner/shared-user role | Device or device service |
+| Use remote connections | Access or manage a device from outside | Remote ID, device SN, IP, router port, domain, connection status | Remote-connection service and necessary logs |
+| Back up or restore configuration | Migrate, repair, or restore a device | User permissions, file, network, security, and system settings | NAS or backup location selected by you |
 
-## 1. Registration and Login
+## 3. Operation, analytics, and security
 
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Create and log in with local offline account | Implement local device management without relying on cloud services | Local account name, local password (stored only on NAS local device) |
-| Local account two-factor authentication (optional) | Receive verification codes to improve local account security | Emergency email address (stored locally) |
-| Cloud account registration and login | Complete identity verification, account management and secure login | Phone number (Mainland China only) / Email (non-Mainland China), verification code, password, nickname, avatar |
-| Password reset verification | Verify user identity to ensure account security | Account information, device SN |
+| Trigger | Purpose | Information that may be involved | Notes |
+| --- | --- | --- | --- |
+| Crash, error, or performance fault | Diagnose issues and improve stability | Crash logs, device model, system/software version, operation logs | OAID, GAID, and IDFA are not collected |
+| Product analytics | Understand feature use and in-app paths | Account ID, user type, device name/SN/model, app and system version, feature events | Processed by analytics providers when enabled |
+| Sign-in and security audit | Detect unusual sign-ins and unauthorized access | Time, IP, city-level location, system type, sign-in method, operation records | Security logs |
+| Trusted-device management | Reduce repeated verification and protect accounts | Trusted device model, sign-in place/time, device list | Account or device service |
+| Updates, notices, and operations | Send status, backup, security, and update reminders | Device status, task progress, version, necessary notification identifiers | Device, notification, or account service |
 
-## 2. Device Binding & Management
+## 4. Support, app center, and third-party connections
 
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Bind and manage NAS devices | Realize device-cloud association, device identification and operation management | Device SN, model, firmware version, MAC address, IP address, custom device name, online status, warranty information |
-| Monitor device running status | Maintain permission management and device status awareness | Device online/offline/sleep status, user role (owner/sharer) |
-| Product iteration statistics | Optimize product functions based on version distribution | Device firmware version |
+| Trigger | Purpose | Information that may be involved | Storage or handling |
+| --- | --- | --- | --- |
+| Support, troubleshooting, or repair | Locate issues and provide assistance | Contact details, device SN, operation/error logs, network information, screenshots and descriptions you submit | Only within the submitted or authorized scope |
+| Overseas ticket or technical request | Handle an issue outside Mainland China | Region, device SN, description, optional nickname and device type | Used by the support process |
+| Match an app in the app center | Provide compatible third-party apps | Device SN, model, firmware, IP | Sent to services needed by the app center |
+| Report or appeal about a third-party app | Maintain the app ecosystem | App name, description, screenshots, email | Handled by support and app administrators |
+| Connect a third-party cloud | Sync NAS and cloud files | Temporary third-party token and task status | Token kept only as needed; deletion follows that service’s rules |
+| Back up and restore phone contacts | Keep contacts on your own NAS | Name, phone, email, group | Stored only on the NAS you select |
 
-## 3. LAN Device Discovery
+## 5. Optional research and device improvement
 
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Search LAN devices | Quickly identify available NAS devices in local network | Device name, IP, MAC, SN, firmware version, device status, WOL status |
+| Participation | Purpose | Information that may be involved | Scope |
+| --- | --- | --- | --- |
+| Voluntary overseas experience research | Collect feedback and improve products | Email and cloud account voluntarily provided | Outside Mainland China |
+| Voluntary device-improvement plan | Analyze usage and stability | Account/device ID, IP, behavior statistics, crash logs, location and network information | Mainland China, only after the page invitation |
 
-## 4. Operation & Security Maintenance
+## 6. Boundaries for files and location
 
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| System stability and fault troubleshooting | Fix crashes, optimize performance and ensure service security | Crash logs, device model, system version, software version, operation logs<br />**No advertising identifiers (OAID/GAID/IDFA) are collected; analytics data is processed as described in this section** |
-| Product usage analytics | Understand feature usage and in-app flows to continuously improve the product | Account ID, user type, device name, device SN, device model, app and system version, processed via third-party analytics service |
+1. Local offline accounts do not upload personal data to the cloud; the data remains on the user’s NAS.
+2. Without your active authorization, we do not read, scan, parse, or upload private NAS files.
+3. We do not collect or retain precise location. During setup, we may temporarily read the Wi-Fi name and derive a country code; coordinates are not uploaded or stored persistently.
+4. Advertising identifiers are not collected outside Mainland China. Crash diagnostics and product analytics follow the scenarios in this list.
+5. You can view, correct, or delete information under your control in App settings and request account closure. Organization-space requests may require contacting the administrator first.
 
-## 5. Technical Support & After-sales
-
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Online customer service and fault diagnosis | Locate problems and provide accurate after-sales support | Account contact information, device SN, operation logs, error logs, network information, user-submitted screenshots and descriptions (user active submission only) |
-| Overseas technical ticket submission | Process overseas user technical requests | Region, device SN, problem description (optional: nickname, device type) |
-
-## 6. Login History & Trusted Device
-
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Record login behavior | Identify abnormal login and prevent unauthorized access | Login time, IP address, city-level location, system type, login method, operation record |
-| Trusted device management | Simplify repeated login and improve account security | Trusted device model, login location, last login time, device list |
-
-## 7. Remote Connection Service
-
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Enable and use remote connection | Realize external network access and device remote management | Remote connection ID (generated from a device identifier), device SN, IP address, routing port, domain name |
-
-## 8. App Center & Third-party Services
-
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Use App Center functions | Match applicable third-party applications for devices | Device SN, model, firmware version, IP |
-| Report third-party applications | Maintain ecological order and handle user feedback | Application name, problem description, screenshot evidence, user email |
-| Access third-party cloud disk services | Realize file synchronization between NAS and third-party cloud | Third-party cloud temporary access token (local storage only) |
-
-## 9. Configuration Backup & Restore
-
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Device configuration backup and restore | Save system configuration for device migration and repair | User permission settings, file service settings, network, security and system configuration data |
-| Phone contacts backup and restore | Back up phone contacts to the user's own NAS for device switching and data recovery | Contact name, phone number, email, group (stored only on the user's own NAS) |
-
-## 10. User Experience Survey (Non-Mainland China Only)
-
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Overseas user experience survey | Collect product feedback and optimize overseas functions | Voluntarily provided email address, cloud account |
-
-## 11. Device Analysis Program (Mainland China Only)
-
-| Scenario | Purpose | Collected Fields |
-| --- | --- | --- |
-| Participate in device improvement plan voluntarily | Analyze usage habits and improve product stability | Account ID, device ID, IP, usage behavior statistics, crash logs, location and network information |
-
-## Important Supplementary Notes
-
-1. Local offline accounts do not upload any personal data to the cloud. All data is stored locally on the user NAS.
-
-2. User private files stored in NAS will not be read, uploaded or analyzed by StationPC StationNAS without explicit authorization.
-
-3. Overseas versions do not collect advertising identifiers. Precise location is never collected or stored; location is used temporarily only during device network setup to derive the country code. Crash logs and the product analytics data described in Section 4 are retained for fault repair and product improvement.
-
-4. Users may query, correct, delete personal information or cancel accounts through app settings.
+Read this list together with the [Privacy Policy](./privacy-policy), [Permission Request and Usage Statement](./permission-usage-statement), and [Third-Party Personal Information Sharing List](./third-party-sdk-list). We will update it when features, components, or legal requirements change.
