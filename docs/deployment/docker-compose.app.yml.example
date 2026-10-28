@@ -9,7 +9,7 @@
 
 services:
   app:
-    image: ghcr.io/stationpc/stationnas-docs:latest
+    image: ghcr.io/stationpc-technology/stationospro-docs:latest
     container_name: stationnas-docs
     restart: unless-stopped
     ports:

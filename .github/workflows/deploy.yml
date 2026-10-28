@@ -15,7 +15,7 @@ jobs:
       contents: read
       packages: write
     outputs:
-      image: ghcr.io/stationpc/stationnas-docs:${{ github.sha }}
+      image: ghcr.io/stationpc-technology/stationospro-docs:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,8 +36,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/stationpc/stationnas-docs:${{ github.sha }}
-            ghcr.io/stationpc/stationnas-docs:latest
+            ghcr.io/stationpc-technology/stationospro-docs:${{ github.sha }}
+            ghcr.io/stationpc-technology/stationospro-docs:latest
           # NEXT_PUBLIC_* 为构建时内联变量（仓库 variables）
           build-args: |
             NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}

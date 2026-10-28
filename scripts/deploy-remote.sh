@@ -10,7 +10,7 @@ set -eu
 IMAGE="${IMAGE:?IMAGE is required}"
 ENV_FILE="${ENV_FILE:-/etc/stationnas-docs.env}"
 CONTAINER="stationnas-docs"
-REPO="ghcr.io/stationpc/stationnas-docs"
+REPO="ghcr.io/stationpc-technology/stationospro-docs"
 HEALTH_URL="http://127.0.0.1:3000/"
 TAG="${IMAGE##*:}"
 

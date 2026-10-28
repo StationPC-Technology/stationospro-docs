@@ -12,7 +12,7 @@
 
 services:
   app:
-    image: ghcr.io/stationpc/stationnas-docs:latest
+    image: ghcr.io/stationpc-technology/stationospro-docs:latest
     restart: unless-stopped
     expose:
       - "3000"

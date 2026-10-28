@@ -11,7 +11,7 @@ GitHub（公开仓库 StationPC/stationospro-docs）
        ├── CI  quality.yml（typecheck + build）
        └── CD  deploy.yml（push main 触发）
             ├─ 构建 Docker 镜像（tag = commit sha）
-            ├─ 推送 GHCR（ghcr.io/stationpc/stationnas-docs）
+            ├─ 推送 GHCR（ghcr.io/stationpc-technology/stationospro-docs）
             └─ GitHub OIDC → 阿里云 STS 临时凭证 → 云助手 RunCommand
                                                      ↓
 阿里云 ECS（海外机房，已有 Docker；无需公网 SSH）
@@ -268,14 +268,14 @@ GitHub OIDC → AssumeRole → aliyun ecs RunCommand
 `deploy-remote.sh` 的服务器端动作：
 
 ```bash
-docker pull ghcr.io/stationpc/stationnas-docs:<sha>
+docker pull ghcr.io/stationpc-technology/stationospro-docs:<sha>
 docker rm -f stationnas-docs || true
 docker run -d --name stationnas-docs \
   --restart unless-stopped \
   -p 127.0.0.1:3000:3000 \
   --env-file /etc/stationnas-docs.env \
   --label "deploy.sha=<sha>" \
-  ghcr.io/stationpc/stationnas-docs:<sha>
+  ghcr.io/stationpc-technology/stationospro-docs:<sha>
 # 健康检查 http://127.0.0.1:3000/，失败自动回滚旧镜像
 # 清理旧镜像，只保留最近 5 个 sha 镜像（latest 不受影响）
 ```
@@ -331,7 +331,7 @@ curl -I https://docs.stationpc.com/llms.txt    # 200
 用云助手控制台/会话管理在服务器执行：
 
 ```bash
-IMAGE=ghcr.io/stationpc/stationnas-docs:<旧-sha>
+IMAGE=ghcr.io/stationpc-technology/stationospro-docs:<旧-sha>
 docker pull "$IMAGE"
 docker rm -f stationnas-docs
 docker run -d --name stationnas-docs \
