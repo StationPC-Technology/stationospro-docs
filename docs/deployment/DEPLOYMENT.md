@@ -1,12 +1,12 @@
 # StationOS Pro 帮助中心部署指南
 
-> 本文档描述 `StationPC/stationospro-docs` 帮助中心的自动化部署流程。
+> 本文档描述 `StationPC-Technology/stationospro-docs` 帮助中心的自动化部署流程。
 > 线上站点：`https://docs.stationpc.com`（域名 DNS 由阿里云/腾讯云管理）
 
 ## 架构总览
 
 ```
-GitHub（公开仓库 StationPC/stationospro-docs）
+GitHub（公开仓库 StationPC-Technology/stationospro-docs）
   └── GitHub Actions
        ├── CI  quality.yml（typecheck + build）
        └── CD  deploy.yml（push main 触发）
@@ -135,7 +135,7 @@ RAM 访问控制 → 角色 → 创建角色 → 信任主体类型选“OIDC �
         "StringEquals": {
           "oidc:iss": "https://token.actions.githubusercontent.com",
           "oidc:aud": "sts.aliyuncs.com",
-          "oidc:sub": "repo:StationPC@104135196/stationospro-docs@1330885082:ref:refs/heads/main"
+          "oidc:sub": "repo:StationPC-Technology@340541337/stationospro-docs@1330885082:ref:refs/heads/main"
         }
       }
     }
@@ -145,7 +145,7 @@ RAM 访问控制 → 角色 → 创建角色 → 信任主体类型选“OIDC �
 
 注意：
 
-- 仓库规范全名是 `StationPC/stationospro-docs`（不是本地 remote 里的 `StationNAS-Docs`）。
+- 仓库规范全名是 `StationPC-Technology/stationospro-docs`（组织 ID `340541337`；仓库 ID `1330885082`）。
 - 该仓库创建于 2026-08-11，GitHub 使用含 owner ID / repo ID 的 immutable subject，因此 `sub` 必须写成上面的形式。
 - `oidc:sub` 用 `StringEquals` 精确匹配 `main`，不要用 `StringLike` 放宽到所有分支。
 - 如果首次 AssumeRole 报 audience/sub 不匹配，可临时在 `Configure credentials` 步骤前打印 OIDC token 的 `iss/aud/sub`（只打印 claims，不打印 token），以实际值修正信任策略；不要盲目改成通配符。
