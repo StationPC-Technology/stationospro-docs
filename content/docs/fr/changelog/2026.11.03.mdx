@@ -1,0 +1,125 @@
+---
+sourceHash: 579809dd3397
+title: 'Notes de mise à jour du système 2026.11.03'
+---
+
+## À lire avant la mise à jour
+
+### Produits concernés
+
+Cette mise à jour concerne les produits exécutant StationOS Pro. Avant la mise à niveau, vérifiez l’architecture du processeur correspondant à votre modèle.
+
+- Série DA : série DA400
+
+### Rappels de mise à niveau
+
+1. Pour utiliser les fonctions décrites ici, mettez le micrologiciel système, la suite d’applications ou le client à la version indiquée ou ultérieure.
+2. Certaines nouvelles fonctions de la suite d’applications nécessitent une version minimale précise du micrologiciel. Si celle-ci est inférieure à la version compatible minimale, vous risquez de ne pas recevoir les notifications de mise à jour des applications ou de ne pas pouvoir utiliser les fonctions concernées normalement.
+
+## Micrologiciel système et applications StationOS Pro
+### Informations de version
+
+Version du micrologiciel système : v1.2.0.17
+
+Cette mise à jour modifie les interfaces réseau, stockage, partage de fichiers, lecture multimédia et recherche IA. Pour garantir le bon fonctionnement, nous recommandons de mettre à jour le micrologiciel, la suite d’applications et les clients associés vers leurs dernières versions.
+
+### Système et matériel
+
+- Nouveau : prise en charge des UPS USB, avec détection, surveillance de l’état, interrupteur d’activation, stratégie d’arrêt en cas de coupure et notifications de changement d’état.
+- Nouveau : widget de bureau UPS affichant la connexion et l’état d’alimentation de l’UPS.
+- Nouveau : extinction de l’écran en un geste et extinction programmée ; amélioration du réveil par pression courte lorsque l’écran est éteint.
+- Optimisé : état d’appui long du bouton de réinitialisation, message de fin de réinitialisation et signal sonore de fin de sauvegarde, afin de réduire les notifications répétées.
+- Optimisé : chargement à la demande des pages Matériel et Alimentation dans les paramètres système, pour accélérer leur ouverture.
+- Corrigé : les SSD SATA étaient détectés comme des disques mécaniques, ce qui augmentait excessivement la vitesse du ventilateur.
+
+### Réseau et accès à distance
+
+- Nouveau : prise en charge de l’agrégation de liens Bonding, avec configuration des modes d’agrégation multiports dans les connexions réseau.
+- Nouveau : adaptation de l’interface et du processus de configuration des cartes réseau sans fil, avec actualisation améliorée de l’état de connexion.
+- Optimisé : affichage des informations réseau après création d’un pont ; correction de l’affichage incorrect du nom du pont.
+- Optimisé : état de saisie après la vérification d’un Station ID en double, afin d’éviter la réinitialisation involontaire de la saisie.
+- Optimisé : entrée de montage à distance et messages d’erreur ; l’entrée Google Drive est temporairement masquée.
+
+### Stockage et disques
+
+- Nouveau : montage explicite d’un système de fichiers existant sur un disque interne comme stockage externe.
+- Nouveau : affichage et guide pour l’insertion directe d’un disque dans une baie ; affichage groupé du stockage externe amélioré.
+- Nouveau : messages d’erreur et accès au formatage pour les systèmes de fichiers chiffrés des disques externes et les systèmes non reconnus.
+- Nouveau : surveillance des erreurs du système de fichiers et signalement de l’état de corruption des espaces de stockage.
+- Optimisé : cohérence entre les noms de volumes, l’état des montages et l’affichage de la gestion des disques.
+- Corrigé : les chemins longs touchaient le bord de la boîte de dialogue d’échec de migration du stockage Docker.
+
+### Fichiers et protocoles de partage
+
+- Optimisé : migration de la racine de partage NFS vers bindfs, pour améliorer la stabilité du cycle de vie des montages partagés.
+- Nouveau : la portée visible des protocoles de partage prend en charge le stockage externe et les répertoires montés à distance.
+- Optimisé : description de la portée visible NFS, qui précise les scénarios en lecture seule.
+- Corrigé : affichage incorrect des anciens chemins, du nombre d’éléments et de l’état « tout interdit » dans la boîte de dialogue de portée visible.
+- Optimisé : API de mise à jour incrémentielle des gros fichiers, avec comparaison et application au niveau des blocs, afin de réduire le volume synchronisé.
+- Optimisé : migration de la synchronisation de fichiers intégrée vers le service indépendant `station_sync`, pour faciliter la maintenance.
+- Optimisé : affichage de l’emplacement du sélecteur de fichiers, filtrage de recherche, messages d’erreur lors de la création de dossiers et actualisation des répertoires.
+- Corrigé : style de la boîte de dialogue des autorisations des membres de l’équipe, noms des fichiers sélectionnés dans les tâches de transfert et affichage des icônes de dossiers.
+
+### Médias et lecture
+
+- Nouveau : mappage des tons pour le transcodage des sources HDR et Dolby Vision, avec restauration des couvertures P5.
+- Optimisé : l’empaquetage de la transmission directe vidéo utilise désormais une fenêtre glissante pilotée par la tête de lecture, réduisant les sondages répétés au démarrage et accélérant la recherche des images clés.
+- Optimisé : stratégie de repli du traitement vidéo H.263, pour éviter les blocages lors de l’extraction d’images décodées matériellement ou du transcodage.
+- Optimisé : le moteur FFMedia est utilisé par défaut pour la lecture HDMI, avec changement de piste et contrôle de la vitesse de lecture.
+- Optimisé : continuité de lecture et restauration de la piste actuelle après redémarrage du service HDMI.
+- Nouveau : lecture directe des pistes audio PCM des fichiers MOV.
+- Optimisé : arrière-plan de la zone du lecteur fixé au noir pur, afin d’éviter les changements de couleur entre les scènes.
+
+### IA et recherche
+
+- Nouveau : filtres temporels en langage naturel dans la recherche globale et la recherche intelligente de l’album.
+- Optimisé : analyse des expressions temporelles multilingues, avec prise en charge d’expressions comme « cette semaine », « le mois dernier » et « le précédent ».
+- Optimisé : mise à niveau du modèle CLIP et ajustement des seuils de recherche, pour améliorer la précision de la recherche intelligente IA.
+- Nouveau : recherche d’images vidéo, avec indexation des vidéos de l’album et recherche de scènes vidéo.
+- Optimisé : tâches d’indexation des vidéos d’album, gestion des lots, reprise et stratégie de nouvelle tentative.
+- Corrigé : les tâches OCR et CLIP échouaient à tort lorsque les miniatures n’étaient pas prêtes.
+- Optimisé : les noms des modèles locaux peuvent être sélectionnés et copiés.
+- Optimisé : textes multilingues de la base de connaissances ; correction du repli vers l’anglais lorsque certaines traductions manquaient.
+- Optimisé : transmission des données de demande d’état de santé de StationPC Bot et stabilité des appels d’outils.
+
+### Centre d’applications et Docker
+
+- Optimisé : ajout d’un cache, de délais d’attente et de scans à faible priorité aux statistiques de capacité Docker, afin de réduire l’impact des interrogations fréquentes sur les E/S du disque de données.
+- Corrigé : après un échec ou un délai d’attente des statistiques de capacité Docker, la capacité affichée dans l’aperçu était `0.00B`.
+- Corrigé : Docker pouvait être arrêté par la protection contre l’absence de volumes lors d’une condition de course au démarrage et à l’assemblage du stockage.
+- Optimisé : affichage de la vitesse réseau des conteneurs Docker et analyse des unités ; correction des courbes inexactes.
+- Optimisé : blocs de fonctions de la page de confirmation Docker, pour réduire les informations redondantes en mode à privilèges élevés.
+- Optimisé : délais d’attente des scripts d’installation d’applications, afin de réduire les échecs pour les grandes applications.
+- Optimisé : libellés des points de montage et logique de modification des chemins accessibles dans les paramètres d’installation.
+- Optimisé : vérification du MD5 des paquets et des versions installées par rapport à la version réellement téléchargée.
+- Corrigé : les captures d’écran des détails d’une application ne s’affichaient pas à cause d’URL non valides.
+
+### Sécurité et confidentialité
+
+- Optimisé : SSH est désactivé par défaut, afin de réduire la surface d’exposition de l’appareil.
+- Optimisé : règles de masquage des journaux PC ; correction de l’affichage en clair des noms d’utilisateur dans les journaux de connexion.
+- Optimisé : signature V4 pour l’envoi des journaux vers OSS, afin d’améliorer la sécurité du téléversement.
+- Optimisé : vérification de sécurité des notifications d’état de l’UPS.
+- Optimisé : synchronisation de l’état des ports système et messages d’erreur de pare-feu en double.
+
+## Client
+### Client iOS et Android
+
+Version de l’application : v1.2.0
+
+- Nouveau : entrée cartographique des lieux de l’album, carte de repérage des photos et page de détails du lieu, avec consultation des photos et des groupes de photos associés à un lieu.
+- Optimisé : performances du rendu de la carte de l’album et stabilité du proxy de tuiles ; amélioration de l’état vide et de la disposition des cartes de la liste des lieux.
+- Nouveau : carte d’état de sauvegarde de l’album du téléphone sur l’accueil, affichant l’état de sauvegarde Android/iOS, l’heure de la dernière sauvegarde et l’animation en cours.
+- Optimisé : bascule avant-plan/arrière-plan, nouvelles tentatives après échec, récupération des lots et statistiques d’achèvement des sauvegardes d’album, pour réduire les faux échecs et les blocages de progression.
+- Nouveau : réglage du délai des sous-titres, avec ajustement d’une seconde par pression longue ; amélioration de la relecture, du masque de fin de lecture et du positionnement des sous-titres.
+- Optimisé : volume et luminosité du lecteur, recommandations de qualité, style des sous-titres et affichage du thème sombre.
+- Nouveau : le lecteur multimédia passe automatiquement en mode immersif en orientation paysage ; un appui simple permet encore de changer ce mode lorsque le verrouillage des gestes est activé.
+- Nouveau : la bibliothèque multimédia Cinéma permet de vider et reconstruire la bibliothèque et d’arrêter le scan ; amélioration de la page de reconnaissance et de correspondance.
+- Nouveau : l’accès aux fichiers ouvre les entrées du stockage externe et des montages à distance ; style unifié de la boîte de dialogue de portée des dossiers visibles.
+- Optimisé : affichage des autorisations d’accès aux dossiers des applications ; les chemins gérés ne peuvent pas être supprimés et leurs autorisations sont verrouillées.
+- Corrigé : les captures d’écran des détails de l’App Store ne se chargeaient pas à cause d’URL non valides.
+- Optimisé : nouvelle tentative automatique pour les états d’erreur des listes de fichiers, afin d’éviter un état inaccessible persistant.
+- Nouveau : prise en charge de l’extinction de l’écran en un geste dans les paramètres matériels du système.
+- Optimisé : deuxième confirmation avant la mise à jour du micrologiciel et style de la boîte de dialogue de mise à jour.
+- Optimisé : apparence et interaction du formulaire de connexion ; le bouton de connexion est désactivé tant que le Contrat d’utilisation et la Politique de confidentialité ne sont pas acceptés.
+- Nouveau : carrousel de bienvenue avant connexion présentant un aperçu des fonctions ; animation de l’onde sonore pendant la connexion améliorée.

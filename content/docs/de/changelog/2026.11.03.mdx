@@ -1,0 +1,125 @@
+---
+sourceHash: 579809dd3397
+title: 'Systemaktualisierungshinweise 2026.11.03'
+---
+
+## Vor der Aktualisierung lesen
+
+### Betroffene Produkte
+
+Diese Aktualisierung gilt für Produkte mit StationOS Pro. Prüfen Sie vor dem Upgrade anhand Ihres Modells die Prozessorarchitektur.
+
+- DA-Serie: DA400-Serie
+
+### Hinweise zum Upgrade
+
+1. Um die hier beschriebenen Funktionen zu nutzen, aktualisieren Sie die System-Firmware, App-Suite oder den Client auf die angegebene oder eine höhere Version.
+2. Einige neue Funktionen der App-Suite erfordern eine bestimmte Mindestversion der Firmware. Bei einer niedrigeren Version erhalten Sie möglicherweise keine App-Update-Benachrichtigungen oder können die Funktionen nicht normal nutzen.
+
+## StationOS Pro System-Firmware und Apps
+### Versionsinformationen
+
+System-Firmware-Version: v1.2.0.17
+
+Diese Aktualisierung betrifft Netzwerk, Speicher, Dateifreigabe, Medienwiedergabe und Schnittstellen der AI-Suche. Für einen ordnungsgemäßen Betrieb sollten Sie Firmware, App-Suite und zugehörige Clients auf die neuesten Versionen aktualisieren.
+
+### System und Hardware
+
+- Neu: Unterstützung für USB-USV mit Geräteerkennung, Statusüberwachung, Aktivierungsschalter, Abschaltstrategie bei Stromausfall und Benachrichtigungen bei Statusänderungen.
+- Neu: Desktop-Widget für die USV mit Anzeige von Verbindung und Stromversorgungsstatus.
+- Neu: Bildschirm mit einem Klick oder zeitgesteuert ausschalten; Aufwecken per kurzem Tastendruck bei ausgeschaltetem Bildschirm verbessert.
+- Optimiert: Status beim langen Drücken der Reset-Taste, Meldung nach dem Zurücksetzen und Signalton nach Abschluss der Sicherung, um doppelte Hinweise zu vermeiden.
+- Optimiert: Bedarfsgesteuertes Laden der Seiten Hardware und Stromversorgung in den Systemeinstellungen für schnelleres Öffnen.
+- Behoben: SATA-SSDs wurden fälschlich als Festplatten erkannt und ließen den Lüfter zu schnell laufen.
+
+### Netzwerk und Fernzugriff
+
+- Neu: Link-Aggregation Bonding; mehrere Ports können unter Netzwerkverbindungen gebündelt werden.
+- Neu: Anpassung der Oberfläche und Einrichtung für WLAN-Adapter sowie Aktualisierung des Verbindungsstatus.
+- Optimiert: Netzwerkanzeige nach dem Erstellen einer Bridge; falsche Bridge-Namen behoben.
+- Optimiert: Eingabestatus nach Prüfung doppelter Station IDs, damit Eingaben nicht versehentlich zurückgesetzt werden.
+- Optimiert: Einstieg und Fehlermeldungen für Remote-Mounts; Google-Drive-Einstieg vorübergehend ausgeblendet.
+
+### Speicher und Datenträger
+
+- Neu: Vorhandenes Dateisystem eines internen Datenträgers kann ausdrücklich als externer Speicher eingebunden werden.
+- Neu: Anzeige und Anleitung für direkt eingesetzte Datenträger sowie bessere Gruppierung externer Speicher.
+- Neu: Fehlermeldungen und Formatierungsoption für verschlüsselte oder nicht erkannte Dateisysteme externer Datenträger.
+- Neu: Überwachung von Dateisystemfehlern und Meldung beschädigter Speicherbereiche.
+- Optimiert: Einheitliche Anzeige von Volume-Namen, Einbindestatus und Datenträgerverwaltung.
+- Behoben: Lange Pfade ragten im Dialog zum fehlgeschlagenen Docker-Speichermigrationsvorgang an den Rand.
+
+### Dateien und Freigabeprotokolle
+
+- Optimiert: NFS-Freigabestamm nach bindfs migriert, um die Stabilität des Lebenszyklus gemeinsam genutzter Mounts zu erhöhen.
+- Neu: Sichtbarer Bereich der Dateifreigabeprotokolle umfasst externen Speicher und remote eingebundene Verzeichnisse.
+- Optimiert: Beschreibung des NFS-Sichtbarkeitsbereichs für Nur-Lesen-Szenarien.
+- Behoben: Veraltete Pfade, Mengenangaben und der Status „alles blockiert“ wurden im Dialog falsch angezeigt.
+- Optimiert: API für inkrementelle Großdateiaktualisierung mit Blockvergleich und -anwendung; weniger Synchronisationsdaten.
+- Optimiert: Eingebaute Dateisynchronisierung in den unabhängigen Dienst `station_sync` verschoben, um die Wartung zu erleichtern.
+- Optimiert: Positionsanzeige des Dateiauswahls, Suchfilter, Fehlermeldungen beim Erstellen von Ordnern und Verzeichnisaktualisierung.
+- Behoben: Stil des Berechtigungsdialogs für Teammitglieder, Dateinamen bei Mehrfachauswahl von Übertragungsaufgaben und Ordnersymbole.
+
+### Medien und Wiedergabe
+
+- Neu: Tonemapping für HDR- und Dolby-Vision-Quellen beim Transkodieren sowie Wiederherstellung von P5-Covern.
+- Optimiert: Verpackung des direkten Videostreamings über ein vom Wiedergabekopf gesteuertes gleitendes Fenster; weniger Startprüfungen und schnellere Keyframe-Suche.
+- Optimiert: H.263-Fallback, um Hänger bei hardwaredekodierten Frames oder beim Transkodieren zu vermeiden.
+- Optimiert: FFMedia ist jetzt Standard-Backend der HDMI-Wiedergabe und unterstützt Spurwechsel und Geschwindigkeitssteuerung.
+- Optimiert: Wiedergabekontinuität und Wiederherstellung der aktuellen Spur nach Neustart des HDMI-Dienstes.
+- Neu: Direkte Wiedergabe von PCM-Tonspuren in MOV-Dateien.
+- Optimiert: Hintergrund der Player-Fläche dauerhaft tiefschwarz, um Farbblitze zwischen Szenen zu vermeiden.
+
+### AI und Suche
+
+- Neu: Globale Suche und intelligente Albumsuche unterstützen natürliche Zeitfilter.
+- Optimiert: Mehrsprachige Analyse von Zeitangaben, darunter „diese Woche“, „letzten Monat“ und „die vorherige“.
+- Optimiert: CLIP-Modell aktualisiert und Suchschwellen angepasst, um die Genauigkeit der intelligenten AI-Suche zu erhöhen.
+- Neu: Videoszenensuche mit Indexierung von Albumvideos.
+- Optimiert: Indexierungsaufgaben für Albumvideos, Stapelverwaltung, Wiederherstellung und Wiederholungsstrategie.
+- Behoben: OCR- und CLIP-Aufgaben schlugen fälschlich fehl, wenn Vorschaubilder noch nicht bereit waren.
+- Optimiert: Namen lokaler Modelle können markiert und kopiert werden.
+- Optimiert: Mehrsprachige Texte der Wissensdatenbank; englischer Fallback bei fehlenden Übersetzungen korrigiert.
+- Optimiert: Datenübermittlung und Tool-Aufrufstabilität bei Gesundheitsabfragen von StationPC Bot.
+
+### App-Center und Docker
+
+- Optimiert: Docker-Kapazitätsstatistik um Cache, Zeitüberschreitungen und Scans niedriger Priorität erweitert, um häufige Abfragen auf die I/O des Datenträgers zu reduzieren.
+- Behoben: Übersichtskapazität zeigte nach Fehler oder Zeitüberschreitung der Docker-Statistik `0.00B`.
+- Behoben: Docker wurde während eines Start-/Speicheraufbau-Rennens durch den Schutz vor fehlenden Volumes angehalten.
+- Optimiert: Anzeige der Netzwerkgeschwindigkeit von Docker-Containern und Einheitenanalyse; ungenaue Kurven korrigiert.
+- Optimiert: Funktionsblöcke der Docker-Bestätigungsseite, um im Modus mit hohen Rechten redundante Informationen zu reduzieren.
+- Optimiert: Zeitüberschreitungen von App-Installationsskripten, damit große Apps seltener scheitern.
+- Optimiert: Mountpoint-Texte und Bearbeitung zugänglicher Verzeichnisse in den Installationseinstellungen.
+- Optimiert: MD5 des App-Pakets und installierte Version gegen das tatsächlich geladene Paket geprüft.
+- Behoben: Screenshots in App-Details wurden wegen ungültiger URLs nicht angezeigt.
+
+### Sicherheit und Datenschutz
+
+- Optimiert: SSH standardmäßig deaktiviert, um die Angriffsfläche des Geräts zu verringern.
+- Optimiert: Regeln zur Anonymisierung von PC-Protokollen; Klartext-Benutzernamen in Anmeldeprotokollen behoben.
+- Optimiert: OSS-Signatur für Protokoll-Upload auf V4 aktualisiert, um die Upload-Sicherheit zu erhöhen.
+- Optimiert: Sicherheitsprüfung für USV-Statusbenachrichtigungen.
+- Optimiert: Synchronisierung des Systemportstatus und doppelte Firewall-Fehlermeldungen.
+
+## Client
+### iOS- und Android-Client
+
+App-Version: v1.2.0
+
+- Neu: Karteneinstieg für Albumorte, Fotomarkierungen und Detailseite eines Orts mit Anzeige von Orts- und Clusterfotos.
+- Optimiert: Kartenrendering des Albums und Stabilität des Kachelproxys; Leerezustand und Kartenlayout der Ortsliste verbessert.
+- Neu: Startseitenkarte für den Sicherungsstatus des Telefonalbums mit Android-/iOS-Status, letzter Sicherungszeit und Animation während der Sicherung.
+- Optimiert: Vorder-/Hintergrundwechsel, Wiederholungen, erneutes Laden von Stapeln und Abschlussstatistik der Albumsicherung, um Fehlalarme und stockenden Fortschritt zu reduzieren.
+- Neu: Anpassung der Untertitelverzögerung in Ein-Sekunden-Schritten per langem Drücken; Wiederholung, Abschlussmaske und Untertitelposition verbessert.
+- Optimiert: Lautstärke, Helligkeit, Qualitätsempfehlungen, Untertitelstil und Darstellung des dunklen Themas.
+- Neu: Medienviewer wechselt im Querformat automatisch in den immersiven Modus; bei Gestensperre kann ein Tippen den Modus weiterhin wechseln.
+- Neu: Cinema-Medienbibliothek kann geleert und neu aufgebaut sowie der Scan gestoppt werden; Erkennungs- und Zuordnungsseite verbessert.
+- Neu: Dateizugriff mit Einstieg für externen Speicher und Remote-Mounts; Dialog für sichtbare Ordner vereinheitlicht.
+- Optimiert: Anzeige der Ordnerberechtigungen von Apps; verwaltete Pfade können nicht gelöscht werden und Berechtigungen sind gesperrt.
+- Behoben: Screenshots in App-Store-Details wurden wegen ungültiger URLs nicht geladen.
+- Optimiert: Automatische Wiederholung bei Fehlern der Dateiliste, damit sie nicht dauerhaft unzugänglich bleibt.
+- Neu: Ein-Klick-Bildschirmabschaltung in den Hardwareeinstellungen.
+- Optimiert: Zweite Bestätigung vor Firmware-Updates und Stil des Update-Dialogs.
+- Optimiert: Darstellung und Formularinteraktion der Anmeldung; die Anmeldeschaltfläche bleibt deaktiviert, bis Benutzervereinbarung und Datenschutzrichtlinie akzeptiert sind.
+- Neu: Willkommenskarussell vor der Anmeldung mit Funktionsvorschau; Schallwellenanimation während der Verbindung verbessert.

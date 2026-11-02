@@ -1,0 +1,125 @@
+---
+sourceHash: 579809dd3397
+title: 'Notas de la actualización del sistema del 03.11.2026'
+---
+
+## Lea antes de actualizar
+
+### Productos aplicables
+
+Esta actualización se aplica a los productos que ejecutan StationOS Pro. Antes de actualizar, confirme la arquitectura del procesador correspondiente al modelo de su producto.
+
+- Serie DA: serie DA400
+
+### Recordatorios de actualización
+
+1. Para utilizar las funciones descritas aquí, actualice el firmware del sistema, la suite de aplicaciones o el cliente a la versión indicada o a una posterior.
+2. Algunas funciones nuevas de la suite de aplicaciones requieren una versión mínima específica del firmware. Si el firmware es inferior a la versión mínima compatible, es posible que no reciba notificaciones de actualización o que no pueda utilizar normalmente las funciones relacionadas.
+
+## Firmware del sistema y aplicaciones de StationOS Pro
+### Información de la versión
+
+Versión del firmware del sistema: v1.2.0.17
+
+Esta actualización ajusta las interfaces de red, almacenamiento, compartición de archivos, reproducción multimedia y búsqueda de IA. Para garantizar el funcionamiento correcto, recomendamos actualizar el firmware, la suite de aplicaciones y los clientes relacionados a sus últimas versiones.
+
+### Sistema y hardware
+
+- Nuevo: compatibilidad con UPS USB, incluida la detección del dispositivo, la monitorización del estado, el interruptor de activación, la política de apagado por corte de corriente y las notificaciones de cambio de estado.
+- Nuevo: widget de escritorio de UPS para consultar la conexión y el estado de alimentación.
+- Nuevo: apagado de pantalla con un toque y apagado programado; mejora de la activación con pulsación corta cuando la pantalla está apagada.
+- Optimización: estado de pulsación prolongada del botón de restablecimiento, aviso de finalización del restablecimiento y sonido de finalización de la copia de seguridad, para reducir avisos duplicados.
+- Optimización: carga bajo demanda de las páginas Hardware y Alimentación de los ajustes del sistema, para abrirlas más rápido.
+- Corrección: los SSD SATA se detectaban como discos mecánicos y provocaban una velocidad excesiva del ventilador.
+
+### Red y acceso remoto
+
+- Nuevo: compatibilidad con la agregación de enlaces Bonding, con modos de agregación de varios puertos configurables en las conexiones de red.
+- Nuevo: adaptación de la interfaz y del proceso de configuración de adaptadores inalámbricos, con mejora de la actualización del estado de conexión.
+- Optimización: visualización de la información de red después de crear un puente; corregida la visualización incorrecta del nombre del puente.
+- Optimización: estado de entrada tras validar un Station ID duplicado, para evitar que la entrada se restablezca accidentalmente.
+- Optimización: acceso de montaje remoto y mensajes de error; el acceso a Google Drive se oculta temporalmente.
+
+### Almacenamiento y discos
+
+- Nuevo: montaje explícito del sistema de archivos existente en un disco interno como almacenamiento externo.
+- Nuevo: visualización y guía para insertar directamente un disco en la bahía; mejora de la agrupación del almacenamiento externo.
+- Nuevo: mensajes de error y acceso al formateo para sistemas de archivos cifrados de discos externos y sistemas no reconocidos.
+- Nuevo: monitorización de errores del sistema de archivos y notificación del estado de corrupción del espacio de almacenamiento.
+- Optimización: coherencia entre nombres de volúmenes, estados de montaje y visualización de la gestión de discos.
+- Corrección: las rutas largas quedaban pegadas al borde del cuadro de diálogo de error de migración del almacenamiento Docker.
+
+### Archivos y protocolos de compartición
+
+- Optimización: migración de la raíz compartida NFS a bindfs, para mejorar la estabilidad del ciclo de vida de los montajes compartidos.
+- Nuevo: el ámbito visible de los protocolos de compartición admite almacenamiento externo y directorios montados remotamente.
+- Optimización: descripción del ámbito visible de NFS, que aclara los escenarios de solo lectura.
+- Corrección: visualización incorrecta de rutas antiguas, cantidades y del estado «todo bloqueado» en el cuadro de diálogo del ámbito visible.
+- Optimización: API de actualización incremental de archivos grandes con comparación y aplicación por bloques, para reducir el volumen de datos sincronizados.
+- Optimización: migración de la sincronización de archivos integrada al servicio independiente `station_sync`, para facilitar el mantenimiento.
+- Optimización: visualización de la ubicación del selector de archivos, filtros de búsqueda, avisos de error al crear carpetas y actualización de directorios.
+- Corrección: estilo del cuadro de diálogo de permisos de miembros del equipo, nombres de archivos seleccionados en tareas de transferencia e iconos de carpetas.
+
+### Multimedia y reproducción
+
+- Nuevo: mapeo de tonos para la transcodificación de fuentes HDR y Dolby Vision, con restauración de portadas P5.
+- Optimización: el empaquetado de la transmisión directa de vídeo utiliza una ventana deslizante guiada por el cabezal de reproducción, lo que reduce las comprobaciones repetidas al inicio y acelera la búsqueda de fotogramas clave.
+- Optimización: estrategia de respaldo del procesamiento de vídeo H.263, para evitar bloqueos al extraer fotogramas decodificados por hardware o transcodificar.
+- Optimización: FFMedia es ahora el backend predeterminado de reproducción HDMI, con cambio de pista y control de velocidad.
+- Optimización: continuidad de la reproducción y restauración de la pista actual tras reiniciar el servicio HDMI.
+- Nuevo: reproducción directa de pistas de audio PCM en archivos MOV.
+- Optimización: fondo del lienzo del reproductor fijado en negro puro, para evitar destellos entre escenas.
+
+### IA y búsqueda
+
+- Nuevo: filtros temporales en lenguaje natural para la búsqueda global y la búsqueda inteligente del Álbum.
+- Optimización: análisis multilingüe de expresiones temporales, con expresiones como «esta semana», «el mes pasado» y «el anterior».
+- Optimización: actualización del modelo CLIP y ajuste de los umbrales de recuperación, para mejorar la precisión de la búsqueda inteligente de IA.
+- Nuevo: búsqueda de fotogramas de vídeo, con indexación de vídeos del Álbum y búsqueda de escenas de vídeo.
+- Optimización: tareas de indexación de vídeos del Álbum, gestión de lotes, recuperación y estrategia de reintentos.
+- Corrección: las tareas OCR y CLIP fallaban incorrectamente cuando las miniaturas aún no estaban listas.
+- Optimización: ahora se pueden seleccionar y copiar los nombres de los modelos locales.
+- Optimización: textos multilingües de la base de conocimiento; corregido el retroceso al inglés cuando faltaban traducciones.
+- Optimización: entrega de datos de consultas de salud de StationPC Bot y estabilidad de las llamadas a herramientas.
+
+### Centro de aplicaciones y Docker
+
+- Optimización: las estadísticas de capacidad de Docker incorporan caché, tiempos de espera y escaneos de baja prioridad, para reducir el impacto de las consultas frecuentes en la E/S del disco de datos.
+- Corrección: la capacidad del resumen mostraba `0.00B` después de que las estadísticas de capacidad de Docker fallaran o agotaran el tiempo de espera.
+- Corrección: Docker se detenía por la protección frente a volúmenes ausentes durante una condición de carrera entre el arranque y el montaje del almacenamiento.
+- Optimización: visualización de la velocidad de red de los contenedores Docker y análisis de unidades; corregidas las curvas inexactas.
+- Optimización: bloques de funciones de la página de confirmación de Docker, para reducir información redundante en el modo de privilegios elevados.
+- Optimización: tiempos de espera de los scripts de instalación de aplicaciones, para reducir los fallos al instalar aplicaciones grandes.
+- Optimización: textos de puntos de montaje y lógica de edición de directorios accesibles en los ajustes de instalación.
+- Optimización: comprobación del MD5 del paquete y de las versiones instaladas frente a la versión del paquete descargado realmente.
+- Corrección: las capturas de la información de la aplicación no se mostraban debido a URL no válidas.
+
+### Seguridad y privacidad
+
+- Optimización: SSH se desactiva de forma predeterminada para reducir la superficie de exposición del dispositivo.
+- Optimización: reglas de desidentificación de registros del PC; corregida la aparición en texto claro de nombres de usuario en los registros de inicio de sesión.
+- Optimización: firma V4 para cargar registros en OSS, con mayor seguridad de carga.
+- Optimización: validación de seguridad de las notificaciones de estado de UPS.
+- Optimización: sincronización del estado de los puertos del sistema y de los avisos de error duplicados del firewall.
+
+## Cliente
+### Cliente de iOS y Android
+
+Versión de la aplicación: v1.2.0
+
+- Nuevo: acceso al mapa de lugares del Álbum, mapa de ubicación de fotos y página de detalles del lugar, con consulta de fotos del lugar y de fotos agrupadas.
+- Optimización: rendimiento del mapa del Álbum y estabilidad del proxy de teselas; mejora del estado vacío y del diseño de tarjetas de la lista de lugares.
+- Nuevo: tarjeta de estado de copia de seguridad del álbum del teléfono en Inicio, con estado de copia Android/iOS, hora de la última copia y animación durante la copia.
+- Optimización: cambios entre primer y segundo plano, reintentos tras fallos, nueva obtención de lotes y estadísticas de finalización de copias del Álbum, para reducir falsos fallos y bloqueos del progreso.
+- Nuevo: ajuste del retraso de subtítulos, con ajuste de un segundo mediante pulsación prolongada; mejora de la repetición, la máscara de final de reproducción y la posición de subtítulos.
+- Optimización: volumen y brillo del reproductor, recomendaciones de calidad, estilo de subtítulos y presentación del tema oscuro.
+- Nuevo: el visor multimedia entra automáticamente en modo inmersivo en orientación horizontal; un toque sigue permitiendo cambiar el modo con el bloqueo de gestos activado.
+- Nuevo: la biblioteca multimedia Cine permite vaciar y reconstruir la biblioteca y detener el escaneo; mejora de las páginas de reconocimiento y coincidencias.
+- Nuevo: el acceso a archivos abre accesos de almacenamiento externo y montajes remotos, y unifica el estilo del cuadro de diálogo del ámbito de carpetas visibles.
+- Optimización: visualización de permisos de acceso a carpetas de aplicaciones; las rutas gestionadas no se pueden eliminar y sus permisos quedan bloqueados.
+- Corrección: las capturas de la información de la App Store no se cargaban debido a URL no válidas.
+- Optimización: reintento automático en estados de error de la lista de archivos, para evitar que permanezca inaccesible.
+- Nuevo: apagado de pantalla con un toque en los ajustes de hardware del sistema.
+- Optimización: segunda confirmación antes de actualizar el firmware y estilo del cuadro de diálogo de actualización.
+- Optimización: aspecto e interacción del formulario de inicio de sesión; el botón de inicio de sesión permanece desactivado hasta aceptar el Acuerdo de usuario y la Política de privacidad.
+- Nuevo: carrusel de bienvenida previo al inicio de sesión con vista previa de funciones; mejora de la animación de ondas de sonido durante la conexión.

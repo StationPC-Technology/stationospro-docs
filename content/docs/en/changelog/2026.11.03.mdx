@@ -1,0 +1,125 @@
+---
+sourceHash: 579809dd3397
+title: '2026.11.03 System Update Notes'
+---
+
+## Read Before Updating
+
+### Applicable Products
+
+This update applies to products running StationOS Pro. Before upgrading, confirm the processor architecture for your product model.
+
+- DA Series: DA400 Series
+
+### Upgrade Notes
+
+1. To use the features described here, upgrade the system firmware, app suite, or client to the listed version or later.
+2. Some new app-suite features require a specified minimum firmware version. If the firmware is below that version, you may not receive app update notifications or be able to use the related features normally.
+
+## StationOS Pro System Firmware and Apps
+### Version Information
+
+System firmware version: v1.2.0.17
+
+This release adjusts networking, storage, file sharing, media playback, and AI search interfaces. For proper operation, we recommend updating the firmware, app suite, and related clients to their latest versions.
+
+### System and Hardware
+
+- Added USB UPS support, including device detection, status monitoring, an enable switch, power-loss shutdown policy, and status-change notifications.
+- Added a UPS desktop widget showing the UPS connection and power state.
+- Added one-tap screen-off and scheduled screen-off, and improved short-press wake behavior while the screen is off.
+- Improved reset-button long-press state, reset-complete prompts, and the backup-complete buzzer event to reduce duplicate prompts.
+- Improved on-demand loading for the Hardware and Power pages in system settings, making them open faster.
+- Fixed SATA SSDs being detected as mechanical disks and causing excessive fan speed.
+
+### Network and Remote Access
+
+- Added link-aggregation Bonding support, with multi-port aggregation modes configurable under network connections.
+- Added wireless-adapter interface and setup-flow support, and improved connection-status refresh.
+- Improved network information after creating a bridge and fixed incorrect bridge-name display.
+- Improved the input state after duplicate Station ID validation to prevent accidental resets.
+- Improved remote-mount entry points and error messages; the Google Drive entry is temporarily hidden.
+
+### Storage and Disks
+
+- Added explicit mounting of an existing file system on an internal disk as external storage.
+- Added direct-insert disk-bay display and guidance, and improved grouping for external storage.
+- Added error messages and formatting entry points for encrypted external-disk file systems and unrecognized file systems.
+- Added file-system error monitoring and corruption reporting for storage spaces.
+- Improved consistency between volume names, mount states, and disk-management displays.
+- Fixed long paths touching the edge of the failed Docker-storage-migration dialog.
+
+### Files and Sharing Protocols
+
+- Moved the NFS share root to bindfs to improve shared-mount lifecycle stability.
+- Added external storage and remote-mounted directories to the visible scope of file-sharing protocols.
+- Clarified the NFS visible-scope description for read-only scenarios.
+- Fixed stale paths, item counts, and the all-blocked state being displayed incorrectly in the visible-scope dialog.
+- Improved the large-file incremental-update API with block-level comparison and application to reduce synchronization volume.
+- Moved embedded file synchronization to the independent `station_sync` service for easier maintenance.
+- Improved file-picker location display, search filtering, new-folder error messages, and directory refresh behavior.
+- Fixed the team-member permission dialog style, multi-selected transfer-task names, and folder-icon display.
+
+### Media and Playback
+
+- Added tone mapping for HDR and Dolby Vision source transcoding and restored P5 covers.
+- Changed direct video streaming packaging to a playback-head-driven sliding window, reducing repeated startup probing and speeding keyframe seeking.
+- Improved the H.263 fallback path to avoid hangs while extracting hardware-decoded frames or transcoding.
+- Made FFMedia the default HDMI playback backend, with track switching and playback-speed control.
+- Improved playback continuity and restoration of the current track after an HDMI service restart.
+- Added direct playback of PCM audio tracks in MOV files.
+- Fixed the player canvas background to pure black to prevent flashes between scenes.
+
+### AI and Search
+
+- Added natural-language time filters to global search and smart album search.
+- Improved multilingual time-expression parsing, covering expressions such as “this week,” “last month,” and “the previous one.”
+- Upgraded the CLIP model and adjusted retrieval thresholds to improve AI smart-search accuracy.
+- Added video-frame search with album video indexing and video-scene search.
+- Improved album-video indexing tasks, batch management, recovery, and retry behavior.
+- Fixed OCR and CLIP jobs being reported as failed when thumbnails were not ready.
+- Local model names can now be selected and copied.
+- Improved multilingual knowledge-base text and fixed fallback to English when some translations were missing.
+- Improved StationPC Bot health-inquiry data delivery and tool-call stability.
+
+### App Center and Docker
+
+- Added caching, timeouts, and low-priority scans to Docker capacity statistics to reduce frequent polling impact on data-disk I/O.
+- Fixed overview capacity showing `0.00B` after Docker capacity statistics failed or timed out.
+- Fixed Docker being stopped by missing-volume protection during a startup/storage-assembly race.
+- Improved Docker container network-speed display and unit parsing, and fixed inaccurate chart curves.
+- Improved confirmation-page feature blocks in the Docker area to reduce redundant information in high-privilege mode.
+- Adjusted app-install script timeouts to reduce timeouts for large apps.
+- Improved mount-point text and accessible-directory editing in app-install settings.
+- Validate app-package MD5 and installed versions against the package actually downloaded.
+- Fixed app-detail screenshots failing to display because of invalid URLs.
+
+### Security and Privacy
+
+- Disabled SSH by default to reduce the device attack surface.
+- Improved PC log-redaction rules and fixed plain-text usernames in sign-in logs.
+- Upgraded the OSS log-upload signature to V4 for stronger upload security.
+- Improved security validation for UPS status notifications.
+- Improved system-port synchronization and duplicate firewall error messages.
+
+## Client
+### iOS & Android Client
+
+App version: v1.2.0
+
+- Added an album-location map entry, photo-pin map, and location-detail page for location and clustered-photo browsing.
+- Improved album-map rendering and tile-proxy stability, plus empty-state and card layouts for location lists.
+- Added a phone-album backup status card on Home showing Android/iOS backup state, last-backup time, and an in-progress animation.
+- Improved foreground/background switching, failure retries, batch re-fetching, and completion statistics for album backups to reduce false failures and stalled progress.
+- Added subtitle-delay adjustment with one-second long-press increments, and improved replay, end-of-playback overlays, and subtitle placement.
+- Improved player volume, brightness, quality suggestions, subtitle styles, and dark-theme presentation.
+- Added immersive landscape mode for the media viewer; a single tap can still switch immersive mode while gesture lock is enabled.
+- Added clear-and-rebuild and stop-scan actions to the Cinema media library, and improved recognition and matching pages.
+- Opened external-storage and remote-mount entry points in file access and unified the visible-folder scope dialog.
+- Improved app folder-access permission display; managed paths cannot be deleted and their permissions are locked.
+- Fixed app-store detail screenshots failing to load because of invalid URLs.
+- Added automatic retry for file-list error states to avoid leaving the list inaccessible.
+- Added one-tap screen-off support to system hardware settings.
+- Improved the second confirmation before firmware updates and the update-prompt dialog style.
+- Improved login-page visuals and form behavior; the Login button is disabled until the User Agreement and Privacy Policy are accepted.
+- Added a pre-login welcome carousel previewing features and improved the sound-wave animation while connecting.
