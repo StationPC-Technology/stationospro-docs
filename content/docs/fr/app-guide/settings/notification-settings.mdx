@@ -1,5 +1,5 @@
 ---
-sourceHash: 8421e9256b61
+sourceHash: f7500efa317c
 title: Paramètres de notification
 description: Configurer le service de notification e-mail, le préfixe d'objet et la langue des notifications
 ---
@@ -51,6 +51,29 @@ Après avoir sélectionné une boîte e-mail personnalisée, configurez :
 | Mot de passe | Oui | Mot de passe SMTP ou code d'autorisation. |
 | Nom de l'expéditeur | Non | Nom affiché dans le nom de l'expéditeur de l'e-mail. |
 | Adresse d'expédition | Oui | Adresse e-mail réellement utilisée pour l'envoi externe. |
+
+### Comment obtenir un code d'autorisation
+
+Un code d'autorisation SMTP est un mot de passe dédié, généré par le fournisseur de messagerie pour les clients e-mail tiers. Il peut être appelé **mot de passe d'application**, **App Password** ou **mot de passe spécifique à une application** et n'est généralement pas le mot de passe de connexion de la boîte e-mail. Copiez-le immédiatement, puis saisissez-le dans le champ code d'autorisation ou mot de passe du système.
+
+Avant de le générer, connectez-vous à la version web du fournisseur, terminez la vérification de sécurité du compte et activez la vérification en deux étapes ou secondaire exigée par le fournisseur.
+
+| Service e-mail | Obtention du code d'autorisation ou du mot de passe d'application | Référence de configuration SMTP |
+| --- | --- | --- |
+| Gmail | Ouvrez les paramètres **Sécurité** du compte Google, activez **Validation en deux étapes**, ouvrez **Mots de passe des applications**, saisissez un usage et générez le mot de passe. Pour un compte d'organisation, l'utilisation doit être autorisée par l'administrateur. | Sélectionnez le préréglage Gmail dans le système. |
+| QQ Mail | Dans la version web, ouvrez **Paramètres** → **Compte**, activez POP3/IMAP/SMTP, terminez la vérification de sécurité indiquée, puis générez un code d'autorisation. | Sélectionnez le préréglage QQ Mail dans le système. |
+| Outlook.com, Hotmail, Live | Ouvrez les paramètres **Sécurité** du compte Microsoft, choisissez **Options de sécurité avancées**, puis créez un mot de passe d'application sous **Mots de passe des applications**. | Boîte e-mail personnalisée : `smtp-mail.office.com`, port `587`, type de sécurité `TLS`. |
+| Microsoft 365 professionnel ou scolaire | Demandez à un administrateur de confirmer que l'envoi SMTP est autorisé, puis créez un mot de passe d'application selon la politique de vérification multifacteur de l'organisation. Certaines organisations désactivent les mots de passe d'application ou SMTP. | Boîte e-mail personnalisée : `smtp.office365.com`, port `587`, type de sécurité `TLS`. |
+| 163 Mail | Dans la version web, ouvrez **Paramètres** → **POP3/SMTP/IMAP**, activez SMTP et générez un mot de passe d'autorisation client. | Sélectionnez le préréglage 163 Mail dans le système. |
+| Yahoo Mail | Ouvrez le paramètre **Account Security** du compte Yahoo et générez un mot de passe d'application. | Boîte e-mail personnalisée : `smtp.mail.yahoo.com`, port `465/SSL` ou `587/TLS`. |
+| iCloud Mail | Ouvrez **Connexion et sécurité** du compte Apple et générez un **mot de passe App spécifique**. L'authentification à deux facteurs doit d'abord être activée. | Boîte e-mail personnalisée : `smtp.mail.me.com`, port `587`, type de sécurité `TLS`. |
+| AOL Mail | Ouvrez le paramètre **Security** du compte AOL et générez un mot de passe d'application. | Boîte e-mail personnalisée : `smtp.aol.com`, port `465/SSL` ou `587/TLS`. |
+| Zoho Mail | Ouvrez les paramètres de sécurité du compte Zoho et générez un mot de passe d'application sous **App Passwords**. | Boîte e-mail personnalisée : `smtp.zoho.com`, port `465/SSL` ou `587/TLS` ; pour un domaine personnalisé ou un compte régional, utilisez l'adresse fournie par Zoho. |
+| 126 Mail | Dans la version web, ouvrez **Paramètres** → **POP3/SMTP/IMAP**, activez SMTP et générez un mot de passe d'autorisation client. | Sélectionnez le préréglage 126 Mail dans le système. |
+
+<Callout title="Les politiques des fournisseurs peuvent évoluer" type="info">
+  Les noms d'entrée, les types de compte et les politiques d'administration des fournisseurs peuvent changer. Si vous ne pouvez pas générer un mot de passe d'application ou si un e-mail de test échoue encore, utilisez une boîte e-mail dont le fournisseur autorise explicitement l'envoi SMTP ou demandez à l'administrateur de messagerie de confirmer la politique sortante.
+</Callout>
 
 ### Préfixe d'objet des e-mails
 

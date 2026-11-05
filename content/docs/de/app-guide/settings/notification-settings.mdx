@@ -1,5 +1,5 @@
 ---
-sourceHash: 8421e9256b61
+sourceHash: f7500efa317c
 title: Benachrichtigungseinstellungen
 description: Konfigurieren des E-Mail-Benachrichtigungsdienstes, des E-Mail-Betreffpräfixes und der Benachrichtigungssprache
 ---
@@ -51,6 +51,29 @@ Bei Auswahl eines benutzerdefinierten Postfachs müssen folgende Angaben konfigu
 | Passwort | Ja | SMTP-Passwort oder Autorisierungscode. |
 | Absendername | Nein | Wird als Name des E-Mail-Absenders angezeigt. |
 | Absenderadresse | Ja | Tatsächliche E-Mail-Adresse für den Versand nach außen. |
+
+### E-Mail-Autorisierungscode abrufen
+
+Ein SMTP-Autorisierungscode ist ein vom E-Mail-Anbieter für E-Mail-Clients von Drittanbietern erzeugtes Passwort. Er kann als **App-Passwort**, **App Password** oder **App-spezifisches Passwort** bezeichnet werden und ist üblicherweise nicht das Postfach-Anmeldepasswort. Kopieren Sie ihn sofort und tragen Sie ihn im Autorisierungscode- oder Passwortfeld des Systems ein.
+
+Erstellen Sie den Code erst, nachdem Sie sich in der Weboberfläche des Anbieters angemeldet, die Sicherheitsprüfung des Kontos abgeschlossen und die vom Anbieter geforderte Zwei-Faktor- bzw. zusätzliche Bestätigung aktiviert haben.
+
+| E-Mail-Dienst | Abruf des Autorisierungscodes oder App-Passworts | SMTP-Konfigurationsreferenz |
+| --- | --- | --- |
+| Gmail | Öffnen Sie in den Einstellungen des Google-Kontos **Sicherheit**, aktivieren Sie **Bestätigung in zwei Schritten**, öffnen Sie **App-Passwörter**, geben Sie einen Zweck ein und erzeugen Sie das Passwort. Bei Organisationskonten muss die Verwendung durch Administratoren erlaubt sein. | Wählen Sie im System die Gmail-Voreinstellung. |
+| QQ Mail | Öffnen Sie in der Webversion **Einstellungen** → **Konto**, aktivieren Sie POP3/IMAP/SMTP, schließen Sie die Sicherheitsprüfung wie beschrieben ab und erzeugen Sie einen Autorisierungscode. | Wählen Sie im System die QQ-Mail-Voreinstellung. |
+| Outlook.com, Hotmail, Live | Öffnen Sie die **Sicherheitseinstellungen** des Microsoft-Kontos, wählen Sie **Erweiterte Sicherheitsoptionen** und erstellen Sie unter **App-Passwörter** ein neues App-Passwort. | Benutzerdefinierte E-Mail: `smtp-mail.office.com`, Port `587`, Sicherheitstyp `TLS`. |
+| Microsoft 365 Arbeits- oder Schulkonto | Lassen Sie von einer Administratorin oder einem Administrator bestätigen, dass SMTP-Versand erlaubt ist, und erstellen Sie nach der Multi-Faktor-Bestätigungsrichtlinie der Organisation ein App-Passwort. Manche Organisationen deaktivieren App-Passwörter oder SMTP. | Benutzerdefinierte E-Mail: `smtp.office365.com`, Port `587`, Sicherheitstyp `TLS`. |
+| 163 Mail | Öffnen Sie in der Webversion **Einstellungen** → **POP3/SMTP/IMAP**, aktivieren Sie SMTP und erzeugen Sie ein Client-Autorisierungspasswort. | Wählen Sie im System die 163-Mail-Voreinstellung. |
+| Yahoo Mail | Öffnen Sie die Einstellung **Account Security** des Yahoo-Kontos und erzeugen Sie ein App-Passwort. | Benutzerdefinierte E-Mail: `smtp.mail.yahoo.com`, Port `465/SSL` oder `587/TLS`. |
+| iCloud Mail | Öffnen Sie im Apple-Konto **Anmelden und Sicherheit** und erzeugen Sie ein **App-spezifisches Passwort**. Zuvor muss die Zwei-Faktor-Authentifizierung aktiviert sein. | Benutzerdefinierte E-Mail: `smtp.mail.me.com`, Port `587`, Sicherheitstyp `TLS`. |
+| AOL Mail | Öffnen Sie die Einstellung **Security** des AOL-Kontos und erzeugen Sie ein App-Passwort. | Benutzerdefinierte E-Mail: `smtp.aol.com`, Port `465/SSL` oder `587/TLS`. |
+| Zoho Mail | Öffnen Sie die Sicherheitseinstellungen des Zoho-Kontos und erzeugen Sie unter **App Passwords** ein App-Passwort. | Benutzerdefinierte E-Mail: `smtp.zoho.com`, Port `465/SSL` oder `587/TLS`; bei benutzerdefinierten Domains oder regionalen Konten verwenden Sie die von Zoho angegebene Adresse. |
+| 126 Mail | Öffnen Sie in der Webversion **Einstellungen** → **POP3/SMTP/IMAP**, aktivieren Sie SMTP und erzeugen Sie ein Client-Autorisierungspasswort. | Wählen Sie im System die 126-Mail-Voreinstellung. |
+
+<Callout title="Anbieterrichtlinien können sich ändern" type="info">
+  Menübezeichnungen, Kontotypen und Administrationsrichtlinien der Anbieter können sich ändern. Wenn Sie kein App-Passwort erstellen können oder eine Test-E-Mail weiterhin fehlschlägt, verwenden Sie ein Postfach, dessen Anbieter SMTP-Versand ausdrücklich erlaubt, oder lassen Sie die ausgehende Richtlinie vom E-Mail-Administrator prüfen.
+</Callout>
 
 ### E-Mail-Betreffpräfix
 

@@ -1,5 +1,5 @@
 ---
-sourceHash: 8421e9256b61
+sourceHash: f7500efa317c
 title: Configuración de notificaciones
 description: Configurar el servicio de notificaciones por correo, el prefijo del asunto de los correos y el idioma de las notificaciones
 ---
@@ -51,6 +51,29 @@ Tras seleccionar un correo personalizado, es necesario configurar:
 | Contraseña | Sí | La contraseña SMTP o el código de autorización. |
 | Nombre del remitente | No | Se muestra en el nombre del remitente del correo. |
 | Correo del remitente | Sí | La dirección de correo real utilizada para enviar. |
+
+### Cómo obtener un código de autorización
+
+Un código de autorización SMTP es una contraseña específica generada por el proveedor de correo para clientes de correo de terceros. Puede llamarse **contraseña de aplicación**, **App Password** o **contraseña específica de aplicación**, y normalmente no es la contraseña de inicio de sesión del buzón. Cópiela inmediatamente e introdúzcala en el campo de código de autorización o contraseña del sistema.
+
+Antes de generarla, inicie sesión en la versión web del proveedor, complete la verificación de seguridad de la cuenta y active la verificación en dos pasos o secundaria que exija el proveedor.
+
+| Servicio de correo | Cómo obtener el código de autorización o la contraseña de aplicación | Referencia de configuración SMTP |
+| --- | --- | --- |
+| Gmail | Abra los ajustes **Seguridad** de la cuenta de Google, active **Verificación en dos pasos**, abra **Contraseñas de aplicaciones**, introduzca un uso y genere la contraseña. En cuentas de organización, el administrador debe permitir las contraseñas de aplicaciones. | Seleccione el preajuste de Gmail en el sistema. |
+| QQ Mail | En la versión web, vaya a **Ajustes** → **Cuenta**, active POP3/IMAP/SMTP, complete la verificación de seguridad indicada y genere un código de autorización. | Seleccione el preajuste de QQ Mail en el sistema. |
+| Outlook.com, Hotmail, Live | Abra los ajustes **Seguridad** de la cuenta de Microsoft, seleccione **Opciones de seguridad avanzadas** y cree una contraseña de aplicación en **Contraseñas de aplicaciones**. | Correo personalizado: `smtp-mail.office.com`, puerto `587`, tipo de seguridad `TLS`. |
+| Microsoft 365 profesional o educativo | Pida a un administrador que confirme que el envío SMTP está permitido y cree una contraseña de aplicación según la política de verificación multifactor de la organización. Algunas organizaciones desactivan las contraseñas de aplicación o SMTP. | Correo personalizado: `smtp.office365.com`, puerto `587`, tipo de seguridad `TLS`. |
+| 163 Mail | En la versión web, vaya a **Ajustes** → **POP3/SMTP/IMAP**, active SMTP y genere una contraseña de autorización de cliente. | Seleccione el preajuste de 163 Mail en el sistema. |
+| Yahoo Mail | Abra el ajuste **Account Security** de la cuenta de Yahoo y genere una contraseña de aplicación. | Correo personalizado: `smtp.mail.yahoo.com`, puerto `465/SSL` o `587/TLS`. |
+| iCloud Mail | Abra **Iniciar sesión y seguridad** en la cuenta de Apple y genere una **contraseña específica de app**. Antes debe activar la autenticación de dos factores. | Correo personalizado: `smtp.mail.me.com`, puerto `587`, tipo de seguridad `TLS`. |
+| AOL Mail | Abra el ajuste **Security** de la cuenta de AOL y genere una contraseña de aplicación. | Correo personalizado: `smtp.aol.com`, puerto `465/SSL` o `587/TLS`. |
+| Zoho Mail | Abra los ajustes de seguridad de la cuenta de Zoho y genere una contraseña de aplicación en **App Passwords**. | Correo personalizado: `smtp.zoho.com`, puerto `465/SSL` o `587/TLS`; para dominios personalizados o cuentas regionales, use la dirección indicada por Zoho. |
+| 126 Mail | En la versión web, vaya a **Ajustes** → **POP3/SMTP/IMAP**, active SMTP y genere una contraseña de autorización de cliente. | Seleccione el preajuste de 126 Mail en el sistema. |
+
+<Callout title="Las políticas del proveedor pueden cambiar" type="info">
+  Los nombres de las secciones, los tipos de cuenta y las políticas de administración de los proveedores pueden cambiar. Si no puede generar una contraseña de aplicación o si un correo de prueba sigue fallando, use un buzón cuyo proveedor permita explícitamente el envío SMTP o pida al administrador de correo que confirme la política de salida.
+</Callout>
 
 ### Prefijo del asunto de los correos
 
