@@ -1,0 +1,74 @@
+---
+sourceHash: 3ed0c4c39cc5
+title: Relación entre discos y espacios de almacenamiento
+description: Introduce los conceptos de discos, modos de almacenamiento (RAID) y espacios de almacenamiento y su relación entre sí, para ayudarle a planificar el almacenamiento de su dispositivo.
+---
+
+En StationOS Pro, los **discos** y los **espacios de almacenamiento** son los dos conceptos fundamentales del almacenamiento de datos. En pocas palabras: el disco es el soporte físico de los datos, mientras que el espacio de almacenamiento es el área lógica donde usted guarda y gestiona realmente los archivos. Comprender la relación entre ambos es la base para planificar bien la capacidad, garantizar la seguridad de los datos y aprovechar al máximo el rendimiento del dispositivo.
+
+## El disco: el soporte físico de los datos
+
+El disco es el dispositivo físico que almacena realmente los datos. Los dispositivos StationPC admiten tanto discos duros (HDD) como unidades SSD:
+
+- **HDD (disco duro)**: gran capacidad y menor precio por unidad de almacenamiento, ideal para conservar a largo plazo grandes volúmenes de datos como fotos, vídeos y descargas.
+- **SSD (unidad de estado sólido)**: velocidades de lectura/escritura altas, ideal para escenarios exigentes en rendimiento como contenedores Docker y máquinas virtuales; también puede servir como caché para acelerar los espacios de almacenamiento en HDD.
+
+Para elegir bien el modelo y la capacidad de los discos, consulte la [Lista de compatibilidad de discos duros](../compatible/support-hdd).
+
+## El espacio de almacenamiento: el área lógica donde se usan los datos
+
+El espacio de almacenamiento es el área lógica donde usted guarda y gestiona realmente los datos; equivale a un «disco virtual» independiente. El sistema utiliza la tecnología RAID para organizar uno o varios discos en un espacio de almacenamiento, pero en la interfaz basta un solo paso: **crear directamente el espacio de almacenamiento**, sin necesidad de crear antes un pool de almacenamiento aparte.
+
+Al crear un espacio de almacenamiento, un asistente le guiará en las siguientes decisiones:
+
+1. **Seleccionar los discos**: elija de entre los discos internos o el almacenamiento externo los discos que formarán parte del conjunto.
+2. **Seleccionar el modo de almacenamiento**: es decir, el modo RAID, que determina cómo se aprovecha la capacidad y el nivel de protección de los datos.
+3. **Seleccionar el sistema de archivos**: Btrfs o EXT4.
+4. **Configurar los permisos de uso**: elija qué usuarios pueden usar el espacio de almacenamiento y, si lo desea, limite la capacidad disponible para los usuarios normales.
+5. **Confirmar y crear**: revise el resumen y la advertencia de formateo y comience la creación.
+
+Una vez creado, la tarjeta del espacio de almacenamiento mostrará el estado de salud, el modo de almacenamiento, la capacidad usada, el sistema de archivos, los discos miembros y el disco de reserva, entre otros datos, para que pueda supervisar el estado del almacenamiento en todo momento.
+
+## El modo de almacenamiento: el punto de equilibrio entre capacidad y seguridad
+
+El modo de almacenamiento (RAID) determina cómo trabajan juntos varios discos. Cada modo prioriza de forma distinta el aprovechamiento de la capacidad y la seguridad de los datos:
+
+- **Basic**: un solo disco usado de forma independiente; máximo aprovechamiento de la capacidad, pero sin protección de datos.
+- **JBOD** (mostrado como «Linear» en la interfaz): une linealmente la capacidad de varios discos en un solo espacio; fácil de ampliar, pero sin redundancia.
+- **RAID 0**: distribuye los datos entre varios discos; lectura/escritura rápidas, pero si falla cualquier disco se pierden todos los datos.
+- **RAID 1**: duplica en espejo los datos entre los discos miembros; tolera fallos de parte de los discos sin perder datos.
+- **RAID 5 / RAID 6**: ofrecen tolerancia a fallos mediante paridad, equilibrando aprovechamiento de la capacidad y seguridad; adecuados para dispositivos con muchas bahías de discos.
+- **RAID 10**: primero espejo y después franjas; combina alto rendimiento y alta protección, aprovechando aproximadamente la mitad de la capacidad total.
+
+Para conocer los requisitos de número de discos, el cálculo de la capacidad y una comparación detallada de cada modo, consulte [Configuración del espacio de almacenamiento](../app-guide/settings/storage).
+
+Además, puede asignar un **disco de reserva** a un espacio de almacenamiento RAID: cuando falla un disco miembro, el disco de reserva lo sustituye automáticamente y participa en la reconstrucción, reduciendo así el tiempo durante el cual los datos se encuentran en estado degradado.
+
+## Resumen de la relación entre discos y espacios de almacenamiento
+
+En una frase: **el disco aporta la capacidad física, el modo de almacenamiento determina la forma de organización y el espacio de almacenamiento es el área utilizable que se le presenta al final.**
+
+- **Disco → espacio de almacenamiento**: los discos seleccionados al crear el espacio de almacenamiento se combinan en un conjunto según el modo de almacenamiento. El modo determina la capacidad realmente disponible y la tolerancia a fallos.
+- **Espacio de almacenamiento → datos del usuario**: tras crear carpetas compartidas, subir archivos y configurar permisos de acceso en el espacio de almacenamiento, podrá acceder a sus datos desde todo tipo de dispositivos mediante la aplicación [Administrador de archivos](../app-guide/files) o protocolos como SMB y WebDAV.
+
+## Diferencia con otros sistemas NAS: ¿por qué no hay «pool de almacenamiento»?
+
+Muchos sistemas NAS adoptan una estructura de tres niveles «disco → pool de almacenamiento → espacio de almacenamiento»: primero agrupan los discos en un pool de almacenamiento y después dividen ese pool en varios espacios.
+
+StationOS Pro fusiona estos dos pasos en uno: al crear el espacio de almacenamiento, elija simplemente los discos y el modo de almacenamiento, y el sistema completará automáticamente la agrupación subyacente. Las dos caras de esta decisión:
+
+- **Ventaja**: el proceso es más sencillo e intuitivo; puede configurar correctamente el almacenamiento sin necesidad de entender antes el concepto de «pool de almacenamiento».
+- **Limitación**: un grupo de discos solo puede corresponder a un espacio de almacenamiento; no es posible dividir el mismo grupo en varios espacios. Si necesita varios espacios independientes, créelos por separado con discos distintos.
+
+## Recomendaciones de planificación del almacenamiento
+
+| Necesidad | Recomendación |
+| --- | --- |
+| Fotos, documentos y otros datos importantes | RAID 1 o superior con redundancia y copias de seguridad periódicas |
+| Docker, máquinas virtuales y otros escenarios exigentes en rendimiento | Crear el espacio de almacenamiento con SSD o activar la aceleración por caché SSD |
+| Vídeos, descargas y otros datos de gran volumen | HDD de gran capacidad combinados con JBOD o RAID 5 |
+| Colaboración entre varios usuarios | Crear espacios de almacenamiento separados o aislar los datos de cada miembro con permisos de carpeta |
+
+<Callout title="Sugerencia" type="idea">
+El RAID ofrece tolerancia a fallos de discos, pero no sustituye a las copias de seguridad. Para los datos importantes, siga siempre el principio de copia de seguridad «3-2-1»: conserve al menos 3 copias de sus datos, en 2 tipos de soportes distintos, y guarde 1 copia fuera de las instalaciones.
+</Callout>

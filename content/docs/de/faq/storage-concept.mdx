@@ -1,0 +1,74 @@
+---
+sourceHash: 3ed0c4c39cc5
+title: Verhältnis zwischen Festplatten und Speicherbereichen
+description: Erläutert die Konzepte von Festplatten, Speichermodi (RAID) und Speicherbereichen sowie deren Zusammenwirken und hilft Ihnen, den Speicher Ihres Geräts planvoll einzurichten.
+---
+
+In StationOS Pro sind **Festplatten** und **Speicherbereiche** die beiden Kernkonzepte des Datenspeichers. Einfach ausgedrückt: Die Festplatte ist der physische Datenträger für Ihre Daten, der Speicherbereich ist der logische Bereich, in dem Sie Dateien tatsächlich ablegen und verwalten. Das Verständnis dieses Verhältnisses ist die Grundlage für eine planvolle Kapazitätsplanung, die Sicherheit Ihrer Daten und die volle Ausschöpfung der Geräteleistung.
+
+## Festplatten: Der physische Datenträger für Daten
+
+Eine Festplatte ist das physische Gerät, auf dem Daten tatsächlich gespeichert werden. StationPC-Geräte unterstützen sowohl HDDs (Festplattenlaufwerke) als auch SSDs (Solid-State-Laufwerke):
+
+- **HDD (Festplatte)**: Große Kapazität zu geringem Preis pro Speicherkapazität – geeignet für die langfristige Speicherung großer Datenmengen wie Fotos, Videos und Downloads.
+- **SSD (Solid-State-Laufwerk)**: Hohe Lese-/Schreibgeschwindigkeit – geeignet für leistungsintensive Szenarien wie Docker-Container und virtuelle Maschinen; kann auch als Cache zur Beschleunigung von HDD-Speicherbereichen dienen.
+
+Hilfe bei der Wahl von Festplattenmodell und -kapazität finden Sie in der [HDD-Kompatibilitätsliste](../compatible/support-hdd).
+
+## Speicherbereich: Der logische Bereich, in dem Daten tatsächlich genutzt werden
+
+Der Speicherbereich ist der logische Bereich, in dem Sie Daten tatsächlich ablegen und verwalten – vergleichbar mit einer eigenständigen "virtuellen Festplatte". Das System fasst mit RAID-Technik eine oder mehrere Festplatten zu einem Speicherbereich zusammen; in der Oberfläche genügt dafür ein einziger Schritt: **Direkt einen Speicherbereich erstellen** – ohne vorher einen separaten Speicherpool anlegen zu müssen.
+
+Beim Erstellen eines Speicherbereichs führt Sie ein Assistent durch die folgende Auswahl:
+
+1. **Festplatten auswählen**: Wählen Sie aus den internen Festplatten oder dem externen Speicher die Festplatten aus, die einbezogen werden sollen.
+2. **Speichermodus auswählen**: Also den RAID-Modus, der bestimmt, wie die Kapazität genutzt wird und wie gut Ihre Daten geschützt sind.
+3. **Dateisystem auswählen**: Btrfs oder EXT4.
+4. **Nutzungsrechte festlegen**: Wählen Sie, welche Benutzer den Speicherbereich nutzen dürfen, und begrenzen Sie bei Bedarf die verfügbare Kapazität für normale Benutzer.
+5. **Bestätigen und erstellen**: Prüfen Sie Zusammenfassung und Formatierungswarnung und starten Sie die Erstellung.
+
+Nach der Erstellung zeigt die Speicherbereichskarte Informationen wie Zustand, Speichermodus, belegte Kapazität, Dateisystem, Mitglied-Festplatten und Hot-Spare an, damit Sie den Speicherstatus jederzeit im Blick behalten.
+
+## Speichermodus: Der Ausgleich zwischen Kapazität und Sicherheit
+
+Der Speichermodus (RAID) bestimmt, wie mehrere Festplatten zusammenarbeiten. Die verschiedenen Modi legen unterschiedlich großen Wert auf Kapazitätsausnutzung und Schutz vor Datenverlust:
+
+- **Basic**: Eine einzelne Festplatte wird eigenständig genutzt. Höchste Kapazitätsausnutzung, aber kein Schutz vor Datenverlust.
+- **JBOD** (in der Oberfläche als "Linear" angezeigt): Fasst die Kapazitäten mehrerer Festplatten linear zu einem Bereich zusammen – leicht zu erweitern, aber ohne Redundanz.
+- **RAID 0**: Verteilt Daten auf mehrere Festplatten (Striping). Hohe Lese-/Schreibgeschwindigkeit; geht jedoch eine beliebige Festplatte kaputt, sind alle Daten verloren.
+- **RAID 1**: Spiegelt Daten auf den Mitglieds-Festplatten. Verträgt den Ausfall einzelner Festplatten ohne Datenverlust.
+- **RAID 5 / RAID 6**: Bieten Fehlertoleranz durch Parität und vereinen Kapazitätsausnutzung und Sicherheit – geeignet für Geräte mit vielen Laufwerksschächten.
+- **RAID 10**: Erst Spiegelung, dann Striping – vereint hohe Leistung mit hohem Schutz; nutzbar sind rund 50 % der Gesamtkapazität.
+
+Für Festplattenanzahl, Kapazitätsberechnung und einen detaillierten Vergleich der Modi siehe [Speicherbereich-Einstellungen](../app-guide/settings/storage).
+
+Außerdem können Sie einem RAID-Speicherbereich eine **Hot-Spare-Festplatte** zuweisen: Fällt eine Mitglieds-Festplatte aus, springt die Hot Spare automatisch ein und nimmt am Rebuild teil – so verkürzt sich der Zeitraum, in dem sich die Daten in einem degradierten Zustand befinden.
+
+## Zusammenfassung: Das Verhältnis von Festplatten und Speicherbereichen
+
+In einem Satz: **Die Festplatte stellt die physische Kapazität bereit, der Speichermodus bestimmt die Organisationsform, und der Speicherbereich ist der nutzbare Bereich, der Ihnen am Ende angezeigt wird.**
+
+- **Festplatte → Speicherbereich**: Die beim Erstellen des Speicherbereichs ausgewählten Festplatten werden gemäß dem Speichermodus zu einem Ganzen kombiniert. Der Modus bestimmt die tatsächlich nutzbare Kapazität und die Fehlertoleranz.
+- **Speicherbereich → Benutzerdaten**: Nachdem Sie im Speicherbereich gemeinsame Ordner erstellt, Dateien hochgeladen und Zugriffsrechte festgelegt haben, können Sie über die App [Dateimanager](../app-guide/files) oder Protokolle wie SMB und WebDAV von verschiedenen Geräten auf Ihre Daten zugreifen.
+
+## Unterschied zu anderen NAS-Systemen: Warum gibt es keinen "Speicherpool"?
+
+Viele NAS-Systeme verwenden eine dreistufige Struktur aus "Festplatte → Speicherpool → Speicherbereich": Zuerst werden Festplatten zu einem Speicherpool zusammengefasst, dann wird der Pool in mehrere Speicherbereiche aufgeteilt.
+
+StationOS Pro vereint diese beiden Schritte zu einem: Beim Erstellen eines Speicherbereichs wählen Sie einfach Festplatten und Speichermodus, und das System erledigt das zugrunde liegende Pooling automatisch. Der daraus resultierende Kompromiss:
+
+- **Vorteil**: Der Ablauf ist einfacher und intuitiver – Sie richten den Speicher korrekt ein, ohne das Konzept "Speicherpool" vorher verstehen zu müssen.
+- **Einschränkung**: Eine Festplattengruppe kann nur einem einzigen Speicherbereich entsprechen; dieselbe Gruppe lässt sich nicht in mehrere Bereiche aufteilen. Benötigen Sie mehrere voneinander unabhängige Bereiche, erstellen Sie diese getrennt mit unterschiedlichen Festplatten.
+
+## Empfehlungen zur Speicherplanung
+
+| Anforderung | Empfehlung |
+| --- | --- |
+| Fotos, Dokumente und andere wichtige Daten | RAID 1 oder höher mit Redundanz und regelmäßigen Backups |
+| Docker, virtuelle Maschinen und andere leistungsintensive Szenarien | Speicherbereich mit SSDs erstellen oder SSD-Cache-Beschleunigung aktivieren |
+| Videos, Downloads und andere datenintensive Inhalte | HDDs mit hoher Kapazität, kombiniert mit JBOD oder RAID 5 |
+| Zusammenarbeit mehrerer Benutzer | Getrennte Speicherbereiche erstellen oder Daten per Ordnerrechten nach Mitgliedern trennen |
+
+<Callout title="Tipp" type="idea">
+RAID bietet Fehlertoleranz bei Festplattenausfällen, ersetzt aber keine Backups. Für wichtige Daten sollten Sie weiterhin die "3-2-1"-Regel befolgen: mindestens 3 Kopien der Daten vorhalten, auf 2 verschiedenen Medien speichern, davon 1 Kopie an einem anderen Ort.
+</Callout>

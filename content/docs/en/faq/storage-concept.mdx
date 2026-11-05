@@ -1,0 +1,74 @@
+---
+sourceHash: 3ed0c4c39cc5
+title: Disks and Storage Spaces: How They Relate
+description: Explains the concepts of disks, storage modes (RAID), and storage spaces and how they relate, helping you plan your device storage effectively.
+---
+
+In StationOS Pro, **disks** and **storage spaces** are the two core concepts behind data storage. Simply put, a disk is the physical medium that holds data, while a storage space is the logical area where you actually store and manage files. Understanding how they relate is the foundation for planning capacity wisely, keeping data safe, and getting the most out of your device.
+
+## Disks: The Physical Medium for Data
+
+A disk is the physical device that actually stores data. StationPC devices support both hard disk drives (HDDs) and solid-state drives (SSDs):
+
+- **HDD (hard disk drive)**: Large capacity at a low cost per terabyte, suitable for the long-term storage of large amounts of data such as photos, videos, and downloads.
+- **SSD (solid-state drive)**: Fast read/write speeds, suitable for performance-hungry scenarios such as Docker containers and virtual machines, and can also act as a cache to accelerate HDD storage spaces.
+
+For help choosing disk models and capacities, see the [HDD Compatibility List](../compatible/support-hdd).
+
+## Storage Spaces: The Logical Area You Actually Use
+
+A storage space is the logical area where you actually store and manage data, like an independent "virtual disk". The system uses RAID technology to organize one or more disks into a storage space, but in the UI it takes just one step: **create a storage space directly**—no need to create a storage pool first.
+
+When you create a storage space, a wizard guides you through the following choices:
+
+1. **Select disks**: Pick the disks to include from internal disks or external storage.
+2. **Select a storage mode**: This is the RAID mode, which determines how capacity is used and how well data is protected.
+3. **Select a file system**: Btrfs or EXT4.
+4. **Set access permissions**: Choose which users can use the storage space, and optionally limit the capacity available to regular users.
+5. **Confirm and create**: Review the summary and the formatting warning, then start creating.
+
+Once created, the storage space card shows its health status, storage mode, used capacity, file system, member disks, hot spare, and more, so you can keep track of your storage at any time.
+
+## Storage Modes: Balancing Capacity and Safety
+
+The storage mode (RAID) determines how multiple disks work together. Each mode strikes a different balance between capacity utilization and data safety:
+
+- **Basic**: Each disk is used on its own. Highest capacity utilization, but no data protection.
+- **JBOD** (shown as Linear in the UI): Chains the capacity of multiple disks together linearly into one space. Easy to expand, but no redundancy.
+- **RAID 0**: Data is striped across multiple disks. Fast reads and writes, but if any single disk fails, all data is lost.
+- **RAID 1**: Data is mirrored across member disks. Tolerates failures of some disks without losing data.
+- **RAID 5 / RAID 6**: Fault tolerance through parity, balancing capacity utilization and safety. Suitable for devices with more drive bays.
+- **RAID 10**: Mirroring first, then striping. Combines high performance with strong protection; usable space is about half of the total capacity.
+
+For disk count requirements, capacity calculations, and a detailed comparison of the modes, see [Storage settings](../app-guide/settings/storage).
+
+You can also assign a **hot spare** to a RAID storage space: when a member disk fails, the hot spare automatically takes its place and joins the rebuild, shortening the window during which data is in a degraded state.
+
+## Summary: How Disks and Storage Spaces Relate
+
+In one sentence: **disks provide the physical capacity, the storage mode determines how they are organized, and the storage space is the usable area you end up with.**
+
+- **Disk → storage space**: The disks selected when creating a storage space are combined into one whole according to the storage mode. The mode determines the actual usable capacity and fault tolerance.
+- **Storage space → user data**: After creating shared folders, uploading files, and setting access permissions in a storage space, you can access your data from all kinds of devices through the [Files](../app-guide/files) app or protocols such as SMB and WebDAV.
+
+## How This Differs from Other NAS Systems: Why No "Storage Pool"?
+
+Many NAS systems use a three-layer structure of "disk → storage pool → storage space": disks are first combined into a storage pool, and the pool is then split into multiple storage spaces.
+
+StationOS Pro merges these two steps into one: when you create a storage space, you pick the disks and the storage mode, and the system automatically handles the underlying pooling. The trade-off:
+
+- **Benefit**: The flow is simpler and more intuitive—you can set up storage correctly without first having to understand the concept of a "storage pool".
+- **Limitation**: One set of disks corresponds to exactly one storage space; you cannot split the same set of disks into multiple spaces. If you need multiple independent spaces, create them separately with different disks.
+
+## Storage Planning Tips
+
+| Need | Recommendation |
+| --- | --- |
+| Photos, documents, and other important data | RAID 1 or higher with redundancy, plus regular backups |
+| Docker, virtual machines, and other performance-critical scenarios | Build the storage space with SSDs, or enable SSD cache acceleration |
+| Videos, downloads, and other large-capacity data | High-capacity HDDs with JBOD or RAID 5 |
+| Multi-user collaboration | Create separate storage spaces, or isolate members' data with folder permissions |
+
+<Callout title="Tip" type="idea">
+RAID provides fault tolerance for disk failures, but it is not a substitute for backups. For important data, still follow the "3-2-1" backup rule: keep at least 3 copies of your data, on 2 different types of media, with 1 copy stored off-site.
+</Callout>

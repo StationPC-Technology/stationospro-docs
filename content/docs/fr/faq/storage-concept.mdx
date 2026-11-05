@@ -1,0 +1,74 @@
+---
+sourceHash: 3ed0c4c39cc5
+title: Relation entre disques et espaces de stockage
+description: Présente les concepts de disques, de modes de stockage (RAID) et d'espaces de stockage ainsi que leurs relations, pour vous aider à planifier le stockage de votre appareil.
+---
+
+Dans StationOS Pro, les **disques** et les **espaces de stockage** sont les deux concepts fondamentaux du stockage de données. En résumé : le disque est le support physique des données, tandis que l'espace de stockage est la zone logique où vous stockez et gérez réellement vos fichiers. Comprendre leur relation est la base d'une planification raisonnée de la capacité, de la sécurité des données et de l'exploitation complète des performances de l'appareil.
+
+## Le disque : le support physique des données
+
+Le disque est le périphérique physique qui stocke réellement les données. Les appareils StationPC prennent en charge à la fois les disques durs (HDD) et les disques SSD :
+
+- **HDD (disque dur)** : grande capacité et prix par unité de stockage plus bas, adapté à la conservation à long terme de grandes quantités de données : photos, vidéos, téléchargements, etc.
+- **SSD (disque SSD)** : vitesses de lecture/écriture élevées, adapté aux scénarios exigeants en performances tels que les conteneurs Docker et les machines virtuelles ; il peut aussi servir de cache pour accélérer les espaces de stockage sur HDD.
+
+Pour bien choisir le modèle et la capacité des disques, consultez la [Liste de compatibilité HDD](../compatible/support-hdd).
+
+## L'espace de stockage : la zone logique où les données sont réellement utilisées
+
+L'espace de stockage est la zone logique où vous stockez et gérez réellement vos données ; il équivaut à un « disque virtuel » indépendant. Le système s'appuie sur la technologie RAID pour organiser un ou plusieurs disques en espace de stockage, mais une seule étape suffit dans l'interface : **créer directement un espace de stockage**, sans avoir à créer d'abord un pool de stockage séparé.
+
+Lors de la création d'un espace de stockage, un assistant vous guide à travers les choix suivants :
+
+1. **Choisir les disques** : sélectionnez, parmi les disques internes ou le stockage externe, les disques qui participeront à la construction.
+2. **Choisir le mode de stockage** : autrement dit le mode RAID, qui détermine la manière d'utiliser la capacité et le niveau de protection des données.
+3. **Choisir le système de fichiers** : Btrfs ou EXT4.
+4. **Définir les droits d'utilisation** : choisissez les utilisateurs autorisés à utiliser cet espace de stockage et, au besoin, limitez la capacité disponible pour les utilisateurs ordinaires.
+5. **Confirmer et créer** : après vérification du récapitulatif et de l'avertissement de formatage, la création démarre.
+
+Une fois l'espace créé, sa carte affiche l'état de santé, le mode de stockage, la capacité utilisée, le système de fichiers, les disques membres et le disque de secours, etc., afin que vous puissiez suivre l'état du stockage à tout moment.
+
+## Le mode de stockage : le point d'équilibre entre capacité et sécurité
+
+Le mode de stockage (RAID) détermine la manière dont plusieurs disques travaillent ensemble. Chaque mode accorde une importance différente à l'utilisation de la capacité et à la sécurité des données :
+
+- **Basic** : un seul disque utilisé de manière indépendante ; taux d'utilisation de la capacité maximal, mais aucune protection des données.
+- **JBOD** (affiché sous le nom « Linear » dans l'interface) : concatène linéairement la capacité de plusieurs disques en un seul espace ; extension simple, mais sans redondance.
+- **RAID 0** : les données sont réparties sur plusieurs disques ; lecture/écriture rapides, mais la panne d'un seul disque entraîne la perte de toutes les données.
+- **RAID 1** : les données sont dupliquées en miroir entre les disques membres ; tolère la panne d'une partie des disques sans perte de données.
+- **RAID 5 / RAID 6** : tolérance aux pannes grâce à la parité, en conciliant utilisation de la capacité et sécurité ; adapté aux appareils disposant de nombreux emplacements de disques.
+- **RAID 10** : miroir d'abord, puis bandes ; allie hautes performances et haute protection, avec une utilisation d'environ la moitié de la capacité totale.
+
+Pour les exigences de nombre de disques, le calcul de la capacité et une comparaison détaillée de chaque mode, consultez [Paramètres de l'espace de stockage](../app-guide/settings/storage).
+
+Vous pouvez également désigner un **disque de secours** pour un espace de stockage RAID : en cas de panne d'un disque membre, le disque de secours prend automatiquement le relais et participe à la reconstruction, réduisant ainsi la période pendant laquelle les données se trouvent dans un état dégradé.
+
+## Résumé de la relation entre disques et espaces de stockage
+
+En une phrase : **le disque fournit la capacité physique, le mode de stockage détermine le mode d'organisation, et l'espace de stockage est la zone utilisable qui vous est finalement présentée.**
+
+- **Disque → espace de stockage** : les disques choisis lors de la création d'un espace de stockage sont combinés en un ensemble selon le mode de stockage. Le mode détermine la capacité réellement disponible et la tolérance aux pannes.
+- **Espace de stockage → données utilisateur** : après avoir créé des dossiers partagés, importé des fichiers et défini des droits d'accès dans l'espace de stockage, vous pouvez accéder à vos données depuis tout type d'appareil via l'application [Gestionnaire de fichiers](../app-guide/files) ou des protocoles tels que SMB et WebDAV.
+
+## Différence avec les autres systèmes NAS : pourquoi pas de « pool de stockage » ?
+
+De nombreux systèmes NAS adoptent une structure à trois niveaux « disque → pool de stockage → espace de stockage » : les disques sont d'abord regroupés dans un pool de stockage, puis le pool est divisé en plusieurs espaces de stockage.
+
+StationOS Pro fusionne ces deux étapes en une seule : lors de la création d'un espace de stockage, choisissez simplement les disques et le mode de stockage, et le système effectue automatiquement le pooling sous-jacent. Les compromis de cette approche :
+
+- **Avantage** : le processus est plus simple et plus intuitif ; vous pouvez organiser correctement votre stockage sans devoir comprendre au préalable le concept de « pool de stockage ».
+- **Limite** : un groupe de disques ne peut correspondre qu'à un seul espace de stockage ; impossible de diviser le même groupe en plusieurs espaces. Si vous avez besoin de plusieurs espaces indépendants, créez-les séparément avec des disques différents.
+
+## Conseils de planification du stockage
+
+| Besoin | Conseil |
+| --- | --- |
+| Photos, documents et autres données importantes | RAID 1 ou supérieur avec redondance, et des sauvegardes régulières |
+| Docker, machines virtuelles et autres scénarios exigeants en performances | Créer l'espace de stockage avec des SSD ou activer l'accélération par cache SSD |
+| Vidéos, téléchargements et autres données volumineuses | HDD de grande capacité associés à JBOD ou RAID 5 |
+| Collaboration entre plusieurs utilisateurs | Créer des espaces de stockage séparés ou isoler les données de chaque membre par des droits de dossier |
+
+<Callout title="Astuce" type="idea">
+Le RAID offre une tolérance aux pannes de disques, mais ne remplace pas les sauvegardes. Pour les données importantes, suivez toujours la règle de sauvegarde « 3-2-1 » : conservez au moins 3 copies de vos données, sur 2 types de supports différents, dont 1 copie hors site.
+</Callout>
