@@ -1,5 +1,5 @@
 ---
-sourceHash: f1e0de2d868c
+sourceHash: 2903357901f5
 title: Hardware und Stromversorgung
 description: Konfigurieren von Signalton, Kühlungslüfter, Arbeitsspeicherkomprimierung, automatischem Ein-/Ausschalten und Festplattenruhezustand
 ---
@@ -27,13 +27,14 @@ Nach dem Speichern löst nur die ausgewählten Ereignisse einen Signalton aus. W
 
 ### Kühlungslüfter
 
+Nach einem Klick auf die Einstellungsschaltfläche des Kühlungslüfters können Sie den Lüftermodus auswählen.
+
 | Modus | Beschreibung |
 | --- | --- |
-| Normal | Passt die Drehzahl automatisch an die Gerätetemperatur an und gleicht Kühlung und Geräuschentwicklung aus; für die meisten Szenarien geeignet. |
-| Leise | Geringe Geräuschentwicklung und niedrige Drehzahl, die Gerätetemperatur kann jedoch steigen. Geeignet für geräuschempfindliche Umgebungen mit geringer Last. |
+| Automatisch | Passt die Drehzahl automatisch an die Gerätetemperatur an und gleicht Kühlung und Geräuschentwicklung aus; für die meisten Alltagsszenarien geeignet. |
 | Volle Geschwindigkeit | Erzwingt die maximale Drehzahl für maximale Kühlung, verursacht jedoch mehr Geräusche. Geeignet für hohe Last, heiße Umgebungen oder vorübergehend bei Kühlungsproblemen. |
 
-Die Karte auf der Seite zeigt den aktuellen Modus an, z. B. „Aktueller Modus: Normal“.
+Die Karte auf der Seite zeigt den aktuellen Modus an, z. B. `Current Mode: Auto`.
 
 ### Arbeitsspeicherkomprimierung
 
@@ -101,8 +102,7 @@ Der Festplattenruhezustand gilt nur für mechanische Festplatten, die den Ruhezu
 
 | Bedingung | Empfehlung |
 | --- | --- |
-| Normaler Hausgebrauch | Normal. |
-| Nachts mit geringer Last | Leise, am nächsten Tag kann wieder auf Normal gewechselt werden. |
+| Normaler Hausgebrauch oder nachts mit geringer Last | Automatisch. |
 | Heiße Umgebung, Downloads mit Volllast, Container-/KI-Aufgaben | Volle Geschwindigkeit. |
 | Lüfterfehler-Warnung | Zuerst ausschalten und den Lüfter prüfen; verlassen Sie sich nicht dauerhaft auf die volle Geschwindigkeit, um den Fehler zu überdecken. |
 
