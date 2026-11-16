@@ -1,5 +1,5 @@
 ---
-sourceHash: 97c57ca6c6e3
+sourceHash: 27ebeaeed7d2
 title: 'Notes de mise à jour du système 2026.11.16'
 ---
 
@@ -25,28 +25,27 @@ Cette mise à jour renforce principalement la stabilité du montage à distance,
 
 ### Système et mises à jour
 
-- Nouveau : prise en charge de l’identification des modèles dont la référence commence par FA400, pour améliorer la cohérence de l’identification des informations de l’appareil.
 - Optimisé : notifications de variation du niveau de batterie de l’UPS et actualisation de l’état dans le client ; les notifications ne sont envoyées qu’aux administrateurs et prennent en charge plusieurs langues ainsi que la navigation par clic.
 - Optimisé : confirmation de niveau de batterie faible de l’UPS, rapprochement de l’état au démarrage et protection du redéploiement du service, afin de réduire les extinctions injustifiées et les interruptions d’état.
 - Optimisé : les modes du ventilateur deviennent « Automatique » et « Pleine vitesse » ; le mode « Silencieux » est supprimé.
 - Optimisé : la tâche de configuration d’un nouvel appareil n’est marquée comme terminée qu’après la création réelle, afin d’éviter un état erroné de l’assistant.
-- Corrigé : échec de la première connexion aux réseaux Wi-Fi masqués, message illisible en cas d’échec de connexion et arrêt des mises à jour planifiées DDNS après un saut de l’heure système.
+- Corrigé : arrêt des mises à jour planifiées DDNS après un saut de l’heure système.
 - Corrigé : impossibilité de recharger un micrologiciel après un téléversement manuel en raison d’une session non nettoyée, retour en arrière de la progression OTA et impossibilité de réessayer après un échec.
 
 ### Réseau et accès à distance
 
 - Optimisé : état du cycle de vie des montages à distance ; vérification de la disponibilité et de la réponse du serveur distant avant le montage, attente de la fin du démontage et nettoyage de l’ancien cache de liste après un échec de chargement.
-- Optimisé : le montage SMB à distance réutilise la configuration rclone actuelle et identifie correctement l’état de montage en environnement de production, ce qui améliore la stabilité des montages répétés.
+- Optimisé : le montage SMB à distance réutilise la configuration rclone actuelle, ce qui améliore la stabilité des montages répétés.
 - Optimisé : mappage de la racine de partage NFS globale et du stockage externe ; les alias de partage sont automatiquement restaurés après un redémarrage et les noms d’affichage du stockage externe sont conservés.
 - Optimisé : expérience de bascule entre réseau local et réseau distant lors d’une connexion avec Station ID ; après un arrêt puis un redémarrage, le bureau rétablit automatiquement la connexion.
 
 ### Stockage et disques
 
-- Optimisé : nettoyage des partitions et signatures résiduelles des disques membres avant la création d’un pool de stockage, afin de réduire l’impact des anciennes données sur la réussite de la création.
+- Optimisé : nettoyage des partitions et signatures résiduelles des disques membres avant la création d’un espace de stockage, afin de réduire l’impact des anciennes données sur la réussite de la création.
 - Optimisé : le montage des volumes de stockage intègre une exclusion mutuelle au niveau du volume et un traitement idempotent des volumes déjà montés ; le démontage attend maintenant une écriture précise sur le disque, éliminant les faux échecs de montage en double.
 - Optimisé : la carte du mode RAID précise les capacités d’extension des disques ; la disposition de la boîte de dialogue de détection des disques et la sélection par défaut sont plus claires.
 - Optimisé : affichage des textes longs, de l’état de santé et du numéro de série dans les détails d’un disque, afin d’éviter les contenus tronqués ou les espaces vides.
-- Corrigé : disques NVMe incorrectement considérés comme inactifs en présence d’une baie active, échec de vérification après une suppression réussie d’un pool de cache SSD et absence d’affichage des états intermédiaires lors de la création d’un cache SSD.
+- Corrigé : disques NVMe incorrectement considérés comme inactifs en présence d’une baie active, échec de vérification après une suppression réussie d’un cache SSD et absence d’affichage des états intermédiaires lors de la création d’un cache SSD.
 - Corrigé : message « système de fichiers non reconnu » affiché à tort pour les disques membres d’un pool de stockage et état de défaillance d’un disque affiché à tort comme une anomalie.
 
 ### Fichiers et transfert

@@ -1,5 +1,5 @@
 ---
-sourceHash: 97c57ca6c6e3
+sourceHash: 27ebeaeed7d2
 title: 'Systemaktualisierungshinweise 2026.11.16'
 ---
 
@@ -25,28 +25,27 @@ Diese Aktualisierung stärkt vor allem die Stabilität von Remote-Mounts, Speich
 
 ### System und Aktualisierungen
 
-- Neu: Erkennung von Modellnamen mit dem Präfix FA400; die Erkennung von Geräteinformationen ist konsistenter.
 - Optimiert: Benachrichtigungen bei UPS-Akkustatusänderungen und Statusaktualisierung im Client. Benachrichtigungen gehen nur an Administratoren und unterstützen mehrere Sprachen sowie das Öffnen durch Antippen.
 - Optimiert: Bestätigung bei niedrigem UPS-Akkustand, Abgleich des Startzustands und Schutz bei der erneuten Dienstbereitstellung reduzieren versehentliche Abschaltungen und Statusunterbrechungen.
 - Optimiert: Lüftermodi auf Automatisch und Volle Geschwindigkeit umgestellt; der Modus Leise wurde entfernt.
 - Optimiert: Einrichtungsaufgaben neuer Geräte werden erst nach der tatsächlichen Fertigstellung als abgeschlossen markiert, wodurch falsche Assistentenstatusanzeigen vermieden werden.
-- Behoben: Fehlschlag der ersten Verbindung mit verborgenen WLANs, unlesbare Hinweise bei Verbindungsfehlern und Stillstand geplanter DDNS-Aktualisierungen nach Zeitsprüngen des Systems.
+- Behoben: Stillstand geplanter DDNS-Aktualisierungen nach Zeitsprüngen des Systems.
 - Behoben: Nach dem manuellen Firmware-Upload wurde die Sitzung nicht bereinigt, sodass kein erneuter Upload möglich war; außerdem wurden ein Zurücksetzen des OTA-Fortschritts und fehlende Wiederholungen nach Fehlern korrigiert.
 
 ### Netzwerk und Fernzugriff
 
 - Optimiert: Lebenszyklusstatus von Remote-Mounts. Vor dem Mounten werden Verfügbarkeit und Antwort des Ziels geprüft, beim Aushängen wird der Abschluss abgewartet und alte Listen-Caches nach fehlgeschlagenen Ladungen bereinigt.
-- Optimiert: SMB-Remote-Mounts verwenden die aktuelle rclone-Konfiguration erneut und erkennen Produktions-Mount-Status korrekt; wiederholte Mounts sind stabiler.
+- Optimiert: SMB-Remote-Mounts verwenden die aktuelle rclone-Konfiguration erneut; wiederholte Mounts sind stabiler.
 - Optimiert: NFS-Globalfreigabe-Roots und Zuordnung externen Speichers. Freigabe-Aliase werden nach einem Neustart automatisch wiederhergestellt und Anzeigenamen externen Speichers bleiben erhalten.
 - Optimiert: Wechsel zwischen LAN und Remote-Netzwerk bei Anmeldung mit Station ID; nach Herunterfahren und Neustart stellt der Desktop Verbindungen automatisch wieder her.
 
 ### Speicher und Festplatten
 
-- Optimiert: Vor dem Erstellen eines Speicherpools werden restliche Partitionen und Signaturen von Memberdatenträgern entfernt. Alte Daten beeinträchtigen die Pool-Erstellung seltener.
+- Optimiert: Vor dem Erstellen eines Speicherbereichs werden restliche Partitionen und Signaturen von Memberdatenträgern entfernt. Alte Daten beeinträchtigen die Bereich-Erstellung seltener.
 - Optimiert: Mounting von Speichervolumes mit gegenseitigem Ausschluss auf Volume-Ebene und idempotenter Behandlung bereits gemounteter Volumes. Das Aushängen wird präzise persistiert und vermeidet Scheinfehler durch doppelte Mounts.
 - Optimiert: RAID-Moduskarten ergänzen Hinweise zur Festplattenerweiterung; Layout und Standardauswahl des Festplattenprüfungsdialogs sind klarer.
 - Optimiert: Anzeige langer Texte, Integritätsstatus und Seriennummern in Festplattendetails ohne abgeschnittene Inhalte oder Leerräume.
-- Behoben: NVMe-Datenträger mit aktiven Arrays wurden als frei angezeigt, das Löschen eines SSD-Cache-Pools scheiterte nach Erfolg bei der erneuten Prüfung und Zwischenzustände beim Erstellen eines SSD-Caches wurden nicht angezeigt.
+- Behoben: NVMe-Datenträger mit aktiven Arrays wurden als frei angezeigt, das Löschen eines SSD-Caches scheiterte nach Erfolg bei der erneuten Prüfung und Zwischenzustände beim Erstellen eines SSD-Caches wurden nicht angezeigt.
 - Behoben: Memberdatenträger eines Speicherpools zeigten fälschlich ein nicht erkennbares Dateisystem und Festplattenfehler wurden als abnormal dargestellt.
 
 ### Dateien und Übertragung

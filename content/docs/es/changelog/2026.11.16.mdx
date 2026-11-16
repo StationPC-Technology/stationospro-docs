@@ -1,5 +1,5 @@
 ---
-sourceHash: 97c57ca6c6e3
+sourceHash: 27ebeaeed7d2
 title: 'Notas de la actualización del sistema del 16.11.2026'
 ---
 
@@ -25,28 +25,27 @@ Esta actualización refuerza la estabilidad de los montajes remotos, la gestión
 
 ### Sistema y actualizaciones
 
-- Nuevo: compatibilidad con la identificación de modelos con el prefijo FA400, lo que mejora la coherencia de la información del dispositivo.
 - Optimización: notificaciones de cambio de batería de UPS y actualización del estado en el cliente. Las notificaciones se envían solo a administradores y son compatibles con varios idiomas y la apertura mediante un toque.
 - Optimización: confirmación de batería baja de UPS, conciliación del estado de inicio y protección al volver a implementar el servicio, lo que reduce apagados accidentales e interrupciones del estado.
 - Optimización: los modos del ventilador pasan a ser Automático y Velocidad máxima, y se elimina el modo Silencioso.
 - Optimización: las tareas de configuración de equipos nuevos se marcan como completadas solo cuando la creación finaliza realmente, lo que evita informes de estado incorrectos en el asistente.
-- Corrección: error en la primera conexión a redes Wi-Fi ocultas, mensajes de error de conexión ilegibles y detención de las actualizaciones programadas de DDNS tras saltos de la hora del sistema.
+- Corrección: detención de las actualizaciones programadas de DDNS tras saltos de la hora del sistema.
 - Corrección: la sesión no se limpiaba tras cargar manualmente el firmware, lo que impedía repetir la carga; también se corrigen el retroceso del progreso de OTA y la imposibilidad de reintentar tras un error.
 
 ### Red y acceso remoto
 
 - Optimización: estados del ciclo de vida de los montajes remotos. Antes de montar se comprueba la disponibilidad y la respuesta del extremo remoto, al desmontar se espera a que finalice la operación y se limpian las cachés de listas antiguas tras una carga fallida.
-- Optimización: los montajes remotos SMB reutilizan la configuración actual de rclone y reconocen correctamente el estado de montaje en producción, lo que mejora la estabilidad de montajes repetidos.
+- Optimización: los montajes remotos SMB reutilizan la configuración actual de rclone, lo que mejora la estabilidad de montajes repetidos.
 - Optimización: raíces de compartición global NFS y asignación de almacenamiento externo. Los alias de compartición se restauran automáticamente tras reiniciar y se conservan los nombres visibles del almacenamiento externo.
 - Optimización: cambio entre red LAN y remota con inicio de sesión en Station ID; el escritorio restaura automáticamente la conexión después de apagar y reiniciar.
 
 ### Almacenamiento y discos
 
-- Optimización: antes de crear un pool de almacenamiento se eliminan particiones y firmas residuales de los discos miembro, lo que reduce el impacto de datos antiguos en la creación del pool.
+- Optimización: antes de crear un espacio de almacenamiento se eliminan particiones y firmas residuales de los discos miembro, lo que reduce el impacto de datos antiguos en la creación del espacio.
 - Optimización: montaje de volúmenes de almacenamiento con exclusión mutua por volumen y tratamiento idempotente de los ya montados. El desmontaje ahora se persiste con precisión y se eliminan falsos errores por montajes duplicados.
 - Optimización: las tarjetas de modo RAID añaden información sobre la capacidad de ampliación de discos, y mejoran el diseño del diálogo de detección y la selección predeterminada.
 - Optimización: muestra de textos largos, estado de salud y números de serie en los detalles del disco, sin contenido cortado ni espacios vacíos.
-- Corrección: discos NVMe con matrices activas se identificaban como libres, la eliminación de un pool de caché SSD finalizaba correctamente pero fallaba en la reverificación y los estados intermedios al crear una caché SSD no se mostraban.
+- Corrección: discos NVMe con matrices activas se identificaban como libres, la eliminación de una caché SSD finalizaba correctamente pero fallaba en la reverificación y los estados intermedios al crear una caché SSD no se mostraban.
 - Corrección: los discos miembro de un pool de almacenamiento mostraban por error un sistema de archivos no reconocido y los estados de fallo del disco se mostraban como anómalos.
 
 ### Archivos y transferencia
