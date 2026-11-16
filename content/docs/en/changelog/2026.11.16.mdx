@@ -1,0 +1,107 @@
+---
+sourceHash: 6b88d372cbee
+title: '2026.11.16 System Update Notes'
+---
+
+## Read Before Updating
+
+### Applicable Products
+
+This update applies to products running StationOS Pro. Before upgrading, confirm the processor architecture for your product model.
+
+- DA Series: DA400 Series
+
+### Upgrade Notes
+
+1. To use the features described here, upgrade the system firmware, app suite, or client to the listed version or later.
+2. Some new app-suite features require a specified system firmware version. If the firmware is below the minimum compatible version, you may not receive app update notifications or be able to use the related features normally.
+
+## StationOS Pro System Firmware and Apps
+### Version Information
+
+System firmware version: v1.3.0.10
+
+This release focuses on improving the stability of remote mounts, storage management, file transfer, Docker, and the App Center, while refining the UPS, system-update, and AI experiences. For proper operation, we recommend updating the firmware, app suite, and related clients to their latest versions.
+
+### System and Updates
+
+- Added recognition for model names with the FA400 prefix, improving consistency of device-information identification.
+- Improved UPS battery-change notifications and client status refresh. Notifications are now sent only to administrators and support multiple languages and click-through navigation.
+- Improved UPS low-battery confirmation, startup-state reconciliation, and service-redeployment protection to reduce accidental shutdowns and status interruptions.
+- Changed fan modes to Automatic and Full Speed, and removed Silent mode.
+- Improved new-device setup tasks so they are marked complete only after creation has actually finished, preventing incorrect setup-wizard status.
+- Fixed failed first connections to hidden Wi-Fi networks, unreadable connection-failure messages, and DDNS scheduled updates stopping after system-time jumps.
+- Fixed firmware re-upload failures caused by sessions not being cleared after manual upload, as well as OTA progress rollback and unavailable retries after failure.
+
+### Network and Remote Access
+
+- Added NFS support for remote mounts, including protocol icons, specified-path prompts, and the directory-browsing allowlist.
+- Improved remote-mount lifecycle states: remote availability and response are checked before mounting, unmounting waits for completion, and stale list caches left by failed loads are cleared.
+- Improved SMB remote mounts by reusing the current rclone configuration and correctly identifying mount states in production, increasing repeated-mount stability.
+- Improved NFS global-share roots and external-storage mapping. Shared aliases are restored automatically after restart, and external-storage display names are retained.
+- Improved LAN and remote-network switching while signed in with Station ID; the desktop automatically restores connections after shutdown and restart.
+
+### Storage and Disks
+
+- Improved storage-pool creation by clearing residual partitions and signatures from member disks first, reducing the impact of old data on pool-creation success.
+- Improved storage-volume mounting with volume-level mutual exclusion and idempotent handling for already-mounted volumes. Unmounting now persists precisely and eliminates false failures from duplicate mounts.
+- Added hard-drive expansion-capability details to RAID-mode cards and made disk-check dialog layouts and default selections clearer.
+- Improved long text, health status, and serial-number display in disk details, preventing truncation or blank areas.
+- Fixed NVMe drives with active arrays being incorrectly identified as idle, deletion of an SSD cache pool succeeding but failing revalidation, and missing intermediate states while creating an SSD cache.
+- Fixed storage-pool member disks being reported as having an unrecognized file system and disk-fault states being displayed as abnormal.
+
+### Files and Transfer
+
+- Improved file details with photo and video resolution, capture time, and duration, and added the favorite entry to image previews.
+- Improved validation for new-folder names containing spaces or empty names, and improved external-link sharing sorting, filtering, and specified-user dialog display.
+- Improved consistency between file-task ordering and real-time updates. Paused tasks are no longer incorrectly marked as failed, and waiting tasks transfer first when resumed.
+- Improved team-folder permission merging and final permission returns, sorted by actual disk modification time, and ensured search covers team directories the user can access.
+- Improved duplicate-file scanning by skipping unreadable files so individual permission errors no longer interrupt an entire scan.
+- Fixed Ctrl-drag copying performing a move, copy-QR-code messages reporting success with an empty clipboard, and folders failing to expand while search was active.
+- Fixed partial-file-copied messages appearing when one file was canceled, folders failing to open after upload cancellation, and inaccurate multi-file task counts.
+
+### Media and Playback
+
+- Improved startup warm-up for embedded subtitles, so switching subtitles for the first time no longer requires demuxing the entire disk.
+- Changed RAW image thumbnails to use previews embedded by the camera and aligned them with in-body color style.
+- Improved the HDMI image-display pipeline for more consistent and stable image rendering.
+
+### App Center and Docker
+
+- Added a built-in File Sync app entry to the PC desktop. If the app is not installed, it provides confirmation and installation guidance; if installed, it can be launched directly.
+- Added multi-window support within File Manager and Docker log and terminal windows, with up to five windows.
+- Improved App Store category filtering so it works immediately after a cold start. Categories now use exact matching, fixing substring matches that hit unrelated categories.
+- Improved app details with developer, publisher, license, source-code, and help-document links, and fixed icons and covers becoming out of sync.
+- Improved delivery of app-installation failure reasons to notifications, logs, and progress, so causes such as port conflicts can be viewed directly.
+- Improved app accessible directories with package-declaration switches and default mount paths, and made permissions for managed paths clearer.
+- Improved Docker container creation with image-keyword search. Switching project paths no longer clears configuration, and storage-location selection is no longer overwritten by polling.
+- Improved automatic completion of Docker default address pools to prevent network-creation failures after many apps are installed.
+- Fixed Docker container-volume mappings that could mount system paths such as the root directory into a container; path validation was added to both creation and confirmation pages.
+
+### AI and Knowledge Base
+
+- Improved the local-model dropdown with family-based grouping and switching between downloaded models, and added a clear prompt when no model is configured.
+- Improved migration-status display throughout local-model storage migration to prevent accidental operations.
+- Improved automatic recovery for missing knowledge-base dependencies and lost vectors; deleting a knowledge base is no longer blocked by vector-store state.
+- Fixed knowledge-base responses remaining in Chinese after vectors were lost.
+- Fixed Station AI windows that could not be resized by dragging their edges.
+
+## Clients
+### iOS & Android Client
+
+App version: v1.3.0
+
+- Added NFS support for remote mounts, with directory browsing, protocol icons, and specified-path prompts consistent with the PC experience.
+- Added differential synchronization for Cinema libraries, scanning-task status, and a stop entry, with automatic refresh after content updates.
+- Added video-recognition switches and recognition-mode levels in AI settings; low-confidence search results now suggest changing the prompt.
+- Added developer, publisher, and compliance links to app details. App descriptions, changelogs, and new-feature sections now expand only after more than three lines.
+- Improved the home Cinema widget as a continue-watching card stream showing season and episode information, with better video-version management and administrator actions.
+- Aligned Baby Album, shared albums, and external-link sharing with the Web experience. Album deletion now supports moving to Recycle Bin or permanent deletion.
+- Improved album-map colors, clustered display, and pan-zoom performance; date sliders and album dates follow the system-language locale.
+- Improved album-backup reconnection and interruption handling. Connections being established are no longer misreported as paused, and automatic retries after interruptions are more stable.
+- Improved external-link sharing filters and sorting, as well as display of file deletion, media details, and transfer-task status.
+- Improved iOS image and video downloads with a choice between saving to a phone folder or the phone album.
+- Added clear gated prompts when Album or Cinema is not installed or enabled, with automatic recovery after the service is enabled.
+- Improved network settings with link aggregation and scheduled Wi-Fi status refresh. UPS shutdown behavior now matches the PC client, and a disable entry is available when dual verification is enabled.
+- Improved automatic retries for API failures and searchable logging, with more reasonable connection-timeout and error messages.
+- Improved missing translations and date text in six languages, and fixed an iOS 27 startup crash and Android adaptive-icon display issues.

@@ -1,0 +1,107 @@
+---
+sourceHash: 6b88d372cbee
+title: 'Systemaktualisierungshinweise 2026.11.16'
+---
+
+## Vor der Aktualisierung lesen
+
+### Betroffene Produkte
+
+Diese Aktualisierung gilt für Produkte mit StationOS Pro. Prüfen Sie vor dem Upgrade anhand Ihres Produkts die zugehörige Prozessorarchitektur.
+
+- DA-Serie: DA400-Serie
+
+### Hinweise zum Upgrade
+
+1. Um die hier beschriebenen Funktionen zu nutzen, aktualisieren Sie die System-Firmware, App-Suite oder den Client auf die angegebene oder eine höhere Version.
+2. Einige neue Funktionen der App-Suite erfordern eine bestimmte Version der System-Firmware. Liegt die Firmware unter der minimal kompatiblen Version, erhalten Sie möglicherweise keine App-Updates oder können die zugehörigen Funktionen nicht normal nutzen.
+
+## StationOS Pro System-Firmware und Apps
+### Versionsinformationen
+
+System-Firmware-Version: v1.3.0.10
+
+Diese Aktualisierung stärkt vor allem die Stabilität von Remote-Mounts, Speicherverwaltung, Dateiübertragung, Docker und dem App-Center und verbessert UPS, Systemaktualisierungen sowie die AI-Nutzung. Für einen ordnungsgemäßen Betrieb sollten Sie Firmware, App-Suite und zugehörige Clients auf die neuesten Versionen aktualisieren.
+
+### System und Aktualisierungen
+
+- Neu: Erkennung von Modellnamen mit dem Präfix FA400; die Erkennung von Geräteinformationen ist konsistenter.
+- Optimiert: Benachrichtigungen bei UPS-Akkustatusänderungen und Statusaktualisierung im Client. Benachrichtigungen gehen nur an Administratoren und unterstützen mehrere Sprachen sowie das Öffnen durch Antippen.
+- Optimiert: Bestätigung bei niedrigem UPS-Akkustand, Abgleich des Startzustands und Schutz bei der erneuten Dienstbereitstellung reduzieren versehentliche Abschaltungen und Statusunterbrechungen.
+- Optimiert: Lüftermodi auf Automatisch und Volle Geschwindigkeit umgestellt; der Modus Leise wurde entfernt.
+- Optimiert: Einrichtungsaufgaben neuer Geräte werden erst nach der tatsächlichen Fertigstellung als abgeschlossen markiert, wodurch falsche Assistentenstatusanzeigen vermieden werden.
+- Behoben: Fehlschlag der ersten Verbindung mit verborgenen WLANs, unlesbare Hinweise bei Verbindungsfehlern und Stillstand geplanter DDNS-Aktualisierungen nach Zeitsprüngen des Systems.
+- Behoben: Nach dem manuellen Firmware-Upload wurde die Sitzung nicht bereinigt, sodass kein erneuter Upload möglich war; außerdem wurden ein Zurücksetzen des OTA-Fortschritts und fehlende Wiederholungen nach Fehlern korrigiert.
+
+### Netzwerk und Fernzugriff
+
+- Neu: Remote-Mounts unterstützen NFS, einschließlich Protokollsymbolen, Hinweisen zu bestimmten Pfaden und der Whitelist für die Verzeichnissuche.
+- Optimiert: Lebenszyklusstatus von Remote-Mounts. Vor dem Mounten werden Verfügbarkeit und Antwort des Ziels geprüft, beim Aushängen wird der Abschluss abgewartet und alte Listen-Caches nach fehlgeschlagenen Ladungen bereinigt.
+- Optimiert: SMB-Remote-Mounts verwenden die aktuelle rclone-Konfiguration erneut und erkennen Produktions-Mount-Status korrekt; wiederholte Mounts sind stabiler.
+- Optimiert: NFS-Globalfreigabe-Roots und Zuordnung externen Speichers. Freigabe-Aliase werden nach einem Neustart automatisch wiederhergestellt und Anzeigenamen externen Speichers bleiben erhalten.
+- Optimiert: Wechsel zwischen LAN und Remote-Netzwerk bei Anmeldung mit Station ID; nach Herunterfahren und Neustart stellt der Desktop Verbindungen automatisch wieder her.
+
+### Speicher und Festplatten
+
+- Optimiert: Vor dem Erstellen eines Speicherpools werden restliche Partitionen und Signaturen von Memberdatenträgern entfernt. Alte Daten beeinträchtigen die Pool-Erstellung seltener.
+- Optimiert: Mounting von Speichervolumes mit gegenseitigem Ausschluss auf Volume-Ebene und idempotenter Behandlung bereits gemounteter Volumes. Das Aushängen wird präzise persistiert und vermeidet Scheinfehler durch doppelte Mounts.
+- Optimiert: RAID-Moduskarten ergänzen Hinweise zur Festplattenerweiterung; Layout und Standardauswahl des Festplattenprüfungsdialogs sind klarer.
+- Optimiert: Anzeige langer Texte, Integritätsstatus und Seriennummern in Festplattendetails ohne abgeschnittene Inhalte oder Leerräume.
+- Behoben: NVMe-Datenträger mit aktiven Arrays wurden als frei angezeigt, das Löschen eines SSD-Cache-Pools scheiterte nach Erfolg bei der erneuten Prüfung und Zwischenzustände beim Erstellen eines SSD-Caches wurden nicht angezeigt.
+- Behoben: Memberdatenträger eines Speicherpools zeigten fälschlich ein nicht erkennbares Dateisystem und Festplattenfehler wurden als abnormal dargestellt.
+
+### Dateien und Übertragung
+
+- Optimiert: Dateidetails zeigen Auflösung, Aufnahmezeit und Dauer von Fotos und Videos; der Favoriteneinstieg in der Bildvorschau wurde ergänzt.
+- Optimiert: Prüfung von Ordnernamen mit Leerzeichen und leeren Namen sowie Sortierung, Filterung und Dialog für bestimmte Benutzer bei externen Freigabelinks.
+- Optimiert: Konsistenz zwischen Dateiauftragssortierung und Echtzeit-Benachrichtigungen. Pausierte Aufträge werden nicht mehr fälschlich als fehlgeschlagen markiert und wartende Aufträge werden beim Fortsetzen bevorzugt übertragen.
+- Optimiert: Zusammenführung von Teamordner-Berechtigungen und Rückgabe der endgültigen Berechtigungen; Sortierung nach tatsächlicher Änderungszeit auf dem Datenträger und Suche in zugreifbaren Teamverzeichnissen.
+- Optimiert: Duplikatsuche überspringt unlesbare Dateien, damit einzelne Berechtigungsfehler nicht den gesamten Scan abbrechen.
+- Behoben: Ziehen mit Strg führte statt zu einem Kopieren zu einem Verschieben, QR-Codes zum Kopieren meldeten Erfolg trotz leerer Zwischenablage und Ordner ließen sich im Suchzustand nicht aufklappen.
+- Behoben: Beim Abbrechen einer einzelnen Datei wurde fälschlich angezeigt, dass einige Dateien kopiert wurden; nach dem Abbrechen eines Uploads ließ sich der Ordner nicht öffnen und die Anzahl mehrdateiliger Aufgaben war ungenau.
+
+### Medien und Wiedergabe
+
+- Optimiert: Eingebettete Untertitel werden beim Start vorgeladen, sodass beim ersten Untertitelwechsel nicht das gesamte Medium demuxt werden muss.
+- Optimiert: RAW-Vorschaubilder verwenden die in der Kamera eingebettete Vorschau und folgen der Farbdarstellung der Kamera.
+- Optimiert: HDMI-Anzeigekette für Bilder mit konsistenterer und stabilerer Darstellung.
+
+### App-Center und Docker
+
+- Neu: Integrierter Einstieg für die App Dateisynchronisierung auf dem PC-Desktop. Ist die App nicht installiert, werden Bestätigung und Installationshilfe angeboten; ist sie installiert, kann sie direkt gestartet werden.
+- Neu: Dateimanager sowie Docker-Protokoll- und Terminalfenster unterstützen mehrere Instanzen im selben Fenster, maximal fünf.
+- Optimiert: Kategoriefilter im App Store funktioniert unmittelbar nach dem Kaltstart; Kategorien werden exakt abgeglichen und Teilzeichenketten treffen nicht mehr andere Kategorien.
+- Optimiert: App-Details zeigen Entwickler, Herausgeber, Lizenz, Quellcode und Hilfe-Dokumente; nicht synchronisierte Symbole und Titelbilder wurden korrigiert.
+- Optimiert: Ursachen fehlgeschlagener App-Installationen werden an Benachrichtigungen, Protokolle und Fortschritt weitergegeben; Ursachen wie Portkonflikte sind direkt sichtbar.
+- Optimiert: Zugreifbare App-Verzeichnisse unterstützen Paketdeklarationen und Standard-Mount-Pfade; Berechtigungen verwalteter Pfade werden klarer angezeigt.
+- Optimiert: Docker-Containererstellung mit Schlüsselwortsuche für Images. Beim Wechsel des Projektpfads bleibt die Konfiguration erhalten und die Speicherortauswahl wird nicht durch Abfragen überschrieben.
+- Optimiert: Standard-Adresspools von Docker werden automatisch ergänzt, damit nach vielen installierten Apps weiter Netzwerke erstellt werden können.
+- Behoben: Docker-Volume-Mappings konnten Systempfade wie das Root-Verzeichnis in Container mounten; die Erstellungs- und Bestätigungsseite prüfen Pfade jetzt.
+
+### AI und Wissensdatenbank
+
+- Optimiert: Auswahlliste lokaler Modelle nach Modellfamilie gruppiert mit Wechsel zwischen heruntergeladenen Modellen; ohne konfiguriertes Modell erscheint ein klarer Hinweis.
+- Optimiert: Einheitlicher Migrationsstatus während der Migration lokaler Modellspeicher, um Fehlbedienungen zu vermeiden.
+- Optimiert: Fehlende Abhängigkeiten und verlorene Vektoren der Wissensdatenbank heilen sich automatisch; das Löschen einer Wissensdatenbank wird nicht mehr vom Vektorspeicherstatus blockiert.
+- Behoben: Antworten der Wissensdatenbank blieben nach Verlust von Vektoren fest auf Chinesisch.
+- Behoben: Stationsfenster von Station AI ließen sich an den Rändern nicht durch Ziehen in der Größe ändern.
+
+## Client
+### iOS- und Android-Client
+
+App-Version: v1.3.0
+
+- Neu: Remote-Mounts unterstützen NFS; Verzeichnissuche, Protokollsymbole und Hinweise zu bestimmten Pfaden entsprechen der PC-Version.
+- Neu: Differenzsynchronisierung der Cinema-Medienbibliothek, Status von Scan-Aufgaben und ein Eintrag zum Stoppen; nach Inhaltsaktualisierungen wird automatisch aktualisiert.
+- Neu: AI-Einstellungen mit Schalter für Videoerkennung und Stufen des Erkennungsmodus; bei Suchergebnissen mit geringer Konfidenz wird ein neuer Prompt vorgeschlagen.
+- Neu: App-Details mit Links zu Entwickler, Herausgeber und Compliance-Informationen; App-Beschreibung, Änderungsprotokoll und Neuerungen klappen erst nach mehr als drei Zeilen auf.
+- Optimiert: Cinema-Widget der Startseite als Kartenstream zum Weiterschauen mit Staffel- und Episodendaten; Verwaltung von Filmversionen und Administratoraktionen verbessert.
+- Optimiert: Babyalbum, gemeinsam genutzte Alben und externe Freigabelinks entsprechen der Web-Version; beim Löschen eines Albums sind Papierkorb oder endgültiges Löschen möglich.
+- Optimiert: Farben, Clusterdarstellung und Leistung beim Zoomen und Ziehen der Albumkarte; Datumsregler und Albumdaten folgen der Systemkultur.
+- Optimiert: Wiederverbindung und Behandlung von Unterbrechungen bei Albumsicherungen. Beim Verbindungsaufbau wird nicht mehr fälschlich Pause angezeigt und automatische Wiederholungen sind stabiler.
+- Optimiert: Filterung und Sortierung externer Freigabelinks sowie klarere Anzeige von Dateilöschung, Mediendetails und Übertragungsaufgaben.
+- Optimiert: Beim Herunterladen von Bildern oder Videos auf iOS können Sie zwischen einem Handyordner und der Handy-Galerie wählen.
+- Optimiert: Verständliche Hinweise, wenn Album- oder Cinema-Dienst nicht installiert oder aktiviert ist; nach Aktivierung wird die Nutzung automatisch wiederhergestellt.
+- Optimiert: Netzwerkeinstellungen mit Link-Aggregation und regelmäßiger Aktualisierung des WLAN-Status; UPS-Abschaltverfahren entspricht dem PC und bei aktivierter Doppelbestätigung besteht ein Eintrag zum Deaktivieren.
+- Optimiert: Automatische Wiederholung fehlgeschlagener API-Aufrufe und durchsuchbare Protokolle; Hinweise zu Verbindungstimeouts und Fehlern sind sinnvoller.
+- Optimiert: Fehlende Übersetzungen und Datumstexte in sechs Sprachen; iOS-27-Absturz beim Start und Anzeige adaptiver Android-Symbole korrigiert.

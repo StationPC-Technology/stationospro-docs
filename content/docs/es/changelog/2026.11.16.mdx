@@ -1,0 +1,107 @@
+---
+sourceHash: 6b88d372cbee
+title: 'Notas de la actualización del sistema del 16.11.2026'
+---
+
+## Lea antes de actualizar
+
+### Productos aplicables
+
+Esta actualización se aplica a los productos que ejecutan StationOS Pro. Antes de actualizar, confirme la arquitectura del procesador correspondiente al modelo de su producto.
+
+- Serie DA: serie DA400
+
+### Recordatorios de actualización
+
+1. Para utilizar las funciones descritas aquí, actualice el firmware del sistema, la suite de aplicaciones o el cliente a la versión indicada o a una posterior.
+2. Algunas funciones nuevas de la suite de aplicaciones requieren una versión específica del firmware del sistema. Si el firmware es inferior a la versión mínima compatible, es posible que no reciba notificaciones de actualización de aplicaciones o que no pueda utilizar normalmente las funciones relacionadas.
+
+## Firmware del sistema y aplicaciones de StationOS Pro
+### Información de la versión
+
+Versión del firmware del sistema: v1.3.0.10
+
+Esta actualización refuerza la estabilidad de los montajes remotos, la gestión del almacenamiento, la transferencia de archivos, Docker y el centro de aplicaciones, y mejora la experiencia de uso de UPS, las actualizaciones del sistema y la IA. Para garantizar el funcionamiento correcto, recomendamos actualizar el firmware, la suite de aplicaciones y los clientes relacionados a sus últimas versiones.
+
+### Sistema y actualizaciones
+
+- Nuevo: compatibilidad con la identificación de modelos con el prefijo FA400, lo que mejora la coherencia de la información del dispositivo.
+- Optimización: notificaciones de cambio de batería de UPS y actualización del estado en el cliente. Las notificaciones se envían solo a administradores y son compatibles con varios idiomas y la apertura mediante un toque.
+- Optimización: confirmación de batería baja de UPS, conciliación del estado de inicio y protección al volver a implementar el servicio, lo que reduce apagados accidentales e interrupciones del estado.
+- Optimización: los modos del ventilador pasan a ser Automático y Velocidad máxima, y se elimina el modo Silencioso.
+- Optimización: las tareas de configuración de equipos nuevos se marcan como completadas solo cuando la creación finaliza realmente, lo que evita informes de estado incorrectos en el asistente.
+- Corrección: error en la primera conexión a redes Wi-Fi ocultas, mensajes de error de conexión ilegibles y detención de las actualizaciones programadas de DDNS tras saltos de la hora del sistema.
+- Corrección: la sesión no se limpiaba tras cargar manualmente el firmware, lo que impedía repetir la carga; también se corrigen el retroceso del progreso de OTA y la imposibilidad de reintentar tras un error.
+
+### Red y acceso remoto
+
+- Nuevo: los montajes remotos son compatibles con NFS, incluidos los iconos de protocolo, las indicaciones de rutas especificadas y la lista permitida para explorar directorios.
+- Optimización: estados del ciclo de vida de los montajes remotos. Antes de montar se comprueba la disponibilidad y la respuesta del extremo remoto, al desmontar se espera a que finalice la operación y se limpian las cachés de listas antiguas tras una carga fallida.
+- Optimización: los montajes remotos SMB reutilizan la configuración actual de rclone y reconocen correctamente el estado de montaje en producción, lo que mejora la estabilidad de montajes repetidos.
+- Optimización: raíces de compartición global NFS y asignación de almacenamiento externo. Los alias de compartición se restauran automáticamente tras reiniciar y se conservan los nombres visibles del almacenamiento externo.
+- Optimización: cambio entre red LAN y remota con inicio de sesión en Station ID; el escritorio restaura automáticamente la conexión después de apagar y reiniciar.
+
+### Almacenamiento y discos
+
+- Optimización: antes de crear un pool de almacenamiento se eliminan particiones y firmas residuales de los discos miembro, lo que reduce el impacto de datos antiguos en la creación del pool.
+- Optimización: montaje de volúmenes de almacenamiento con exclusión mutua por volumen y tratamiento idempotente de los ya montados. El desmontaje ahora se persiste con precisión y se eliminan falsos errores por montajes duplicados.
+- Optimización: las tarjetas de modo RAID añaden información sobre la capacidad de ampliación de discos, y mejoran el diseño del diálogo de detección y la selección predeterminada.
+- Optimización: muestra de textos largos, estado de salud y números de serie en los detalles del disco, sin contenido cortado ni espacios vacíos.
+- Corrección: discos NVMe con matrices activas se identificaban como libres, la eliminación de un pool de caché SSD finalizaba correctamente pero fallaba en la reverificación y los estados intermedios al crear una caché SSD no se mostraban.
+- Corrección: los discos miembro de un pool de almacenamiento mostraban por error un sistema de archivos no reconocido y los estados de fallo del disco se mostraban como anómalos.
+
+### Archivos y transferencia
+
+- Optimización: los detalles del archivo muestran la resolución de fotos y vídeos, la hora de captura y la duración, y se completa el acceso a favoritos en la vista previa de imágenes.
+- Optimización: validación de nombres de nuevas carpetas con espacios o vacíos, además de la ordenación, el filtrado y el diálogo de usuarios especificados en enlaces para compartir externos.
+- Optimización: coherencia entre la ordenación de tareas de archivos y las notificaciones en tiempo real. Las tareas en pausa ya no se interpretan como fallidas y las tareas en espera se transfieren primero al reanudarse.
+- Optimización: combinación de permisos de carpetas de equipo y devolución de los permisos finales, ordenación por la hora real de modificación en el disco y cobertura de búsqueda en directorios de equipo accesibles.
+- Optimización: la búsqueda de duplicados omite archivos ilegibles, evitando que un permiso anómalo interrumpa todo el análisis.
+- Corrección: arrastrar con Ctrl movía archivos en lugar de copiarlos, el código QR de copia indicaba éxito con el portapapeles vacío y las carpetas no se podían expandir durante una búsqueda.
+- Corrección: al cancelar un archivo se mostraba por error que algunos archivos ya estaban copiados, tras cancelar una carga no se podía abrir la carpeta y el número de tareas de varios archivos era incorrecto.
+
+### Multimedia y reproducción
+
+- Optimización: precalentamiento al iniciar la reproducción de subtítulos integrados, de modo que el primer cambio de subtítulos no requiere desmultiplexar todo el disco.
+- Optimización: las miniaturas de imágenes RAW usan la vista previa integrada de la cámara y se alinean con su estilo de color.
+- Optimización: cadena de muestra de imágenes por HDMI, con una presentación más coherente y estable.
+
+### Centro de aplicaciones y Docker
+
+- Nuevo: acceso integrado a la aplicación Sincronización de archivos en el escritorio de PC. Si no está instalada, ofrece confirmación y guía de instalación; si ya está instalada, puede iniciarse directamente.
+- Nuevo: Administrador de archivos y las ventanas de registros y terminal de Docker permiten varias instancias en la misma ventana, hasta cinco.
+- Optimización: el filtro por categorías de App Store funciona inmediatamente tras el inicio en frío. Las categorías ahora usan coincidencia exacta y se corrigen coincidencias por subcadenas con otras categorías.
+- Optimización: los detalles de la aplicación muestran desarrollador, editor, licencia, código fuente y enlaces a la documentación de ayuda, y se corrige la desincronización de iconos y portadas.
+- Optimización: los motivos de error de instalación se transmiten a notificaciones, registros y progreso, por lo que causas como conflictos de puertos pueden consultarse directamente.
+- Optimización: los directorios accesibles de la aplicación admiten interruptores declarados por el paquete y rutas de montaje predeterminadas, con permisos más claros para rutas administradas.
+- Optimización: la creación de contenedores Docker admite búsqueda de imágenes por palabra clave. Cambiar la ruta del proyecto ya no borra la configuración y la selección de ubicación de almacenamiento no se sobrescribe con sondeos.
+- Optimización: completado automático de los grupos de direcciones predeterminados de Docker para evitar errores al crear redes tras instalar muchas aplicaciones.
+- Corrección: las asignaciones de volúmenes de Docker permitían montar en el contenedor rutas del sistema como el directorio raíz; se añadió validación de rutas en las páginas de creación y confirmación.
+
+### IA y base de conocimiento
+
+- Optimización: el selector de modelos locales se agrupa por familia y permite cambiar entre modelos descargados; si no hay un modelo configurado, se muestra un aviso claro.
+- Optimización: estado unificado de la migración durante el traslado del almacenamiento de modelos locales, lo que evita operaciones accidentales.
+- Optimización: recuperación automática de dependencias ausentes y vectores perdidos de la base de conocimiento; eliminar una base de conocimiento ya no queda bloqueado por el estado del almacén de vectores.
+- Corrección: las respuestas de la base de conocimiento permanecían fijas en chino tras perder vectores.
+- Corrección: la ventana de Station AI no podía redimensionarse arrastrando los bordes.
+
+## Cliente
+### Cliente de iOS y Android
+
+Versión de la aplicación: v1.3.0
+
+- Nuevo: los montajes remotos admiten NFS; la exploración de directorios, los iconos de protocolo y las indicaciones de rutas especificadas coinciden con la versión para PC.
+- Nuevo: sincronización diferencial de la biblioteca de Cinema, estado de las tareas de análisis y acceso para detenerlas, con actualización automática tras cambiar el contenido.
+- Nuevo: los ajustes de IA admiten un interruptor de reconocimiento de vídeo y niveles del modo de reconocimiento; los resultados de baja confianza sugieren cambiar el prompt.
+- Nuevo: los detalles de la aplicación admiten enlaces al desarrollador, editor e información de cumplimiento; la descripción, el registro de cambios y las novedades se expanden solo a partir de la cuarta línea.
+- Optimización: el widget de Cinema de la página principal se convierte en un flujo de tarjetas para continuar viendo, con información de temporada y episodio, y mejora la gestión de versiones de vídeos y las acciones de administrador.
+- Optimización: álbum infantil, álbumes compartidos y enlaces para compartir externos se alinean con la versión web; eliminar un álbum permite moverlo a la papelera o eliminarlo definitivamente.
+- Optimización: colores del mapa del álbum, presentación agregada y rendimiento al arrastrar y hacer zoom; el control de fechas y las fechas del álbum se adaptan al idioma del sistema.
+- Optimización: reconexión y tratamiento de interrupciones en la copia de seguridad del álbum. Las conexiones en curso ya no se interpretan como pausadas y los reintentos automáticos son más estables.
+- Optimización: filtrado y ordenación de enlaces para compartir externos, además de una presentación más clara de la eliminación de archivos, los detalles multimedia y el estado de las transferencias.
+- Optimización: al descargar imágenes o vídeos en iOS, puede elegir entre guardarlas en una carpeta del teléfono o en el álbum del teléfono.
+- Optimización: avisos controlados cuando los servicios de Álbum o Cinema no están instalados o activados, con recuperación automática tras activarlos.
+- Optimización: los ajustes de red admiten agregación de enlaces y actualización periódica del estado de Wi-Fi; el modo de apagado de UPS coincide con el de PC y existe una opción para desactivarlo cuando la doble verificación está activada.
+- Optimización: reintento automático de errores de interfaz y registros consultables, con mensajes de tiempo de espera y error más razonables.
+- Optimización: traducciones ausentes y textos de fecha en seis idiomas; se corrigen un fallo de inicio en iOS 27 y la visualización de iconos adaptativos en Android.
