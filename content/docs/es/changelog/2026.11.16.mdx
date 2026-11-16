@@ -1,5 +1,5 @@
 ---
-sourceHash: 6b88d372cbee
+sourceHash: 97c57ca6c6e3
 title: 'Notas de la actualización del sistema del 16.11.2026'
 ---
 
@@ -35,7 +35,6 @@ Esta actualización refuerza la estabilidad de los montajes remotos, la gestión
 
 ### Red y acceso remoto
 
-- Nuevo: los montajes remotos son compatibles con NFS, incluidos los iconos de protocolo, las indicaciones de rutas especificadas y la lista permitida para explorar directorios.
 - Optimización: estados del ciclo de vida de los montajes remotos. Antes de montar se comprueba la disponibilidad y la respuesta del extremo remoto, al desmontar se espera a que finalice la operación y se limpian las cachés de listas antiguas tras una carga fallida.
 - Optimización: los montajes remotos SMB reutilizan la configuración actual de rclone y reconocen correctamente el estado de montaje en producción, lo que mejora la estabilidad de montajes repetidos.
 - Optimización: raíces de compartición global NFS y asignación de almacenamiento externo. Los alias de compartición se restauran automáticamente tras reiniciar y se conservan los nombres visibles del almacenamiento externo.
@@ -91,7 +90,6 @@ Esta actualización refuerza la estabilidad de los montajes remotos, la gestión
 
 Versión de la aplicación: v1.3.0
 
-- Nuevo: los montajes remotos admiten NFS; la exploración de directorios, los iconos de protocolo y las indicaciones de rutas especificadas coinciden con la versión para PC.
 - Nuevo: sincronización diferencial de la biblioteca de Cinema, estado de las tareas de análisis y acceso para detenerlas, con actualización automática tras cambiar el contenido.
 - Nuevo: los ajustes de IA admiten un interruptor de reconocimiento de vídeo y niveles del modo de reconocimiento; los resultados de baja confianza sugieren cambiar el prompt.
 - Nuevo: los detalles de la aplicación admiten enlaces al desarrollador, editor e información de cumplimiento; la descripción, el registro de cambios y las novedades se expanden solo a partir de la cuarta línea.

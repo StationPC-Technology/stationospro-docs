@@ -1,5 +1,5 @@
 ---
-sourceHash: 6b88d372cbee
+sourceHash: 97c57ca6c6e3
 title: '2026.11.16 System Update Notes'
 ---
 
@@ -35,7 +35,6 @@ This release focuses on improving the stability of remote mounts, storage manage
 
 ### Network and Remote Access
 
-- Added NFS support for remote mounts, including protocol icons, specified-path prompts, and the directory-browsing allowlist.
 - Improved remote-mount lifecycle states: remote availability and response are checked before mounting, unmounting waits for completion, and stale list caches left by failed loads are cleared.
 - Improved SMB remote mounts by reusing the current rclone configuration and correctly identifying mount states in production, increasing repeated-mount stability.
 - Improved NFS global-share roots and external-storage mapping. Shared aliases are restored automatically after restart, and external-storage display names are retained.
@@ -91,7 +90,6 @@ This release focuses on improving the stability of remote mounts, storage manage
 
 App version: v1.3.0
 
-- Added NFS support for remote mounts, with directory browsing, protocol icons, and specified-path prompts consistent with the PC experience.
 - Added differential synchronization for Cinema libraries, scanning-task status, and a stop entry, with automatic refresh after content updates.
 - Added video-recognition switches and recognition-mode levels in AI settings; low-confidence search results now suggest changing the prompt.
 - Added developer, publisher, and compliance links to app details. App descriptions, changelogs, and new-feature sections now expand only after more than three lines.

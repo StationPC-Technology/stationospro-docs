@@ -1,5 +1,5 @@
 ---
-sourceHash: 6b88d372cbee
+sourceHash: 97c57ca6c6e3
 title: 'Systemaktualisierungshinweise 2026.11.16'
 ---
 
@@ -35,7 +35,6 @@ Diese Aktualisierung stärkt vor allem die Stabilität von Remote-Mounts, Speich
 
 ### Netzwerk und Fernzugriff
 
-- Neu: Remote-Mounts unterstützen NFS, einschließlich Protokollsymbolen, Hinweisen zu bestimmten Pfaden und der Whitelist für die Verzeichnissuche.
 - Optimiert: Lebenszyklusstatus von Remote-Mounts. Vor dem Mounten werden Verfügbarkeit und Antwort des Ziels geprüft, beim Aushängen wird der Abschluss abgewartet und alte Listen-Caches nach fehlgeschlagenen Ladungen bereinigt.
 - Optimiert: SMB-Remote-Mounts verwenden die aktuelle rclone-Konfiguration erneut und erkennen Produktions-Mount-Status korrekt; wiederholte Mounts sind stabiler.
 - Optimiert: NFS-Globalfreigabe-Roots und Zuordnung externen Speichers. Freigabe-Aliase werden nach einem Neustart automatisch wiederhergestellt und Anzeigenamen externen Speichers bleiben erhalten.
@@ -91,7 +90,6 @@ Diese Aktualisierung stärkt vor allem die Stabilität von Remote-Mounts, Speich
 
 App-Version: v1.3.0
 
-- Neu: Remote-Mounts unterstützen NFS; Verzeichnissuche, Protokollsymbole und Hinweise zu bestimmten Pfaden entsprechen der PC-Version.
 - Neu: Differenzsynchronisierung der Cinema-Medienbibliothek, Status von Scan-Aufgaben und ein Eintrag zum Stoppen; nach Inhaltsaktualisierungen wird automatisch aktualisiert.
 - Neu: AI-Einstellungen mit Schalter für Videoerkennung und Stufen des Erkennungsmodus; bei Suchergebnissen mit geringer Konfidenz wird ein neuer Prompt vorgeschlagen.
 - Neu: App-Details mit Links zu Entwickler, Herausgeber und Compliance-Informationen; App-Beschreibung, Änderungsprotokoll und Neuerungen klappen erst nach mehr als drei Zeilen auf.

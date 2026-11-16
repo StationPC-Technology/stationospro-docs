@@ -1,5 +1,5 @@
 ---
-sourceHash: 6b88d372cbee
+sourceHash: 97c57ca6c6e3
 title: 'Notes de mise à jour du système 2026.11.16'
 ---
 
@@ -35,7 +35,6 @@ Cette mise à jour renforce principalement la stabilité du montage à distance,
 
 ### Réseau et accès à distance
 
-- Nouveau : le montage à distance prend en charge le protocole NFS, avec l’icône du protocole, l’indication du chemin spécifié et la liste blanche de navigation dans les répertoires.
 - Optimisé : état du cycle de vie des montages à distance ; vérification de la disponibilité et de la réponse du serveur distant avant le montage, attente de la fin du démontage et nettoyage de l’ancien cache de liste après un échec de chargement.
 - Optimisé : le montage SMB à distance réutilise la configuration rclone actuelle et identifie correctement l’état de montage en environnement de production, ce qui améliore la stabilité des montages répétés.
 - Optimisé : mappage de la racine de partage NFS globale et du stockage externe ; les alias de partage sont automatiquement restaurés après un redémarrage et les noms d’affichage du stockage externe sont conservés.
@@ -91,7 +90,6 @@ Cette mise à jour renforce principalement la stabilité du montage à distance,
 
 Version de l’application : v1.3.0
 
-- Nouveau : le montage à distance prend en charge le protocole NFS ; la navigation dans les répertoires, l’icône du protocole et l’indication du chemin spécifié restent cohérentes avec la version PC.
 - Nouveau : synchronisation différentielle de la bibliothèque multimédia Cinéma, état des tâches d’analyse et entrée d’arrêt, avec actualisation automatique après une mise à jour du contenu.
 - Nouveau : les paramètres AI prennent en charge l’interrupteur de reconnaissance vidéo et les niveaux du mode de reconnaissance ; les résultats de recherche à faible confiance invitent à reformuler l’invite.
 - Nouveau : la page de détails d’une application permet d’ouvrir les liens vers le développeur, l’éditeur et la conformité ; la présentation, le journal des modifications et les nouveautés se déplient après plus de trois lignes.
