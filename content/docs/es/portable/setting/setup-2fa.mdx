@@ -1,0 +1,66 @@
+---
+sourceHash: 7dfafa7c38df
+title: "Activar la verificación en dos pasos (2FA) de la cuenta"
+---
+
+La verificación en dos pasos (2FA) es un método de inicio de sesión más seguro. Además de introducir la contraseña, es necesario proporcionar un código de verificación dinámico (OTP) para verificar la identidad en dos pasos y mejorar la seguridad de la cuenta.
+
+> Nota:
+> * Es necesario utilizar una APP de autenticación compatible con el protocolo TOTP (por ejemplo, [Microsoft Authenticator](https://www.microsoft.com/security/mobile-authenticator-app));
+> * Se recomienda configurar de antemano un correo de seguridad para recibir el código de verificación de emergencia en caso de pérdida del teléfono.
+
+## Preparación
+1. Comprobar la precisión de la hora del sistema: 
+Compruebe y corrija la desviación de la hora del sistema; si la hora del teléfono y la del sistema no coinciden, fallará la verificación del código dinámico basado en tiempo. Si desea que la hora del sistema se mantenga siempre precisa, se recomienda configurarla para que se sincronice automáticamente.
+
+<img src="/images/es/portable/setting/setup-2fa/1-1-1.png" width="30%" />
+
+2. Activar el servicio de notificaciones por correo electrónico
+[Activar el servicio de notificaciones por correo electrónico](/portable/setting/setup-smtp), para autorizar al sistema a enviar correos, de modo que pueda enviar correos como el restablecimiento de contraseña y los códigos de verificación de emergencia de la verificación en dos pasos al correo de seguridad configurado por el usuario.
+
+3. Activar la verificación en dos pasos obligatoria
+Admite la configuración para todos los usuarios o para algunos usuarios, y define el alcance de los usuarios cuya seguridad de cuenta debe mejorarse para activarles la verificación en dos pasos obligatoria.
+<img src="/images/es/portable/setting/setup-2fa/1-3-1.png" width="30%" />
+<img src="/images/es/portable/setting/setup-2fa/1-3-2.png" width="30%" />
+<img src="/images/es/portable/setting/setup-2fa/1-3-3.png" width="30%" />
+
+## Proceso de configuración del usuario
+Vaya a la página **Configuración personal** para configurar el correo de seguridad y activar la verificación en dos pasos
+
+### Configurar el correo de seguridad
+Para evitar el riesgo de no poder iniciar sesión en la cuenta si se pierde por accidente el teléfono o la clave, configure primero el correo de seguridad
+
+<img src="/images/es/portable/setting/setup-2fa/2-1-1.png" width="30%" />
+<img src="/images/es/portable/setting/setup-2fa/2-1-2.png" width="30%" />
+
+### Activar la verificación en dos pasos
+1. Haga clic en el botón de activación e introduzca la cuenta de inicio de sesión del usuario;
+2. Copie la clave y, con una APP de autenticación compatible con el protocolo TOTP como «Microsoft Authenticator», complete la vinculación de la clave según las indicaciones;
+3. Introduzca en el cuadro de verificación el código dinámico que muestra la APP de autenticación y complete la configuración.
+
+<img src="/images/es/portable/setting/setup-2fa/2-2-1.png" width="30%" />
+<img src="/images/es/portable/setting/setup-2fa/2-2-2.png" width="30%" />
+<img src="/images/es/portable/setting/setup-2fa/2-2-3.png" width="30%" />
+
+## Proceso de inicio de sesión
+
+Una vez activada la verificación en dos pasos, al iniciar sesión es necesario completar dos pasos de verificación:
+
+1. Introduzca la cuenta y la contraseña;
+2. Introduzca el código dinámico que muestra la APP de autenticación para iniciar sesión.
+> Nota:
+> * En la interfaz de introducción del código dinámico se puede marcar **Confiar en este dispositivo**; una vez marcado, este dispositivo no necesitará volver a introducir el código de verificación en inicios de sesión posteriores.
+> * Cuando no se pueda obtener el código dinámico, haga clic en **No puedo obtenerlo** en la interfaz de verificación; el sistema enviará un código de verificación de emergencia de un solo uso al correo de seguridad. Introdúzcalo para completar el inicio de sesión.
+
+<img src="/images/es/portable/setting/setup-2fa/2-3-1.png" width="30%" />
+
+## Guía de la APP de autenticación
+
+Se puede usar cualquier APP de autenticación compatible con el protocolo TOTP (contraseña de un solo uso basada en tiempo). Se admite la introducción manual de la cuenta y la clave, o el escaneo del código QR desde el cliente web o de PC para introducirlos.
+
+### Microsoft Authenticator
+
+<img src="/images/es/portable/setting/setup-2fa/3-1-1.png" width="20%" />
+<img src="/images/es/portable/setting/setup-2fa/3-1-2.png" width="20%" />
+<img src="/images/es/portable/setting/setup-2fa/3-1-3.png" width="20%" />
+<img src="/images/es/portable/setting/setup-2fa/3-1-4.png" width="20%" />

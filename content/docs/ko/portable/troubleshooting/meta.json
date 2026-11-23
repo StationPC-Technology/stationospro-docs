@@ -2,6 +2,8 @@
   "title": "문제 해결",
   "pages": [
     "client-connect-issue",
-    "battery"
+    "battery",
+    "connect-issue",
+    "app-client-connect-issue"
   ]
 }

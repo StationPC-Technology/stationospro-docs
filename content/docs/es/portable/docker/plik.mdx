@@ -1,0 +1,71 @@
+---
+sourceHash: 917f9e91e1ba
+title: "Sistema de carga temporal de archivos Plik"
+---
+
+## Introducción
+Plik es un servicio de compartición temporal de archivos de código abierto, ligero y seguro, **compatible con el uso exclusivo a través de la web**: basta con abrir el navegador para cargar, compartir y transferir archivos. Junto con Docker, permite crear rápidamente una estación privada de transferencia temporal de archivos, sin necesidad de configuraciones complejas, sencilla de usar y que garantiza la privacidad y la seguridad.
+
+## Casos de uso
+- Transferencia temporal de archivos entre dispositivos, con comunicación directa entre teléfonos y ordenadores, sin instalar clientes
+- Compartir archivos rápidamente con colegas y amigos, sin instalaciones y con eficiencia
+- Archivos privados que no se desean subir a la nube pública: un servicio propio es más seguro y controlable
+- Compartir temporalmente registros, paquetes de instalación, archivos de configuración y otros materiales de trabajo
+
+## Características
+- Acceso exclusivamente web, universal para todas las plataformas, sin necesidad de instalar ninguna APP y con una barrera de uso baja
+- Admite el uso del cliente CLI, por lo que se pueden cargar y gestionar archivos desde la línea de comandos
+- Admite el cifrado de archivos y la configuración de una contraseña de compartición para proteger los archivos
+- Permite personalizar la fecha de caducidad y el número de descargas de los archivos, y admite el «borrado tras lectura» (OneShot)
+- Genera enlaces de compartición con un clic y permite desactivarlos en cualquier momento, de forma flexible y controlable
+- Bajo consumo de recursos, despliegue con un clic mediante Docker y bajos costes de mantenimiento
+
+> Para más información, consulte:
+> 
+> Documentación oficial: [https://root-gg.github.io/plik](https://root-gg.github.io/plik)
+>
+> GitHub oficial: [https://github.com/root-gg/plik](https://github.com/root-gg/plik)
+
+## Tutorial de despliegue
+### Crear un contenedor Plik
+1.  Acceda a la interfaz de Docker, haga clic en «Images» (imágenes), introduzca «plik» en el cuadro de búsqueda, busque la imagen correspondiente y haga clic en descargar.
+    <img src="/images/es/portable/docker/plik/1-2.png" width="100%" />
+
+2.  Una vez descargada la imagen, acceda a la página «Containers» (contenedores), haga clic en «Crear contenedor», seleccione la imagen «rootgg/plik» y haga clic en «Siguiente».
+    > Consejo: si desea que el contenedor se inicie automáticamente al encender el dispositivo, marque la opción «Inicio automático» de la página.
+    <img src="/images/es/portable/docker/plik/1-3.png" width="100%" />
+
+3.  Configuración de la asignación de rutas: haga clic en añadir asignación de rutas
+    * Para almacenar los archivos subidos: cree la ruta de almacenamiento local «My Files/upload» y asigne la ruta interna del contenedor «/root/files» a la ruta local «My Files/upload»
+    
+
+4.  Cuando todos los ajustes sean correctos, haga clic en «Confirmar», seleccione «Iniciar después de crear» y finalice la creación y el inicio del contenedor Plik.
+    <img src="/images/es/portable/docker/plik/1-4.png" width="100%" />
+
+## Uso básico de Plik
+### 1.  Acceder a Plik:
+
+<img src="/images/es/portable/docker/plik/1-6.png" width="100%" />
+
+Dirección de acceso: http://IP:8080/; sustituya IP por la dirección IP de su propio servidor (o dispositivo PocketCloud);
+> Nota: si se trata de un dispositivo PocketCloud, utilice directamente la IP del propio dispositivo;
+> Si se ha modificado el puerto durante el despliegue, ajuste el número de puerto en la dirección de acceso.
+
+### 2.  Configurar Plik:
+Puede realizar la configuración según sus necesidades.
+<img src="/images/es/portable/docker/plik/1-7.png" width="100%" />
+
+| Opción de configuración | Descripción |
+| ---- | ---- |
+| Destruir tras la descarga | El archivo se elimina de forma permanente después de descargarse una vez |
+| Transmisión en streaming | El archivo se transmite directamente al descargador, sin almacenarse en el servidor |
+| Se puede eliminar | Quien tenga el enlace puede eliminar los archivos subidos |
+| Cifrado de extremo a extremo | El archivo se cifra antes de subirse; solo quien tenga la contraseña puede descifrarlo |
+| Protección con contraseña | Se establece una contraseña de acceso mediante autenticación básica HTTP para garantizar la seguridad |
+| Notas | Permite añadir comentarios al contenido subido |
+| Fecha de caducidad | Establece el periodo de validez del archivo; al vencer, deja de estar disponible |
+
+#### 3.  Subir archivos
+Arrastre los archivos directamente a la zona de carga de la página web o haga clic en «Seleccionar archivos» para subirlos.
+#### 4.  Compartir archivos
+Una vez finalizada la carga, copie el enlace de compartición generado en la página y haga clic en el enlace para descargar.

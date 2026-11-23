@@ -1,0 +1,69 @@
+---
+sourceHash: 09f09be07cd6
+title: "¿Cómo acceder a los archivos de PocketCloud mediante FTP?"
+---
+
+FTP (File Transfer Protocol) es un protocolo de transferencia de archivos de red muy utilizado que permite transferir archivos entre un dispositivo y un servidor.
+Mediante FTP, los usuarios pueden conectarse a PocketCloud de forma remota para explorar, cargar, descargar y gestionar archivos.
+
+**Ofrece las siguientes funciones principales:**
+1. Carga y descarga de archivos: transferencia de archivos entre el dispositivo local y PocketCloud.
+2. Gestión remota de archivos: permite crear, cambiar el nombre, mover y eliminar archivos o carpetas en PocketCloud.
+3. Acceso con autenticación de usuario: control de acceso mediante cuenta y contraseña, lo que mejora la seguridad.
+4. Acceso multiplataforma: permite la conexión desde clientes de Windows y macOS compatibles con FTP.
+
+## Activar FTP
+
+FTP está desactivado de forma predeterminada y debe activarse manualmente. Siga estos pasos:
+1. Abra la página **Protocolos de compartición de archivos** de la aplicación.<br />
+2. Toque **Servicio FTP**.<br />
+3. Active el **interruptor** para habilitar el **servicio FTP**.<br />
+
+<img src="/images/es/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/es/portable/file-service/access-ftp-service/1-2.jpg" width="240" height="500" />
+<img src="/images/es/portable/file-service/access-ftp-service/1-3.jpg" width="240" height="500" />
+
+---
+
+## Acceso desde Windows
+
+1. Pulse **Win + E** para abrir el **Explorador de archivos**.
+2. Introduzca `ftp://IP del dispositivo NAS:21` o `ftps://NAS_IP_Address:21` en la barra de direcciones y pulse **Intro**.
+<img src="/images/es/portable/file-service/access-ftp-service/3-1.png" width="100%" height="100%" />
+3. En el aviso de inicio de sesión, introduzca el **nombre de usuario** y la **contraseña** y haga clic en **Iniciar sesión**
+<img src="/images/es/portable/file-service/access-ftp-service/3-2.png" width="100%" height="100%" />
+4. Ahora puede explorar y gestionar los archivos de PocketCloud en el Explorador de archivos.
+<img src="/images/es/portable/file-service/access-ftp-service/3-3.png" width="100%" height="100%" />
+
+---
+
+## Acceso desde macOS
+
+1. Haga clic con el botón derecho en **Finder** y seleccione **Conectarse al servidor**.
+<img src="/images/es/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. Introduzca `ftp://IP del dispositivo NAS:21` o `ftps://NAS_IP_Address:21` y haga clic en **Conectar**.
+<img src="/images/es/portable/file-service/access-ftp-service/4-1.png" width="100%" height="100%" />
+3. Introduzca el **nombre** y la **contraseña** y haga clic en **Conectar**.
+<img src="/images/es/portable/file-service/access-ftp-service/4-2.png" width="100%" height="100%" />
+4. Ahora puede acceder a los archivos de PocketCloud desde Finder.  
+<img src="/images/es/portable/file-service/access-ftp-service/4-3.png" width="100%" height="100%" />
+
+---
+
+## Acceso desde otros clientes
+- Información de conexión
+    - IP: IP del dispositivo NAS
+    - Puerto: 21 de forma predeterminada
+    - Cuenta: nombre de usuario de inicio de sesión del dispositivo NAS
+    - Contraseña: contraseña de inicio de sesión del dispositivo NAS
+- Descripción de los directorios de montaje
+    - SSD principal: `/nombre de usuario`
+      - Ejemplo 1: todos los directorios; si el usuario actual es test, el directorio de montaje es `/test`
+      - Ejemplo 2: directorio especificado; si el usuario actual es test, el directorio de montaje es `/test/Pictures`
+      - Otros: se admiten varios usuarios y cada usuario tiene su propio directorio de montaje
+    - Almacenamiento externo: `/nombre del almacenamiento externo`
+      - Ejemplo 1: todos los directorios; si la tarjeta SD externa se llama SD 60GB BA26, el directorio de montaje es `/SD_60GB_BA26`
+      - Ejemplo 2: directorio especificado; si la tarjeta SD se llama SD 60GB BA26, el directorio de montaje es `/SD_60GB_BA26/Pictures`
+    - ⚠️ Nota:
+      - Algunos clientes no permiten indicar solo el directorio raíz `/`; es necesario especificar el directorio de montaje concreto indicado anteriormente
+      - Si el firmware es &lt;= 3.1.0.16, tras actualizar al firmware más reciente el directorio de montaje cambia; tome como referencia el método de montaje de la nueva versión

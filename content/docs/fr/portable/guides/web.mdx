@@ -1,0 +1,43 @@
+---
+sourceHash: ed085065d53a
+title: "Comment accéder à l'appareil depuis le Web ?"
+---
+
+Le client Web (Beta) vous permet d'accéder à l'appareil et de le gérer directement depuis votre navigateur, sans installer d'application de bureau ou mobile. Il prend en charge deux modes d'accès : **l'accès au réseau local** et **l'accès à distance**, afin de répondre aux besoins des différents scénarios.
+
+## Prérequis
+1. Assurez-vous que l'appareil est allumé et correctement connecté au réseau.
+2. Pour l'accès à distance, activez d'abord la fonction d'accès à distance dans l'application cliente via [activer la fonction d'accès à distance](/portable/guides/remote-access) et configurez le Station ID.
+
+## Modes d'accès
+### Mode 1 : accès au réseau local
+Ce mode convient lorsque l'ordinateur et l'appareil se trouvent sur le même réseau local (même Wi-Fi / réseau filaire) ; l'accès est plus rapide et plus stable.
+
+Étapes :
+1. Obtenez l'adresse IP locale de l'appareil : consultez l'écran intégré de l'appareil ou la page **Informations sur l'appareil** de l'application cliente.
+2. Ouvrez un navigateur et saisissez une adresse au format `http://IP de l'appareil:9500`.
+3. Sur la page de connexion, saisissez votre nom d'utilisateur et votre mot de passe pour accéder à l'interface d'administration Web.
+
+> Exemple : si l'adresse IP de l'appareil est `192.168.3.10`, saisissez `http://192.168.3.10:9500` dans la barre d'adresse.
+
+### Mode 2 : accès à distance
+Ce mode convient aux déplacements, au télétravail et aux autres scénarios hors réseau local. Vous pouvez accéder à l'appareil de votre domicile ou de votre bureau via le portail officiel d'accès à distance.
+
+Étapes :
+1. Activez la fonction d'accès à distance.
+2. Ouvrez un navigateur et saisissez l'adresse officielle d'accès à distance : `https://login.stationpc.com/`
+3. Sur la page de connexion, saisissez votre Station ID, votre nom d'utilisateur et votre mot de passe ; une fois la vérification réussie, vous pouvez accéder à l'appareil.
+
+## Navigateurs pris en charge
+Pour garantir le bon fonctionnement de toutes les fonctionnalités et une expérience optimale, nous vous recommandons d'utiliser les navigateurs suivants (ou des versions ultérieures) pour accéder au client Web :
+1. Chrome 50 et versions ultérieures
+2. Microsoft Edge 78 et versions ultérieures
+3. QQ Browser Speed Edition, 360 Browser Speed Edition
+4. Firefox 54 et versions ultérieures
+5. Safari 10 et versions ultérieures (Mac)
+
+## Remarques
+1. Le client Web est actuellement en phase de test Beta ; certaines fonctionnalités peuvent être temporairement indisponibles. Pour bénéficier de toutes les fonctionnalités, nous vous recommandons de l'utiliser avec l'application cliente.
+2. Lors d'un accès au réseau local, assurez-vous que l'ordinateur et l'appareil sont connectés au même réseau ; sinon, l'accès par adresse IP ne fonctionnera pas.
+3. Lors d'un accès à distance, assurez-vous que l'appareil est connecté à Internet ; sinon, la connexion via le portail d'accès à distance ne fonctionnera pas.
+4. Si la page ne se charge pas correctement, essayez de passer au navigateur recommandé ou de vider le cache du navigateur avant de réessayer.

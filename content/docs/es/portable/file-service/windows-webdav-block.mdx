@@ -1,0 +1,10 @@
+---
+sourceHash: a089f365ea15
+title: "El Explorador de archivos se bloquea cuando un enlace WebDAV de Windows deja de funcionar"
+---
+
+1. Pulse la «tecla del logotipo de Windows» + «R», abra la ventana Ejecutar, introduzca cmd y haga clic en Aceptar para abrir la ventana del Editor del Registro.
+
+2. Introduzca ```net use z: /delete```, pulse Intro y elimine el montaje de WebDAV.
+
+- Donde «z:» es la letra de unidad del montaje de WebDAV; si la unidad montada no es z, sustituya z por la letra de unidad real.

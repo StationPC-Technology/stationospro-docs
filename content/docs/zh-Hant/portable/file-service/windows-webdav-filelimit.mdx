@@ -1,20 +1,20 @@
 ---
 sourceHash: b812b770a62d
-title: "Windows訪問服務時，大於50M文件提示錯誤(錯誤:0x800700DF)"
+title: "Windows 存取服務時，大於 50M 的檔案提示錯誤(錯誤:0x800700DF)"
 ---
 
-在 Windows 中使用 WebDAV 時，如果嘗試打開或複製超過 50MB 的文件，會提示錯誤 ```0x800700DF```，這是因為 Windows WebDAV 客戶端默認文件大小限制為 50MB。可以通過修改註冊表提高限制：
+在 Windows 中使用 WebDAV 時，若嘗試開啟或複製超過 50MB 的檔案，會出現錯誤 ```0x800700DF```，這是因為 Windows WebDAV 用戶端預設的檔案大小限制為 50MB。可透過修改登錄檔提高限制：
 
-1. 按 Win + R 打開 “運行” 對話框，在輸入框中鍵入 ```regedit```，然後按“回車”鍵。
+1. 按 Win + R 開啟「執行」對話方塊，在輸入框中鍵入 ```regedit```，然後按「Enter」鍵。
 
-2. 在註冊表編輯器中，導航到 ```HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters``` 路徑。
+2. 在登錄編輯程式中，瀏覽至 ```HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters``` 路徑。
 
-<img src="/images/common/portable/file-service/windows-webdav-filelimit/1-1.png" width="100%" />
+<img src="/images/zh-Hant/portable/file-service/windows-webdav-filelimit/1-1.png" width="100%" />
 
-3. 在右側窗格中，查找 ```FileSizeLimitInBytes``` 項。若選項不存在，請在空白處右鍵點擊選擇 “新建” > 選擇 “DWORD (32 位) 值”。
+3. 在右側窗格中，尋找 ```FileSizeLimitInBytes``` 項目。若選項不存在，請在空白處按右鍵選擇「新增」> 選擇「DWORD (32 位元) 值」。
 
-4. 將其中的數值數據所對應的文本框改成```ffffffff```，或者選擇 “十進制”，輸入 4294967295（最大值約 4GB）。然後點擊“確定”保存更改。
+4. 將其數值資料對應的文字方塊改成```ffffffff```，或選擇「十進位」，輸入 4294967295（最大值約 4GB）。然後點選「確定」儲存變更。
 
-5. 重啟計算機，使更改生效。
+5. 重新啟動電腦，使變更生效。
 
-6. 重啟後重新嘗試複製或編輯大文件，驗證修改是否生效。
+6. 重新啟動後再次嘗試複製或編輯大型檔案，驗證修改是否生效。

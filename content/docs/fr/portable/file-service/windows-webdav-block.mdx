@@ -1,0 +1,10 @@
+---
+sourceHash: a089f365ea15
+title: "Explorateur de fichiers bloqué après expiration d'un lien Windows WebDAV"
+---
+
+1. Appuyez sur « touche Windows » + « R » pour ouvrir la fenêtre Exécuter, saisissez cmd, puis cliquez sur OK pour ouvrir la fenêtre de l'Éditeur du Registre.
+
+2. Saisissez```net use z: /delete```, puis appuyez sur Entrée pour supprimer le montage WebDAV.
+
+- Dans « z: », z correspond à la lettre du lecteur monté en WebDAV. Si le lecteur monté n'est pas z, remplacez z par la lettre de lecteur réelle.

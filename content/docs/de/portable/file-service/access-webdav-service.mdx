@@ -1,5 +1,5 @@
 ---
-sourceHash: c67961f5c556
+sourceHash: 83dea30dba6f
 title: "Wie greift man über WebDAV auf die Dateien in PocketCloud zu?"
 ---
 
@@ -24,7 +24,7 @@ WebDAV ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte 
 ## Mit dem Browser zugreifen
 
 1. Öffnen Sie den Browser und geben Sie in der Adressleiste ein
-   ```http://NAS设备IP:5005```
+   ```http://NASGerätIP:5005```
    <br />
    <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
 
@@ -42,7 +42,7 @@ WebDAV ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte 
    <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
 
 3. Geben Sie im Popup-Fenster die Adresse WebDAV ein:
-   ```http://NAS设备IP:5005```
+   ```http://NASGerätIP:5005```
 Klicken Sie dann auf **Fertig**
    <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
 
@@ -60,7 +60,7 @@ Klicken Sie dann auf **Fertig**
    <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
 
 2. Geben Sie in die Adressleiste des Servers ein:
-   ```http://NAS设备IP:5005```
+   ```http://NASGerätIP:5005```
 Klicken Sie dann auf **Verbinden**
    <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
 
@@ -77,17 +77,17 @@ Klicken Sie dann auf **Verbinden**
 Verwenden Sie **davfs**, um das WebDAV-Freigabe zu mounten:
 
 ```bash
-# 安装 davfs2
+# davfs2 installieren
 sudo apt-get install davfs2
 
-# 创建挂载点
-# 示例：将 /mnt/webdav_share 作为挂载目录
+# Mountpunkt erstellen
+# Beispiel: /mnt/webdav_share als Mount-Verzeichnis verwenden
 sudo mkdir /mnt/webdav_share
 
-# 挂载 WebDAV 服务
-sudo mount.davfs http://NAS设备IP:5005 /mnt/webdav_share
+# WebDAV-Dienst mounten
+sudo mount.davfs http://NASGerätIP:5005 /mnt/webdav_share
 
-# 挂载成功后，你可以在 /mnt/webdav_share 目录中访问和管理 NAS 上的文件
+# Nach erfolgreichem Mounten können Sie im Verzeichnis /mnt/webdav_share auf die Dateien auf dem NAS zugreifen und diese verwalten
 ```
 
 ---
@@ -113,7 +113,7 @@ sudo mount.davfs http://NAS设备IP:5005 /mnt/webdav_share
 ## Andere Fragen
 
 * Frage: Was soll ich tun, wenn der Datei-Explorer Windows die Dienste WebDAV und HTTP nicht einhängen kann?
-* Antwort: Bitte beachten Sie [Windows Kann WebDAV nicht auf den lokalen Computer einbinden](/de-DE/pocketcloud/file-service/windows-webdav-http-mount)
+* Antwort: Bitte beachten Sie [Windows Kann WebDAV nicht auf den lokalen Computer einbinden](/portable/file-service/windows-webdav-http-mount)
 
 * Frage: Unterstützt Windows WebDAV HTTPS?
 * Antwort: Der Datei-Explorer von Windows unterstützt WebDAV über HTTPS nicht. Sie können **[RaiDrive](https://www.raidrive.com)** verwenden, um den WebDAV-HTTPS-Dienst einzubinden.
@@ -122,4 +122,4 @@ sudo mount.davfs http://NAS设备IP:5005 /mnt/webdav_share
 * Antwort: Der Standardport von WebDAV-HTTPS ist 5006. Du kannst den Dienst über die folgende Adresse erreichen: `https://NAS_IP_Address:5006`.
 
 * Frage: Warum kann Windows große Dateien nicht über WebDAV öffnen?
-* Antwort: Bitte beachten Sie [Windows Beim Zugriff auf Dateien größer als 50 MB über WebDAV wird eine Fehlermeldung angezeigt](/de-DE/pocketcloud/file-service/windows-webdav-filelimit)
+* Antwort: Bitte beachten Sie [Windows Beim Zugriff auf Dateien größer als 50 MB über WebDAV wird eine Fehlermeldung angezeigt](/portable/file-service/windows-webdav-filelimit)

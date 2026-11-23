@@ -1,0 +1,43 @@
+---
+sourceHash: ed085065d53a
+title: ¿Cómo acceder al dispositivo a través de la web?
+---
+
+El cliente web (Beta) le permite acceder al dispositivo y administrarlo directamente desde el navegador, sin necesidad de instalar la aplicación de escritorio o móvil. Admite dos métodos de acceso: **acceso a la red local** y **acceso remoto**, para satisfacer las necesidades de uso en distintos escenarios.
+
+## Requisitos previos
+1. Asegúrese de que el dispositivo esté encendido y conectado correctamente a la red.
+2. Si desea utilizar el acceso remoto, primero [active la función de acceso remoto](/portable/guides/remote-access) en la aplicación cliente y complete la configuración del Station ID.
+
+## Métodos de acceso
+### Método 1: Acceso a la red local
+Adecuado para escenarios en los que el ordenador y el dispositivo están en la misma red local (la misma red WiFi o por cable); el acceso es más rápido y estable.
+
+Pasos:
+1. Obtenga la dirección IP local del dispositivo: puede consultarla en la pantalla integrada del dispositivo o en la página **Información del dispositivo** de la aplicación cliente.
+2. Abra el navegador e introduzca en la barra de direcciones una dirección con el formato `http://IP del dispositivo:9500`.
+3. Introduzca el nombre de usuario y la contraseña en la página de inicio de sesión para entrar en la interfaz de administración web.
+
+> Ejemplo: si la IP del dispositivo es `192.168.3.10`, introduzca `http://192.168.3.10:9500` en la barra de direcciones.
+
+### Método 2: Acceso remoto
+Adecuado para viajes de trabajo, trabajo fuera de la oficina y otros escenarios con red externa. Puede acceder al dispositivo de su casa o de la oficina a través del portal oficial de acceso remoto.
+
+Pasos:
+1. Active la función de acceso remoto.
+2. Abra el navegador e introduzca la dirección oficial de acceso remoto: `https://login.stationpc.com/`
+3. Introduzca su Station ID, nombre de usuario y contraseña en la página de inicio de sesión; una vez verificados, podrá acceder al dispositivo.
+
+## Navegadores compatibles
+Para garantizar todas las funciones y la mejor experiencia de uso, se recomienda acceder al cliente web con los siguientes navegadores (o versiones posteriores):
+1. Chrome 50 o versiones posteriores
+2. Microsoft Edge 78 o versiones posteriores
+3. Edición rápida de QQ Browser y edición rápida de 360 Browser
+4. Firefox 54 o versiones posteriores
+5. Safari 10 o versiones posteriores (Mac)
+
+## Notas
+1. El cliente web se encuentra actualmente en fase de prueba Beta y algunas funciones pueden no estar disponibles por el momento. Se recomienda utilizarlo junto con la aplicación cliente para obtener todas las funciones.
+2. Al utilizar el acceso a la red local, asegúrese de que el ordenador y el dispositivo estén conectados a la misma red; de lo contrario, no podrá acceder mediante la dirección IP.
+3. Al utilizar el acceso remoto, asegúrese de que el dispositivo esté conectado a Internet; de lo contrario, no podrá conectarse a través del portal remoto.
+4. Si la página no carga correctamente, intente cambiar a un navegador recomendado o borrar la caché del navegador y volver a intentarlo.

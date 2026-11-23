@@ -29,7 +29,7 @@ Samba 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. �
 ### 방법 1
 
 1. **Win + R** 조합 키를 누릅니다.
-2. `\\NAS设备IP`를 입력한 후, **확인**을 클릭합니다.
+2. `\\NAS장치IP`를 입력한 후, **확인**을 클릭합니다.
    <img src="/images/common/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
 3. 사용자 이름과 비밀번호를 입력하고, **확인**을 클릭합니다.
    <img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
@@ -55,7 +55,7 @@ Samba 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. �
 1. **파일** App를 엽니다.
 2. 오른쪽 상단의 **“...”** 아이콘을 클릭하고, **서버 연결**을 선택합니다.
    <img src="/images/common/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
-3. `smb://NAS设备IP`를 입력하고 **연결**을 클릭합니다.
+3. `smb://NAS장치IP`를 입력하고 **연결**을 클릭합니다.
    <img src="/images/common/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
 4. 사용자 이름과 비밀번호를 입력하고, **다음**을 클릭합니다.
    <img src="/images/common/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
@@ -68,7 +68,7 @@ Samba 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. �
 
 1. 오른쪽 클릭으로 **파인더(Finder)**를 선택하고, 메뉴 막대에서 **이동 → 서버에 연결**을 선택합니다.
    <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
-2. 서버 주소 입력란에 `smb://NAS设备IP`를 입력한 다음, **연결**을 클릭합니다.
+2. 서버 주소 입력란에 `smb://NAS장치IP`를 입력한 다음, **연결**을 클릭합니다.
    <img src="/images/common/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
 3. 사용자 이름과 비밀번호를 입력하고 **연결**을 클릭합니다.
    <img src="/images/common/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
@@ -82,17 +82,17 @@ Samba 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. �
 **cifs-utils**를 사용하여 Samba 공유를 마운트:
 
 ```bash
-# 安装 cifs-utils
+# cifs-utils 설치
 sudo apt-get install cifs-utils
 
-# 创建挂载点
-# 示例：将 /mnt/samba_share 作为挂载目录
+# 마운트 지점 생성
+# 예: /mnt/samba_share를 마운트 디렉터리로 사용
 sudo mkdir -p /mnt/samba_share
 
-# 挂载 Samba 共享目录
-sudo mount -t cifs //NAS设备IP/共享目录 /mnt/samba_share -o username=用户名,password=密码
+# Samba 공유 디렉터리 마운트
+sudo mount -t cifs //NAS장치IP/공유디렉터리 /mnt/samba_share -o username=사용자이름,password=비밀번호
 
-# 挂载成功后，你可以在 /mnt/samba_share 目录中访问和管理 NAS 上的文件
+# 마운트 성공 후, /mnt/samba_share 디렉터리에서 NAS의 파일에 접근하고 관리할 수 있습니다
 ```
 
 ---

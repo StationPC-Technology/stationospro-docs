@@ -1,0 +1,8 @@
+---
+sourceHash: f527eea48714
+title: "Capacidad mostrada incorrectamente tras montar un servicio WebDAV en Windows"
+---
+
+Este problema se debe a que el componente WebClient integrado en Windows no puede obtener la capacidad de almacenamiento real del servidor WebDAV. Al montar una unidad de red WebDAV, como el sistema no puede obtener los datos de la cuota de almacenamiento remoto, lee de forma predeterminada la información de capacidad del disco del sistema local (unidad C) y la muestra en la letra de unidad asignada, lo que provoca que la capacidad del disco se muestre incorrectamente.
+
+Si necesita resolver el problema de la visualización de la capacidad, se recomienda utilizar herramientas de terceros: RaiDrive, CloudMounter, etc.

@@ -120,7 +120,12 @@
       "法务与隐私": "法務與隱私",
       "云盘备份": "雲端備份",
       "备份中心": "備份中心",
-      "说明书": "說明書"
+      "说明书": "說明書",
+      "如何连接到PocketCloud？": "如何連接 PocketCloud？",
+      "恢复出厂设置": "回復原廠設定",
+      "Syncthing 同步": "Syncthing 同步",
+      "连接问题": "連線問題",
+      "设备安装指南": "裝置安裝指南"
     },
     "en": {
       "存储池": "storage pool",
@@ -157,7 +162,12 @@
       "法务与隐私": "Legal & privacy",
       "云盘备份": "Cloud backup",
       "备份中心": "Backup center",
-      "说明书": "Manual"
+      "说明书": "Manual",
+      "如何连接到PocketCloud？": "How do I connect to PocketCloud?",
+      "恢复出厂设置": "Factory reset",
+      "Syncthing 同步": "Syncthing sync",
+      "连接问题": "Connection issues",
+      "设备安装指南": "Device installation guide"
     },
     "ja": {
       "存储池": "ストレージプール",
@@ -193,7 +203,12 @@
       "法务与隐私": "法務とプライバシー",
       "云盘备份": "クラウドバックアップ",
       "备份中心": "バックアップセンター",
-      "说明书": "マニュアル"
+      "说明书": "マニュアル",
+      "如何连接到PocketCloud？": "PocketCloud に接続するには？",
+      "恢复出厂设置": "工場出荷時設定に戻す",
+      "Syncthing 同步": "Syncthing 同期",
+      "连接问题": "接続の問題",
+      "设备安装指南": "デバイス取り付けガイド"
     },
     "ko": {
       "存储池": "스토리지 풀",
@@ -229,7 +244,12 @@
       "法务与隐私": "법률 및 개인정보",
       "云盘备份": "클라우드 백업",
       "备份中心": "백업 센터",
-      "说明书": "설명서"
+      "说明书": "설명서",
+      "如何连接到PocketCloud？": "PocketCloud에 연결하려면?",
+      "恢复出厂设置": "공장 초기화",
+      "Syncthing 同步": "Syncthing 동기화",
+      "连接问题": "연결 문제",
+      "设备安装指南": "장치 설치 가이드"
     },
     "de": {
       "存储池": "Speicherpool",
@@ -265,7 +285,12 @@
       "法务与隐私": "Rechtliches und Datenschutz",
       "云盘备份": "Cloud-Backup",
       "备份中心": "Sicherungscenter",
-      "说明书": "Handbuch"
+      "说明书": "Handbuch",
+      "如何连接到PocketCloud？": "Wie verbinde ich mich mit PocketCloud?",
+      "恢复出厂设置": "Auf Werkseinstellungen zurücksetzen",
+      "Syncthing 同步": "Syncthing-Synchronisierung",
+      "连接问题": "Verbindungsprobleme",
+      "设备安装指南": "Installationsanleitung für das Gerät"
     },
     "fr": {
       "存储池": "pool de stockage",
@@ -301,7 +326,12 @@
       "法务与隐私": "Mentions légales et confidentialité",
       "云盘备份": "Sauvegarde cloud",
       "备份中心": "Centre de sauvegarde",
-      "说明书": "Manuel"
+      "说明书": "Manuel",
+      "如何连接到PocketCloud？": "Comment se connecter à PocketCloud ?",
+      "恢复出厂设置": "Réinitialisation d’usine",
+      "Syncthing 同步": "Synchronisation Syncthing",
+      "连接问题": "Problèmes de connexion",
+      "设备安装指南": "Guide d’installation de l’appareil"
     },
     "es": {
       "存储池": "pool de almacenamiento",
@@ -337,7 +367,12 @@
       "法务与隐私": "Legal y privacidad",
       "云盘备份": "Copia de seguridad en la nube",
       "备份中心": "Centro de copias de seguridad",
-      "说明书": "Manual"
+      "说明书": "Manual",
+      "如何连接到PocketCloud？": "¿Cómo conectarse a PocketCloud?",
+      "恢复出厂设置": "Restablecimiento de fábrica",
+      "Syncthing 同步": "Sincronización con Syncthing",
+      "连接问题": "Problemas de conexión",
+      "设备安装指南": "Guía de instalación del dispositivo"
     }
   },
   "notes": {

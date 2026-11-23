@@ -1,0 +1,42 @@
+---
+sourceHash: ba925e835eb6
+title: "Guide de dépannage des échecs de connexion à PocketCloud"
+---
+
+Lorsque vous rencontrez un échec de connexion à PocketCloud, vous pouvez localiser la cause en suivant la démarche « vérifier d'abord l'état de l'appareil, puis l'environnement réseau », afin de résoudre le problème efficacement.  
+
+> Il est recommandé d'utiliser en priorité le client mobile pour le dépannage.  
+
+## I. Vérification de l'état matériel de l'appareil  
+- **Mise sous tension et niveau de batterie du PocketCloud**  
+  Assurez-vous que l'appareil est correctement démarré (écran allumé, sans écran noir ni scintillement anormal) ; il est recommandé de tenter la connexion avec un niveau de batterie ≥ 20 % ; si la batterie est faible, connectez d'abord l'alimentation avant l'opération, afin d'éviter que l'appareil ne passe en veille par manque de batterie.  
+
+- **Vérification de l'état réseau du PocketCloud**  
+  - En connexion WIFI : vérifiez sur le petit écran de l'appareil l'état de la connexion réseau (par exemple « Connecté », « Intensité du signal ») et l'adresse IP correspondante, pour confirmer que le WIFI n'est pas déconnecté.  
+  - En connexion filaire : jugez grâce au voyant d'état de l'appareil (voyant vert fixe = réseau normal, voyant rouge clignotant = câble réseau mal branché ou réseau anormal) ; vous pouvez débrancher puis rebrancher le câble réseau pour vérifier.  
+
+## II. Vérification de base de l'environnement réseau  
+
+### 1. Cas : PocketCloud introuvable lors du scan
+- Mode connexion directe WIFI  
+  - Confirmez que la « fonction de connexion directe WIFI » de l'appareil est activée : sur l'écran de l'appareil, allez dans **Paramètres > Mode de connexion** et cochez « Autoriser le scan en connexion directe WIFI » (désactivé par défaut sur certains modèles).  
+  - Contrôlez la distance de connexion : le téléphone et le PocketCloud doivent se trouver à moins d'un mètre ; une distance trop grande entraîne une atténuation du signal ; désactivez également le « Bluetooth » et le « partage de point d'accès » du téléphone pour éviter les interférences.  
+  - Redémarrez le client : fermez l'application PocketCloud, effacez complètement le processus en arrière-plan du téléphone, rouvrez-la puis appuyez sur **Direct Device** pour scanner, afin d'écarter un problème de cache de l'application.  
+
+- Mode réseau local  
+  - Vérifiez la validité de l'adresse IP :  
+    ① Obtenez l'IP officielle sur le petit écran de l'appareil (chemin : **Informations sur l'appareil > Paramètres réseau > IP du réseau local**, exemple : 192.168.1.40) ;  
+    ② Si vous obtenez l'IP via l'interface d'administration du routeur ou un outil tiers, comparez-la avec l'IP officielle pour éviter d'utiliser une « IP qui n'est pas celle actuelle de l'appareil » (un redémarrage du routeur peut modifier l'IP).  
+  - Désactivez le VPN/le proxy : le VPN/le proxy du téléphone ou de l'ordinateur modifie le routage réseau et peut empêcher l'accès aux appareils du réseau local ; désactivez-le complètement avant de réessayer.  
+  - Confirmez le même réseau local : assurez-vous que le téléphone/l'ordinateur et le PocketCloud sont connectés au même réseau local (évitez les connexions sur des bandes différentes, par exemple un téléphone connecté au WIFI 5 GHz et l'appareil au WIFI 2,4 GHz).  
+
+### 2. Cas : appareil détecté, mais connexion expirée/échouée  
+- Problème de vérification du compte et du mot de passe  
+  - Vérifiez le compte et le mot de passe : assurez-vous que le compte et le mot de passe saisis correspondent au compte lié au PocketCloud ; en cas d'oubli, appuyez sur « Mot de passe oublié » sur la page de connexion de l'application, puis réinitialisez via le code de vérification reçu sur l'adresse e-mail/le téléphone lié ; après la réinitialisation, il est recommandé de réessayer dans les 5 minutes.  
+  - Distinguez les droits des comptes : seul le « compte administrateur de l'appareil » peut initier une première connexion ; un « compte invité » doit d'abord être autorisé par l'administrateur dans **Paramètres de droits** de l'appareil pour pouvoir se connecter normalement.  
+
+- Conflit de port et d'adresse  
+  - Vérifiez la saisie de l'adresse IP :  
+    ① Lors d'une saisie manuelle de l'IP (par exemple 192.168.1.40), vérifiez l'absence d'erreur (par exemple 192.168.0.40 saisi par erreur) et de caractères superflus ;  
+    ② Si l'adresse comporte un numéro de port (par exemple 192.168.1.40:8080), vérifiez que ce numéro est bien le port par défaut de l'appareil (consultable dans **Paramètres réseau > Configuration des ports**) ; si ce n'est pas le port par défaut, saisissez-le manuellement sur la page de connexion de l'application.  
+  - Vérifiez l'occupation des ports : si d'autres appareils du réseau local utilisent des ports courants tels que « 32400 », « 8096 », « 8080 », accédez à **Paramètres réseau > Configuration des ports** de l'appareil et remplacez le port par défaut par un port libre (par exemple 8080 → 8081), puis redémarrez l'appareil et réessayez la connexion.

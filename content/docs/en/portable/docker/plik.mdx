@@ -1,0 +1,71 @@
+---
+sourceHash: 917f9e91e1ba
+title: "Plik Temporary File Upload System"
+---
+
+## Introduction
+Plik is an open-source, lightweight, and secure temporary file sharing service. **It can be used entirely in a web browser**—just open your browser to upload, share, and transfer files. Together with Docker, you can quickly build your own private temporary file relay station with no complex configuration. It is simple, easy to use, and keeps your data private.
+
+## Use Cases
+- Temporarily transfer files between devices—phones and computers can exchange files directly, with no client to install
+- Quickly share files with colleagues and friends—use it and go, efficient and convenient
+- Keep private files off public cloud drives—a self-hosted service is safer and more controllable
+- Temporarily share work materials such as logs, installation packages, and configuration files
+
+## Features
+- Pure web access, works on all platforms, no app to install, low barrier to entry
+- Supports the CLI client, so you can upload and manage files from the command line
+- Supports file encryption and share passwords to keep files secure
+- Customizable file expiration time and download count, with support for "burn after reading" (OneShot)
+- Generates share links with one click, and sharing can be disabled at any time—flexible and controllable
+- Low resource usage, one-click Docker deployment, low maintenance cost
+
+> For more information, see:
+> 
+> Official documentation: [https://root-gg.github.io/plik](https://root-gg.github.io/plik)
+>
+> Official GitHub: [https://github.com/root-gg/plik](https://github.com/root-gg/plik)
+
+## Deployment Tutorial
+### Create a Plik Container
+1.  Open the Docker interface and click "Images". Enter "plik" in the search box, find the corresponding image, and click download.
+    <img src="/images/en/portable/docker/plik/1-2.png" width="100%" />
+
+2.  After the image is downloaded, go to the "Containers" page, click "Create Container", select the "rootgg/plik" image, and click "Next".
+    > Tip: If you want the container to start automatically when the device boots, simply check the "Start on boot" option on the page.
+    <img src="/images/en/portable/docker/plik/1-3.png" width="100%" />
+
+3.  Path mapping settings: click to add a path mapping
+    * Store uploaded files: create a local storage path "My Files/upload", and map the container path "/root/files" to the local path "My Files/upload"
+    
+
+4.  After confirming that all settings are correct, click "Confirm" and select "Start after creation" to complete the creation and startup of the Plik container.
+    <img src="/images/en/portable/docker/plik/1-4.png" width="100%" />
+
+## Basic Use of Plik
+### 1.  Access Plik:
+
+<img src="/images/en/portable/docker/plik/1-6.png" width="100%" />
+
+Access URL: http://IP:8080/. Replace IP with the IP address of your own server (or PocketCloud device);
+> Note: If it is a PocketCloud device, simply use the device's own IP;
+> If you changed the port during deployment, adjust the port in the access URL accordingly.
+
+### 2.  Set up Plik:
+Configure the relevant options as needed.
+<img src="/images/en/portable/docker/plik/1-7.png" width="100%" />
+
+| Setting | Description |
+| ---- | ---- |
+| Destroy after download | The file is permanently deleted after it has been downloaded once |
+| Streaming | Files are streamed directly to the downloader and are not stored on the server |
+| Deletable | Anyone with the link can delete uploaded files |
+| End-to-end encryption | Files are encrypted before upload; only someone holding the password can decrypt them |
+| Password protection | Sets an access password through HTTP basic authentication for security |
+| Notes | Supports adding comments to uploaded content |
+| Expiration time | Sets how long a file remains valid; it expires automatically when the time is up |
+
+#### 3.  Upload Files
+Drag files directly to the upload area on the web page, or click "Choose Files" to upload.
+#### 4.  Share Files
+After uploading, copy the share link generated on the page, and click the link to download.

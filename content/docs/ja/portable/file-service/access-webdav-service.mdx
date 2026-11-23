@@ -1,5 +1,5 @@
 ---
-sourceHash: c67961f5c556
+sourceHash: 83dea30dba6f
 title: "WebDAV で PocketCloud 内のファイルにアクセスするには？"
 ---
 
@@ -24,25 +24,25 @@ WebDAV デフォルトではオフになっており、手動で有効にする�
 ## ブラウザでアクセスする
 
 ブラウザを開き、アドレスバーに入力します
-   ```http://NAS设备IP:5005```
+   ```http://NASデバイスIP:5005```
    <br />
    <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
 
-2. 输入用户名和密码后，即可访问 WebDAV 文件共享目录  
+2. ユーザー名とパスワードを入力すると、WebDAV ファイル共有ディレクトリにアクセスできます  
    <img src="/images/common/portable/file-service/access-webdav-service/1-2.png" width="100%" height="100%" />
 
 ---
 
-## 在 Windows 上访问
+## Windows 上でアクセス
 
-> **注意**：建议在 Windows 上使用 **[RaiDrive](https://www.raidrive.com)** 访问 WebDAV 服务。
+> **注意**：Windows で WebDAV サービスにアクセスするには、**[RaiDrive](https://www.raidrive.com)** の使用をお勧めします。
 
-1. 按下 **Win + E** 打开 **文件资源管理器**  
-2. 在左侧栏右键点击 **网络**，选择 **映射网络驱动器**  
+1. **Win + E** を押して **ファイルエクスプローラー** を開きます  
+2. 左側のサイドバーで **ネットワーク** を右クリックし、**ネットワークドライブの割り当て** を選択します  
    <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
 
-3. 在弹出的窗口中输入 WebDAV 地址：  
-   ```http://NAS设备IP:5005```
+3. 表示されたウィンドウに WebDAV アドレスを入力します：  
+   ```http://NASデバイスIP:5005```
 そして **完了** をクリックします
    <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
 
@@ -60,21 +60,21 @@ WebDAV デフォルトではオフになっており、手動で有効にする�
    <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
 
 2. サーバーのアドレスバーに入力してください：
-   ```http://NAS设备IP:5005```
-   然后点击 **连接**  
+   ```http://NASデバイスIP:5005```
+   続いて **接続** をクリックします  
    <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
 
-3. 输入用户名和密码，点击 **连接**  
+3. ユーザー名とパスワードを入力し、**接続** をクリックします  
    <img src="/images/common/portable/file-service/access-webdav-service/3-3.png" width="100%" height="100%" />
 
-4. 现在，你可以在访达中像访问本地文件夹一样浏览和管理 NAS 上的文件  
+4. これで、Finder でローカルフォルダにアクセスするのと同じように、NAS 上のファイルを閲覧および管理できます  
    <img src="/images/common/portable/file-service/access-webdav-service/3-4.png" width="100%" height="100%" />
 
 ---
 
-## 在 Linux 上访问
+## Linux 上でアクセス
 
-使用 **davfs** 挂载 WebDAV 共享：
+**davfs** を使用して WebDAV 共有をマウント：
 
 ```bash
 # インストール davfs2
@@ -110,16 +110,16 @@ sudo mount.davfs http://NAS装置IP:5005 /mnt/webdav_share
       - 一部のクライアントではルートディレクトリ `/` だけを指定できないため、上記の対応する具体的なマウントディレクトリを指定してください
       - ファームウェア &lt;= 3.1.0.16 から最新ファームウェアへアップグレードした後は、マウントディレクトリが調整されます。新バージョンのマウント方式に従ってください
 
-## 其他问题
+## その他の問題
 
-* 问：Windows 文件资源管理器无法挂载 WebDAV HTTP 服务怎么办？
-* 答：请参考 [Windows 无法挂载 WebDAV 到本地计算机](/zh-CN/pocketcloud/file-service/windows-webdav-http-mount)
+* 質問：Windows のファイルエクスプローラーで WebDAV の HTTP サービスをマウントできない場合はどうすればよいですか
+* 回答：[Windows で WebDAV をローカルにマウントできない](/portable/file-service/windows-webdav-http-mount)を参照してください
 
-* 问：Windows 支持 WebDAV HTTPS 吗？
-* 答：Windows 文件资源管理器不支持 WebDAV over HTTPS。你可以使用 **[RaiDrive](https://www.raidrive.com)** 来挂载 WebDAV-HTTPS 服务。
+* 質問：Windows は WebDAV の HTTPS に対応していますか
+* 回答：Windows のファイルエクスプローラーは WebDAV over HTTPS に対応していません。**[RaiDrive](https://www.raidrive.com)** を使用して WebDAV-HTTPS サービスをマウントできます。
 
-* 问：WebDAV-HTTPS 服务使用哪个端口？
-* 答：WebDAV-HTTPS 的默认端口是 5006。你可以使用以下地址访问服务：`https://NAS_IP_Address:5006`.
+* 質問：WebDAV-HTTPS サービスはどのポートを使用しますか
+* 回答：WebDAV-HTTPS のデフォルトポートは 5006 です。以下のアドレスを使用してサービスにアクセスできます：`https://NAS_IP_Address:5006`.
 
-* 问：为什么 Windows 无法通过 WebDAV 打开大文件？
-* 答：请参考 [Windows 通过 WebDAV 访问大于 50MB 文件时出现错误提示](/zh-CN/pocketcloud/file-service/windows-webdav-filelimit)
+* 質問：Windows で WebDAV 経由で大きなファイルを開けないのはなぜですか
+* 回答：[Windows で 50M を超えるファイルにアクセスするとエラーが出る](/portable/file-service/windows-webdav-filelimit)を参照してください

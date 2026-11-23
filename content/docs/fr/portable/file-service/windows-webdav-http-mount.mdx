@@ -1,0 +1,21 @@
+---
+sourceHash: 13183a089f61
+title: "Échec du montage WebDAV local sous Window"
+---
+
+<img src="/images/fr/portable/file-service/windows-webdav-http-mount/1-1.png" width="60%" />
+
+- La cause de ce problème est en réalité très simple. Le service WebClient par défaut de Windows ne prend en charge que le protocole HTTPS, tandis que le service webdav local et les liens utilisés reposent sur le protocole HTTP, ce qui provoque l'échec du montage.
+
+## Configurer WebClient pour autoriser le montage de liens HTTP
+
+1. Appuyez sur « touche Windows » + « R » pour ouvrir la fenêtre Exécuter, saisissez regedit, puis cliquez sur OK pour ouvrir la fenêtre de l'Éditeur du Registre.
+2. Accédez au chemin suivant : Ordinateur\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters. Double-cliquez sur l'entrée BasicAuthLevel dans le volet de droite, remplacez la donnée de la valeur par « 2 », cliquez sur OK, puis fermez l'Éditeur du Registre.
+
+<img src="/images/fr/portable/file-service/windows-webdav-http-mount/1-2.png" width="60%" />
+
+3. Appuyez sur « touche Windows » + « R » pour ouvrir la fenêtre Exécuter, saisissez services.msc, puis cliquez sur OK pour ouvrir l'interface « Services ». Trouvez le service « WebClient », faites un clic droit pour ouvrir le menu d'options, choisissez Redémarrer, patientez quelques secondes, puis fermez l'interface « Services » une fois l'opération terminée.
+
+<img src="/images/fr/portable/file-service/windows-webdav-http-mount/1-3.png" width="60%" />
+
+Une fois les trois étapes ci-dessus effectuées, le service WebClient autorise le montage via le protocole HTTP.

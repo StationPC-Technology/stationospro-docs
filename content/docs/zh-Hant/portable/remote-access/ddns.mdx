@@ -3,190 +3,200 @@ sourceHash: b4a5dab8e386
 title: "如何使用 DDNS"
 ---
 
-當你身處外部網絡（例如公司、出差或使用流動網絡），希望以直連、不限速的方式存取家中的 NAS 時，可以透過「DDNS 設定 + 路由器連接埠映射」實現檔案與應用程式的遠端存取。
+當你身處外部網路（如公司、出差、室外行動網路），希望突破網路限制，以直連、不限速的方式存取家中的 NAS 時，可以透過「DDNS 設定 + 路由器連接埠轉送」來實現檔案與應用程式的全域遠端存取。
 
-## 檢查是否擁有公網 IP
+## 檢查是否擁有公用 IP
 
-1. 登入家中主路由器的管理介面，找到 WAN 連接埠 IP 位址。
-2. 建立 DDNS 設定時，確認自動取得的 IP 是否與路由器的 WAN 連接埠 IP 位址一致。
+1. 登入家中主路由器的管理後台，找到 WAN 埠 IP 位址
 
-## 取得第三方服務商驗證資訊
+2. 建立 DDNS 設定時，查看自動取得的 IP 是否與路由器 WAN 埠 IP 位址一致
+
+## 取得第三方服務商認證資訊
 
 ### 1. Cloudflare
 
-1. 登入 [Cloudflare](https://dash.cloudflare.com/)，在左側選擇 `Domains` > `Registrations`，尋找並購買網域名稱。
+1. 登入 [Cloudflare](https://dash.cloudflare.com/)，點選左側欄的 `Domains` -> `Registrations`，尋找並購買你的網域
 
-![Cloudflare 網域註冊](/images/common/portable/remote-access/ddns/image-20260817091122396.png)
+![image-20260817091122396](/images/zh-Hant/portable/remote-access/ddns/image-20260817091122396.png)
 
-2. 開啟 [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens)。
-3. 點擊 `Create Token`。
+2. 透過這個連結取得 Cloudflare 權杖資訊: [Cloudflare API-Token](https://dash.cloudflare.com/profile/api-tokens)
+2. 點選 `Create Token`
 
-![建立 Cloudflare API Token](/images/common/portable/remote-access/ddns/image-20260817091856430.png)
+![image-20260817091856430](/images/zh-Hant/portable/remote-access/ddns/image-20260817091856430.png)
 
-4. 選擇 `Edit zone DNS`。
+4. 選擇 `Edit zone DNS`
 
-![選擇 Edit zone DNS](/images/common/portable/remote-access/ddns/image-20260817092033969.png)
+![image-20260817092033969](/images/zh-Hant/portable/remote-access/ddns/image-20260817092033969.png)
 
-5. 在 `Zone Resources` 下拉選單中選擇剛購買的網域名稱，然後點擊 `Continue to summary`。
+5. 在 `Zone Resources` 下拉選單中，選擇你剛剛購買的網域，並點選 `Continue to summary`
 
-![選擇 Cloudflare Zone](/images/common/portable/remote-access/ddns/image-20260817092336158.png)
+![image-20260817092336158](/images/zh-Hant/portable/remote-access/ddns/image-20260817092336158.png)
 
-6. 點擊 `Create Token`。
+6. 點選 `Create Token`
 
-![建立 Token](/images/common/portable/remote-access/ddns/image-20260817092454271.png)
+![image-20260817092454271](/images/zh-Hant/portable/remote-access/ddns/image-20260817092454271.png)
 
-7. 複製 **API Token**。稍後設定 NAS DDNS 時會使用此 Token。
+7. 複製 **API Token**（此 API Token 會在 NAS DDNS 設定中使用）
 
-![複製 API Token](/images/common/portable/remote-access/ddns/image-20260817092814598.png)
+![image-20260817092814598](/images/zh-Hant/portable/remote-access/ddns/image-20260817092814598.png)
 
 ### 2. FreeDNS
 
-你可以透過 [freedns.afraid.org](https://freedns.afraid.org/) 免費申請網域名稱。
+使用 FreeDNS 可以透過這個網站申請一個自己的網域[freedns.afraid.org](https://freedns.afraid.org/)
 
-1. 點擊 `Subdomains`。
+1. 點選 `Subdomains`
 
-![開啟 Subdomains](/images/common/portable/remote-access/ddns/image-20260814165825310.png)
+![image-20260814165825310](/images/zh-Hant/portable/remote-access/ddns/image-20260814165825310.png)
 
-2. 輸入帳號密碼登入。如果尚未擁有帳號，請先點擊 `Sign up Free` 建立帳號。
+2. 輸入你的帳號密碼進行登入（如果沒有帳號，請先點選 `Sign up Free` 建立一個帳號）
 
-![登入 FreeDNS](/images/common/portable/remote-access/ddns/image-20260814165908860.png)
+![image-20260814165908860](/images/zh-Hant/portable/remote-access/ddns/image-20260814165908860.png)
 
-3. 輸入相關資訊，然後點擊 `Save`。
+3. 輸入相關資訊，並點選 `Save`
 
-![建立 FreeDNS 子網域](/images/common/portable/remote-access/ddns/image-20260818095014297.png)
+![image-20260818095014297](/images/zh-Hant/portable/remote-access/ddns/image-20260818095014297.png)
 
-- **Type**：選擇 `A`，代表 IPv4 記錄。
-- **Subdomain**：輸入自訂子網域。
-- **Domain**：選擇偏好的主網域。
+- **Type**：A（表示這筆記錄是 IPv4 記錄）
+- **Subdomain**：輸入一個自訂的子網域
+- **Domain**：選擇一個你喜歡的主網域
 
-4. 點擊 `Dynamic DNS` > `quick cron example`。
+4.  點選 `Dynamic DNS` -> `quick cron example`
 
-![開啟 quick cron example](/images/common/portable/remote-access/ddns/image-20260818095206426.png)
+![image-20260818095206426](/images/zh-Hant/portable/remote-access/ddns/image-20260818095206426.png)
 
-5. 儲存圖片中框選的金鑰資訊，也就是 `?` 後方的 key，不包含 `?`。稍後設定 PocketCloud DDNS 時會使用此金鑰。
+5. 記住並儲存圖中框選的金鑰資訊（`?` 後面的 key，不包括 `?`），後續會在 `PocketCloud DDNS` 設定中使用
 
-![複製 FreeDNS 金鑰](/images/common/portable/remote-access/ddns/image-20260814171842858.png)
+![image-20260814171842858](/images/zh-Hant/portable/remote-access/ddns/image-20260814171842858.png)
 
 ### 3. Duck DNS
 
-1. 開啟 [Duck DNS](https://www.duckdns.org/)。
-2. 選擇一種方式登入。
+1. 瀏覽[Duck DNS](https://www.duckdns.org/)
+2. 選擇一種登入方式進行登入
 
-![登入 Duck DNS](/images/common/portable/remote-access/ddns/image-20260814173457409.png)
+![image-20260814173457409](/images/zh-Hant/portable/remote-access/ddns/image-20260814173457409.png)
 
-3. 完成 `reCaptcha` 以註冊網域名稱。
+3. 點選 `reCaptcha` 註冊一個網域
 
-![完成 reCaptcha](/images/common/portable/remote-access/ddns/image-20260814173644397.png)
+![image-20260814173644397](/images/zh-Hant/portable/remote-access/ddns/image-20260814173644397.png)
 
-4. 在 `domains` 中輸入子網域，然後點擊 `add domain`。
+4. 在 `domains` 中輸入一個子網域進行建立，輸入完成後點選 `add domain`
 
-![新增 Duck DNS 網域](/images/common/portable/remote-access/ddns/image-20260814174542622.png)
+![image-20260814174542622](/images/zh-Hant/portable/remote-access/ddns/image-20260814174542622.png)
 
-5. 儲存 `Token`，稍後設定 PocketCloud DDNS 時會使用此 Token。
+5. 同時儲存並記住 `Token`，這將會在後續設定 `PocketCloud DDNS` 時使用
 
 ## 在 NAS 中設定 DDNS
 
-1. 前往 `Device` > `Remote Access` > `DDNS`，點擊右上角的 `Add` 或頁面中央的 `Add Configuration`。
+1. 在 `Device`  -> `Remote Access` -> `DDNS` 中，可以點選右上角 `Add` 或中間 `Add Configuration` 新增一筆設定
 
-![新增 DDNS 設定](/images/common/portable/remote-access/ddns/image-20260817093613450.png)
+![image-20260817093613450](/images/zh-Hant/portable/remote-access/ddns/image-20260817093613450.png)
 
-2. 選擇所使用的網域服務供應商，並按照供應商的要求填寫網域與驗證資訊。
-3. 點擊 `Test`。確認連線狀態顯示為 `Normal` 後，點擊 `Confirm` 儲存設定。NAS 會在 IP 變更時自動更新網域記錄。
+2. 選擇你所購買網域平台的服務商，並依照服務商提供的規範填寫各項金鑰與網域資訊
+2. 填寫完成後，點選 `Test`。確認系統連線狀態為 `Normal` 後，點選 `Confirm` 儲存設定資訊。NAS 將在背景下自動將變動的 IP 即時更新到該網域上。
 
-![測試並儲存 DDNS 設定](/images/common/portable/remote-access/ddns/image-20260817094239125.png)
+![image-20260817094239125](/images/zh-Hant/portable/remote-access/ddns/image-20260817094239125.png)
 
-## 建立路由器連接埠映射
+## 建立路由器連接埠轉送
 
-1. **登入路由器管理介面**
+1. 登入路由器管理介面
 
-   在瀏覽器中輸入路由器 IP 位址，例如 `192.168.1.1` 或 `192.168.0.1`，然後登入。
+在瀏覽器中輸入路由器 IP 位址（如 192.168.1.1 或 192.168.0.1），登入路由器管理介面。
 
-2. **設定靜態 IP 位址**
+2. 設定靜態 IP 位址
 
-   前往路由器的區域網絡設定，找到 DHCP 靜態 IP 分配功能。
+進入路由器的區域網路設定頁面，找到 DHCP 靜態 IP 指派功能。
+- 將 NAS 裝置的 MAC 位址與靜態 IP 位址進行綁定
+- 選擇目前已連線的 NAS 裝置，點選「套用」儲存
 
-   - 將 NAS 的 MAC 位址綁定至靜態 IP 位址。
-   - 選擇目前已連線的 NAS，點擊「套用」儲存。
+注意：
+- 不同品牌路由器的連接埠轉送設定位置可能不同，請參考路由器製造商提供的說明書  
+- 需確保外部連接埠不與設定連接埠衝突
 
-   > **注意：** 不同品牌路由器的連接埠轉送設定位置可能不同，請參閱路由器製造商的說明文件，並確保外部連接埠未與其他設定衝突。
+3. 新增連接埠轉送規則
 
-3. **新增連接埠轉送規則**
+進入路由器的 進階設定 > 連接埠轉送（或 連接埠對應）頁面，點選「新增」建立新的轉送規則。
 
-   前往「進階設定」>「連接埠轉送」（或「連接埠映射」），點擊「新增」建立規則。
+4. 檢查設定
 
-4. **儲存設定**
+設定完成後，儲存規則。
 
-   檢查設定後儲存規則。
+5. 驗證存取
 
-5. **驗證存取**
+在外部網路環境下使用 `網域:連接埠號` 格式存取，驗證是否能成功存取服務。
 
-   在外部網絡中使用 `網域名稱:連接埠號碼` 存取，確認服務是否正常連線。
+## 使用網域存取 NAS
 
-## 使用網域名稱存取 NAS
+在路由器完成連接埠轉送，並成功設定 DDNS 後，如需在外部網路環境（如公司網路、手機流量）遠端登入 PocketCloud 系統，請參考以下方式。
 
-在路由器完成連接埠映射並成功設定 DDNS 後，如需在外部網絡環境（例如公司網絡、手機流量）遠端登入 PocketCloud 系統，請參考以下方式。
+在裝置登入介面可以透過輸入`網域:路由器對應連接埠`進行存取。
 
-在裝置登入介面，可以輸入 `網域名稱:路由器映射連接埠` 進行存取。
+![image-20260817172227254](/images/zh-Hant/portable/remote-access/ddns/image-20260817172227254.png)
 
-![image-20260817172227254](/images/common/portable/remote-access/ddns/image-20260817172227254.png)
+> 註：PocketCloud PC 用戶端、Web 瀏覽器端、APP 端均適用以下登入規則。
 
-> **注意：** 以下登入方式適用於 PocketCloud PC 用戶端、Web 瀏覽器及 APP。
+## 無法透過網域存取問題排查
 
-## 無法透過網域名稱存取的疑難排解
+本機完成動態網域名稱解析後，但在外部網路測試時無法存取服務是相當常見的問題，以下是一些常見原因的排查方式：
 
-完成 DDNS 設定後，如果仍無法從外部網絡存取服務，請檢查以下常見原因。
+### 1. 路由器連接埠轉送原因
 
-### 1. 路由器連接埠映射原因
+確認路由器連接埠轉送規則正確，將路由器外部存取連接埠對應到 NAS 的存取連接埠`9500`。連線存取時，請輸入路由器對外暴露的對應連接埠。
 
-確認路由器的連接埠轉送規則已將外部連接埠映射至 NAS 的 `9500` 連接埠。連線時，請使用路由器對外開放的映射連接埠。
+### 2. 用戶端無法取得公用 IP
 
-### 2. 用戶端無法取得公網 IP
+原因是電信業者分配的是私人 IP（如 10.10.X.X）。
 
-網絡供應商可能分配了內部 IP，例如 `10.10.x.x`。
+登入家中主路由器的管理後台，找到 WAN IPv4  位址，比對 IP 與從 [https://whatismyipaddress.com/](https://whatismyipaddress.com/) 取得的 IP 是否一致。如果 IP 不一致，請聯絡電信業者客服尋求解決方案。
 
-登入家中主路由器，找到 WAN IPv4 位址，並與 [What Is My IP Address](https://whatismyipaddress.com/) 顯示的 IP 比較。如果兩者不一致，請聯絡網絡供應商尋求協助。
+### 3. 網域名稱解析（DNS）問題：透過網域無法取得正確的 IP 位址
 
-### 3. DNS 解析未傳回正確的 IP 位址
+當你透過網域存取服務時，如果網域無法解析到正確的 IP 位址，可能是由於 **DNS 快取未更新** 或 **DNS 解析異常** 導致。你可以依照以下方法進行排查。
 
-如果網域名稱無法解析至正確的 IP 位址，可能是 **DNS 快取尚未更新** 或 **DNS 解析異常**。
-
-**1. DNS 快取尚未更新**
+**1. DNS 快取未更新**
 
 - **現象**
 
-  修改 DNS 記錄後，部分裝置或網絡仍無法存取，或仍解析至修改前的 IP 位址，而其他裝置可正常存取。
+修改網域名稱解析記錄後，部分裝置或網路環境仍然無法存取，或者解析到修改前的 IP 位址，而其他裝置可以正常存取。
 
 - **原因**
 
-  DNS 記錄不會立即在所有 DNS 伺服器生效。由於 DNS 使用 **TTL（Time to Live）** 快取機制，電腦、路由器或網絡供應商的 DNS 伺服器可能仍保留舊的解析結果。
+網域名稱解析記錄修改後，不會立即在所有 DNS 伺服器上同步生效。由於 DNS 存在 **TTL（Time to Live）快取機制**，本機電腦、路由器或電信業者 DNS 伺服器可能仍然快取修改前的解析結果。
 
 - **處理方式**
 
-  1. 清除本機 DNS 快取，然後重新解析網域名稱。
-  2. 更換 DNS 伺服器，再確認是否能取得正確的 IP 位址。
+可以嘗試以下方式進行排查：
 
-> **注意：** DNS 快取更新時間取決於網域記錄的 TTL。修改記錄後，可能需要一段時間才會在不同網絡完全生效。
+1. **清除本機 DNS 快取**，然後重新進行網域名稱解析。
+2. 更換 DNS 後重新執行網域名稱解析，確認是否能夠取得正確的 IP 位址。
 
-**2. DNS 解析異常或 DNS 污染**
+> **注意：** DNS 快取的更新時間與網域設定的 TTL 有關。修改解析記錄後，可能需要等待一段時間才能在不同網路環境下完全生效。
 
-- **現象**
+**2. DNS 解析異常或 DNS 汙染**
 
-  DNS 查詢傳回的 IP 位址與網域名稱實際設定的 IP 位址不一致。
+- **現象**：
 
-  例如，在終端機執行：
+透過 DNS 查詢發現，網域名稱解析得到的 IP 位址與實際設定的 IP 位址不一致。
 
-  ```text
-  ping www.example.com
-  ```
+例如，在終端機執行以下指令：
 
-  如果傳回的 IP 位址不正確，請進一步檢查目前網絡的 DNS 解析結果。也可以使用 [DNS Checker](https://dnschecker.org/) 比較不同國家和地區的解析結果。
+```
+ping www.example.com
+```
 
-- **處理方式**
+如果傳回的 IP 位址與你設定的 IP 位址不一致，可以進一步檢查目前網路環境下的 DNS 解析結果。
 
-  1. 修改用戶端裝置的 DNS 伺服器，例如使用 Google Public DNS：
-     - `8.8.8.8`
-     - `8.8.4.4`
-     - `dns.google`
-  2. 更換其他可靠的 DNS 服務供應商，然後重新解析網域名稱。
+也可以**使用第三方 DNS 查詢工具進行驗證**，例如瀏覽：[DNS Checker](https://dnschecker.org/)
 
-> **注意：** 如果只有部分網絡或地區出現異常，建議使用不同地區及不同 DNS 供應商進行測試，以判斷問題是否由特定 DNS 服務或網絡造成。
+輸入你的網域，查看不同國家和地區的 DNS 解析結果是否與你設定的 IP 位址一致。
+
+- **處理方式**：
+
+可以嘗試以下方式：
+
+1. 修改用戶端裝置的 DNS 伺服器位址，例如使用 Google Public DNS：
+    - `8.8.8.8`
+    - `8.8.4.4`
+    - `dns.google`
+2. 更換其他可靠的 DNS 服務商，然後重新進行網域名稱解析。
+
+> **注意：** 如果僅部分網路或地區存在解析異常，建議使用多個不同地區、不同 DNS 服務商進行測試，以進一步判斷問題是否由特定 DNS 服務或網路環境導致。

@@ -1,0 +1,202 @@
+---
+sourceHash: b4a5dab8e386
+title: "Comment utiliser DDNS"
+---
+
+Lorsque vous êtes sur un réseau externe (par exemple au bureau, en déplacement ou sur un réseau mobile en extérieur) et que vous souhaitez contourner les restrictions réseau pour accéder directement, sans limitation de débit, au NAS de votre domicile, vous pouvez recourir à la « configuration DDNS + redirection de ports du routeur » pour un accès à distance global aux fichiers et aux applications.
+
+## Vérifier si vous disposez d'une IP publique
+
+1. Connectez-vous à l'interface d'administration du routeur principal de votre domicile et trouvez l'adresse IP du port WAN
+
+2. Lors de la création d'une configuration DDNS, vérifiez si l'IP obtenue automatiquement correspond à l'adresse IP du port WAN du routeur
+
+## Obtenir les informations d'authentification du fournisseur tiers
+
+### 1. Cloudflare
+
+1. Connectez-vous à [Cloudflare](https://dash.cloudflare.com/), cliquez sur `Domains` -> `Registrations` dans la barre latérale, recherchez et achetez votre nom de domaine
+
+![image-20260817091122396](/images/fr/portable/remote-access/ddns/image-20260817091122396.png)
+
+2. Obtenez les informations de jeton Cloudflare via ce lien : [Cloudflare API-Token](https://dash.cloudflare.com/profile/api-tokens)
+2. Cliquez sur `Create Token`
+
+![image-20260817091856430](/images/fr/portable/remote-access/ddns/image-20260817091856430.png)
+
+4. Sélectionnez `Edit zone DNS`
+
+![image-20260817092033969](/images/fr/portable/remote-access/ddns/image-20260817092033969.png)
+
+5. Dans le menu déroulant `Zone Resources`, sélectionnez le nom de domaine que vous venez d'acheter, puis cliquez sur `Continuue to summary`
+
+![image-20260817092336158](/images/fr/portable/remote-access/ddns/image-20260817092336158.png)
+
+6. Cliquez sur `Create Token`
+
+![image-20260817092454271](/images/fr/portable/remote-access/ddns/image-20260817092454271.png)
+
+7. Copiez l'**API Token** (cet API Token sera utilisé dans la configuration DDNS du NAS)
+
+![image-20260817092814598](/images/fr/portable/remote-access/ddns/image-20260817092814598.png)
+
+### 2. FreeDNS
+
+Avec FreeDNS, vous pouvez demander votre propre nom de domaine via ce site : [freedns.afraid.org](https://freedns.afraid.org/)
+
+1. Cliquez sur `Subdomains`
+
+![image-20260814165825310](/images/fr/portable/remote-access/ddns/image-20260814165825310.png)
+
+2. Saisissez votre compte et votre mot de passe pour vous connecter (si vous n'avez pas de compte, cliquez d'abord sur `Sign up Free` pour en créer un)
+
+![image-20260814165908860](/images/fr/portable/remote-access/ddns/image-20260814165908860.png)
+
+3. Saisissez les informations pertinentes, puis cliquez sur `Save`
+
+![image-20260818095014297](/images/fr/portable/remote-access/ddns/image-20260818095014297.png)
+
+- **Type** : A (indique que cet enregistrement est un enregistrement IPv4)
+- **Subdomain** : saisissez un sous-domaine personnalisé
+- **Domain** : choisissez un domaine principal qui vous plaît
+
+4.  Cliquez sur `Dynamic DNS` -> `quick cron example`
+
+![image-20260818095206426](/images/fr/portable/remote-access/ddns/image-20260818095206426.png)
+
+5. Notez et conservez les informations de clé encadrées dans l'image (la clé qui suit `?`, sans le `?`) ; elles seront utilisées plus tard dans la configuration `PocketCloud DDNS`
+
+![image-20260814171842858](/images/fr/portable/remote-access/ddns/image-20260814171842858.png)
+
+### 3. Duck DNS
+
+1. Accédez à [Duck DNS](https://www.duckdns.org/)
+2. Choisissez un mode de connexion pour vous connecter
+
+![image-20260814173457409](/images/fr/portable/remote-access/ddns/image-20260814173457409.png)
+
+3. Cliquez sur `reCaptcha` pour enregistrer un nom de domaine
+
+![image-20260814173644397](/images/fr/portable/remote-access/ddns/image-20260814173644397.png)
+
+4. Saisissez un sous-domaine dans `domains` pour le créer, puis cliquez sur `add domain` une fois la saisie terminée
+
+![image-20260814174542622](/images/fr/portable/remote-access/ddns/image-20260814174542622.png)
+
+5. Conservez et notez également le `Token`, qui sera utilisé plus tard dans la configuration `PocketCloud DDNS`
+
+## Configurer DDNS dans le NAS
+
+1. Dans `Device`  -> `Remote Access` -> `DDNS`, vous pouvez cliquer sur `Add` en haut à droite ou sur `Add Configuration` au centre pour ajouter une configuration
+
+![image-20260817093613450](/images/fr/portable/remote-access/ddns/image-20260817093613450.png)
+
+2. Sélectionnez le fournisseur de la plateforme du nom de domaine que vous avez acheté, puis remplissez les informations de clé et de domaine conformément aux spécifications fournies par le fournisseur
+2. Une fois la saisie terminée, cliquez sur `Test`. Après avoir confirmé que l'état de connexion du système est `Normal`, cliquez sur `Confirm` pour enregistrer la configuration. Le NAS mettra ensuite automatiquement à jour en temps réel l'IP modifiée vers ce nom de domaine.
+
+![image-20260817094239125](/images/fr/portable/remote-access/ddns/image-20260817094239125.png)
+
+## Créer une redirection de ports sur le routeur
+
+1. Connectez-vous à l'interface d'administration du routeur
+
+Saisissez l'adresse IP du routeur dans le navigateur (par exemple 192.168.1.1 ou 192.168.0.1), puis connectez-vous à l'interface d'administration du routeur.
+
+2. Configurer une adresse IP statique
+
+Accédez à la page des paramètres du réseau local du routeur et trouvez la fonction d'attribution d'IP statique DHCP.
+- Liez l'adresse MAC de l'appareil NAS à une adresse IP statique
+- Sélectionnez l'appareil NAS actuellement connecté, puis cliquez sur "Appliquer" pour enregistrer
+
+Remarque :
+- L'emplacement des paramètres de redirection de ports peut varier selon la marque de routeur ; reportez-vous au manuel fourni par le fabricant du routeur  
+- Assurez-vous que le port externe n'entre pas en conflit avec le port configuré
+
+3. Ajouter une règle de redirection de ports
+
+Accédez à la page Paramètres avancés > Redirection de ports (ou Mappage de ports) du routeur, puis cliquez sur "Ajouter" pour créer une nouvelle règle de redirection.
+
+4. Vérifier les paramètres
+
+Une fois la configuration terminée, enregistrez la règle.
+
+5. Vérifier l'accès
+
+Depuis un réseau externe, accédez au format `nom_de_domaine:numéro_de_port` pour vérifier si le service est accessible.
+
+## Accéder au NAS via un nom de domaine
+
+Après avoir effectué la redirection de ports sur le routeur et configuré avec succès DDNS, si vous souhaitez vous connecter à distance au système PocketCloud depuis un réseau externe (par exemple le réseau de l'entreprise ou les données mobiles), veuillez vous référer aux méthodes suivantes.
+
+Sur l'écran de connexion de l'appareil, vous pouvez accéder en saisissant `nom_de_domaine:port_mappé_du_routeur`.
+
+![image-20260817172227254](/images/fr/portable/remote-access/ddns/image-20260817172227254.png)
+
+> Remarque : les règles de connexion suivantes s'appliquent au client PC PocketCloud, au navigateur Web et à l'application.
+
+## Dépannage : impossible d'accéder via le nom de domaine
+
+Après avoir mis en place la résolution dynamique de nom de domaine en local, il est assez courant de ne pas pouvoir accéder au service depuis un réseau externe. Voici quelques causes courantes à vérifier :
+
+### 1. Cause liée à la redirection de ports du routeur
+
+Vérifiez que la règle de redirection de ports du routeur est correcte et que le port d'accès externe du routeur est redirigé vers le port d'accès `9500` du NAS. Lors de la connexion, saisissez le port mappé exposé par le routeur.
+
+### 2. Le client ne parvient pas à obtenir l'IP publique
+
+La cause est que l'opérateur attribue une IP intranet (par exemple 10.10.X.X).
+
+Connectez-vous à l'interface d'administration du routeur principal de votre domicile, trouvez l'adresse WAN IPv4, puis comparez-la avec l'IP obtenue depuis [https://whatismyipaddress.com/](https://whatismyipaddress.com/). Si les IP ne correspondent pas, contactez le service client de l'opérateur pour trouver une solution.
+
+### 3. Problème de résolution de nom de domaine (DNS) : impossible d'obtenir la bonne adresse IP via le nom de domaine
+
+Lorsque vous accédez au service via un nom de domaine, si le nom de domaine ne peut pas être résolu vers la bonne adresse IP, cela peut être dû à un **cache DNS non actualisé** ou à une **anomalie de résolution DNS**. Vous pouvez procéder comme suit pour le dépannage.
+
+**1. Cache DNS non actualisé**
+
+- **Symptôme**
+
+Après la modification de l'enregistrement de résolution du nom de domaine, certains appareils ou environnements réseau ne peuvent toujours pas accéder au service, ou résolvent l'adresse IP d'avant la modification, alors que d'autres appareils y accèdent normalement.
+
+- **Cause**
+
+Après la modification d'un enregistrement de résolution de nom de domaine, la modification n'est pas immédiatement synchronisée sur tous les serveurs DNS. En raison du **mécanisme de cache TTL (Time to Live)** du DNS, l'ordinateur local, le routeur ou le serveur DNS de l'opérateur peuvent encore conserver le résultat de résolution antérieur à la modification.
+
+- **Solution**
+
+Vous pouvez essayer les méthodes suivantes pour le dépannage :
+
+1. **Videz le cache DNS local**, puis relancez la résolution du nom de domaine.
+2. Changez de DNS, puis relancez la résolution du nom de domaine pour vérifier si la bonne adresse IP peut être obtenue.
+
+> **Remarque :** le délai d'actualisation du cache DNS dépend du TTL défini pour le nom de domaine. Après la modification d'un enregistrement de résolution, il peut être nécessaire d'attendre un certain temps avant que la modification prenne pleinement effet dans différents environnements réseau.
+
+**2. Anomalie de résolution DNS ou empoisonnement DNS**
+
+- **Symptôme** :
+
+Une requête DNS montre que l'adresse IP obtenue par la résolution du nom de domaine ne correspond pas à l'adresse IP réellement configurée.
+
+Par exemple, exécutez la commande suivante dans le terminal :
+
+```
+ping www.example.com
+```
+
+Si l'adresse IP renvoyée ne correspond pas à celle que vous avez configurée, vous pouvez vérifier plus avant le résultat de résolution DNS de l'environnement réseau actuel.
+
+Vous pouvez également **utiliser un outil tiers de requête DNS pour vérifier**, par exemple en accédant à : [DNS Checker](https://dnschecker.org/)
+
+Saisissez votre nom de domaine et vérifiez si les résultats de résolution DNS dans différents pays et régions correspondent à l'adresse IP que vous avez configurée.
+
+- **Solution** :
+
+Vous pouvez essayer les méthodes suivantes :
+
+1. Modifiez l'adresse du serveur DNS de l'appareil client, par exemple en utilisant Google Public DNS :
+	- `8.8.8.8`
+	- `8.8.4.4`
+	- `dns.google`
+2. Changez pour un autre fournisseur DNS fiable, puis relancez la résolution du nom de domaine.
+
+> **Remarque :** si des anomalies de résolution n'existent que sur certains réseaux ou certaines régions, il est recommandé de tester avec plusieurs fournisseurs DNS de régions différentes afin de déterminer si le problème provient d'un service DNS ou d'un environnement réseau spécifique.

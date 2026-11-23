@@ -1,7 +1,9 @@
 {
-  "title": "故障排除",
+  "title": "疑難排解",
   "pages": [
     "client-connect-issue",
-    "battery"
+    "battery",
+    "connect-issue",
+    "app-client-connect-issue"
   ]
 }

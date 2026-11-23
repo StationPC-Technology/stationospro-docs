@@ -1,0 +1,116 @@
+---
+sourceHash: b6d5ceeee92c
+title: "¿Cómo acceder a los archivos de PocketCloud mediante Samba?"
+---
+
+Samba es un servicio de compartición de archivos basado en el protocolo SMB/CIFS (Server Message Block / Common Internet File System), ampliamente utilizado para compartir archivos e impresoras entre sistemas Linux, macOS y Windows.
+Con Samba, los usuarios pueden acceder a los directorios compartidos de un servidor remoto como si fueran archivos locales, lo que permite compartir archivos y colaborar entre plataformas.
+
+**Ofrece las siguientes funciones principales:**
+1. Compartición de archivos: permite a los usuarios acceder, cargar, descargar y gestionar archivos o carpetas compartidos en la red.
+2. Compartición de impresoras: permite compartir impresoras por red para que varios dispositivos utilicen el mismo recurso de impresión.
+3. Control de permisos de usuario: permite configurar los permisos de acceso de distintos usuarios o grupos de usuarios para garantizar la seguridad de los datos.
+4. Acceso multiplataforma: compatible con Windows, Linux, macOS y otros sistemas operativos habituales, y admite la conexión de diversos clientes.
+
+## Activar Samba
+
+Samba está desactivado de forma predeterminada y debe activarse manualmente. Siga estos pasos:
+
+1. Abra la página **Protocolos de compartición de archivos** de la aplicación.<br />
+2. Toque **Servicio Samba**.<br />
+3. Active el **interruptor** para habilitar el **servicio Samba**.<br />
+
+<img src="/images/es/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/es/portable/file-service/access-samba-service/5-2.png" width="240" height="500" />
+<img src="/images/es/portable/file-service/access-samba-service/5-3.png" width="240" height="500" />
+
+## Acceso desde Windows
+
+### Método 1
+
+1. Pulse la combinación de teclas **Win + R**.  
+2. Introduzca `\\IP del dispositivo NAS` y haga clic en **Aceptar**.  
+   <img src="/images/es/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
+3. Introduzca el nombre de usuario y la contraseña y haga clic en **Aceptar**.  
+   <img src="/images/es/portable/file-service/access-samba-service/1-2.png" width="100%" height="100%" />
+4. Ahora puede explorar y gestionar los archivos del NAS en el **Explorador de archivos** como si fueran carpetas locales.  
+   <img src="/images/es/portable/file-service/access-samba-service/1-3.png" width="100%" height="100%" />
+
+### Método 2
+
+1. Abra el Explorador de archivos
+2. Haga clic con el botón derecho en **Red** y seleccione **Asignar unidad de red**
+   <img src="/images/es/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+3. Introduzca `\\IP del dispositivo NAS\nombre del administrador` y haga clic en **Finalizar**.
+   <img src="/images/es/portable/file-service/access-samba-service/9-2.png" width="100%" height="100%" />
+4. Introduzca el nombre de usuario y la contraseña y haga clic en **Aceptar**.  
+   <img src="/images/es/portable/file-service/access-samba-service/9-3.png" width="100%" height="100%" />
+5. Ahora puede explorar y gestionar los archivos del NAS en el **Explorador de archivos** como si fueran carpetas locales.  
+   <img src="/images/es/portable/file-service/access-samba-service/9-4.png" width="100%" height="100%" />
+   
+---
+
+## Acceso desde iOS
+
+1. Abra la aplicación **Archivos**.  
+2. Toque el icono **«...»** de la esquina superior derecha y seleccione **Conectarse al servidor**.  
+   <img src="/images/es/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
+3. Introduzca `smb://IP del dispositivo NAS` y toque **Conectar**.  
+   <img src="/images/es/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
+4. Introduzca el nombre de usuario y la contraseña y toque **Siguiente**.  
+   <img src="/images/es/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
+5. Ahora puede explorar y gestionar los archivos del NAS en la aplicación **Archivos** como si fueran carpetas locales.  
+   <img src="/images/es/portable/file-service/access-samba-service/2-4.png" width="240" height="500" />
+
+---
+
+## Acceso desde macOS
+
+1. Haga clic con el botón derecho en **Finder** y seleccione **Ir → Conectarse al servidor** en la barra de menús.  
+   <img src="/images/es/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. Introduzca `smb://IP del dispositivo NAS` en el campo de dirección del servidor y haga clic en **Conectar**.  
+   <img src="/images/es/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
+3. Introduzca el nombre de usuario y la contraseña y haga clic en **Conectar**.  
+   <img src="/images/es/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
+4. Ahora puede explorar y gestionar los archivos del NAS desde Finder como si fueran carpetas locales.  
+   <img src="/images/es/portable/file-service/access-samba-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Acceso desde Linux
+
+Monte un recurso compartido Samba con **cifs-utils**:
+
+```bash
+# Instalar cifs-utils
+sudo apt-get install cifs-utils
+
+# Crear el punto de montaje
+# Ejemplo: usar /mnt/samba_share como directorio de montaje
+sudo mkdir -p /mnt/samba_share
+
+# Montar el directorio compartido de Samba
+sudo mount -t cifs //IP del dispositivo NAS/carpeta compartida /mnt/samba_share -o username=usuario,password=contraseña
+
+# Una vez montado, puede acceder y gestionar los archivos del NAS en el directorio /mnt/samba_share
+```
+
+---
+
+## Acceso desde otros clientes
+- Información de conexión
+    - IP: IP del dispositivo NAS
+    - Puerto: 445 de forma predeterminada
+    - Cuenta: nombre de usuario de inicio de sesión del dispositivo NAS
+    - Contraseña: contraseña de inicio de sesión del dispositivo NAS
+- Descripción de los directorios de montaje
+    - SSD principal: `/nombre de usuario`
+      - Ejemplo 1: todos los directorios; si el usuario actual es test, el directorio de montaje es `/test`
+      - Ejemplo 2: directorio especificado; si el usuario actual es test, el directorio de montaje es `/test/Pictures`
+      - Otros: se admiten varios usuarios y cada usuario tiene su propio directorio de montaje
+    - Almacenamiento externo: `/nombre del almacenamiento externo`
+      - Ejemplo 1: todos los directorios; si la tarjeta SD externa se llama SD 60GB BA26, el directorio de montaje es `/SD_60GB_BA26`
+      - Ejemplo 2: directorio especificado; si la tarjeta SD se llama SD 60GB BA26, el directorio de montaje es `/SD_60GB_BA26/Pictures`
+    - ⚠️ Nota:
+      - Algunos clientes no permiten indicar solo el directorio raíz `/`; es necesario especificar el directorio de montaje concreto indicado anteriormente
+      - Si el firmware es &lt;= 3.1.0.16, tras actualizar al firmware más reciente el directorio de montaje cambia; tome como referencia el método de montaje de la nueva versión

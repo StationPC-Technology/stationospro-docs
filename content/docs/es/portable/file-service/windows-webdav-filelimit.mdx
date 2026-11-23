@@ -1,0 +1,20 @@
+---
+sourceHash: b812b770a62d
+title: "Mensaje de error al acceder a archivos de más de 50M en Windows (error: 0x800700DF)"
+---
+
+Cuando se utiliza WebDAV en Windows, si se intenta abrir o copiar un archivo de más de 50 MB aparece el error ```0x800700DF```; esto se debe a que el cliente WebDAV de Windows limita de forma predeterminada el tamaño de archivo a 50 MB. Puede aumentar el límite modificando el Registro:
+
+1. Pulse Win + R para abrir el cuadro de diálogo «Ejecutar», escriba ```regedit``` en el campo de entrada y pulse la tecla «Intro».
+
+2. En el Editor del Registro, vaya a la ruta ```HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters```.
+
+<img src="/images/es/portable/file-service/windows-webdav-filelimit/1-1.png" width="100%" />
+
+3. En el panel derecho, busque el elemento ```FileSizeLimitInBytes```. Si la opción no existe, haga clic con el botón derecho en un espacio vacío, seleccione «Nuevo» > «Valor DWORD (32 bits)».
+
+4. Cambie el cuadro de texto correspondiente a la información del valor por ```ffffffff```, o seleccione «Decimal» e introduzca 4294967295 (el valor máximo es de unos 4 GB). Después haga clic en «Aceptar» para guardar los cambios.
+
+5. Reinicie el equipo para que los cambios surtan efecto.
+
+6. Después del reinicio, vuelva a intentar copiar o editar el archivo grande para comprobar si la modificación ha surtido efecto.

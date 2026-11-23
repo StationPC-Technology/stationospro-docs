@@ -1,0 +1,156 @@
+---
+sourceHash: 6fd34b11dd96
+title: "File Sync Configuration Guide for Computer and PocketCloud NAS"
+---
+
+> Note: Executing a sync policy depends on the **PocketCloud PC client running continuously**. If you exit the client, syncing will stop.
+
+---
+
+## Installation & Login
+
+- Install the **PocketCloud client** on your computer
+- Log in and connect to your **PocketCloud** device via IP address using the client
+- Click **Apps** in the left-hand menu, then select the **File Sync** menu
+- Click **Add** →, select the path and sync policy, and then create a sync task
+
+---
+
+## Configure Sync Path
+
+Set the following items on the Sync Path page:
+
+<img src="/images/en/portable/backup/syncthing/1.png" />
+
+### Path Settings
+
+- **Computer Path**: Select the local folder to be synchronized
+- **PocketCloud Path**: Select the target location on the NAS where the synced files will be stored
+
+### Sync Modes (Choose one)
+
+- **Two-way Sync**: Sync bidirectionally between the computer ↔ NAS and keep both sides identical
+- **Download Only**: Download from the NAS → computer only
+- **Upload Only**: Upload from the computer → NAS only
+
+### Example (Two-way Sync)
+
+If you want to sync the data on this computer to the NAS and keep both sides consistent the next time you use them:
+
+- Computer Path: Folder **B**
+- **PocketCloud Path**: Shared Folder **A**
+- Sync Mode: **Two-way Sync**
+
+Effect: The files on the computer and the NAS will stay consistent at all times.
+
+### Sync the Same Data on Multiple Computers (Extended)
+
+If you want another computer to sync the same data:
+
+- Install and log in to the PocketCloud client on the other computer
+- Create a sync task:
+  - Computer Path: Designated folder on that computer
+  - **PocketCloud Path**: Still select Shared Folder **A**
+
+Effect: Data stays synchronized across multiple computers and the NAS.
+
+---
+
+## Set Sync Policy
+
+After completing the "Sync Path Settings", click **Next** to enter **Sync Rules**:
+
+<img src="/images/en/portable/backup/syncthing/2.png" />
+
+- **Real-time Sync**: Automatically sync once file changes are detected
+- **Manual Sync**: Sync only when you click **Sync Now**
+- **File Filter**: Filter out files or folders that do not need to be synchronized
+
+### File Filter
+
+- **Whether to sync files/folders starting with “.”**
+
+  - Default: Hidden files/folders are not synced
+  - If syncing is required: Check manually to enable it
+
+- **Filter specified filenames or extensions**
+  - Check **Filter the following filenames or file extensions**
+  - Adjust/add filter rules
+  - Delete a rule: Click **X** on the right side of the rule
+  - Add a rule: Click **Add** → enter the filename or extension
+  - Separate multiple rules with **`;`**
+
+**Filter Examples:**
+
+- Filter specific filenames: `abc.doc`, `test*.doc`, `tmp.*`
+- Filter specific file types: `*.jpg`
+
+**Default Filter Formats:**
+
+- `*.tmp`
+- `*.temp`
+- `*.swp`
+- `*.link`
+- `*.pst`
+- `~*.*`
+- `@eadir`
+- `.SynologyWorkingDirectory`
+- `#recycle`
+- `desktop.ini`
+- `.DS_STORE`
+- `lcon\r`
+- `thumbs.db`
+- `$Recycle.Bin`
+- `@sharebin`
+- `System Volume Information`
+- `Program Files`
+- `Program Files (x86)`
+- `ProgramData`
+- `#snapshot`
+
+## Advanced Settings
+
+You can further configure sync details in **Advanced Settings**.
+
+<img src="/images/en/portable/backup/syncthing/set.png" />
+
+### File Deletion Logic
+
+- Default: **Move to Recycle Bin**
+- Can be set to "Delete Permanently"
+
+### File Conflict Handling
+
+- Default: **Overwrite**
+- Can be set to "Keep Both", and the file will be renamed
+
+---
+
+After selecting, click **Next** to go to the preview.
+
+---
+
+## Preview & Task Creation
+
+On the **Preview** page:
+
+<img src="/images/en/portable/backup/syncthing/3.png" />
+
+- You can customize the **sync task name**
+- Check all configuration items
+- To modify: Click **Previous** to go back and adjust
+- After confirming everything is correct: Click **Create** to create the task
+
+---
+
+## Task Management
+
+After creation is complete, you can manage devices and tasks on the **Sync** page:
+
+<img src="/images/en/portable/backup/syncthing/list-edit.png" />
+
+- **Pause Sync**: Click **Pause Sync**
+- **More Actions**: Hover over **More** to view sync records, edit, or delete tasks
+- **Quick Task Creation**: Click **+** on the right side of a sync task to quickly create a new sync task for that device
+
+---

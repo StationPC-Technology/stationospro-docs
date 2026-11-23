@@ -1,0 +1,23 @@
+---
+sourceHash: 4e7c3743ceb7
+title: "Explication du principe"
+---
+
+PocketCloud propose un service d'accès à distance qui offre aux utilisateurs une expérience d'accès à distance stable, sécurisée et pratique. Aucune connaissance technique préalable (IP publique, redirection de ports ou configuration DDNS) n'est nécessaire, ce qui abaisse fortement le seuil d'utilisation et permet même aux utilisateurs non techniques de réaliser facilement des opérations à distance.
+> Les utilisateurs peuvent obtenir un Station ID en liant un numéro de téléphone ou une adresse e-mail, puis utiliser ce Station ID pour l'accès à distance.
+
+## 1. Explication du principe de connexion
+L'accès à distance utilise le mode de connexion P2P (Peer-to-Peer, pair à pair), dont le principe de base est le suivant :
+grâce au « perçage » (hole punching) coordonné entre le serveur de relais officiel et le réseau de l'utilisateur, les limites du réseau sont franchies, et une connexion de communication directe est finalement établie entre PocketCloud et le client (téléphone/PC), sans transfert de données via un serveur tiers.
+
+## 2. Avantages du mode de connexion P2P
+| Caractéristique | Description |
+|------|------|
+| Zéro configuration | Seuil d'accès très faible : aucune configuration manuelle des paramètres réseau n'est nécessaire, il suffit d'activer la fonction pour tenter la connexion |
+| Transfert efficace | Lorsque les conditions de connexion directe sont remplies, les données sont transférées directement entre PocketCloud et le client ; la bande passante n'est pas limitée par le serveur de relais, et l'accès est plus rapide |
+| Compatibilité multi-appareils | Prend en charge à la fois les clients mobiles (téléphone/tablette) et les clients PC, pour s'adapter à différents scénarios d'utilisation (par exemple travail en déplacement, gestion à distance à domicile) |
+
+## 3. Points d'attention
+1. Lorsque l'appareil et le client se trouvent sur le même réseau local, la connexion bascule automatiquement en connexion réseau local.
+2. Si la connexion directe P2P ne peut pas être établie, le mode de transfert via le serveur relais StationPC est automatiquement utilisé, afin de garantir la disponibilité de l'accès à distance ;
+3. En mode relais, la vitesse d'accès et la bande passante sont limitées par le serveur de relais.

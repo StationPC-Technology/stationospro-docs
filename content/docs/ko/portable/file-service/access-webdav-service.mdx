@@ -1,5 +1,5 @@
 ---
-sourceHash: c67961f5c556
+sourceHash: 83dea30dba6f
 title: "WebDAV를 통해 PocketCloud의 파일에 어떻게 접근합니까?"
 ---
 
@@ -24,7 +24,7 @@ WebDAV 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. 
 ## 브라우저 사용하여 접속
 
 1. 브라우저를 열고 주소창에 입력
-   ```http://NAS设备IP:5005```
+   ```http://NAS장치IP:5005```
    <br />
    <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
 
@@ -42,7 +42,7 @@ WebDAV 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. 
    <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
 
 3. 팝업 창에 WebDAV 주소를 입력합니다:
-   ```http://NAS设备IP:5005```
+   ```http://NAS장치IP:5005```
 그런 다음 **완료**를 클릭하세요
    <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
 
@@ -60,7 +60,7 @@ WebDAV 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. 
    <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
 
 2. 서버 주소창에 입력:
-   ```http://NAS设备IP:5005```
+   ```http://NAS장치IP:5005```
 그런 다음 **연결**을 클릭하세요
    <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
 
@@ -77,17 +77,17 @@ WebDAV 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. 
 **davfs**를 사용하여 WebDAV 공유를 마운트:
 
 ```bash
-# 安装 davfs2
+# davfs2 설치
 sudo apt-get install davfs2
 
-# 创建挂载点
-# 示例：将 /mnt/webdav_share 作为挂载目录
+# 마운트 지점 생성
+# 예: /mnt/webdav_share를 마운트 디렉터리로 사용
 sudo mkdir /mnt/webdav_share
 
-# 挂载 WebDAV 服务
-sudo mount.davfs http://NAS设备IP:5005 /mnt/webdav_share
+# WebDAV 서비스 마운트
+sudo mount.davfs http://NAS장치IP:5005 /mnt/webdav_share
 
-# 挂载成功后，你可以在 /mnt/webdav_share 目录中访问和管理 NAS 上的文件
+# 마운트 성공 후, /mnt/webdav_share 디렉터리에서 NAS의 파일에 접근하고 관리할 수 있습니다
 ```
 
 ---
@@ -113,7 +113,7 @@ sudo mount.davfs http://NAS设备IP:5005 /mnt/webdav_share
 ## 기타 문제
 
 * 질문: Windows 파일 탐색기가 WebDAV HTTP 서비스를 마운트할 수 없으면 어떻게 해야 하나요?
-* 답변: [Windows WebDAV를 로컬 컴퓨터에 마운트할 수 없음](/ko-KR/pocketcloud/file-service/windows-webdav-http-mount)을 참고하세요
+* 답변: [Windows WebDAV를 로컬 컴퓨터에 마운트할 수 없음](/portable/file-service/windows-webdav-http-mount)을 참고하세요
 
 * 질문: Windows은 WebDAV와 HTTPS를 지원합니까?
 * 답변: Windows 파일 탐색기는 HTTPS 위의 WebDAV를 지원하지 않습니다. **[RaiDrive](https://www.raidrive.com)** 를 사용하여 WebDAV-HTTPS 서비스를 마운트할 수 있습니다.
@@ -122,4 +122,4 @@ sudo mount.davfs http://NAS设备IP:5005 /mnt/webdav_share
 * 답변: WebDAV-HTTPS의 기본 포트는 5006입니다. 다음 주소를 사용하여 서비스에 접근할 수 있습니다: `https://NAS_IP_Address:5006`.
 
 * 질문: 왜 Windows는 WebDAV를 통해 큰 파일을 열 수 없나요?
-* 답변: [Windows 통해 WebDAV로 50MB 이상 파일 액세스 시 오류 메시지 발생](/ko-KR/pocketcloud/file-service/windows-webdav-filelimit)를 참조하세요
+* 답변: [Windows 통해 WebDAV로 50MB 이상 파일 액세스 시 오류 메시지 발생](/portable/file-service/windows-webdav-filelimit)를 참조하세요

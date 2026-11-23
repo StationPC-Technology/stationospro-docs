@@ -29,7 +29,7 @@ Samba ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte f
 ### Methode 1
 
 1. Drücken Sie die Tastenkombination **Win + R**.
-2. Geben Sie `\\NAS设备IP` ein und klicken Sie dann auf **OK**.
+2. Geben Sie `\\NASGerätIP` ein und klicken Sie dann auf **OK**.
    <img src="/images/common/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
 3. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **OK**.
    <img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
@@ -55,7 +55,7 @@ Samba ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte f
 1. Öffnen Sie die **Datei** App.
 2. Klicken Sie auf das **„...“** Symbol oben rechts und wählen Sie **Mit Server verbinden**.
    <img src="/images/common/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
-3. Geben Sie `smb://NAS设备IP` ein und klicken Sie auf **Verbinden**.
+3. Geben Sie `smb://NASGerätIP` ein und klicken Sie auf **Verbinden**.
    <img src="/images/common/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
 4. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **Weiter**.
    <img src="/images/common/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
@@ -68,7 +68,7 @@ Samba ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte f
 
 1. Rechtsklicken Sie auf **Finder**, wählen Sie in der Menüleiste **Gehe zu → Mit Server verbinden**.
    <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
-2. Geben Sie in der Adressleiste des Servers `smb://NAS设备IP` ein und klicken Sie dann auf **Verbinden**.
+2. Geben Sie in der Adressleiste des Servers `smb://NASGerätIP` ein und klicken Sie dann auf **Verbinden**.
    <img src="/images/common/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
 3. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **Verbinden**.
    <img src="/images/common/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
@@ -82,17 +82,17 @@ Samba ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte f
 Verwendung von **cifs-utils**, um das Samba-Freigabe zu mounten:
 
 ```bash
-# 安装 cifs-utils
+# cifs-utils installieren
 sudo apt-get install cifs-utils
 
-# 创建挂载点
-# 示例：将 /mnt/samba_share 作为挂载目录
+# Mountpunkt erstellen
+# Beispiel: /mnt/samba_share als Mount-Verzeichnis verwenden
 sudo mkdir -p /mnt/samba_share
 
-# 挂载 Samba 共享目录
-sudo mount -t cifs //NAS设备IP/共享目录 /mnt/samba_share -o username=用户名,password=密码
+# Samba-Freigabeverzeichnis mounten
+sudo mount -t cifs //NASGerätIP/Freigabeverzeichnis /mnt/samba_share -o username=Benutzername,password=Passwort
 
-# 挂载成功后，你可以在 /mnt/samba_share 目录中访问和管理 NAS 上的文件
+# Nach erfolgreichem Mounten können Sie im Verzeichnis /mnt/samba_share auf die Dateien auf dem NAS zugreifen und diese verwalten
 ```
 
 ---
