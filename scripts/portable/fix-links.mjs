@@ -38,6 +38,18 @@ for (const file of walk(CONTENT)) {
   const before = fs.readFileSync(file, 'utf8');
   let after = before;
   for (const rule of RULES) after = after.replace(rule.from, rule.to);
+
+  // changelog 索引：`./DATE` 在目录折叠成单页后会被解析成 `/portable/DATE`（404），
+  // 所以这里统一写成带语言前缀的绝对链接。
+  if (path.basename(file) === 'index.mdx' && path.basename(path.dirname(file)) === 'changelog') {
+    const lang = path.relative(CONTENT, file).split(path.sep)[0];
+    const prefix = lang === 'en' ? '' : `/${lang}`;
+    after = after.replace(
+      /\]\(\.\/(\d{4}-\d{2}-\d{2})\)/g,
+      (_, date) => `](${prefix}/portable/changelog/${date})`,
+    );
+  }
+
   if (after !== before) {
     touched += 1;
     console.log(`${DRY ? 'would fix' : 'fixed'} ${path.relative(DOCS, file)}`);
