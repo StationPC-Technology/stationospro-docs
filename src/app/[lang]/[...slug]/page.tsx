@@ -18,14 +18,15 @@ import { gitConfig } from '@/lib/shared';
 import { localeConfigs } from '@/lib/i18n';
 import { baseOptions } from '@/lib/layout.shared';
 import { Feedback } from '@/components/feedback-adapter';
+import { ProductLanding } from '@/components/product-nav';
 import {
-  OtherProductCallout,
-  ProductLanding,
-  ProductSidebarBanner,
-} from '@/components/product-nav';
-import { isProductSlug } from '@/lib/products';
+  isProductSlug,
+  productName,
+  productUrl,
+  products,
+} from '@/lib/products';
 import { getProductLabels } from '@/lib/product-labels';
-import { getProductScopedTree } from '@/lib/product-tree';
+import { countProductDocs, getProductScopedTree } from '@/lib/product-tree';
 
 /**
  * 侧栏只展示当前产品的子树；站级页面（/policies、/contact）没有侧栏。
@@ -52,22 +53,26 @@ export default async function Page(props: PageProps<'/[lang]/[...slug]'>) {
   // 站级页面（/policies/*、/contact）不挂侧栏，也不进产品导航
   const standalone = !productSlug;
 
+  // 产品切换用 fumadocs 内置的 sidebar tabs：tabMode='auto' 时它渲染成侧栏顶部那个下拉
+  // （与 fumadocs.dev 官网同一套实现，见 layouts/docs/slots/sidebar.js），不再自造分段控件。
+  const tabs = standalone
+    ? undefined
+    : products.map((product) => ({
+        title: labels.line[product.slug],
+        // 只保留「产品名 + 篇数」，型号已在首页卡片与落地页出现，这里再列一遍会显得杂乱
+        description: `${productName(product)} · ${labels.docsCount(
+          countProductDocs(params.lang, product.slug),
+        )}`,
+        url: productUrl(product.slug, params.lang),
+      }));
+
   const layoutOptions = {
     ...baseOptions(params.lang),
-    // 文档页的产品切换由侧栏 banner 承担，不再重复顶部导航项
+    // 顶部不再重复产品导航项：切换统一交给侧栏 tabs
     links: [],
-    ...(standalone
-      ? { sidebar: { enabled: false }, nav: { enabled: false } }
-      : {
-          sidebar: {
-            banner: productSlug ? (
-              <ProductSidebarBanner locale={params.lang} slug={productSlug} />
-            ) : undefined,
-            footer: productSlug ? (
-              <OtherProductCallout locale={params.lang} slug={productSlug} />
-            ) : undefined,
-          },
-        }),
+    tabMode: 'auto' as const,
+    tabs,
+    ...(standalone ? { sidebar: { enabled: false }, nav: { enabled: false } } : {}),
   };
 
   return (

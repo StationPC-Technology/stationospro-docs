@@ -1,6 +1,7 @@
 {
   "title": "Videoanleitung",
   "pages": [
+    "installation",
     "Binding_Settings",
     "usb-mode",
     "create-cloud-backup",
@@ -8,7 +9,6 @@
     "public_share",
     "ap_mode",
     "guest_wifi",
-    "battery",
-    "installation"
+    "battery"
   ]
 }

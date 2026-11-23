@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import * as PageTree from 'fumadocs-core/page-tree';
-import { getOtherProduct, getProduct, productModels, productUrl, products, type Product } from '@/lib/products';
+import { getProduct, productModels, productName, productUrl, type Product } from '@/lib/products';
 import { getProductLabels } from '@/lib/product-labels';
 import { getProductFolder } from '@/lib/product-tree';
 
@@ -43,7 +43,8 @@ export function ProductLanding({ locale, slug }: { locale: string; slug: Product
         <span className="rounded-full border px-2.5 py-0.5 font-medium">
           {product ? labels.line[slug] : slug}
         </span>
-        {product && <span>{productModels(product)}</span>}
+        {product && <span>{productName(product)}</span>}
+        {product && <span>· {productModels(product)}</span>}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -61,59 +62,5 @@ export function ProductLanding({ locale, slug }: { locale: string; slug: Product
         ))}
       </div>
     </div>
-  );
-}
-
-/** 侧栏顶部：产品身份 + 产品线切换（当前产品高亮） */
-export function ProductSidebarBanner({ locale, slug }: { locale: string; slug: Product['slug'] }) {
-  const product = getProduct(slug);
-  const labels = getProductLabels(locale);
-  if (!product) return null;
-
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="grid grid-cols-2 gap-1 rounded-lg bg-fd-muted p-1 text-sm">
-        {products.map((item) =>
-          item.slug === slug ? (
-            <span
-              key={item.slug}
-              className="rounded-md bg-fd-background px-2 py-1 text-center font-medium shadow-sm"
-            >
-              {labels.line[item.slug]}
-            </span>
-          ) : (
-            <Link
-              key={item.slug}
-              href={productUrl(item.slug, locale)}
-              className="rounded-md px-2 py-1 text-center text-fd-muted-foreground no-underline transition-colors hover:text-fd-foreground"
-            >
-              {labels.line[item.slug]}
-            </Link>
-          ),
-        )}
-      </div>
-      <span className="px-1 text-xs text-fd-muted-foreground">
-        {product.system} · {productModels(product)}
-      </span>
-    </div>
-  );
-}
-
-/** 侧栏底部 / 落地页：跳到另一个产品 */
-export function OtherProductCallout({ locale, slug }: { locale: string; slug: string }) {
-  const other = getOtherProduct(slug);
-  if (!other) return null;
-  const labels = getProductLabels(locale);
-
-  return (
-    <Link
-      href={productUrl(other.slug, locale)}
-      className="flex flex-col gap-0.5 rounded-lg border border-dashed px-3 py-2 text-sm transition-colors hover:bg-fd-accent"
-    >
-      <span className="text-xs text-fd-muted-foreground">
-        {labels.lookingFor(labels.line[other.slug])}
-      </span>
-      <span className="font-medium">{other.system} →</span>
-    </Link>
   );
 }

@@ -1,8 +1,8 @@
 {
   "title": "硬件安装",
   "pages": [
-    "battery-install",
+    "ssd-install",
     "dock",
-    "ssd-install"
+    "battery-install"
   ]
 }
