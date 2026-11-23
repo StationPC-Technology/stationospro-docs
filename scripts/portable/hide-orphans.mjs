@@ -145,7 +145,38 @@ for (const lang of LANGS) {
     writeMeta(file, meta);
   }
 
-  // 6) 侧栏最后补「联系我们」链接（旧站它在产品导航最末，指向站点联系页）
+  // 6) 「设备安装指南」补第三项（旧站里它跨目录指到电池教程），并把该组排到视频教程首位
+  const SUB_LABEL = {
+    en: 'How to Replace the Battery?',
+    zh: '电池更换教程',
+    'zh-Hant': '電池更換教程',
+    ja: 'バッテリー交換チュートリアル',
+    ko: '배터리 교체 방법',
+    de: 'Batterieaustausch-Anleitung',
+    fr: 'Remplacer la batterie',
+    es: 'Cómo sustituir la batería',
+  };
+  const batteryHref =
+    lang === 'en'
+      ? '/portable/video_tutorial/battery'
+      : `/${lang}/portable/hardware/battery-install`;
+  const subFile = path.join(root, 'video_tutorial/installation/meta.json');
+  if (fs.existsSync(subFile)) {
+    const sub = readMeta(subFile);
+    sub.pages = (sub.pages ?? []).filter((p) => !p.startsWith('['));
+    sub.pages.push(`[${SUB_LABEL[lang]}](${batteryHref})`);
+    writeMeta(subFile, sub);
+  }
+  const vtFile = path.join(root, 'video_tutorial/meta.json');
+  if (fs.existsSync(vtFile)) {
+    const vt = readMeta(vtFile);
+    if (vt.pages?.includes('installation')) {
+      vt.pages = ['installation', ...vt.pages.filter((p) => p !== 'installation')];
+      writeMeta(vtFile, vt);
+    }
+  }
+
+  // 7) 侧栏最后补「联系我们」链接（旧站它在产品导航最末，指向站点联系页）
   const rootMetaFile = path.join(root, 'meta.json');
   const rootMeta = readMeta(rootMetaFile);
   const url = lang === 'en' ? '/contact' : `/${lang}/contact`;

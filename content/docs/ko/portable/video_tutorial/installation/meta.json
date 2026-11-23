@@ -2,6 +2,7 @@
   "title": "장비 설치 안내",
   "pages": [
     "pocketcloud",
-    "dock"
+    "dock",
+    "[배터리 교체 방법](/ko/portable/hardware/battery-install)"
   ]
 }

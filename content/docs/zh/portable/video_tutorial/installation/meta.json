@@ -2,6 +2,7 @@
   "title": "设备安装指南",
   "pages": [
     "pocketcloud",
-    "dock"
+    "dock",
+    "[电池更换教程](/zh/portable/hardware/battery-install)"
   ]
 }

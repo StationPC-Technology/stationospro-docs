@@ -2,6 +2,7 @@
   "title": "Geräteinstallationshandbuch",
   "pages": [
     "pocketcloud",
-    "dock"
+    "dock",
+    "[Batterieaustausch-Anleitung](/de/portable/hardware/battery-install)"
   ]
 }
