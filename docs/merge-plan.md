@@ -22,9 +22,9 @@
 | P2 内容管道 | ✅ | `scripts/portable/{convert,clone-meta,fix-links}.mjs`、`scripts/update-sourcehash.mjs` |
 | P3 中文导入 | ✅ | `content/docs/zh/portable/` 111 篇；图片 452 张 / 88MB 去重后入库 `public/images/common/portable/` |
 | P4 译文 | ✅ | 8 语言 × 111 篇齐平；`glossary.json` keep 30 条 + 22 条词条 × 7 语言 |
-| P5 切流 | ⏳ 待发布窗口 | 见 [docs/cutover-checklist.md](./cutover-checklist.md) |
+| P5 切流 | ⏳ 待发布窗口（代码侧已备好） | [docs/cutover-checklist.md](./cutover-checklist.md)、`docs/deployment/nginx-redirect-pocketcloud.conf`（739 条旧 URL / 1,314 条精确 location，`scripts/portable/nginx-map.mjs` 生成） |
 
-提交：`b482111`（P1–P3 + 文档）、`4771850`（P4 译文）。当前 `npm run build` = **3,735 个静态页面**，`check:content` 与 `types:check` 全绿。
+提交：`b482111`（P1–P3 + 文档）、`4771850`（P4 译文）、`3f928c0`（进度与切流清单）、`bc4dd5c`（截图）、`ffd9cb8`（应用内旧 URL 兜底 301）、`0bbc7cd`（旧站全量 301 映射）。当前 `npm run build` = **3,735 个静态页面**，`check:content` 与 `types:check` 全绿；旧 URL 端到端实测 308 → 200。
 
 
 ---
