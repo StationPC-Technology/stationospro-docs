@@ -1,0 +1,129 @@
+---
+sourceHash: c67961f5c556
+title: "How to Access PocketCloud Files via WebDAV?"
+---
+
+WebDAV (Web-based Distributed Authoring and Versioning) is an extension of the HTTP protocol that enables file sharing and collaboration over the network.
+It allows users to access, edit, and manage files stored on remote servers through web browsers or client applications.
+
+**WebDAV provides the following main features:**
+1. File Upload and Download – Supports uploading local files to the server and downloading remote files to local devices.
+2. File Management – Enables users to create, delete, rename, and move files or folders on the remote server.
+3. File Synchronization – Keeps local and remote files in sync to ensure data consistency.
+4. File Sharing and Collaboration – Allows users to share files on the server with others, facilitating teamwork and collaboration.
+
+## Enable WebDAV
+
+By default, WebDAV is disabled. You need to manually enable it by following these steps:
+1. Open the **File Services** section in the app.<br />
+2. Tap **Webdav Service**.<br />
+3. Toggle the **switch** to turn on the **WebDAV service**.<br />
+   <img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+
+   <img src="/images/common/portable/file-service/access-webdav-service/5-2.png" width="240" height="500" />
+   <img src="/images/common/portable/file-service/access-webdav-service/5-3.png" width="240" height="500" />
+
+---
+
+## Accessing via Browser
+
+1. Open a browser and enter the following URL in the address bar:  
+   ```http://NAS_IP_Address:5005```
+   <br />
+   <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
+
+2. Enter your **username** and **password** to access the WebDAV file share.  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-2.png" width="100%" height="100%" />
+
+---
+
+## Accessing on Windows
+
+> **Note**: We recommend using **[RaiDrive](https://www.raidrive.com)** to access the WebDAV service on Windows.
+
+1. Press **Win + E** to open **File Explorer**.  
+2. Right-click **Network** in the left sidebar and select **Map Network Drive**.  
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+
+3. In the popup window, enter the WebDAV address:  
+   ```http://NAS_IP_Address:5005```  
+   Then click **Finish**.  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
+
+4. Enter your **username** and **password** in the login prompt.  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-5.png" width="100%" height="100%" />
+
+5. Once completed, you can access NAS files from **This PC**, just like a local drive.  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-6.png" width="100%" height="100%" />
+
+---
+
+## Accessing on macOS
+
+1. Open **Finder**, then in the menu bar select **Go → Connect to Server...**  
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+
+2. In the server address field, enter:  
+   ```http://NAS_IP_Address:5005```  
+   Then click **Connect**.  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
+
+3. Enter your **username** and **password**, then click **Connect**.  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-3.png" width="100%" height="100%" />
+
+4. You can now browse and manage NAS files in Finder just like local folders.  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Accessing on Linux
+
+Use **davfs** to mount the WebDAV share:
+
+```bash
+# Install davfs2
+sudo apt-get install davfs2
+
+# Create a mount point
+# Example: using /mnt/webdav_share as the mount directory
+sudo mkdir /mnt/webdav_share
+
+# Mount the WebDAV share
+sudo mount.davfs http://NAS_IP_Address:5005 /mnt/webdav_share
+
+# Once mounted, you can access and manage NAS files under /mnt/webdav_share
+```
+
+---
+
+## Accessing on Other Clients
+- Connection information
+    - IP: NAS_IP_Address
+    - Port: http defaults to 5005; https is not currently supported
+    - Account: NAS device login username
+    - Password: NAS device login password
+- Mount directory description
+    - Main SSD: `/login_username`
+      - Example 1: All directories. If the current user is test, the mount directory is `/test`
+      - Example 2: A specified directory. If the current user is test, the mount directory is `/test/Pictures`
+      - Other: Multiple users are supported, and each user corresponds to one mount directory
+    - External storage: `/external_storage_name`
+      - Example 1: All directories. If the external SD card name is SD 60GB BA26, the mount directory is `/SD_60GB_BA26`
+      - Example 2: A specified directory. If the external SD card name is SD 60GB BA26, the mount directory is `/SD_60GB_BA26/Pictures`
+    - ⚠️ Note:
+      - Some clients cannot use only the root directory `/`; specify the corresponding mount directory above
+      - After upgrading from firmware &lt;= 3.1.0.16 to the latest firmware, the mount directory is adjusted. Use the mount method for the new version
+
+## Other Questions
+
+* Q: Why can't Windows File Explorer mount the WebDAV over HTTP service?
+* A: See [Window failed to mount WebDAV to local computer](/pocketcloud/file-service/windows-webdav-http-mount)
+
+* Q: Does Windows support WebDAV over HTTPS?
+* A: Windows File Explorer does not support WebDAV over HTTPS. You can use **[RaiDrive](https://www.raidrive.com)** to mount the WebDAV-HTTPS service instead.
+
+* Q: Which port is used for the WebDAV-HTTPS service?
+* A: The default port for WebDAV-HTTPS is 5006. You can access the service using the following address: `https://NAS_IP_Address:5006`.
+
+* Q: Why can't Windows open large files through WebDAV?
+* A: See [When accessing a WebDAV service in Windows, an error message appears for files larger than 50MB](/pocketcloud/file-service/windows-webdav-filelimit)

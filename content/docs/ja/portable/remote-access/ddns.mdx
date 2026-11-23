@@ -1,0 +1,192 @@
+---
+sourceHash: b4a5dab8e386
+title: "DDNS の使用方法"
+---
+
+会社や外出先、モバイルネットワークなど外部ネットワークから、自宅の NAS に直結して速度制限なしでアクセスしたい場合は、「DDNS 設定 + ルーターのポート転送」を利用して、ファイルやアプリケーションにリモートアクセスできます。
+
+## グローバル IP アドレスを確認する
+
+1. 自宅のメインルーターの管理画面にログインし、WAN ポートの IP アドレスを確認します。
+2. DDNS 設定を作成するときに、自動取得された IP アドレスがルーターの WAN ポートの IP アドレスと一致することを確認します。
+
+## サードパーティプロバイダーの認証情報を取得する
+
+### 1. Cloudflare
+
+1. [Cloudflare](https://dash.cloudflare.com/) にログインし、左側の `Domains` > `Registrations` を開いて、ドメインを購入します。
+
+![Cloudflare のドメイン登録](/images/common/portable/remote-access/ddns/image-20260817091122396.png)
+
+2. [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens) を開きます。
+3. `Create Token` をクリックします。
+
+![Cloudflare API Token の作成](/images/common/portable/remote-access/ddns/image-20260817091856430.png)
+
+4. `Edit zone DNS` を選択します。
+
+![Edit zone DNS の選択](/images/common/portable/remote-access/ddns/image-20260817092033969.png)
+
+5. `Zone Resources` のドロップダウンから購入したドメインを選択し、`Continue to summary` をクリックします。
+
+![Cloudflare ゾーンの選択](/images/common/portable/remote-access/ddns/image-20260817092336158.png)
+
+6. `Create Token` をクリックします。
+
+![Token の作成](/images/common/portable/remote-access/ddns/image-20260817092454271.png)
+
+7. **API Token** をコピーします。この Token は NAS の DDNS 設定で使用します。
+
+![API Token のコピー](/images/common/portable/remote-access/ddns/image-20260817092814598.png)
+
+### 2. FreeDNS
+
+[freedns.afraid.org](https://freedns.afraid.org/) から無料のドメインを取得できます。
+
+1. `Subdomains` をクリックします。
+
+![Subdomains を開く](/images/common/portable/remote-access/ddns/image-20260814165825310.png)
+
+2. アカウント情報を入力してログインします。アカウントがない場合は、先に `Sign up Free` をクリックして作成します。
+
+![FreeDNS にログイン](/images/common/portable/remote-access/ddns/image-20260814165908860.png)
+
+3. 必要な情報を入力し、`Save` をクリックします。
+
+![FreeDNS サブドメインの作成](/images/common/portable/remote-access/ddns/image-20260818095014297.png)
+
+- **Type**：IPv4 レコードを表す `A` を選択します。
+- **Subdomain**：任意のサブドメインを入力します。
+- **Domain**：使用する親ドメインを選択します。
+
+4. `Dynamic DNS` > `quick cron example` をクリックします。
+
+![quick cron example を開く](/images/common/portable/remote-access/ddns/image-20260818095206426.png)
+
+5. 画像で囲まれているキーを保存します。`?` の後ろにある key の値（`?` 自体は含めません）を PocketCloud DDNS の設定で使用します。
+
+![FreeDNS キーのコピー](/images/common/portable/remote-access/ddns/image-20260814171842858.png)
+
+### 3. Duck DNS
+
+1. [Duck DNS](https://www.duckdns.org/) を開きます。
+2. ログイン方法を選択してログインします。
+
+![Duck DNS にログイン](/images/common/portable/remote-access/ddns/image-20260814173457409.png)
+
+3. `reCaptcha` を完了してドメインを登録します。
+
+![reCaptcha の完了](/images/common/portable/remote-access/ddns/image-20260814173644397.png)
+
+4. `domains` にサブドメインを入力し、`add domain` をクリックします。
+
+![Duck DNS ドメインの追加](/images/common/portable/remote-access/ddns/image-20260814174542622.png)
+
+5. `Token` を保存します。PocketCloud DDNS の設定で使用します。
+
+## NAS で DDNS を設定する
+
+1. `Device` > `Remote Access` > `DDNS` を開き、右上の `Add` または中央の `Add Configuration` をクリックします。
+
+![DDNS 設定の追加](/images/common/portable/remote-access/ddns/image-20260817093613450.png)
+
+2. 利用するドメインサービスプロバイダーを選択し、プロバイダーの指定に従ってドメインと認証情報を入力します。
+3. `Test` をクリックします。接続状態が `Normal` になったら、`Confirm` をクリックして保存します。NAS は IP アドレスが変更されると、ドメインレコードを自動的に更新します。
+
+![DDNS 設定のテストと保存](/images/common/portable/remote-access/ddns/image-20260817094239125.png)
+
+## ルーターのポート転送を設定する
+
+1. **ルーターの管理画面にログインする**
+
+   ブラウザーで `192.168.1.1` や `192.168.0.1` などのルーター IP アドレスを開き、ログインします。
+
+2. **固定 IP アドレスを設定する**
+
+   ルーターの LAN 設定を開き、DHCP 固定 IP 割り当てを探します。
+
+   - NAS の MAC アドレスを固定 IP アドレスに関連付けます。
+   - 接続中の NAS を選択し、`Apply` をクリックして保存します。
+
+   > **注意：** ポート転送の場所はルーターのメーカーによって異なります。メーカーの説明書を参照し、外部ポートが他の設定と競合しないことを確認してください。
+
+3. **ポート転送ルールを追加する**
+
+   `Advanced Settings` > `Port Forwarding`（または `Port Mapping`）を開き、`Add` をクリックしてルールを作成します。
+
+4. **設定を保存する**
+
+   設定を確認してルールを保存します。
+
+5. **アクセスを確認する**
+
+   外部ネットワークから `ドメイン名:ポート番号` の形式でアクセスし、サービスに接続できることを確認します。
+
+## ドメイン名で NAS にアクセスする
+
+ルーターでポート転送を設定し、DDNS の設定が完了したら、外部ネットワーク（会社のネットワークやモバイルデータ通信など）から PocketCloud システムにリモートログインする場合は、次の方法をご利用ください。
+
+デバイスのログイン画面で、`ドメイン名:ルーターの転送ポート` を入力してアクセスします。
+
+![image-20260817172227254](/images/common/portable/remote-access/ddns/image-20260817172227254.png)
+
+> **注意：** 以下のログイン方法は、PocketCloud PC クライアント、Web ブラウザー、アプリのすべてに適用されます。
+
+## ドメイン名でアクセスできない場合のトラブルシューティング
+
+DDNS 設定後も外部ネットワークからサービスにアクセスできない場合は、次のよくある原因を確認してください。
+
+### 1. ルーターのポートマッピングが原因
+
+ルーターのポート転送ルールで、外部ポートが NAS の `9500` ポートに転送されていることを確認します。接続時は、ルーターで公開したポートを入力してください。
+
+### 2. クライアントがグローバル IP を取得できない
+
+通信事業者からプライベート IP（例：`10.10.x.x`）が割り当てられている可能性があります。
+
+自宅のルーターにログインして WAN IPv4 アドレスを確認し、[What Is My IP Address](https://whatismyipaddress.com/) で表示される IP と比較します。一致しない場合は、通信事業者にお問い合わせください。
+
+### 3. DNS で正しい IP アドレスに解決されない
+
+ドメイン名が正しい IP アドレスに解決されない場合、**DNS キャッシュが更新されていない**、または **DNS 解決に異常がある**可能性があります。
+
+**1. DNS キャッシュが更新されていない**
+
+- **現象**
+
+  DNS レコードを変更した後、一部のデバイスやネットワークからアクセスできない、または変更前の IP に解決されますが、他のデバイスでは正常にアクセスできます。
+
+- **原因**
+
+  DNS レコードの変更は、すべての DNS サーバーにすぐ反映されるわけではありません。DNS の **TTL（Time to Live）キャッシュ**により、PC、ルーター、通信事業者の DNS サーバーが以前の結果を保持している場合があります。
+
+- **対処方法**
+
+  1. ローカル DNS キャッシュを消去し、もう一度ドメイン名を解決します。
+  2. DNS サーバーを変更して、正しい IP アドレスを取得できるか確認します。
+
+> **注意：** DNS キャッシュの更新時間はレコードの TTL によって異なります。変更後、ネットワークによっては反映まで時間がかかる場合があります。
+
+**2. DNS 解決の異常または DNS 汚染**
+
+- **現象**
+
+  DNS クエリで、ドメインに設定した IP アドレスとは異なる IP が返されます。
+
+  たとえば、端末で次のコマンドを実行します。
+
+  ```text
+  ping www.example.com
+  ```
+
+  返された IP が正しくない場合は、現在のネットワークの DNS 解決結果を確認してください。[DNS Checker](https://dnschecker.org/) で国や地域ごとの結果を比較することもできます。
+
+- **対処方法**
+
+  1. クライアントデバイスの DNS サーバーを変更します。例：Google Public DNS
+     - `8.8.8.8`
+     - `8.8.4.4`
+     - `dns.google`
+  2. 別の信頼できる DNS サービスに変更し、もう一度ドメイン名を解決します。
+
+> **注意：** 一部のネットワークや地域だけで異常が発生する場合は、複数の地域や DNS サービスでテストし、特定の DNS サービスまたはネットワークが原因かどうかを確認してください。

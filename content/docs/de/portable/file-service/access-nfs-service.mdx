@@ -1,0 +1,123 @@
+---
+sourceHash: c193e43ee283
+title: "Wie greift man über NFS auf die Dateien in PocketCloud zu?"
+---
+
+NFS (Network File System) ist ein effizienter Netzwerkdateifreigabeprotokoll, das weit verbreitet für Dateifreigabe, Datensicherung und -wiederherstellung sowie für Multimedia-Speicherung und -Zugriff verwendet wird. PocketCloud bietet bequeme, sichere und leistungsstarke NFS-Dienste und unterstützt flexible Konfigurationen, um unterschiedliche Benutzeranforderungen zu erfüllen.
+
+---
+
+**Hauptsächlich folgende Funktionen:**
+
+1. Dateifreigabe: NFS ermöglicht es Benutzern, Dateien und Verzeichnisse über das Netzwerk zu teilen, sodass mehrere Benutzer und Systeme auf dasselbe Dateisystem zugreifen können.
+2. Multimedia-Speicherung: NFS kann zum Speichern und Zugreifen auf Multimedia-Dateien wie Audio, Video und Bilder verwendet werden.
+3. Plattformübergreifende Kompatibilität: NFS unterstützt mehrere Betriebssysteme, wie Linux, Windows und macOS, und kann plattformübergreifende Dateifreigabe ermöglichen.
+4. Hohe Leistung: Für mittelgroße oder kleine Dateien bietet NFS hervorragende Leistung, insbesondere bei sequentiellem Lesen.
+
+---
+
+## NFS aktivieren
+
+NFS ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte folgen Sie den folgenden Schritten:
+
+1. Öffnen Sie die **Dateifreigabeprotokoll**-Seite von App. <br />
+2. Klicken Sie auf **NFS Service**. <br />
+3. Schalten Sie den **Schalter** ein, um den **NFS-Dienst** zu aktivieren. <br />
+<img src="/images/common/portable/file-service/access-nfs-service/2-1.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-2.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-3.png" width="230" height="500" />
+
+---
+
+## Zugriff auf Windows
+
+>⚠️ **Windows Home Edition** unterstützt standardmäßig die **NFS** Funktion nicht. Bitte aktualisieren Sie auf die **Windows Professional Edition** oder **Windows Enterprise Edition**, bevor Sie fortfahren.
+
+> **Windows** Der Zugriff auf den **NFS**-Dienst erfordert einige Einstellungen. Bitte folgen Sie den folgenden Schritten:
+
+1. Öffnen Sie die **Systemsteuerung**
+2. Klicken Sie auf **Programme**
+<img src="/images/common/portable/file-service/access-nfs-service/3-1.png" width="100%" height="100%" />
+
+3. Klicken Sie auf **Windows-Funktion aktivieren oder deaktivieren**
+<img src="/images/common/portable/file-service/access-nfs-service/3-2.png" width="100%" height="100%" />
+
+4. Wählen Sie alle Optionen des **NFS-Dienstes** aus und klicken Sie auf **OK**
+<img src="/images/common/portable/file-service/access-nfs-service/3-3.png" width="100%" height="100%" />
+
+5. Kehre zum Desktop zurück und drücke die Tastenkombination **Win   R**
+6. Geben Sie **regedit** ein und klicken Sie auf **OK**
+<img src="/images/common/portable/file-service/access-nfs-service/4-2.png" width="100%" height="100%" />
+
+7. Gehe zu **HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default**
+8. Rechtsklicken Sie auf einen leeren Bereich, klicken Sie auf Neu und wählen Sie **DWORD-Wert (32-Bit) (D)**
+<img src="/images/common/portable/file-service/access-nfs-service/4-4.png" width="100%" height="100%" />
+
+9. Erstellen Sie **AnonymousGid** und **AnonymousUid**
+<img src="/images/common/portable/file-service/access-nfs-service/4-5.png" width="100%" height="100%" />
+
+10. Klicken Sie anschließend mit der rechten Maustaste darauf und wählen Sie **Bearbeiten**
+<img src="/images/common/portable/file-service/access-nfs-service/4-6.png" width="100%" height="100%" />
+
+11. Ändern Sie die **numerischen Daten** jeweils auf **251c** und klicken Sie auf **OK**<br />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-1.png" width="45%" height="100%" />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-2.png" width="45%" height="100%" />
+
+12. Nachdem die folgende Seite angezeigt wird, **den Computer neu starten**
+<img src="/images/common/portable/file-service/access-nfs-service/4-8.png" width="100%" height="100%" />
+
+---
+> Nachdem die obigen Schritte ausgeführt wurden, kann Windows auf den **NFS**-Dienst zugreifen. Die Schritte sind wie folgt:
+
+1. Öffnen Sie den **Datei-Explorer**
+2. Rechtsklicken Sie auf **Netzwerk** und wählen Sie **Netzlaufwerk verbinden**
+<img src="/images/common/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+
+3. Geben Sie im Popup-Fenster die Adresse des Dienstes **NFS** ein: **\NASGerätIP\mnt\nfs\storage**, und klicken Sie auf **Fertigstellen**
+<img src="/images/common/portable/file-service/access-nfs-service/5-2.png" width="100%" height="100%" />
+
+4. Geben Sie **Benutzername** und **Passwort** ein und klicken Sie auf **OK**
+<img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+
+5. Jetzt kannst du die Dateien auf **NAS** durchsuchen und verwalten, als würdest du auf lokale Ordner zugreifen
+<img src="/images/common/portable/file-service/access-nfs-service/5-4.png" width="100%" height="100%" />
+
+---
+
+## Zugriff auf macOS
+
+1. Klicken Sie mit der rechten Maustaste auf **Finder** und wählen Sie in der Menüleiste **Mit Server verbinden...**
+<img src="/images/common/portable/file-service/access-nfs-service/6-1.png" height="20%" />
+
+2. Geben Sie in der Adressleiste des Servers ein: **nfs://NASGerätIP/mnt/nfs/storage**, und klicken Sie dann auf **Verbinden**
+<img src="/images/common/portable/file-service/access-nfs-service/6-2.png" width="100%" height="100%" />
+
+3. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **Verbinden**
+<img src="/images/common/portable/file-service/access-nfs-service/6-3.png" width="100%" height="100%" />
+
+4. Jetzt kannst du in Finder auf die Dateien auf **NAS** zugreifen und sie verwalten, als würdest du auf lokale Ordner zugreifen
+<img src="/images/common/portable/file-service/access-nfs-service/6-4.png" width="100%" height="100%" />
+
+---
+
+## Zugriff über andere Clients
+
+- Verbindungsinformationen
+    - IP: NAS-Geräte-IP
+    - Port: Nicht erforderlich
+    - Konto: Nicht erforderlich
+    - Passwort: Nicht erforderlich
+- Beschreibung des Mount-Verzeichnisses
+    - Haupt-SSD: `/mnt/nfs/storage/Anmeldebenutzername`
+      - Beispiel 1: Alle Verzeichnisse. Wenn der aktuelle Benutzer test ist, lautet das Mount-Verzeichnis `/mnt/nfs/storage/test`
+      - Beispiel 2: Angegebenes Verzeichnis. Wenn der aktuelle Benutzer test ist, lautet das Mount-Verzeichnis `/mnt/nfs/storage/test/Pictures`
+      - Weitere: Mehrere Benutzer werden nicht unterstützt, nur der Administratorbenutzer wird unterstützt
+    - Externer Speicher: `/mnt/nfs/storage/Name_des_externen_Speichers`
+      - Beispiel 1: Alle Verzeichnisse. Wenn die externe SD-Karte SD 60GB BA26 heißt, lautet das Mount-Verzeichnis `/mnt/nfs/storage/SD_60GB_BA26`
+      - Beispiel 2: Angegebenes Verzeichnis. Wenn die externe SD-Karte SD 60GB BA26 heißt, lautet das Mount-Verzeichnis `/mnt/nfs/storage/SD_60GB_BA26/Pictures`
+    - Alle Verzeichnisse: `/mnt/nfs/storage`
+
+## Weitere Fragen
+
+* Frage: Warum wird beim Zugriff von Windows auf den Dienst NFS der Dateiname als unleserlich angezeigt?
+* Antwort: Bitte beachten Sie [Windows Zugriff auf NFS Festplatte chinesische Zeichenchaos Problem](/de-DE/pocketcloud/file-service/windows-nfs-garbled-code)

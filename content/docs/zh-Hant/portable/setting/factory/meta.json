@@ -1,0 +1,7 @@
+{
+  "title": "恢復出廠設置",
+  "pages": [
+    "index",
+    "force_factory_reset"
+  ]
+}

@@ -1,0 +1,69 @@
+---
+sourceHash: 09f09be07cd6
+title: "FTP를 통해 PocketCloud의 파일에 어떻게 접근합니까?"
+---
+
+FTP(파일 전송 프로토콜)는 장치와 서버 간에 파일을 전송하는 데 사용할 수 있는 일반적인 네트워크 파일 전송 프로토콜입니다.
+FTP를 통해 사용자는 PocketCloud에 원격으로 연결하여 파일을 탐색하고, 업로드하며, 다운로드하고 관리할 수 있습니다.
+
+**주요 기능은 다음과 같습니다:**
+1. 파일 업로드 및 다운로드: 로컬 장치와 PocketCloud 간에 파일을 전송합니다.
+2. 원격 파일 관리: PocketCloud에서 파일이나 폴더를 생성, 이름 변경, 이동 및 삭제할 수 있습니다.
+3. 사용자 인증 접근: 계정과 비밀번호를 통해 접근을 통제하여 보안을 강화합니다.
+4. 크로스 플랫폼 접근: Windows 및 macOS 클라이언트를 통해 FTP를 지원하여 연결할 수 있습니다.
+
+## FTP 활성화
+
+FTP 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. 다음 단계를 따라 주세요:
+1. App의 **파일 공유 프로토콜** 페이지를 엽니다. <br />
+2. **FTP 서비스**를 클릭합니다. <br />
+3. **스위치 버튼**을 켜면 **FTP 서비스**를 사용할 수 있습니다. <br />
+
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-ftp-service/1-2.jpg" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-ftp-service/1-3.jpg" width="240" height="500" />
+
+---
+
+## Windows에서 방문
+
+1. **Win + E**를 눌러 **파일 탐색기**를 엽니다.
+2. 주소 창에 `ftp://NAS设备IP:21` 또는 `ftps://NAS_IP_Address:21`를 입력한 다음 **Enter**를 누릅니다.
+<img src="/images/common/portable/file-service/access-ftp-service/3-1.png" width="100%" height="100%" />
+3. 로그인 화면에서 **사용자 이름**과 **비밀번호**를 입력한 후 **로그인**을 클릭합니다.
+<img src="/images/common/portable/file-service/access-ftp-service/3-2.png" width="100%" height="100%" />
+4. 이제 파일 탐색기에서 PocketCloud 파일을 탐색하고 관리할 수 있습니다.
+<img src="/images/common/portable/file-service/access-ftp-service/3-3.png" width="100%" height="100%" />
+
+---
+
+## macOS에서 방문
+
+1. 마우스 오른쪽 버튼으로 **파인더(Finder)**를 클릭하고, **서버에 연결**을 선택합니다.
+<img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. `ftp://NAS设备IP:21` 또는 `ftps://NAS_IP_Address:21`를 입력한 다음 **연결**을 클릭합니다.
+<img src="/images/common/portable/file-service/access-ftp-service/4-1.png" width="100%" height="100%" />
+3. **이름**과 **비밀번호**를 입력한 후, **연결**을 클릭합니다.
+<img src="/images/common/portable/file-service/access-ftp-service/4-2.png" width="100%" height="100%" />
+4. 이제 Finder에서 PocketCloud 파일에 접근할 수 있습니다.
+<img src="/images/common/portable/file-service/access-ftp-service/4-3.png" width="100%" height="100%" />
+
+---
+
+## 기타 클라이언트에서 접근
+- 연결 정보
+    - IP: NAS 장치 IP
+    - 포트: 기본값은 21
+    - 계정: NAS 장치 로그인 사용자 이름
+    - 비밀번호: NAS 장치 로그인 비밀번호
+- 마운트 디렉터리 설명
+    - 메인 SSD: `/로그인 사용자 이름`
+      - 예 1: 모든 디렉터리. 현재 사용자가 test인 경우 마운트 디렉터리는 `/test`
+      - 예 2: 지정 디렉터리. 현재 사용자가 test인 경우 마운트 디렉터리는 `/test/Pictures`
+      - 기타: 다중 사용자를 지원하며 각 사용자는 하나의 마운트 디렉터리에 대응합니다
+    - 외부 저장소: `/외부 저장소 이름`
+      - 예 1: 모든 디렉터리. 외부 SD 카드 이름이 SD 60GB BA26인 경우 마운트 디렉터리는 `/SD_60GB_BA26`
+      - 예 2: 지정 디렉터리. 외부 SD 카드 이름이 SD 60GB BA26인 경우 마운트 디렉터리는 `/SD_60GB_BA26/Pictures`
+    - ⚠️ 주의:
+      - 일부 클라이언트는 루트 디렉터리 `/` 만 입력할 수 없으므로 위의 해당 구체적인 마운트 디렉터리를 지정해야 합니다
+      - 펌웨어 &lt;= 3.1.0.16에서 최신 펌웨어로 업그레이드한 후에는 마운트 디렉터리가 조정됩니다. 새 버전의 마운트 방식을 기준으로 사용하세요

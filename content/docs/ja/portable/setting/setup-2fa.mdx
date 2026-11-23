@@ -1,0 +1,66 @@
+---
+sourceHash: 8324211aacc1
+title: "アカウントの二要素認証（2FA）を有効にする"
+---
+
+アカウント二段階認証（2FA）は、より安全なログイン方法です。パスワードを入力するだけでなく、動的認証コード（OTP）も提供する必要があり、二段階で本人確認を行い、アカウントの安全性を向上させます。
+
+> 注意：
+> * TOTP プロトコルをサポートする認証器 APP（例：[Microsoft Authenticator](https://www.microsoft.com/security/mobile-authenticator-app)）を使用する必要があります；
+> * スマートフォンを紛失した場合に緊急確認コードを受け取るため、事前に安全なメールアドレスを設定することをお勧めします。
+
+## 準備作業
+1. システム時刻の正確性を確認する:
+システム時間の誤差を確認して修正してください。もし携帯電話とシステムの時間が一致していない場合、時間に基づく動的認証コードの検証が失敗する可能性があります。システム時間を常に正確に保ちたい場合は、システム時間を自動同期に設定することをお勧めします。
+
+<img src="/images/common/portable/setting/setup-2fa/1-1-1.png" width="30%" />
+
+2. メール通知サービスを開始する
+[开启邮件通知服务](/portable/pocketcloud/setup-smtp)、システムがメールを送信できる権限。これにより、システムはパスワードリセットや二段階認証の緊急コードなどのメールをユーザーが設定した安全なメールアドレスに送信できる。
+
+3. 強制二段階認証を有効にする
+すべてのユーザーおよび一部のユーザーの設定をサポートし、アカウントのセキュリティを向上させる必要があるユーザーの範囲を明確にし、彼らに対して強制的な二段階認証を有効にします。
+<img src="/images/common/portable/setting/setup-2fa/1-3-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-3.png" width="30%" />
+
+## ユーザー設定の手順
+**個人設定** ページに移動して、セキュリティメールを設定し、二段階認証を有効にします
+
+### 安全なメールを設定する
+携帯電話や鍵の紛失によるアカウントにログインできなくなるリスクを避けるために、まず安全なメールアドレスを設定してください
+
+<img src="/images/common/portable/setting/setup-2fa/2-1-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-1-2.png" width="30%" />
+
+### 二段階認証を有効にする
+1. 有効化ボタンをクリックし、ユーザーのログインアカウントを入力します；
+2. キーをコピーし、「Microsoft Authenticator」などのTOTPプロトコル対応の認証器APPを使用して、指示に従いkeyのバインディングを完了する；
+3。認証ボックスに認証器 APP に表示される動的認証コードを入力して、設定を完了します。
+
+<img src="/images/common/portable/setting/setup-2fa/2-2-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-3.png" width="30%" />
+
+## ログイン手順
+
+二段階認証を有効にすると、ログイン時に二段階認証を完了する必要があります：
+
+1. アカウントとパスワードを入力する；
+2. 身分認証アプリ APP に表示される動的検証コードを入力して、ログインします。
+> 注意：
+> * 動的验证码入力画面で**このデバイスを信頼する**にチェックを入れることができます。チェックを入れると、今後このデバイスでログインする際に再度验证码を入力する必要がなくなります。
+> * 動的な認証コードを取得できない場合、認証画面で**取得できない**をクリックすると、システムは安全なメールアドレスに一度限り使用可能な緊急認証コードを送信します。入力するとログインが完了します。
+
+<img src="/images/common/portable/setting/setup-2fa/2-3-1.png" width="30%" />
+
+## 認証器ガイド
+
+TOTPプロトコル（時間ベースのワンタイムパスワード）をサポートする認証器APPの使用が可能です。アカウントとキーを手動で入力するか、QRコードスキャンでWeb/PCクライアントに入力することをサポートします。
+
+### Microsoft Authenticator
+
+<img src="/images/common/portable/setting/setup-2fa/3-1-1.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-2.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-3.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-4.png" width="20%" />

@@ -1,0 +1,44 @@
+---
+title: "SD 卡备份"
+---
+
+PocketCloud 内置 SD 卡槽，支持 SD 卡数据备份功能，具体说明与操作步骤如下：
+
+- SD 卡数据默认备份至路径 **“My Backup/Backup From xxx”**（“xxx” 为 SD 卡识别名称）。
+- 备份操作支持两种方式：通过设备小屏幕快速备份，或通过客户端进行完整参数设置后备份。
+
+> 注意：  
+> 若已通过客户端修改过 SD 卡备份的默认配置（如调整备份来源、备份目的地等），后续通过小屏幕执行备份或客户端快速备份时，将自动沿用修改后的新配置，无需重复设置。
+
+## 通过客户端备份
+客户端提供“快速备份”与“高级备份”两种模式，可根据需求选择：
+
+### 方式1：快速备份（一键启动，无需配置）
+1. 打开客户端，进入 **首页 > 我的设备** 页面；
+2. 在设备列表中找到已插入的 SD 卡，点击对应“备份”按钮，即可启动快速备份。
+
+<img src="/images/common/portable/backup/sd-backup/1-1.jpg" width="30%" />
+<img src="/images/common/portable/backup/sd-backup/1-2.jpg" width="30%" /> 
+
+### 方式2：高级备份（自定义参数，灵活配置）
+1. 打开客户端，进入 **首页 > 我的设备** 页面；
+2. 点击已识别的 SD 卡，进入“SD 卡备份设置”界面；
+3. 根据需求调整以下备份参数，设置完成后启动备份：
+   - **备份来源**：支持“全盘备份”（默认）或“指定目录备份”，可按需选择需备份的文件路径；
+   - **备份目的地**：支持自定义备份文件的存储目录；
+   - **备份方式**：提供“手动备份”（默认）、“定时备份”、“插入时自动备份”；
+   - **文件过滤**：支持按文件大小筛选备份文件。
+
+<img src="/images/common/portable/backup/sd-backup/2-1.jpg" width="30%" />
+<img src="/images/common/portable/backup/sd-backup/2-2.jpg" width="30%" />
+<img src="/images/common/portable/backup/sd-backup/2-3.jpg" width="30%" />
+<img src="/images/common/portable/backup/sd-backup/2-4.jpg" width="30%" />
+<img src="/images/common/portable/backup/sd-backup/2-5.jpg" width="30%" />
+
+## 通过小屏幕备份（快速操作，适配无客户端场景）
+1. 插入 SD 卡到 Pocketcloud SD 卡槽。
+2. 小屏幕会弹出检测到 SD 卡插入界面。  
+![](/images/common/portable/backup/sd-backup/sd-card-has-been-inserted.png)
+3. 旋钮选中**Backup**后，单击旋钮开始备份。
+4. 备份完成之后，设备会“哔”两声，小屏幕显示备份成功。  
+![](/images/common/portable/backup/sd-backup/sd-card-backup-finish.png)

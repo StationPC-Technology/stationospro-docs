@@ -1,0 +1,43 @@
+---
+sourceHash: 126fc7114b5d
+title: "Wie greift man über die Weboberfläche auf das Gerät zu?"
+---
+
+Die Web-Client (Beta) ermöglicht es Ihnen, Geräte direkt über den Browser zuzugreifen und zu verwalten, ohne Desktop- oder Mobilanwendungen installieren zu müssen. Es unterstützt zwei Zugriffsarten: **LAN-Zugriff** und **Remote-Zugriff**, um die Anforderungen verschiedener Nutzungsszenarien zu erfüllen.
+
+## Voraussetzungen
+1. Stellen Sie sicher, dass das Gerät eingeschaltet ist und mit dem Netzwerk verbunden ist.
+2. Für den Fernzugriff aktivieren Sie bitte zuerst in der Client-Anwendung die Funktion [Fernzugriff aktivieren](/portable/pocketcloud/remote-access) und vervollständigen Sie die Station ID-Einstellungen.
+
+## Zugangsart
+### Methode 1: Zugriff über das lokale Netzwerk
+Geeignet für Szenarien, in denen Computer und Geräte im gleichen lokalen Netzwerk (gleiche WiFi / kabelgebundene Netzwerke) sind, mit schnellerem Zugriff und höherer Stabilität.
+
+Schritte zur Durchführung:
+1. Die LAN-Adresse IP des Geräts abrufen: Sie können sie über den eingebauten Bildschirm des Geräts anzeigen oder auf der Seite **Geräteinformationen** in der Client-Anwendung einsehen.
+2. Öffnen Sie den Browser und geben Sie in der Adressleiste eine Adresse im Format `http://设备IP:9500` ein.
+3. Geben Sie auf der Anmeldeseite Benutzername und Passwort ein, um auf die Webverwaltungsoberfläche zuzugreifen.
+
+> Beispiel: Wenn das Gerät IP zu `192.168.3.10` wird, geben Sie `http://192.168.3.10:9500` in die Adressleiste ein.
+
+### Methode 2: Fernzugriff
+Geeignet für Dienstreisen, Arbeit außerhalb des Büros und andere externe Netzwerkszenarien. Sie können auf Geräte zu Hause oder im Büro über das offizielle Remote-Access-Portal zugreifen.
+
+Schritte zur Durchführung:
+1. Aktivieren Sie die Fernzugriffs-Funktion.
+2. Öffnen Sie den Browser und geben Sie die offizielle Fernzugriffsadresse ein: `https://login.stationpc.com/`
+3. Geben Sie auf der Anmeldeseite Ihre Station ID, Ihren Benutzernamen und Ihr Passwort ein. Nach erfolgreicher Überprüfung können Sie auf das Gerät zugreifen.
+
+## Unterstützte Browser
+Um die vollständige Funktionalität und das beste Nutzungserlebnis zu gewährleisten, wird empfohlen, den Webclient mit den folgenden Browsern (oder höheren Versionen) zu verwenden:
+1. Chrome Version 50 und höher
+2. Microsoft Edge Version 78 und höher
+3. QQ Browser Schnellversion, 360 Browser Schnellversion
+4. Firefox Version 54 und höher
+5. Safari Version 10 und höher (Mac)
+
+## Hinweise
+1. Der Web-Client befindet sich derzeit in der Beta-Testphase, einige Funktionen sind möglicherweise vorübergehend nicht verfügbar. Es wird empfohlen, ihn zusammen mit der Client-Anwendung zu verwenden, um den vollen Funktionsumfang zu erhalten.
+2. Beim Zugriff über das lokale Netzwerk stellen Sie bitte sicher, dass der Computer und das Gerät mit demselben Netzwerk verbunden sind, andernfalls ist der Zugriff über die Adresse IP nicht möglich.
+3. Stellen Sie beim Fernzugriff sicher, dass das Gerät mit dem Internet verbunden ist, sonst ist keine Verbindung über das Remote-Portal möglich.
+4. Wenn die Seite abnormal geladen wird, versuchen Sie, auf den empfohlenen Browser zu wechseln, oder löschen Sie den Browser-Cache und versuchen Sie es erneut.

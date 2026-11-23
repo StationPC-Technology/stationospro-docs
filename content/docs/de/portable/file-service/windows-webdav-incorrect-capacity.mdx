@@ -1,0 +1,8 @@
+---
+sourceHash: f527eea48714
+title: "Beim Zugriff auf den WebDAV-Dienst über Windows wird nach dem Einhängen die Kapazität abnormal angezeigt"
+---
+
+Das Problem entsteht, weil die mitgelieferte WebClient-Komponente von Windows die tatsächliche Speicherkapazität des WebDAV-Servers nicht abrufen kann. Beim Einbinden des WebDAV-Netzlaufwerks liest das System standardmäßig die Kapazitätsinformationen der lokalen Systemfestplatte (C-Laufwerk) aus und zeigt sie im zugeordneten Laufwerksbuchstaben an, da das System die Daten für das entfernte Speicherplatzkontingent nicht abrufen kann. Dies führt letztlich zu einer falschen Anzeige der Festplattenkapazität.
+
+Wenn Sie das Problem der Kapazitätsanzeige lösen müssen, wird empfohlen, Drittanbieter-Tools wie RaiDrive, CloudMounter usw. zu verwenden.

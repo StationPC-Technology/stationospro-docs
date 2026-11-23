@@ -1,0 +1,192 @@
+---
+sourceHash: b4a5dab8e386
+title: "DDNS verwenden"
+---
+
+Wenn Sie von einem externen Netzwerk, beispielsweise im Büro, auf Reisen oder über ein Mobilfunknetz, direkt und ohne Relay-Bandbreitenbegrenzung auf Ihr NAS zu Hause zugreifen möchten, können Sie dafür eine DDNS-Konfiguration mit einer Portweiterleitung am Router verwenden.
+
+## Prüfen, ob eine öffentliche IP-Adresse vorhanden ist
+
+1. Melden Sie sich an der Verwaltungsoberfläche Ihres Routers an und suchen Sie die WAN-IP-Adresse.
+2. Prüfen Sie beim Erstellen der DDNS-Konfiguration, ob die automatisch erkannte IP-Adresse mit der WAN-IP-Adresse des Routers übereinstimmt.
+
+## Authentifizierungsinformationen von Drittanbietern abrufen
+
+### 1. Cloudflare
+
+1. Melden Sie sich bei [Cloudflare](https://dash.cloudflare.com/) an, wählen Sie links `Domains` > `Registrations` und erwerben Sie eine Domain.
+
+![Domain bei Cloudflare registrieren](/images/common/portable/remote-access/ddns/image-20260817091122396.png)
+
+2. Öffnen Sie [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens).
+3. Klicken Sie auf `Create Token`.
+
+![Cloudflare API Token erstellen](/images/common/portable/remote-access/ddns/image-20260817091856430.png)
+
+4. Wählen Sie `Edit zone DNS`.
+
+![Edit zone DNS auswählen](/images/common/portable/remote-access/ddns/image-20260817092033969.png)
+
+5. Wählen Sie unter `Zone Resources` die erworbene Domain aus und klicken Sie auf `Continue to summary`.
+
+![Cloudflare-Zone auswählen](/images/common/portable/remote-access/ddns/image-20260817092336158.png)
+
+6. Klicken Sie auf `Create Token`.
+
+![Token erstellen](/images/common/portable/remote-access/ddns/image-20260817092454271.png)
+
+7. Kopieren Sie den **API Token**. Sie benötigen ihn für die DDNS-Konfiguration des NAS.
+
+![API Token kopieren](/images/common/portable/remote-access/ddns/image-20260817092814598.png)
+
+### 2. FreeDNS
+
+Unter [freedns.afraid.org](https://freedns.afraid.org/) können Sie eine kostenlose Domain erhalten.
+
+1. Klicken Sie auf `Subdomains`.
+
+![Subdomains öffnen](/images/common/portable/remote-access/ddns/image-20260814165825310.png)
+
+2. Melden Sie sich mit Ihren Kontodaten an. Falls Sie noch kein Konto besitzen, klicken Sie zuerst auf `Sign up Free`.
+
+![Bei FreeDNS anmelden](/images/common/portable/remote-access/ddns/image-20260814165908860.png)
+
+3. Geben Sie die erforderlichen Informationen ein und klicken Sie auf `Save`.
+
+![FreeDNS-Subdomain erstellen](/images/common/portable/remote-access/ddns/image-20260818095014297.png)
+
+- **Type**: Wählen Sie `A` für einen IPv4-Eintrag.
+- **Subdomain**: Geben Sie eine gewünschte Subdomain ein.
+- **Domain**: Wählen Sie eine übergeordnete Domain aus.
+
+4. Klicken Sie auf `Dynamic DNS` > `quick cron example`.
+
+![quick cron example öffnen](/images/common/portable/remote-access/ddns/image-20260818095206426.png)
+
+5. Speichern Sie den im Bild markierten Schlüssel. Verwenden Sie den Wert nach dem `?`, jedoch ohne das `?`. Dieser Schlüssel wird für die PocketCloud-DDNS-Konfiguration benötigt.
+
+![FreeDNS-Schlüssel kopieren](/images/common/portable/remote-access/ddns/image-20260814171842858.png)
+
+### 3. Duck DNS
+
+1. Öffnen Sie [Duck DNS](https://www.duckdns.org/).
+2. Wählen Sie eine Anmeldemethode und melden Sie sich an.
+
+![Bei Duck DNS anmelden](/images/common/portable/remote-access/ddns/image-20260814173457409.png)
+
+3. Schließen Sie `reCaptcha` ab, um eine Domain zu registrieren.
+
+![reCaptcha abschließen](/images/common/portable/remote-access/ddns/image-20260814173644397.png)
+
+4. Geben Sie unter `domains` eine Subdomain ein und klicken Sie auf `add domain`.
+
+![Duck-DNS-Domain hinzufügen](/images/common/portable/remote-access/ddns/image-20260814174542622.png)
+
+5. Speichern Sie den `Token`. Sie benötigen ihn später für die PocketCloud-DDNS-Konfiguration.
+
+## DDNS auf dem NAS konfigurieren
+
+1. Öffnen Sie `Device` > `Remote Access` > `DDNS` und klicken Sie oben rechts auf `Add` oder in der Mitte auf `Add Configuration`.
+
+![DDNS-Konfiguration hinzufügen](/images/common/portable/remote-access/ddns/image-20260817093613450.png)
+
+2. Wählen Sie Ihren Domainanbieter und geben Sie die Domain- und Authentifizierungsinformationen gemäß dessen Vorgaben ein.
+3. Klicken Sie auf `Test`. Sobald der Verbindungsstatus `Normal` lautet, klicken Sie auf `Confirm`, um die Konfiguration zu speichern. Das NAS aktualisiert den Domain-Eintrag automatisch, wenn sich seine IP-Adresse ändert.
+
+![DDNS-Konfiguration testen und speichern](/images/common/portable/remote-access/ddns/image-20260817094239125.png)
+
+## Portweiterleitung am Router einrichten
+
+1. **An der Router-Verwaltung anmelden**
+
+   Geben Sie die IP-Adresse des Routers, beispielsweise `192.168.1.1` oder `192.168.0.1`, in einen Browser ein und melden Sie sich an.
+
+2. **Statische IP-Adresse konfigurieren**
+
+   Öffnen Sie die LAN-Einstellungen des Routers und suchen Sie die statische DHCP-IP-Zuweisung.
+
+   - Verknüpfen Sie die MAC-Adresse des NAS mit einer statischen IP-Adresse.
+   - Wählen Sie das verbundene NAS aus und klicken Sie zum Speichern auf `Apply`.
+
+   > **Hinweis:** Die Position der Portweiterleitungs-Einstellungen unterscheidet sich je nach Routerhersteller. Beachten Sie die Dokumentation des Herstellers und stellen Sie sicher, dass der externe Port nicht mit einer anderen Konfiguration kollidiert.
+
+3. **Portweiterleitungsregel hinzufügen**
+
+   Öffnen Sie `Advanced Settings` > `Port Forwarding` beziehungsweise `Port Mapping` und klicken Sie auf `Add`, um eine Regel zu erstellen.
+
+4. **Einstellungen speichern**
+
+   Prüfen Sie die Einstellungen und speichern Sie die Regel.
+
+5. **Zugriff prüfen**
+
+   Greifen Sie aus einem externen Netzwerk im Format `Domain:Port` auf den Dienst zu und prüfen Sie, ob die Verbindung hergestellt wird.
+
+## Mit einem Domainnamen auf NAS zugreifen
+
+Nachdem die Portweiterleitung am Router eingerichtet und DDNS erfolgreich konfiguriert wurde, können Sie wie folgt remote auf PocketCloud zugreifen, wenn Sie sich aus einem externen Netzwerk (z. B. Firmennetzwerk oder mobiles Datennetz) anmelden möchten.
+
+Geben Sie auf dem Anmeldebildschirm des Geräts `Domain:weitergeleiteter Router-Port` ein, um auf das Gerät zuzugreifen.
+
+![image-20260817172227254](/images/common/portable/remote-access/ddns/image-20260817172227254.png)
+
+> **Hinweis:** Die folgenden Anmeldeverfahren gelten für den PocketCloud-PC-Client, den Webbrowser und die App.
+
+## Fehlerbehebung beim Domainzugriff
+
+Wenn der Dienst nach der DDNS-Konfiguration nicht aus einem externen Netzwerk erreichbar ist, prüfen Sie die folgenden häufigen Ursachen.
+
+### 1. Fehlerhafte Portzuordnung am Router
+
+Stellen Sie sicher, dass die Portweiterleitungsregel des Routers den externen Port auf Port `9500` des NAS weiterleitet. Verwenden Sie beim Verbindungsaufbau den am Router freigegebenen externen Port.
+
+### 2. Der Client erhält keine öffentliche IP-Adresse
+
+Möglicherweise hat Ihr Internetanbieter eine private IP-Adresse, beispielsweise `10.10.x.x`, zugewiesen.
+
+Melden Sie sich am Router an und suchen Sie die WAN-IPv4-Adresse. Vergleichen Sie diese mit der unter [What Is My IP Address](https://whatismyipaddress.com/) angezeigten IP-Adresse. Wenn sie nicht übereinstimmen, wenden Sie sich an Ihren Internetanbieter.
+
+### 3. DNS-Auflösung liefert nicht die korrekte IP-Adresse
+
+Wenn die Domain nicht zur richtigen IP-Adresse aufgelöst wird, kann ein veralteter **DNS-Cache** oder eine fehlerhafte **DNS-Auflösung** die Ursache sein.
+
+**1. DNS-Cache wurde noch nicht aktualisiert**
+
+- **Symptom**
+
+  Nach einer Änderung des DNS-Eintrags können einige Geräte oder Netzwerke weiterhin nicht zugreifen oder erhalten die vorherige IP-Adresse, während der Zugriff auf anderen Geräten funktioniert.
+
+- **Ursache**
+
+  Änderungen an DNS-Einträgen werden nicht sofort auf allen DNS-Servern wirksam. Aufgrund des **TTL-Caches (Time to Live)** können Computer, Router oder DNS-Server des Internetanbieters weiterhin das vorherige Ergebnis gespeichert haben.
+
+- **Lösung**
+
+  1. Löschen Sie den lokalen DNS-Cache und lösen Sie die Domain erneut auf.
+  2. Wechseln Sie den DNS-Server und prüfen Sie, ob die korrekte IP-Adresse zurückgegeben wird.
+
+> **Hinweis:** Die Aktualisierungsdauer des DNS-Caches hängt von der TTL des Eintrags ab. Es kann einige Zeit dauern, bis eine Änderung in unterschiedlichen Netzwerken vollständig wirksam ist.
+
+**2. Fehlerhafte DNS-Auflösung oder DNS-Manipulation**
+
+- **Symptom**
+
+  Eine DNS-Abfrage liefert eine andere IP-Adresse als die für die Domain konfigurierte Adresse.
+
+  Führen Sie beispielsweise den folgenden Befehl im Terminal aus:
+
+  ```text
+  ping www.example.com
+  ```
+
+  Wenn die zurückgegebene IP-Adresse nicht korrekt ist, prüfen Sie die DNS-Auflösung im aktuellen Netzwerk. Mit [DNS Checker](https://dnschecker.org/) können Sie die Ergebnisse aus verschiedenen Ländern und Regionen vergleichen.
+
+- **Lösung**
+
+  1. Ändern Sie den DNS-Server des Clientgeräts, beispielsweise zu Google Public DNS:
+     - `8.8.8.8`
+     - `8.8.4.4`
+     - `dns.google`
+  2. Wechseln Sie zu einem anderen zuverlässigen DNS-Anbieter und lösen Sie die Domain erneut auf.
+
+> **Hinweis:** Wenn das Problem nur in bestimmten Netzwerken oder Regionen auftritt, testen Sie mehrere Regionen und DNS-Anbieter, um festzustellen, ob ein bestimmter DNS-Dienst oder ein Netzwerk die Ursache ist.

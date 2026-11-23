@@ -1,0 +1,19 @@
+---
+sourceHash: dcc582e36c29
+title: "Liste der Kompatibilität von Dateisystemen"
+---
+
+## Vom internen Speicher unterstützte Dateisystemformate
+
+Der eingebaute Speicher unterstützt hauptsächlich exFAT, NTFS und FAT32, offiziell wird die Verwendung von exFAT empfohlen.
+
+Vergleich der Dateisysteme exFAT, NTFS und FAT32:
+
+| Merkmale      | exFAT (empfohlen)                        | NTFS                  | FAT32                   |
+| :------------ | :------------------------------------- | :------------------------------------ | :------------------------------------ |
+| **Maximale Datei**  | **Unterstützt sehr große Dateien** | **Unterstützt sehr große Dateien** | **Einzelne Datei darf 4GB nicht überschreiten** |
+| **Größte Partition** | **Unterstützt sehr große Partitionen** | **Unterstützt sehr große Partitionen** | **Maximal nur 2 TB** |
+| **Systemkompatibilität** | **Windows, Mac, Linux werden unterstützt**     | **Mac nur lesbar** | **Windows, Mac, Linux werden unterstützt**                       |
+| **Sicherheit** | **Allgemein** | **Hoch** | **Niedrig** |
+| **Stabilität**    | **Gut**             | **Am besten**              | **Schlecht**               |
+| **Geschwindigkeit** | **Schnell** | **Schnell** | **Langsam** |

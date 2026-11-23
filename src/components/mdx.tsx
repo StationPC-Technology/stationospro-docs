@@ -1,7 +1,10 @@
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Steps, Step } from 'fumadocs-ui/components/steps';
 import type { MDXComponents } from 'mdx/types';
 import type { ImgHTMLAttributes } from 'react';
+import { VideoEmbed } from './video-embed';
 
 function ZoomedImage(props: ImgHTMLAttributes<HTMLImageElement>) {
   // 译文图片未本地化时 remark 编译期拿不到尺寸（onError: 'ignore'），
@@ -17,6 +20,12 @@ export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
     img: ZoomedImage,
+    // 旧站 VuePress 用到的组件，在新站全局可用（不必逐页 import）
+    VideoEmbed,
+    Tabs,
+    Tab,
+    Steps,
+    Step,
     ...components,
   } satisfies MDXComponents;
 }

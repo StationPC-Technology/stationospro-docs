@@ -1,0 +1,14 @@
+{
+  "title": "비디오 강좌",
+  "pages": [
+    "Binding_Settings",
+    "usb-mode",
+    "create-cloud-backup",
+    "create-sd-backup",
+    "public_share",
+    "ap_mode",
+    "guest_wifi",
+    "battery",
+    "installation"
+  ]
+}

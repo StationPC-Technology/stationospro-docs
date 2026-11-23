@@ -1,0 +1,8 @@
+{
+  "title": "Backup & Sync",
+  "pages": [
+    "create-cloud-backup",
+    "sd-backup",
+    "syncthing"
+  ]
+}

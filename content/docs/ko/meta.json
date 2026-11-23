@@ -1,4 +1,9 @@
 {
   "title": "도움말 센터",
-  "pages": ["index", "quick-start", "app-guide", "explore", "compatible", "faq", "changelog", "contact"]
+  "pages": [
+    "desktop",
+    "portable",
+    "policies",
+    "contact"
+  ]
 }

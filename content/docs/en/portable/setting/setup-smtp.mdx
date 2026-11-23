@@ -1,0 +1,47 @@
+---
+sourceHash: c76aac96b2f0
+title: "Email Notification"
+---
+
+The email notification service enables the system to send emails, including two-factor authentication (2FA) emergency verification code emails and password reset emails.
+
+> Supported email providers: Gmail, Yahoo, Apple, QQ, 163, and custom SMTP servers.
+
+## Enable Email Notification Service
+1. You can enable the service at **Device > Notifications > Email Notification**.
+
+2. Select an email service provider based on your actual needs, obtain the corresponding authorization code following the instructions below, and submit to complete the setup.
+
+3. After setup, we recommend running a send test to confirm the email service has been successfully authorized.
+
+<img src="/images/common/portable/setting/setup-smtp/1-1-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-smtp/1-1-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-smtp/1-1-3.png" width="30%" />
+
+## How to Obtain an Email Authorization Code
+### Gmail
+1. Go to [myaccount.google.com](myaccount.google.com) to access your Google Account management page. Click the search icon, enter **App passwords**, and select the search result to navigate to the settings page.
+<img src="/images/common/portable/setting/setup-smtp/2-1-1.png" width="100%" />
+
+2. Enter a custom app name and click **Create** to generate your authorization code.
+<img src="/images/common/portable/setting/setup-smtp/2-1-2.png" width="100%" />
+
+### Apple
+
+1. Visit the official Apple ID website: [appleid.apple.com ](appleid.apple.com) and sign in with your Apple ID.
+
+2. Go to Sign-In and Security > App-Specific Passwords.
+<img src="/images/common/portable/setting/setup-smtp/2-2-1.png" width="100%" />
+
+3. Click Generate an app-specific password.
+<img src="/images/common/portable/setting/setup-smtp/2-2-2.png" width="100%" />
+
+4. Enter a label to name this password (e.g. StationPC) and click Create.
+
+### Yahoo
+
+1. Sign in to your [Yahoo Account Security page](https://login.yahoo.com/?done=https%3A%2F%2Flogin.yahoo.com%2Fmyaccount%2Fsecurity%3F.lang%3Den-US%26.intl%3Dus%26.src%3Dyhelp%26.scrumb%3D0&src=mc&.intl=us&.lang=en-US).
+2. Under "External connections," click Create app password.
+3. Enter your app's name in the text field.
+4. Click Generate password.
+5. Use the one-time password to log in to your 3rd party app.

@@ -1,0 +1,116 @@
+---
+sourceHash: b6d5ceeee92c
+title: "如何通過 Samba 訪問 PocketCloud 中的文件？"
+---
+
+Samba 是一種基於 SMB/CIFS（Server Message Block / Common Internet File System） 協議的文件共享服務，廣泛用於 Linux、macOS 與 Windows 系統之間的文件和打印共享。
+通過 Samba，用戶可以像訪問本地文件一樣訪問遠程服務器上的共享目錄，實現跨平臺的文件共享與協作。
+
+**主要具備以下功能：**
+1. 文件共享：允許用戶在網絡中訪問、上傳、下載和管理共享文件或文件夾。
+2. 打印共享：支持通過網絡共享打印機，方便多臺設備共用同一打印資源。
+3. 用戶權限控制：可設置不同用戶或用戶組的訪問權限，確保數據安全。
+4. 跨平臺訪問：兼容 Windows、Linux、macOS 等主流操作系統，支持多種客戶端接入。
+
+## 啟用 Samba
+
+Samba 默認處於關閉狀態，需要手動啟用。請按照以下步驟操作：
+
+1. 打開 App 的 **文件共享協議** 頁面。<br />
+2. 點擊 **Samba 服務**。<br />
+3. 打開 **開關按鈕**，即可啟用 **Samba 服務**。<br />
+
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-3.png" width="240" height="500" />
+
+## 在 Windows 上訪問
+
+### 方式一
+
+1. 按下 **Win + R** 組合鍵。  
+2. 輸入 `\\NAS設備IP`，然後點擊 **確定**。  
+   <img src="/images/common/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
+3. 輸入用戶名和密碼，點擊 **確定**。  
+   <img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+4. 現在，你可以在 **文件資源管理器** 中像訪問本地文件夾一樣瀏覽和管理 NAS 上的文件。  
+   <img src="/images/common/portable/file-service/access-samba-service/1-3.png" width="100%" height="100%" />
+
+### 方式二
+
+1. 打開文件資源管理器
+2. 右鍵 **網路**，選擇 **映射網路磁碟機**
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+3. 輸入 `\\NAS設備IP\管理員名稱`，然後點擊 **完成**。
+   <img src="/images/common/portable/file-service/access-samba-service/9-2.png" width="100%" height="100%" />
+4. 輸入用戶名和密碼，點擊 **確定**。  
+   <img src="/images/common/portable/file-service/access-samba-service/9-3.png" width="100%" height="100%" />
+5. 現在，你可以在 **文件資源管理器** 中像訪問本地文件夾一樣瀏覽和管理 NAS 上的文件。  
+   <img src="/images/common/portable/file-service/access-samba-service/9-4.png" width="100%" height="100%" />
+
+---
+
+## 在 iOS 上訪問
+
+1. 打開 **文件** App。  
+2. 點擊右上角的 **“...”** 圖標，選擇 **連接服務器**。  
+   <img src="/images/common/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
+3. 輸入 `smb://NAS設備IP`，點擊 **連接**。  
+   <img src="/images/common/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
+4. 輸入用戶名和密碼，點擊 **下一步**。  
+   <img src="/images/common/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
+5. 現在，你可以在 **文件** App 中像訪問本地文件夾一樣瀏覽和管理 NAS 上的文件。  
+   <img src="/images/common/portable/file-service/access-samba-service/2-4.png" width="240" height="500" />
+
+---
+
+## 在 macOS 上訪問
+
+1. 右鍵 **訪達（Finder）**，選擇菜單欄中的 **前往 → 連接服務器**。  
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. 在服務器地址欄輸入 `smb://NAS設備IP`，然後點擊 **連接**。  
+   <img src="/images/common/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
+3. 輸入用戶名和密碼，點擊 **連接**。  
+   <img src="/images/common/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
+4. 現在，你可以在訪達中像訪問本地文件夾一樣瀏覽和管理 NAS 上的文件。  
+   <img src="/images/common/portable/file-service/access-samba-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## 在 Linux 上訪問
+
+使用 **cifs-utils** 掛載 Samba 共享：
+
+```bash
+# 安裝 cifs-utils
+sudo apt-get install cifs-utils
+
+# 創建掛載點
+# 示例：將 /mnt/samba_share 作為掛載目錄
+sudo mkdir -p /mnt/samba_share
+
+# 掛載 Samba 共享目錄
+sudo mount -t cifs //NAS設備IP/共享目錄 /mnt/samba_share -o username=用戶名,password=密碼
+
+# 掛載成功後，你可以在 /mnt/samba_share 目錄中訪問和管理 NAS 上的文件
+```
+
+---
+
+## 在 其它客戶端 上訪問
+- 連接信息
+    - IP：NAS設備IP
+    - 端口：默認為445
+    - 賬號：NAS設備登錄用戶名
+    - 密碼：NAS設備登錄密碼
+- 掛載目錄說明
+    - 主盤SSD：`/登錄用戶名`
+      - 示例1：所有目錄，當前用戶為 test，掛載目錄為 `/test`
+      - 示例2：指定目錄，當前用戶為 test，掛載目錄為 `/test/Pictures`
+      - 其它：支持多用戶，每個用戶對應一個掛載目錄
+    - 外接存儲：`/外接存儲名稱`
+      - 示例1：所有目錄，外接SD卡名稱為 SD 60GB BA26，掛載目錄為 `/SD_60GB_BA26`
+      - 示例2：指定目錄，外接SD卡名稱為 SD 60GB BA26，掛載目錄為 `/SD_60GB_BA26/Pictures`
+    - ⚠️ 注意：
+      - 部分客戶端無法僅填寫根目錄 `/`，需指定上面對應的具體掛載目錄
+      - 固件&lt;= 3.1.0.16升級到最新固件後，掛載目錄有所調整，以新版本的掛載方式為準

@@ -36,4 +36,7 @@ export const i18n = defineI18n({
   //   /docs    -> English (rewritten internally to /en/docs)
   //   /zh/docs -> Chinese, /ja/docs -> Japanese, ...
   hideLocale: 'default-locale',
+  // 缺译不必回退英文：回退会让 /fr/portable/x 这类路径渲染英文正文，
+  // 与侧栏（按语言过滤后的页面树）不一致，直接 404 更诚实。
+  fallbackLanguage: null,
 });

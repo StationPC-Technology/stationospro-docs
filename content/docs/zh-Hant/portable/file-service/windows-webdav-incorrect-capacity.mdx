@@ -1,0 +1,8 @@
+---
+sourceHash: f527eea48714
+title: "Windows 訪問 WebDAV 服務時，掛載後容量顯示異常"
+---
+
+該問題源於 Windows 自帶的 WebClient 組件無法獲取 WebDAV 服務端的真實存儲容量。掛載 WebDAV 網絡驅動器時，由於系統無法獲取遠程存儲空間配額數據，會默認讀取本地系統盤（C 盤）的容量信息並展示在映射盤符內，最終造成磁盤容量顯示異常。
+
+如果你需要解決容量顯示問題，建議使用第三方工具：RaiDrive、CloudMounter等.

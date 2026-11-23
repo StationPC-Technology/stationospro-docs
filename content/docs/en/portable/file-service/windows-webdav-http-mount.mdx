@@ -1,0 +1,28 @@
+---
+sourceHash: 13183a089f61
+title: "Window failed to mount WebDAV to local computer"
+---
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-1.png" width="60%" />
+
+The cause of this issue is actually very simple. The default WebClient service in Windows only supports the HTTPS protocol, while the locally configured WebDAV service and links are based on the HTTP protocol, resulting in the mount failure.
+
+## Configure WebClient to Allow HTTP Link Mounts
+
+1. Press the Windows logo key + R to open the Run window, enter `regedit`, and click OK to open the Registry Editor window.
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-2.png" width="60%" />
+
+2. Navigate to the following path: `Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters`. Double-click the `BasicAuthLevel` entry in the right pane and change the value data to "2". Click OK to save the changes.
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-3.png" width="60%" />
+
+3. Press the Windows logo key + R again to open the Run window, enter `services.msc`, and click OK to open the Services interface. Find the "WebClient" service in the list.
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-4.png" width="60%" />
+
+4. Right-click on the "WebClient" service to open the options menu, select "Restart", wait a few seconds for the service to restart, and then close the Services interface.
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-5.png" width="60%" />
+
+After completing the above steps, the WebClient service will now allow mounting WebDAV using the HTTP protocol. You can now try mounting your WebDAV service again.

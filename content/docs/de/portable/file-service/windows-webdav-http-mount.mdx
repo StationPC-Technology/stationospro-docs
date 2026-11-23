@@ -1,0 +1,22 @@
+---
+sourceHash: 13183a089f61
+title: "Fenster konnte WebDAV nicht lokal mounten"
+---
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-1.png" width="60%" />
+
+- Die Ursache für die oben genannten Probleme ist eigentlich sehr einfach. Der standardmäßige WebClient-Dienst von Windows unterstützt nur das HTTPS-Protokoll, während der lokal eingerichtete WebDAV-Dienst und die Links auf dem HTTP-Protokoll basieren, weshalb das Einbinden fehlgeschlagen ist.
+
+## WebClient einrichten, um http-Verbindungen zuzulassen
+
+1. Drücken Sie die "Windows-Logo-Taste" + "R", um das Ausführen-Fenster zu öffnen, geben Sie regedit ein und klicken Sie auf OK, um den Registrierungseditor zu öffnen.
+2. Navigieren Sie zu folgendem Pfad: Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters. Doppelklicken Sie im rechten Bereich auf den Eintrag BasicAuthLevel, ändern Sie den Wert auf "2" und klicken Sie auf OK, um den Registrierungs-Editor zu schließen.
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-2.png" width="60%" />
+
+3. Drücken Sie die "Windows-Logo-Taste" + "R", um das Ausführen-Fenster zu öffnen, geben Sie services.msc ein und klicken Sie auf OK, um das Fenster "Dienste" zu öffnen. Suchen Sie "WebClient"
+Dienste, klicken Sie mit der rechten Maustaste, um das Optionsmenü zu öffnen, wählen Sie Neustart, warten Sie einige Sekunden, und schließen Sie nach Abschluss die „Dienste“-Oberfläche.
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-3.png" width="60%" />
+
+Nachdem die drei oben genannten Schritte abgeschlossen sind, erlaubt der WebClient-Dienst die Einbindung über das HTTP-Protokoll.

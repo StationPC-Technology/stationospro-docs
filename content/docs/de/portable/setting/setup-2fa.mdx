@@ -1,0 +1,66 @@
+---
+sourceHash: 8324211aacc1
+title: "Aktivieren Sie die Zwei-Faktor-Authentifizierung für das Konto (2FA)"
+---
+
+Die Zwei-Faktor-Authentifizierung des Kontos (2FA) ist eine sicherere Anmeldemethode. Zusätzlich zur Eingabe des Passworts muss auch ein dynamischer Bestätigungscode (OTP) angegeben werden, um die Identität in zwei Schritten zu überprüfen und die Kontosicherheit zu erhöhen.
+
+> Hinweis:
+> * Ein Authentifikator APP, der das TOTP-Protokoll unterstützt (z. B. [Microsoft Authenticator](https://www.microsoft.com/security/mobile-authenticator-app)), muss verwendet werden;
+> * Es wird empfohlen, im Voraus ein sicheres E-Mail-Konto einzurichten, um im Falle eines Handyverlusts Notfall-Codes zu empfangen.
+
+## Vorbereitung
+1. Überprüfen Sie die Genauigkeit der Systemzeit:
+Überprüfen und korrigieren Sie Abweichungen der Systemzeit. Wenn die Uhrzeit Ihres Handys und die Systemzeit nicht übereinstimmen, kann dies dazu führen, dass zeitbasierte dynamische Verifizierungscodes fehlschlagen. Wenn Sie möchten, dass die Systemzeit immer korrekt bleibt, wird empfohlen, die Systemzeit auf automatische Synchronisation einzustellen.
+
+<img src="/images/common/portable/setting/setup-2fa/1-1-1.png" width="30%" />
+
+2. E-Mail-Benachrichtigungsdienst aktivieren
+[E-Mail-Benachrichtigungsdienst aktivieren](/portable/pocketcloud/setup-smtp), um dem System die Berechtigung zu erteilen, E-Mails zu senden, damit das System E-Mails wie Passwortzurücksetzung und Notfallcodes für die Zwei-Faktor-Authentifizierung an die vom Benutzer festgelegte sichere E-Mail-Adresse senden kann.
+
+3. Erzwingen der Zwei-Faktor-Authentifizierung aktivieren
+Unterstützt die Einrichtung für alle Benutzer und für bestimmte Benutzer, um den Benutzerbereich zu klären, der die Sicherheit des Kontos verbessern muss, und aktiviert für sie die obligatorische Zwei-Faktor-Authentifizierung.
+<img src="/images/common/portable/setting/setup-2fa/1-3-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-3.png" width="30%" />
+
+## Benutzer-Einstellungsprozess
+Gehe zur Seite **Persönliche Einstellungen**, richte eine sichere E-Mail ein und aktiviere die Zwei-Faktor-Authentifizierung
+
+### Sicherheits-E-Mail einrichten
+Um das Risiko zu vermeiden, dass man sich durch versehentlichen Verlust des Handys oder Schlüssels nicht mehr in das Konto einloggen kann, richten Sie zunächst eine Sicherheits-E-Mail ein.
+
+<img src="/images/common/portable/setting/setup-2fa/2-1-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-1-2.png" width="30%" />
+
+### Zwei-Faktor-Authentifizierung aktivieren
+1. Klicken Sie auf die Aktivierungsschaltfläche und geben Sie das Benutzer-Login-Konto ein;
+2. Kopieren Sie den Schlüssel und verwenden Sie einen Authenticator wie "Microsoft Authenticator", der das TOTP-Protokoll unterstützt, APP, und vervollständigen Sie die Schlüsselbindung gemäß den Anweisungen;
+3. Geben Sie im Bestätigungsfeld den dynamischen Code ein, der vom Authentifikator APP angezeigt wird, um die Einrichtung abzuschließen.
+
+<img src="/images/common/portable/setting/setup-2fa/2-2-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-3.png" width="30%" />
+
+## Anmeldevorgang
+
+Nach dem Aktivieren der Zwei-Faktor-Authentifizierung muss beim Anmelden eine zweistufige Überprüfung durchgeführt werden:
+
+1. Geben Sie Benutzername und Passwort ein;
+2. Geben Sie den auf dem Authentifikator APP angezeigten dynamischen Verifizierungscode ein, um sich anzumelden.
+> Hinweis:
+> * Auf der Eingabeseite des dynamischen Verifizierungscodes kann **dieses Gerät vertrauen** ausgewählt werden. Nach der Auswahl muss bei zukünftigen Anmeldungen dieses Geräts kein Verifizierungscode mehr eingegeben werden.
+> * Wenn der dynamische Verifizierungscode nicht erhalten werden kann, klicken Sie auf der Verifizierungsoberfläche auf **Nicht erhalten**, das System sendet einen einmaligen Notfallcode an die Sicherheits-E-Mail. Nach der Eingabe kann die Anmeldung abgeschlossen werden.
+
+<img src="/images/common/portable/setting/setup-2fa/2-3-1.png" width="30%" />
+
+## Authentifikatoranleitung
+
+Authentifikatoren, die das TOTP-Protokoll (zeitbasierter Einmalpasswort) unterstützen, können alle APP verwenden. Die manuelle Eingabe von Konto und Schlüssel oder das Scannen des QR-Codes für die Eingabe über Web/PC-Client wird unterstützt.
+
+### Microsoft Authenticator
+
+<img src="/images/common/portable/setting/setup-2fa/3-1-1.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-2.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-3.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-4.png" width="20%" />

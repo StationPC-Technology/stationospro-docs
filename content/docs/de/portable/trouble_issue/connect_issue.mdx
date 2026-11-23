@@ -1,0 +1,42 @@
+---
+sourceHash: ba925e835eb6
+title: "PocketCloud Verbindungsfehler-Fehlerbehebungsleitfaden"
+---
+
+Wenn Sie beim Versuch, eine Verbindung zu PocketCloud herzustellen, auf ein Problem stoßen, können Sie den Grund effizient beheben, indem Sie die Schritte „Zuerst den Gerätestatus prüfen, dann die Netzwerkumgebung untersuchen“ befolgen.
+
+> Es wird empfohlen, zur Problembehebung vorrangig die mobile App zu verwenden
+
+## 1. Bestätigung des Gerätestatus der Hardware
+- **PocketCloud Einschalten und Akkustand**
+Stellen Sie sicher, dass das Gerät eingeschaltet ist (Bildschirm leuchtet, kein schwarzer Bildschirm, kein Flackern oder andere Anomalien); es wird empfohlen, eine Verbindung zu versuchen, wenn der Akku ≥20% beträgt. Bei niedrigem Akkustand schließen Sie zunächst das Gerät an die Stromversorgung an, bevor Sie fortfahren, um zu verhindern, dass das Gerät aufgrund von niedrigem Akkustand in den Ruhezustand wechselt.
+
+- **PocketCloud Netzwerkstatusprüfung**
+- Bei Verbindung mit WIFI: Überprüfen Sie den Netzwerkverbindungsstatus (z. B. "Verbunden", "Signalstärke") und die entsprechende IP-Adresse auf dem kleinen Bildschirm des Geräts, um sicherzustellen, dass das WIFI nicht getrennt ist.
+- Wenn mit einem kabelgebundenen Netzwerk verbunden: Über die Geräte-Statusanzeige feststellen (grünes Licht dauerhaft an = Netzwerk normal, rotes Licht blinkt = Netzwerkkabel nicht fest eingesteckt oder Netzwerkproblem), das Netzwerkkabel kann zur Fehlerbehebung erneut eingesteckt werden.
+
+## 2. Grundlegende Überprüfung der Netzwerkumgebung
+
+### 1. Problemszenario: PocketCloud kann nicht gescannt werden
+- WIFI-Direktverbindungsmodus
+- Bestätigen Sie, dass die 'WLAN-Direktverbindungsfunktion' des Geräts aktiviert ist: Gehen Sie auf dem Gerätebildschirm zu 【Einstellungen】 - 【Verbindungsart】 und aktivieren Sie 'WLAN-Direktverbindungs-Scan zulassen' (bei einigen Modellen standardmäßig deaktiviert).
+- Steuerung der Verbindungsdistanz: Das Handy und PocketCloud müssen sich innerhalb von 1 Meter befinden, zu große Entfernung führt zu Signalverlust; gleichzeitig Bluetooth und Hotspot-Freigabe auf dem Handy ausschalten, um Signalstörungen zu vermeiden.
+- Client neu starten: Schließen Sie PocketCloud und APP, löschen Sie den Prozess vollständig im Hintergrund des Handys, öffnen Sie ihn erneut und klicken Sie auf 【Direct Device】 zum Scannen, um Probleme mit dem APP-Cache auszuschließen.
+
+- LAN-Modus
+- Überprüfen Sie die Gültigkeit der Adresse IP:
+① Über den kleinen Bildschirm des Geräts die offizielle IP abrufen (Pfad: 【Geräteinformationen】-【Netzwerkeinstellungen】-【LAN IP】，Beispiel: 192.168.1.40);
+② Wenn IP über das Router-Backend oder Tools von Drittanbietern erhalten wird, muss es mit dem offiziellen IP verglichen werden, um die Verwendung von „nicht aktuellem IP des Geräts“ zu vermeiden (ein Router-Neustart kann eine Änderung von IP verursachen).
+- VPN/Proxy ausschalten: VPNs oder Proxys auf dem Handy oder Computer ändern die Netzwerkroute, was den Zugriff auf Geräte im lokalen Netzwerk verhindern kann. Sie müssen vollständig deaktiviert und dann erneut versucht werden.
+- Bestätigen Sie dasselbe lokale Netzwerk: Stellen Sie sicher, dass das Handy/der Computer mit PocketCloud dasselbe lokale Netzwerk verbindet (vermeiden Sie eine Verbindung über verschiedene Frequenzbänder, z. B. wenn das Handy mit 5G WIFI und das Gerät mit 2,4G WIFI verbunden ist).
+
+### 2. Problematische Situation: Gerät kann gefunden werden, aber Verbindung zeitüberschreitet/scheitert
+- Konto- und Passwortüberprüfungsproblem
+- Konto und Passwort überprüfen: Stellen Sie sicher, dass das eingegebene Konto und Passwort mit dem an PocketCloud gebundenen Konto übereinstimmen; wenn Sie das Passwort vergessen haben, können Sie auf der Anmeldeseite von APP auf "Passwort vergessen" klicken und den Bestätigungscode über die gebundene E-Mail/Handynummer erhalten, um es zurückzusetzen. Nach dem Zurücksetzen wird empfohlen, es innerhalb von 5 Minuten erneut zu versuchen.
+- Unterscheidung der Kontoberechtigungen: Nur das „Geräte-Administratorkonto“ ist berechtigt, die erste Verbindung herzustellen; das „Gastkonto“ muss zuerst vom Administrator in den Geräteeinstellungen unter [Berechtigungseinstellungen] autorisiert werden, bevor eine normale Verbindung möglich ist.
+
+- Port- und Adresskonflikt
+- Überprüfen Sie die Adresseingabe IP:
+① Beim manuellen Eingeben von IP (z. B. 192.168.1.40) bestätigen Sie, dass keine Eingabefehler vorliegen (z. B. versehentliche Eingabe von 192.168.0.40) und keine zusätzlichen Zeichen hinzugefügt wurden;
+② Wenn die Adresse einen Port enthält (z. B. 192.168.1.40:8080), muss bestätigt werden, dass der Port der Standardport des Geräts ist (kann unter [Netzwerkeinstellungen] - [Portkonfiguration] eingesehen werden). Bei einem nicht standardmäßigen Port muss dieser auf der Verbindungsseite von APP manuell eingegeben werden.
+- Überprüfung der Portbelegung: Wenn andere Geräte im lokalen Netzwerk die üblichen Ports „32400“, „8096“, „8080“ verwenden, können Sie auf dem Gerät unter 【Netzwerkeinstellungen】 - 【Portkonfiguration】 den Standardport auf einen freien Port ändern (z. B. 8080 auf 8081 ändern). Starten Sie das Gerät nach der Änderung neu und versuchen Sie erneut, eine Verbindung herzustellen.

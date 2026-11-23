@@ -1,0 +1,123 @@
+---
+sourceHash: c193e43ee283
+title: "NFS를 통해 PocketCloud의 파일에 어떻게 접근합니까?"
+---
+
+NFS(네트워크 파일 시스템)은 효율적인 네트워크 파일 공유 프로토콜로, 파일 공유, 데이터 백업 및 복구, 멀티미디어 저장 및 접근 등의 다양한 환경에서 널리 사용됩니다. PocketCloud는 편리하고 안전하며 고성능의 NFS 서비스를 제공하며, 다양한 사용자 요구를 충족시키기 위해 유연한 구성을 지원합니다.
+
+---
+
+**주요 기능은 다음과 같습니다:**
+
+1. 파일 공유: NFS는 사용자가 네트워크를 통해 파일과 디렉토리를 공유할 수 있도록 하여 여러 사용자와 시스템이 동일한 파일 시스템에 접근할 수 있게 합니다.
+2. 멀티미디어 저장: NFS는 오디오, 비디오 및 이미지와 같은 멀티미디어 파일을 저장하고 액세스하는 데 사용할 수 있습니다.
+3. 크로스 플랫폼 호환성: NFS은 Linux, Windows 및 macOS와 같은 다양한 운영 체제를 지원하며, 크로스 플랫폼 파일 공유를 실현할 수 있습니다.
+4. 고성능: 중형 또는 소형 파일의 경우, NFS는 특히 순차 읽기 상황에서 뛰어난 성능을 제공합니다.
+
+---
+
+## NFS 활성화
+
+NFS 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. 다음 단계를 따라 주세요:
+
+1. App의 **파일 공유 프로토콜** 페이지를 엽니다. <br />
+2. **NFS 서비스**를 클릭합니다. <br />
+3. **스위치 버튼**을 켜면 **NFS 서비스**를 사용할 수 있습니다. <br />
+<img src="/images/common/portable/file-service/access-nfs-service/2-1.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-2.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-3.png" width="230" height="500" />
+
+---
+
+## Windows에서 방문
+
+>⚠️ **Windows 가정용**은 기본적으로 **NFS** 기능을 지원하지 않습니다. **Windows 전문가용** 또는 **Windows 기업용**으로 업그레이드한 후에 작업을 진행하세요.
+
+> **Windows**에서 **NFS** 서비스를 이용하려면 몇 가지 설정이 필요합니다. 다음 단계를 따라 주세요:
+
+1. **제어판**을 엽니다
+2. **프로그램**을 클릭하세요
+<img src="/images/common/portable/file-service/access-nfs-service/3-1.png" width="100%" height="100%" />
+
+3. **Windows 기능 켜기 또는 끄기** 클릭
+<img src="/images/common/portable/file-service/access-nfs-service/3-2.png" width="100%" height="100%" />
+
+4. **NFS 서비스**의 모든 옵션을 선택하고 **확인**을 클릭합니다
+<img src="/images/common/portable/file-service/access-nfs-service/3-3.png" width="100%" height="100%" />
+
+5. 바탕화면으로 돌아가서 **Win + R** 단축키를 누릅니다
+6. **regedit**를 입력하고 **확인**을 클릭합니다
+<img src="/images/common/portable/file-service/access-nfs-service/4-2.png" width="100%" height="100%" />
+
+7. **HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default**로 이동
+8. 빈 공간을 마우스 오른쪽 버튼으로 클릭하고, '새로 만들기'를 선택한 다음, **DWORD(32비트) 값(D)**를 선택합니다
+<img src="/images/common/portable/file-service/access-nfs-service/4-4.png" width="100%" height="100%" />
+
+9. 새로 **AnonymousGid** 및 **AnonymousUid** 생성
+<img src="/images/common/portable/file-service/access-nfs-service/4-5.png" width="100%" height="100%" />
+
+10. 그런 다음 그것들을 마우스 오른쪽 버튼으로 클릭하고 **수정**을 클릭합니다
+<img src="/images/common/portable/file-service/access-nfs-service/4-6.png" width="100%" height="100%" />
+
+11. 각각 **수치 데이터**를 **251c**로 변경하고, **확인**을 클릭합니다<br />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-1.png" width="45%" height="100%" />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-2.png" width="45%" height="100%" />
+
+12. 다음 페이지가 표시된 후, **컴퓨터를 재부팅**하십시오
+<img src="/images/common/portable/file-service/access-nfs-service/4-8.png" width="100%" height="100%" />
+
+---
+> 위 단계를 완료한 후, Windows는 **NFS** 서비스에 접근할 수 있으며, 단계는 다음과 같습니다:
+
+1. **파일 탐색기**를 엽니다
+2. **네트워크**를 마우스 오른쪽 버튼으로 클릭하고, **네트워크 드라이브 연결**을 선택합니다
+<img src="/images/common/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+
+3. 팝업 창에서 **NFS** 서비스의 주소 **\\NAS장치IP\mnt\nfs\storage**를 입력하고 **완료**를 클릭합니다
+<img src="/images/common/portable/file-service/access-nfs-service/5-2.png" width="100%" height="100%" />
+
+4. **사용자 이름**과 **비밀번호**를 입력하고, **확인**을 클릭합니다
+<img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+
+5. 이제 로컬 폴더를 방문하듯 **NAS**의 파일을 탐색하고 관리할 수 있습니다
+<img src="/images/common/portable/file-service/access-nfs-service/5-4.png" width="100%" height="100%" />
+
+---
+
+## macOS에서 방문
+
+1. **파인더(Finder)**를 오른쪽 클릭하고, 메뉴 바에서 **서버에 연결...**를 선택합니다.
+<img src="/images/common/portable/file-service/access-nfs-service/6-1.png" height="20%" />
+
+2. 서버 주소栏에 다음을 입력하세요: **nfs://NAS장치IP/mnt/nfs/storage**, 그런 다음 **연결**을 클릭합니다
+<img src="/images/common/portable/file-service/access-nfs-service/6-2.png" width="100%" height="100%" />
+
+3. 사용자 이름과 비밀번호를 입력하고 **연결**을 클릭합니다
+<img src="/images/common/portable/file-service/access-nfs-service/6-3.png" width="100%" height="100%" />
+
+4. 이제 Finder에서 로컬 폴더를 탐색하고 관리하듯이 **NAS**의 파일도 탐색하고 관리할 수 있습니다.
+<img src="/images/common/portable/file-service/access-nfs-service/6-4.png" width="100%" height="100%" />
+
+---
+
+## 기타 클라이언트에서 접근
+
+- 연결 정보
+    - IP: NAS 장치 IP
+    - 포트: 필요 없음
+    - 계정: 필요 없음
+    - 비밀번호: 필요 없음
+- 마운트 디렉터리 설명
+    - 메인 SSD: `/mnt/nfs/storage/로그인 사용자 이름`
+      - 예 1: 모든 디렉터리. 현재 사용자가 test인 경우 마운트 디렉터리는 `/mnt/nfs/storage/test`
+      - 예 2: 지정 디렉터리. 현재 사용자가 test인 경우 마운트 디렉터리는 `/mnt/nfs/storage/test/Pictures`
+      - 기타: 다중 사용자는 지원하지 않으며 관리자 사용자만 지원합니다
+    - 외부 저장소: `/mnt/nfs/storage/외부 저장소 이름`
+      - 예 1: 모든 디렉터리. 외부 SD 카드 이름이 SD 60GB BA26인 경우 마운트 디렉터리는 `/mnt/nfs/storage/SD_60GB_BA26`
+      - 예 2: 지정 디렉터리. 외부 SD 카드 이름이 SD 60GB BA26인 경우 마운트 디렉터리는 `/mnt/nfs/storage/SD_60GB_BA26/Pictures`
+    - 모든 디렉터리: `/mnt/nfs/storage`
+
+## 기타 문제
+
+* 질문: 왜 Windows가 NFS 서비스를 방문할 때 파일 이름이 깨지나요
+* 답변: [Windows에서 NFS 디스크의 중국어 깨짐 문제 참조](/ko-KR/pocketcloud/file-service/windows-nfs-garbled-code)

@@ -1,0 +1,69 @@
+---
+sourceHash: 09f09be07cd6
+title: "FTP で PocketCloud 内のファイルにアクセスするには？"
+---
+
+FTP（File Transfer Protocol）は、デバイスとサーバー間でファイルを転送するために使用できる、一般的なネットワークファイル転送プロトコルです。
+FTPを通じて、ユーザーは PocketCloud にリモートで接続し、ファイルの閲覧、アップロード、ダウンロード、および管理を行うことができます。
+
+**主に以下の機能を備えています：**
+1. ファイルのアップロードとダウンロード：ローカルデバイスと PocketCloud の間でファイルを転送します。
+2. リモートファイル管理：PocketCloud 上でファイルやフォルダを作成、名前変更、移動、削除することができます。
+3. ユーザー認証アクセス：アカウントとパスワードによるアクセス制御で、セキュリティを向上させます。
+4. クロスプラットフォームアクセス：FTP をサポートする Windows および macOS クライアントを通じて接続可能です。
+
+## FTPを有効にする
+
+FTP デフォルトではオフになっており、手動で有効にする必要があります。以下の手順に従って操作してください：
+1. Appの**ファイル共有プロトコル**のページを開きます。<br />
+2. **FTP サービス**をクリックします。<br />
+3. **スイッチボタン**をオンにすると、**FTP サービス**を有効にできます。<br />
+
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-ftp-service/1-2.jpg" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-ftp-service/1-3.jpg" width="240" height="500" />
+
+---
+
+## Windows 上でアクセス
+
+1. **Win E** を押して **ファイルエクスプローラー** を開きます。
+2. アドレスバーに `ftp://NAS设备IP:21` または `ftps://NAS_IP_Address:21` と入力し、**Enter** キーを押します。
+<img src="/images/common/portable/file-service/access-ftp-service/3-1.png" width="100%" height="100%" />
+3. ログインのプロンプトで **ユーザー名** と **パスワード** を入力し、次に **ログイン** をクリックします
+<img src="/images/common/portable/file-service/access-ftp-service/3-2.png" width="100%" height="100%" />
+4. これで、ファイルエクスプローラーで PocketCloud ファイルを閲覧および管理できます。
+<img src="/images/common/portable/file-service/access-ftp-service/3-3.png" width="100%" height="100%" />
+
+---
+
+## macOS 上でアクセス
+
+1. 右クリックで **Finder（Finder）** を開き、**サーバに接続** を選択します。
+<img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2。`ftp://NAS设备IP:21` または `ftps://NAS_IP_Address:21` を入力し、次に **接続** をクリックしてください。
+<img src="/images/common/portable/file-service/access-ftp-service/4-1.png" width="100%" height="100%" />
+3. **名前** と **パスワード** を入力し、次に **接続** をクリックします。
+<img src="/images/common/portable/file-service/access-ftp-service/4-2.png" width="100%" height="100%" />
+4. これで、Finderで PocketCloud ファイルにアクセスできます。
+<img src="/images/common/portable/file-service/access-ftp-service/4-3.png" width="100%" height="100%" />
+
+---
+
+## その他のクライアントでアクセス
+- 接続情報
+    - IP：NASデバイスIP
+    - ポート：デフォルトは21
+    - アカウント：NASデバイスのログインユーザー名
+    - パスワード：NASデバイスのログインパスワード
+- マウントディレクトリの説明
+    - メインSSD：`/ログインユーザー名`
+      - 例1：すべてのディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/test`
+      - 例2：指定ディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/test/Pictures`
+      - その他：複数ユーザーに対応し、各ユーザーに1つのマウントディレクトリが対応します
+    - 外部ストレージ：`/外部ストレージ名`
+      - 例1：すべてのディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/SD_60GB_BA26`
+      - 例2：指定ディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/SD_60GB_BA26/Pictures`
+    - ⚠️ 注意：
+      - 一部のクライアントではルートディレクトリ `/` だけを指定できないため、上記の対応する具体的なマウントディレクトリを指定してください
+      - ファームウェア &lt;= 3.1.0.16 から最新ファームウェアへアップグレードした後は、マウントディレクトリが調整されます。新バージョンのマウント方式に従ってください

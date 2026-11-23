@@ -1,0 +1,10 @@
+---
+sourceHash: a089f365ea15
+title: "windows WebDAV鏈接失效後文件管理器卡住"
+---
+
+1. 按下 “windows徽標鍵” + “R”，打開運行窗口，輸入 cmd，點擊確定後，打開註冊表編輯器窗口。
+
+2. 輸入```net use z: /delete```, 然後按回車, 刪除WebDAV掛載。
+
+- 其中"z:" 為WebDAV掛載的盤符，如果掛載的盤符不是z，請將z替換為實際的盤符。

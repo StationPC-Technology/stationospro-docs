@@ -1,0 +1,116 @@
+---
+sourceHash: b6d5ceeee92c
+title: "How to Access PocketCloud Files via Samba?"
+---
+
+Samba is a file-sharing service based on the SMB/CIFS (Server Message Block / Common Internet File System) protocol, widely used for file and printer sharing between Linux, macOS, and Windows systems.
+With Samba, users can access shared directories on remote servers as if they were local, enabling cross-platform file sharing and collaboration.
+
+**Samba provides the following main features:**
+1. File Sharing – Allows users to access, upload, download, and manage shared files or folders over the network.
+2. Printer Sharing – Supports network printer sharing, allowing multiple devices to use the same printer.
+3. User Access Control – Enables administrators to set permissions for different users or groups, ensuring data security.
+4. Cross-Platform Compatibility – Works seamlessly with Windows, Linux, and macOS systems, supporting multiple client types.
+
+## Enable Samba
+By default, Samba is disabled. You need to manually enable it by following these steps:
+1. Open the **File Services** section in the app.<br />
+2. Tap **Samba Service**.<br />
+3. Toggle the **switch** to turn on the Samba service.<br />
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-3.png" width="240" height="500" />
+
+---
+
+## Accessing on Windows
+
+### Method 1
+
+1. Press **Win + R** on your keyboard.  
+2. Type `\\NAS_IP_Address` and click **OK**.  
+   <img src="/images/common/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
+3. Enter your **username** and **password**, then click **OK**.  
+   <img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+4. Now you can browse and manage your NAS files directly in **File Explorer**, just like a local folder.  
+   <img src="/images/common/portable/file-service/access-samba-service/1-3.png" width="100%" height="100%" />
+
+### Method 2
+
+1. Open **File Explorer**.
+2. Right-click **Network** and select **Map network drive**.
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+3. Enter `\\NAS_IP_Address\Admin_Name`, then click **Finish**.
+   <img src="/images/common/portable/file-service/access-samba-service/9-2.png" width="100%" height="100%" />
+4. Enter your **username** and **password**, then click **OK**.  
+   <img src="/images/common/portable/file-service/access-samba-service/9-3.png" width="100%" height="100%" />
+5. Now you can browse and manage your NAS files directly in **File Explorer**, just like a local folder.  
+   <img src="/images/common/portable/file-service/access-samba-service/9-4.png" width="100%" height="100%" />
+
+---
+
+## Accessing on iOS
+
+1. Open the **Files** app.  
+2. Tap the **“...”** icon in the upper right corner and select **Connect to Server**.  
+   <img src="/images/common/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
+3. Enter `smb://NAS_IP_Address` and tap **Connect**.  
+   <img src="/images/common/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
+4. Enter your **username** and **password**, then tap **Next**.  
+   <img src="/images/common/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
+5. You can now browse and manage NAS files directly in the **Files** app, just like local folders.  
+   <img src="/images/common/portable/file-service/access-samba-service/2-4.png" width="240" height="500" />
+
+---
+
+## Accessing on macOS
+
+1. Open **Finder**, then go to the menu bar and select **Go → Connect to Server**.  <br />
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. In the server address field, enter:  
+   `smb://NAS_IP_Address`, then click **Connect**.  <br />
+   <img src="/images/common/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
+3. Enter your **username** and **password**, then click **Connect**.  <br />
+   <img src="/images/common/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
+4. You can now browse and manage NAS files in Finder just like any local folder.  <br />
+   <img src="/images/common/portable/file-service/access-samba-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Accessing on Linux
+
+Use **cifs-utils** to mount the Samba share:
+
+```bash
+# Install cifs-utils
+sudo apt-get install cifs-utils
+
+# Create a mount point
+# Example: using /mnt/samba_share as the mount directory
+sudo mkdir -p /mnt/samba_share
+
+# Mount the Samba shared directory
+sudo mount -t cifs //NAS_IP_Address/shared_folder /mnt/samba_share -o username=USERNAME,password=PASSWORD
+
+# Once mounted, you can access and manage NAS files under /mnt/samba_share
+```
+
+---
+
+## Accessing on Other Clients
+- Connection information
+    - IP: NAS_IP_Address
+    - Port: 445 by default
+    - Account: NAS device login username
+    - Password: NAS device login password
+- Mount directory description
+    - Main SSD: `/login_username`
+      - Example 1: All directories. If the current user is test, the mount directory is `/test`
+      - Example 2: A specified directory. If the current user is test, the mount directory is `/test/Pictures`
+      - Other: Multiple users are supported, and each user corresponds to one mount directory
+    - External storage: `/external_storage_name`
+      - Example 1: All directories. If the external SD card name is SD 60GB BA26, the mount directory is `/SD_60GB_BA26`
+      - Example 2: A specified directory. If the external SD card name is SD 60GB BA26, the mount directory is `/SD_60GB_BA26/Pictures`
+    - ⚠️ Note:
+      - Some clients cannot use only the root directory `/`; specify the corresponding mount directory above
+      - After upgrading from firmware &lt;= 3.1.0.16 to the latest firmware, the mount directory is adjusted. Use the mount method for the new version

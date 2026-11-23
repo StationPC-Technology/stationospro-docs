@@ -1,0 +1,22 @@
+---
+sourceHash: 13183a089f61
+title: "Window 掛載 WebDAV 到本地失敗"
+---
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-1.png" width="60%" />
+
+- 導致上述問題的原因其實非常簡單。windows 默認的 WebClient 服務僅支持 https 協議，而本地搭建的 webdav 服務和鏈接都是基於 http 協議的，因此才造成了掛載失敗的情況。
+
+## 設置 WebClient，允許 http 鏈接掛載
+
+1. 按下 “windows徽標鍵” + “R”，打開運行窗口，輸入regedit，點擊確定後，打開註冊表編輯器窗口。
+2. 將路徑定位到以下路徑：計算機\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters。雙擊右側界面中的 BasicAuthLevel 條目，將數值數據修改為“2”，點擊確定後關閉註冊表編輯器。
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-2.png" width="60%" />
+
+3. 按下 “windows徽標鍵” + “R”，打開運行窗口，輸入services.msc，點擊確定後，打開“服務”界面。找到 “WebClient”
+服務，右鍵點擊打開選項菜單，選擇重新啟動，稍等幾秒，待完成後，關閉“服務”界面。
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-3.png" width="60%" />
+
+完成上述三個步驟後，WebClient 服務已經允許使用 http 協議進行掛載。

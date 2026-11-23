@@ -6,6 +6,7 @@ import { getLocaleConfig } from '@/lib/i18n';
 import type { Metadata } from 'next';
 import { siteUrl } from '@/lib/shared';
 import { Analytics } from '@/components/analytics';
+import { ScopedSearchDialog } from '@/components/search-dialog';
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
@@ -23,7 +24,10 @@ export default async function Layout({ params, children }: LayoutProps<'/[lang]'
       suppressHydrationWarning
     >
       <body className="flex flex-col min-h-screen">
-        <RootProvider i18n={i18nProvider(translations, lang)}>
+        <RootProvider
+          i18n={i18nProvider(translations, lang)}
+          search={{ SearchDialog: ScopedSearchDialog }}
+        >
           <Analytics locale={lang} />
           {children}
         </RootProvider>

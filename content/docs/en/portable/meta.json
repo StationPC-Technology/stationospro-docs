@@ -1,0 +1,23 @@
+{
+  "title": "PocketCloud",
+  "pages": [
+    "changelog",
+    "video_tutorial",
+    "hardware",
+    "guides",
+    "remote-access",
+    "photos",
+    "cinema",
+    "file",
+    "file-service",
+    "backup",
+    "docker",
+    "setting",
+    "compatible-list",
+    "performance",
+    "troubleshooting",
+    "faq",
+    "backup-center",
+    "trouble_issue"
+  ]
+}

@@ -1,0 +1,100 @@
+---
+title: "应用中心"
+---
+
+为简化用户对Docker容器的部署与使用流程，用户无需自行研究复杂的Docker镜像筛选、配置与兼容性测试，通过应用中心即可快速获取适配的容器应用，轻松完成部署与使用，大幅降低Docker应用的使用门槛。
+
+> 注意：容器应用仅支持在局域网环境中打开，请确保您的PocketCloud与客户端设备在同一局域网中
+
+## 安装容器应用
+### 安装前准备
+首次安装容器应用，需要初始化Docker的相关设置和分配存储空间。
+1. 打开应用，进入**首页 > 常用功能 > Docker**；
+2. 根据提示进行操作，分配存储空间。
+
+> 注意：
+> * 可用存储空间需大于20GB，低于该容量将无法完成安装；
+> * 存储空间分配后仅支持扩容、不支持缩减，建议根据实际使用需求合理分配并预留冗余空间；
+> * 空间分配过程耗时较长，请耐心等待；若需临时处理其他事务，可退出分配界面，分配操作会在后台继续执行。
+
+<img src="/images/common/portable/docker/app-center/1-1.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/1-2.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/1-3.jpg" width="30%" /> 
+
+### 安装应用
+1. 进入**应用中心**；
+2. 找到需要安装的应用容器；
+3. 点击“安装”，等待系统自动完成安装与部署。安装完成后，容器应用会在Docker中生成对应的容器。
+
+<img src="/images/common/portable/docker/app-center/2-1.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/2-2.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/2-3.jpg" width="30%" /> 
+
+## 访问容器应用
+### 打开方式
+* 通过客户端访问：容器应用可通过**应用中心**访问；
+* 通过Web端访问：在同一局域网内，可通过设备IP和应用端口号进行访问。
+
+> 注意：
+> * 应用端口可在应用详情处查看；
+> * 图示IP地址为示例，需替换为您的设备IP。
+
+<img src="/images/common/portable/docker/app-center/2-3.jpg" width="30%" />
+<img src="/images/common/portable/docker/app-center/3-1.jpg" width="30%" />
+
+### 停用/启用容器应用
+在【应用中心】进行停用和启用操作。
+
+<img src="/images/common/portable/docker/app-center/3-3.jpg" width="30%" />
+<img src="/images/common/portable/docker/app-center/3-4.jpg" width="30%" />
+
+### 卸载
+在【应用中心】中卸载应用。
+
+<img src="/images/common/portable/docker/app-center/3-3.jpg" width="30%" />
+<img src="/images/common/portable/docker/app-center/3-5.jpg" width="30%" />
+
+## 已适配应用
+### 应用信息
+| 应用名称     | 版本号    | 访问地址         | 应用介绍                                                                 |
+|--------------|-----------|------------------|--------------------------------------------------------------------------|
+| Jellyfin     | 10.10.7   | IP:35000         | Jellyfin是一个免费媒体系统软件，能帮您全面管理个人媒体资源，并支持跨设备播放。 |
+| Plex         | 1.42.2    | IP:35006/web     | Plex整合了免费电影、电视内容与各类优质免费的媒体服务，持续为您开启探索影音世界的新篇章。 |
+| Syncthing    | 2.0.10    | IP:35008         | Syncthing是一款文件同步工具，它能在多台计算机之间实现实时、安全的数据同步，全程安全保护，防止未授权的访问。 |
+| Transmission | 4.0.6     | IP:35011         | 一款快速、简单且免费的BitTorrent客户端。                                 |
+
+### 注意事项
+#### 应用可访问目录
+* 实际目录：位于主盘@docker目录下。以Jellyfin为例，实际目录为@docker/jellyfin/data/；
+* 映射目录：
+  * 应用目录映射为/data；
+  * 主盘目录映射为/pocketcloud。注意应用挂载主盘目录时请勿挂载主盘根目录。
+  > 注意：应用挂载主盘目录时，请勿直接挂载主盘根目录，避免影响设备正常运行。
+  
+#### Jellyfin 注意事项
+1. 添加媒体库
+   * 进入控制台 → 媒体库 → 添加媒体库；
+   * 点击“添加文件夹”，选择路径：
+     * 应用映射目录：/ → 选择data；
+     * 主盘映射目录：/ → 选择pocketcloud → 选择目标文件夹。
+
+2. 卸载后再次安装，提示选择服务器进行连接的问题
+   卸载Jellyfin后，再次安装可能会不显示注册界面，进入后提示选择服务器进行连接。
+   解决方法：
+   * 长按服务器图标，弹出操作菜单；
+   * 点击“删除”，退出Jellyfin；
+   * 重新打开Jellyfin，即可看到注册界面，进而创建新账号。
+
+3. 卸载后再次安装，无法注册用户的问题
+   卸载Jellyfin后，再次安装可能会不显示注册界面，直接进入登录界面（但账号密码未设置）。
+   解决方法：
+   * 使用无痕浏览器访问设备IP+端口号（如192.168.10.140:35000）；
+   * 此时应能看到注册界面，创建新账号即可。
+
+#### Syncthing 注意事项
+* 添加文件夹时，路径只能输入data，否则无法识别；
+* 在@/docker/syncthing/data下查看同步的数据。
+
+#### Transmission 注意事项
+* 支持添加种子文件或种子链接；
+* 下载的文件存储在@docker/transmission对应文件夹下。

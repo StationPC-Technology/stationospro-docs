@@ -1,0 +1,9 @@
+{
+  "title": "시스템 설정",
+  "pages": [
+    "setup-smtp",
+    "setup-2fa",
+    "failed-2fa",
+    "factory"
+  ]
+}

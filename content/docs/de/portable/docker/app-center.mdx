@@ -1,0 +1,101 @@
+---
+sourceHash: 77c8f3d1ee6a
+title: "Anwendungszentrum"
+---
+
+Um den Benutzern die Bereitstellung und Nutzung des Docker-Containers zu erleichtern, müssen sie keine komplexen Docker-Image-Auswahl-, Konfigurations- und Kompatibilitätstests selbst durchführen. Über das Anwendungszentrum können sie schnell angepasste Containeranwendungen erhalten, die Bereitstellung und Nutzung problemlos abschließen und die Nutzungshürde von Docker-Anwendungen erheblich senken.
+
+> Hinweis: Containeranwendungen können nur in einem LAN geöffnet werden. Bitte stellen Sie sicher, dass Ihr PocketCloud und das Client-Gerät im selben LAN sind.
+
+## Container-Anwendung installieren
+### Vorbereitung vor der Installation
+Bei der erstmaligen Installation der Containeranwendung müssen die zugehörigen Einstellungen von Docker initialisiert und Speicherplatz zugewiesen werden.
+1. Öffnen Sie die App und gehen Sie zu **Startseite > Häufig verwendete Funktionen > Docker**;
+2. Führen Sie die Operationen gemäß den Anweisungen aus und weisen Sie Speicherplatz zu.
+
+> Hinweis:
+> * Der verfügbare Speicherplatz muss größer als 20 GB sein, andernfalls kann die Installation nicht abgeschlossen werden；
+> * Nach der Speicherplatzzuweisung wird nur eine Erweiterung unterstützt, eine Reduzierung jedoch nicht. Es wird empfohlen, die Zuweisung entsprechend dem tatsächlichen Bedarf vorzunehmen und zusätzlichen Raum vorzusehen.
+> * Der Raumzuweisungsprozess dauert längere Zeit, bitte haben Sie Geduld; wenn Sie vorübergehend andere Aufgaben erledigen müssen, können Sie die Zuweisungsoberfläche verlassen, der Zuweisungsvorgang wird im Hintergrund fortgesetzt.
+
+<img src="/images/common/portable/docker/app-center/1-1.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/1-2.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/1-3.jpg" width="30%" /> 
+
+### Anwendung installieren
+1. Gehen Sie zum **App-Zentrum**;
+2. Finden Sie den Anwendungscontainer, der installiert werden muss;
+3. Klicken Sie auf „Installieren“ und warten Sie, bis das System die Installation und Bereitstellung automatisch abgeschlossen hat. Nach Abschluss der Installation wird die Container-Anwendung im Docker den entsprechenden Container erstellen.
+
+<img src="/images/common/portable/docker/app-center/2-1.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/2-2.jpg" width="30%" /> 
+<img src="/images/common/portable/docker/app-center/2-3.jpg" width="30%" /> 
+
+## Zugriff auf Containeranwendungen
+### Öffnungsart
+* Zugriff über den Client: Containeranwendungen können über das **Anwendungszentrum** aufgerufen werden;
+* Zugriff über das Web: Im selben lokalen Netzwerk kann über das Gerät IP und die Anwendungsportnummer zugegriffen werden.
+
+> Hinweis:
+> * Die Anwendungsports können in den Anwendungsdetails eingesehen werden;
+> * Die im Bild gezeigte IP-Adresse ist ein Beispiel und muss durch Ihr Gerät IP ersetzt werden.
+
+<img src="/images/common/portable/docker/app-center/2-3.jpg" width="30%" />
+<img src="/images/common/portable/docker/app-center/3-1.jpg" width="30%" />
+
+### Containeranwendungen deaktivieren/aktivieren
+Führen Sie die Deaktivierungs- und Aktivierungsvorgänge im [Anwendungszentrum] durch.
+
+<img src="/images/common/portable/docker/app-center/3-3.jpg" width="30%" />
+<img src="/images/common/portable/docker/app-center/3-4.jpg" width="30%" />
+
+### Deinstallieren
+Deinstallieren Sie die App im [Anwendungszentrum].
+
+<img src="/images/common/portable/docker/app-center/3-3.jpg" width="30%" />
+<img src="/images/common/portable/docker/app-center/3-5.jpg" width="30%" />
+
+## Angepasste Anwendungen
+### Anwendungsinformationen
+| Anwendungsname | Versionsnummer | Zugriffsadresse | Anwendungsbeschreibung |
+|--------------|-----------|------------------|--------------------------------------------------------------------------|
+| Jellyfin     | 10.10.7   | IP:35000         | Jellyfin ist eine kostenlose Medien-Softwaresystem, das Ihnen hilft, persönliche Medienressourcen umfassend zu verwalten und geräteübergreifendes Abspielen unterstützt. |
+| Plex         | 1.42.2    | IP:35006/web     | Plex integriert kostenlose Filme, TV-Inhalte und verschiedene hochwertige kostenlose Medienservices und eröffnet Ihnen kontinuierlich ein neues Kapitel der Erkundung der Welt von Audio und Video. |
+| Syncthing    | 2.0.10    | IP:35008         | Syncthing ist ein Dateisynchronisierungstool, das Echtzeit- und sichere Datensynchronisation zwischen mehreren Computern ermöglicht, mit vollständigem Sicherheitschutz, um unbefugten Zugriff zu verhindern. |
+| Transmission | 4.0.6     | IP:35011         | Ein schneller, einfacher und kostenloser BitTorrent-Client.                                 |
+
+### Hinweise
+#### Verzeichnis der zugänglichen Anwendungen
+* Tatsächliches Verzeichnis: Befindet sich im Hauptlaufwerk unter @docker. Am Beispiel von Jellyfin lautet das tatsächliche Verzeichnis @docker/jellyfin/data/;
+* Zuordnungsverzeichnis:
+* Das Anwendungsverzeichnis wird auf /data abgebildet;
+* Das Hauptlaufwerkverzeichnis wird auf /pocketcloud abgebildet. Achten Sie darauf, beim Einhängen des Hauptlaufwerkverzeichnisses nicht das Stammverzeichnis des Hauptlaufwerks einzuhängen.
+> Hinweis: Beim Einbinden des Hauptlaufwerksverzeichnisses sollte das Stammverzeichnis des Hauptlaufwerks nicht direkt eingebunden werden, um den normalen Betrieb des Geräts nicht zu beeinträchtigen.
+  
+#### Jellyfin Hinweise
+1. Medienbibliothek hinzufügen
+* Gehe zur Konsole → Medienbibliothek → Medienbibliothek hinzufügen;
+* Klicken Sie auf „Ordner hinzufügen“ und wählen Sie den Pfad:
+* Anwendungsverzeichnis abbilden: / → Daten auswählen;
+* Hauptlaufwerks-Mapping-Verzeichnis: / → Wählen Sie pocketcloud → Wählen Sie den Zielordner.
+
+2. Nach der Deinstallation erneut installieren, es wird aufgefordert, einen Server zur Verbindung auszuwählen
+Nach der Deinstallation von Jellyfin kann es beim erneuten Installieren vorkommen, dass die Registrierungsoberfläche nicht angezeigt wird, und nach dem Start wird aufgefordert, einen Server zur Verbindung auszuwählen.
+Lösungsmethode:
+* Halten Sie das Serversymbol gedrückt, um das Aktionsmenü anzuzeigen;
+* Klicken Sie auf „Löschen“, um Jellyfin zu verlassen;
+* Öffnen Sie Jellyfin erneut, um die Registrierungsoberfläche zu sehen und ein neues Konto zu erstellen.
+
+3. Nach der Deinstallation und erneuten Installation kann der Benutzer nicht registriert werden
+Nach der Deinstallation von Jellyfin kann bei einer erneuten Installation die Registrierungsoberfläche möglicherweise nicht angezeigt werden und man gelangt direkt zur Anmeldeseite (aber Benutzername und Passwort sind nicht eingerichtet).
+Lösungsmethode:
+* Verwenden Sie einen Inkognito-Browser, um auf das Gerät IP über die Portnummer (z. B. 192.168.10.140:35000) zuzugreifen;
+* Zu diesem Zeitpunkt sollten Sie die Registrierungsoberfläche sehen und einfach ein neues Konto erstellen können.
+
+#### Syncthing Hinweise
+* Beim Hinzufügen eines Ordners kann der Pfad nur als data eingegeben werden, andernfalls wird er nicht erkannt;
+* Siehe die synchronisierten Daten unter @/docker/syncthing/data.
+
+#### Transmission Hinweise
+* Unterstützt das Hinzufügen von Torrents oder Torrent-Links;
+* Die heruntergeladenen Dateien werden im entsprechenden Ordner von @docker/transmission gespeichert.
