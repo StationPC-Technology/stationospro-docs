@@ -49,7 +49,8 @@ For writers and contributors, see:
 
 - [Fumadocs components writing guide](./docs/fumadocs-components.md)
 - [Writing & publishing workflow](./docs/writing-workflow.md)
-- [Merge plan: StationOS Pro + PocketCloud](./docs/merge-plan.md) — 双站合并的执行蓝本（决策已定稿）
+- [Merge plan: StationOS Pro + PocketCloud](./docs/merge-plan.md) — 双站合并的执行蓝本（P0–P4 已执行，P5 待切流）
+- [Cutover checklist](./docs/cutover-checklist.md) — 上线、灰度、301 与归档的操作清单
 - [GLOSSARY](./GLOSSARY.md) — 术语事实源（产品名、客户端名、保留词）
 
 Before submitting changes, run `npm run types:check` and `npm run build`. Quality checks run automatically on push and pull requests.

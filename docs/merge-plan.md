@@ -1,6 +1,6 @@
 # 双站合并方案：StationOS Pro + PocketCloud
 
-> 状态：决策已定稿（2026-11），待执行。
+> 状态：**P0–P4 已执行完毕（2026-11-23）**，P5 切流待运维与发布窗口。
 > 范围：把 `stationpc_nas_help`（VuePress，便携式 NAS «PocketCloud»）并入 `stationospro-docs`（Next.js + Fumadocs，桌面式 NAS «StationOS Pro»），最终收敛为**一个站点、两个产品域、八种语言**。
 > 本文档是**执行蓝本**：每个阶段给出动作、命令、产出、验收与回滚。术语以根目录 [GLOSSARY.md](../GLOSSARY.md) 为准；关键取舍见 [docs/adr/](./adr/README.md)。
 
@@ -12,6 +12,20 @@
 
 **总量**：中文源 43 + 125 + 1（StationOS Pro 概览页）= **169 篇** × 8 语言 = **1,352 篇 mdx**。
 **估工**：**13–15 人日**（不含审阅等待）：准备 0.5、平台改造 3.5（含去 `/docs` 前缀 0.5–1）、内容管道 2、中文导入 3、译文 3–5、切流 1。
+
+### 0.1 执行进度（2026-11-23）
+
+| 阶段 | 状态 | 落点 |
+|---|---|---|
+| P0 基线 | ✅ | tag `pre-merge-2026-11`，分支 `feat/portable-merge` |
+| P1 平台改造 | ✅ | `src/lib/{products,product-labels,product-tree}.ts`、`src/proxy.ts`、`src/app/[lang]/[...slug]/page.tsx`、`src/components/{product-nav,video-embed,search-dialog}.tsx`、`next.config.mjs` 的 36 条 `/docs/*` 301 |
+| P2 内容管道 | ✅ | `scripts/portable/{convert,clone-meta,fix-links}.mjs`、`scripts/update-sourcehash.mjs` |
+| P3 中文导入 | ✅ | `content/docs/zh/portable/` 111 篇；图片 452 张 / 88MB 去重后入库 `public/images/common/portable/` |
+| P4 译文 | ✅ | 8 语言 × 111 篇齐平；`glossary.json` keep 30 条 + 22 条词条 × 7 语言 |
+| P5 切流 | ⏳ 待发布窗口 | 见 [docs/cutover-checklist.md](./cutover-checklist.md) |
+
+提交：`b482111`（P1–P3 + 文档）、`4771850`（P4 译文）。当前 `npm run build` = **3,735 个静态页面**，`check:content` 与 `types:check` 全绿。
+
 
 ---
 
