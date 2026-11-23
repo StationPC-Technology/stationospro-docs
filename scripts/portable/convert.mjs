@@ -480,10 +480,36 @@ function finalizeChangelog(locale, targetDir) {
   const body = dates.map((date) => `- [${date}](${prefix}/portable/changelog/${date})`).join('\n');
   fs.writeFileSync(indexFile, `---\ntitle: ${title}\n---\n\n${body}\n`);
 
+  // 与桌面式一致：日期页在侧栏里逐条列出，标题写成「日期 + 系统更新说明」
+  const UPDATE_LABEL = {
+    en: 'System Update Notes',
+    zh: '系统更新说明',
+    'zh-Hant': '系統更新說明',
+    ja: 'システム更新内容',
+    ko: '시스템 업데이트 안내',
+    de: 'Systemupdate',
+    fr: 'Notes de mise à jour du système',
+    es: 'Notas de la actualización del sistema',
+  }[locale.next];
+  for (const date of dates) {
+    const file = path.join(dir, `${date}.mdx`);
+    const text = fs.readFileSync(file, 'utf8');
+    fs.writeFileSync(
+      file,
+      text.replace(/^---\n([\s\S]*?)\n---/, (_match, frontmatter) => {
+        const rest = frontmatter
+          .split('\n')
+          .filter((line) => line.trim() && !line.startsWith('title:'));
+        return `---\ntitle: "${date} ${UPDATE_LABEL}"${rest.length ? `\n${rest.join('\n')}` : ''}\n---`;
+      }),
+    );
+  }
+
   const metaFile = path.join(dir, 'meta.json');
   if (fs.existsSync(metaFile)) {
     const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
-    meta.pages = ['index', ...dates];
+    // index 不登记，目录本身即索引页；日期页全部可见
+    meta.pages = dates;
     fs.writeFileSync(metaFile, `${JSON.stringify(meta, null, 2)}\n`);
   }
 }

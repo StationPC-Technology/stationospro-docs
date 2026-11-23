@@ -33,22 +33,10 @@ const FLATTEN = [
 ];
 
 // 旧站这些目录只露出一个页面：把目录内部页面隐藏，目录退化成单页链接
+// 注意：changelog 不再折叠——按用户要求与桌面式一致，日期页要出现在侧栏列表里。
 const COLLAPSE = [
   ['guides/device-connection', ['direct-connection', 'net-connection']],
   ['setting/factory', ['force_factory_reset']],
-  ['changelog', [
-    '2026-10-26',
-    '2026-09-16',
-    '2026-07-28',
-    '2026-07-03',
-    '2026-04-20',
-    '2026-03-06',
-    '2026-01-29',
-    '2025-12-16',
-    '2025-11-12',
-    '2025-10-10',
-    '2025-09-18',
-  ]],
 ];
 
 const CONTACT_LABEL = {
