@@ -134,7 +134,18 @@ for (const lang of LANGS) {
   };
   walkDirs(root);
 
-  // 5) 侧栏最后补「联系我们」链接（旧站它在产品导航最末，指向站点联系页）
+  // 5) 更新日志固定排在可见分组之后（旧站它在 FAQ 下面），隐藏项与链接项之间
+  const file = path.join(root, 'meta.json');
+  const meta = readMeta(file);
+  if (meta.pages?.includes('changelog')) {
+    const rest = meta.pages.filter((p) => p !== 'changelog');
+    const firstTrailing = rest.findIndex((p) => p.startsWith('!') || p.startsWith('[') || p === '---');
+    const at = firstTrailing === -1 ? rest.length : firstTrailing;
+    meta.pages = [...rest.slice(0, at), 'changelog', ...rest.slice(at)];
+    writeMeta(file, meta);
+  }
+
+  // 6) 侧栏最后补「联系我们」链接（旧站它在产品导航最末，指向站点联系页）
   const rootMetaFile = path.join(root, 'meta.json');
   const rootMeta = readMeta(rootMetaFile);
   const url = lang === 'en' ? '/contact' : `/${lang}/contact`;

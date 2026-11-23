@@ -1,7 +1,6 @@
 {
   "title": "PocketCloud",
   "pages": [
-    "changelog",
     "video_tutorial",
     "hardware",
     "guides",
@@ -17,6 +16,7 @@
     "performance",
     "troubleshooting",
     "faq",
+    "changelog",
     "!backup-center",
     "!syncthing",
     "[Contact Us](/contact)"
