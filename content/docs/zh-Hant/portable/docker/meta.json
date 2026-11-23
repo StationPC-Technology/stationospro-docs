@@ -3,6 +3,6 @@
   "pages": [
     "app-center",
     "app-openclaw",
-    "plik"
+    "!plik"
   ]
 }

@@ -1,8 +1,7 @@
 {
   "title": "Wie verbindet man sich mit PocketCloud?",
   "pages": [
-    "index",
-    "direct-connection",
-    "net-connection"
+    "!direct-connection",
+    "!net-connection"
   ]
 }

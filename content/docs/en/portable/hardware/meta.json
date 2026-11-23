@@ -3,6 +3,6 @@
   "pages": [
     "dock",
     "battery-install",
-    "ssd-install"
+    "...ssd-install"
   ]
 }

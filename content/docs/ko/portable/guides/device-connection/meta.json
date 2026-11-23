@@ -1,8 +1,7 @@
 {
   "title": "PocketCloud에 어떻게 연결합니까?",
   "pages": [
-    "index",
-    "direct-connection",
-    "net-connection"
+    "!direct-connection",
+    "!net-connection"
   ]
 }

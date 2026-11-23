@@ -1,7 +1,6 @@
 {
   "title": "回復原廠設定",
   "pages": [
-    "index",
-    "force_factory_reset"
+    "!force_factory_reset"
   ]
 }

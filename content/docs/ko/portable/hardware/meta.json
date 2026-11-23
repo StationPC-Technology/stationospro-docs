@@ -1,7 +1,7 @@
 {
   "title": "하드웨어 설치",
   "pages": [
-    "ssd-install",
+    "...ssd-install",
     "dock",
     "battery-install"
   ]

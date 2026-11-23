@@ -2,6 +2,7 @@
   "title": "Docker",
   "pages": [
     "app-center",
-    "app-openclaw"
+    "app-openclaw",
+    "!plik"
   ]
 }

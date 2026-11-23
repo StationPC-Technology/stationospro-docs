@@ -1,7 +1,6 @@
 {
   "title": "공장 초기화",
   "pages": [
-    "index",
-    "force_factory_reset"
+    "!force_factory_reset"
   ]
 }

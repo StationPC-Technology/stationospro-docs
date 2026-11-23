@@ -16,8 +16,9 @@
     "performance",
     "troubleshooting",
     "faq",
-    "backup-center",
-    "syncthing",
-    "changelog"
+    "changelog",
+    "!backup-center",
+    "!syncthing",
+    "[Contacto](/es/contact)"
   ]
 }

@@ -17,7 +17,8 @@
     "troubleshooting",
     "faq",
     "changelog",
-    "backup-center",
-    "syncthing"
+    "!backup-center",
+    "!syncthing",
+    "[聯絡我們](/zh-Hant/contact)"
   ]
 }

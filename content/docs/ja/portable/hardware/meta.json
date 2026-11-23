@@ -1,7 +1,7 @@
 {
   "title": "ハードウェア取り付け",
   "pages": [
-    "ssd-install",
+    "...ssd-install",
     "dock",
     "battery-install"
   ]

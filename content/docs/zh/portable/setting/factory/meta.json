@@ -1,7 +1,6 @@
 {
   "title": "恢复出厂设置",
   "pages": [
-    "index",
-    "force_factory_reset"
+    "!force_factory_reset"
   ]
 }

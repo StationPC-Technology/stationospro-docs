@@ -17,6 +17,8 @@
     "troubleshooting",
     "faq",
     "changelog",
-    "backup-center"
+    "!backup-center",
+    "!syncthing",
+    "[Kontakt](/de/contact)"
   ]
 }

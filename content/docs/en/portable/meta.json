@@ -17,6 +17,8 @@
     "performance",
     "troubleshooting",
     "faq",
-    "backup-center"
+    "!backup-center",
+    "!syncthing",
+    "[Contact Us](/contact)"
   ]
 }

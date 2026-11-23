@@ -8,7 +8,7 @@
     "public_share",
     "ap_mode",
     "guest_wifi",
-    "battery",
-    "installation"
+    "installation",
+    "!battery"
   ]
 }

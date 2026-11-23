@@ -29,21 +29,16 @@ export function getProductScopedTree(locale: string, slug: Product['slug']): Pag
   return folder ? { ...tree, children: folder.children } : tree;
 }
 
-/** 统计某个产品下的文档页数（含落地页自身，递归数到叶子页） */
+/**
+ * 统计某个产品下的文档页数（含落地页自身）。
+ *
+ * 不能用页面树来数：meta.json 里被 `!name` 隐藏的页面不进树，但仍然是可访问的文档，
+ * 页面树还会把部分页面合并成链接，数出来的值会偏小。直接数源里的页面。
+ */
 export function countProductDocs(locale: string, slug: Product['slug']): number {
-  const folder = getProductFolder(locale, slug);
-  if (!folder) return 0;
-
-  let count = folder.index ? 1 : 0;
-  const walk = (nodes: PageTree.Node[]) => {
-    for (const node of nodes) {
-      if (node.type === 'page') count += 1;
-      else if (node.type === 'folder') walk(node.children);
-    }
-  };
-
-  walk(folder.children);
-  return count;
+  return source
+    .getPages(locale)
+    .filter((page) => page.slugs[0] === slug).length;
 }
 
 /**

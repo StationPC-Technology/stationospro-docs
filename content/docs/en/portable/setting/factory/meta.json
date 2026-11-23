@@ -1,7 +1,6 @@
 {
   "title": "Factory Reset",
   "pages": [
-    "index",
-    "force_factory_reset"
+    "!force_factory_reset"
   ]
 }

@@ -10,8 +10,8 @@
     "device-indicator-led",
     "usb-drive-mode",
     "manual",
-    "beta-version-update",
-    "install-tv-app",
-    "ios-testflight"
+    "!beta-version-update",
+    "!install-tv-app",
+    "!ios-testflight"
   ]
 }

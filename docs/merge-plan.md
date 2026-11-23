@@ -142,15 +142,16 @@ content/docs/zh/
 ### 2.3 导航（已定：A 变体）
 
 ```
-顶栏 56px   [StationPC 帮助中心]  [桌面式 NAS] [便携式 NAS]        [搜索 ⌘K] [语言] [GitHub]
-侧栏 274px  ┌ 便携式 · PocketCloud · PA100 / Pro
+顶栏 56px   [StationPC 帮助中心]                        [搜索 ⌘K] [语言] [主题] [GitHub]
+侧栏 274px  ┌ [便携式 NAS ⇅]   ← fumadocs 内置产品下拉
             ├ 视频教程          (折叠)
-            ├ 硬件安装          (折叠)
-            ├ …17 组，默认全折叠，仅展开当前页所在组
-            └ 还在找桌面式 NAS？→ StationOS Pro 文档
+            ├ …15 组，默认全折叠，仅展开当前页所在组
+            ├ 更新日志
+            └ 联系我们 → /contact
 ```
 
-- 实现：`DocsLayout` 的 `sidebar.collapsible`（默认样式，无需自研折叠逻辑）；产品切换按钮由新的 `src/lib/products.ts` 注册表驱动，`<ProductSwitcher>` 为 server component（当前产品由 `params.slug[0]` 决定，不需要 `usePathname`）。
+- 实现（2026-11-23 定稿）：产品切换用 **fumadocs 内置**能力，不自研组件——`DocsLayout` 传 `tabMode: 'auto'` + `tabs`（`LayoutTab[]`），渲染位置在侧栏搜索框正下方，带上下箭头、深浅色自适应、键盘可达。`tabs` 由 `src/lib/products.ts` 注册表 map 出来：`{ title: labels.line[slug], description: `${productName} · ${docsCount}`, url: productUrl(slug, locale) }`。顶栏不放产品入口（首页用卡片、文档页用这个下拉），也不再放「还在找另一个产品」的提示块。
+- 侧栏只渲染当前产品的树（`getProductScopedTree`，按落地页 URL 反查产品分组）；折叠用 fumadocs 默认行为——**meta.json 里不写 `defaultOpen`** 即「默认折叠、当前组自动展开」。
 - 产品注册表（单一事实源，8 语言文案走 `title` 字段翻译）：
 
 ```ts
@@ -167,9 +168,12 @@ export const isProductSlug = (slug?: string) =>
   !!slug && (productSlugs as readonly string[]).includes(slug);
 ```
 
-- 站级页（`/`、`/policies/*`、`/contact`）无侧栏；把 `page.tsx` 里的 `params.slug?.[0] === 'policies'` 换成 `!isProductSlug(params.slug?.[0])`：**一级段不是产品 slug 就关侧栏**。判断依据来自注册表而不是硬编码列表，以后加 PA200 / DA200 之外的新产品线不用改这里。
+- 站级页（`/`、`/policies/*`、`/contact`）无侧栏；`page.tsx` 里 `standalone = !isProductSlug(params.slug?.[0])`：**一级段不是产品 slug 就关侧栏**。判断依据来自注册表而不是硬编码列表。
 - 面包屑：`帮助中心 / 便携式 NAS / 常见问题`，由 `meta.json` 的 `title` 拼装；`pages` 条目不翻译。
-- **更新日志 / 联系我们 不进主侧栏**：更新日志在侧栏底部以单入口出现，联系我们在页脚与 `/contact`。
+- **侧栏与旧站导航逐条一致（修正 Q10 的结论）**：旧站 nav 的 17 项＝15 个分组 + 更新日志 + 联系我们。旧 nav 里没有出现的页面（`backup-center`、`syncthing`、`docker/plik`、`video_tutorial/battery`、`guides/{beta-version-update,install-tv-app,ios-testflight}`、`compatible-list/{aud,fs,pic,vid}-support-list`、`troubleshooting/{connect-issue,app-client-connect-issue}` 等）**不再补进侧栏**，改用 fumadocs 的 meta 语法 `!name` 隐藏：页面照常构建、URL 照常可访问（外链与搜索可达），只是不进树。理由：用户要求「与原来一致」，且这些页本来就在侧栏之外。
+- 单页目录的处理：旧 nav 里一个目录对应一篇 `README.md` 时，侧栏只显示一层——对应实现是 `...folder` 摊平（如 `hardware` 直接铺出「主机 M.2 SSD 安装 / 底座 M.2 SSD 安装」）或子页 `!` 隐藏后只剩目录本身；目录可见子页为 0 时要把 `index` 从 `pages` 里去掉，否则会出现「目录名」与「目录内首页」两条同名条目。
+- 组内顺序由 `scripts/portable/order-meta.mjs` 按旧 `nav.js` 的叶子顺序回填（`index` 恒在最前），不靠标题排序。
+- 侧栏末尾的「联系我们」用 `[联系我们](/zh/contact)` 这类纯链接 token 指向站级 `/contact`，不复制联系页正文。
 
 ### 2.4 搜索
 
