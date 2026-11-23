@@ -437,4 +437,51 @@ location ~ ^/de-DE/pocketcloud/(.*)/?$ { return 301 https://docs.stationpc.com/d
 { source: '/docs/:path*',          destination: '/desktop/:path*',  permanent: true },
 ```
 
-语言前缀同样一套：`/zh/docs/*`、`/zh-Hant/docs/*`、`/ja/docs/*`、`/ko/docs/*`、`/de/docs/*`、`/fr/docs/*`、`/es/docs/*` 各 4 条（en 无前缀，已含在上面）。7 × 4 = 28 条，**由脚本生成**（`scripts/make-redirects.mjs` 读 `url-map.csv` 输出数组），不要手写正则——手写容易在 `policies` 的先后顺序上翻车。
+语言前缀同样一套：`/zh/docs/*`、`/zh-Hant/docs/*`、`/ja/docs/*`、`/ko/docs/*`、`/de/docs/*`、`/fr/docs/*`、`/es/docs/*` 各 4 条（en 无前缀，已含在上面）。7 × 4 = 28 条，实际实现是 `next.config.mjs` 里 `legacyDocsRedirects()` 用循环生成（共 36 条），**不要手写正则**——手写容易在 `policies` 的先后顺序上翻车。
+
+### B.3 已在应用内落地的兜底（比 B.1 更早生效）
+
+`next.config.mjs` 的 `legacySiteRedirects()` 已把 B.1 的旧站规则实现在应用里（`redirects()` 在中间件之前执行）。这样即使历史链接或二维码直接打到 `docs.stationpc.com`，也不会 404：
+
+| 旧 URL | 新 URL |
+|---|---|
+| `/pocketcloud/:path*` | `/portable/:path*` |
+| `/pocketcloud/search` | `/portable`（旧搜索页已取消，换成顶栏 ⌘K） |
+| `/zh-CN/pocketcloud/:path*` | `/zh/portable/:path*` |
+| `/zh-TW/pocketcloud/:path*` | `/zh-Hant/portable/:path*` |
+| `/ja-JP/pocketcloud/:path*` | `/ja/portable/:path*` |
+| `/ko-KR/pocketcloud/:path*` | `/ko/portable/:path*` |
+| `/de-DE/pocketcloud/:path*` | `/de/portable/:path*` |
+| `/zh-CN`、`/zh-TW`、`/ja-JP`、`/ko-KR`、`/de-DE`（语言首页） | `/zh`、`/zh-Hant`、`/ja`、`/ko`、`/de` |
+| `/<新语言>/pocketcloud/:path*`（例如 `/fr/pocketcloud/x`） | `/<新语言>/portable/:path*` |
+| `/en/pocketcloud/:path*` | `/portable/:path*`（默认语言去前缀） |
+
+实测（2026-11-23，standalone）：`/pocketcloud/faq/support-max-sd` → `/portable/faq/support-max-sd`、`/zh-CN/pocketcloud/faq/support-max-sd` → `/zh/portable/faq/support-max-sd`、`/zh-TW/pocketcloud/hardware/dock` → `/zh-Hant/portable/hardware/dock`、`/pocketcloud/search` → `/portable`、`/en/pocketcloud/faq/support-max-sd` → `/portable/faq/support-max-sd`，全部 308。
+
+B.1 的 nginx 规则仍然保留：域名切换后由 nginx 做 301 更省一跳，应用内规则作为兜底。
+
+## 附录 C：内容取舍清单（便携式 125 篇 → 111 篇）
+
+旧站 `docs/zh-CN/pocketcloud/` 共 125 篇，导入 110 篇正文 + 1 篇落地页 = 111 篇。差额 15 篇的去向逐条可查：
+
+| 处理 | 篇目 | 原因 |
+|---|---|---|
+| 删除（Authing 遗留） | `search`、`contact/contact`、`guides/basics/console`、`guides/basics/platform-guide/integrate-with-{backend-app,mobile-app,regular-web-app,spa}` | 属于 Authing 鉴权后台的说明，产品侧已无此功能；`search` 由顶栏搜索取代，`contact/contact` 升为站级 `/contact` |
+| 跳过（空占位） | `backup-center/README.md`、`compatible-list/README.md`、`faq/README.md`、`guides/device-connection/direct-connection.md`、`guides/manual/README.md`、`guides/users/README.md`、`hardware/ssd-install/README.md`、`setting/README.md` | 文件内容为空，仅用于占目录；真实内容在子页 |
+| 合并 | `trouble_issue/connect_issue` → `troubleshooting/connect-issue` | 与 `troubleshooting/app-client-connect-issue` 内容不同（设备侧 vs App 侧排查），保留为一篇并登记进 `troubleshooting/meta.json` |
+| 删除（重复产物） | `en/portable/changelog.mdx` | 转换器把「只有 README 的目录」降级成单文件的副产物，与 `changelog/` 目录重复 |
+
+另外做了三处内容清洁（不属于删页）：8 语言的 `guides/install-tv-app.mdx` 删掉正文里的测试残留 `test push`；`file-service/windows-nfs-garbled-code.mdx` 的畸形内联代码块换成通顺句子；`guides/basics/*` 里引用的 `/pocketcloud/search` 链接改指产品落地页。
+
+## 附录 D：图片处置实况
+
+| 指标 | 实际值 |
+|---|---|
+| 旧站图片文件 | 3,122 个 / 695MB（6 语言各存一份） |
+| 导入后 | `public/images/common/portable/` **357 个文件 / 88MB** |
+| 去重方式 | 按文件 md5 去重，同图多页引用复用同一份 |
+| 格式 | 原图（PNG/JPG）直接入库，**不转 WebP、不压缩**（Q16 决策） |
+| 路径 | `/images/common/portable/<分组>/<页面>/<文件名>`；译文覆盖走 `/images/<语言>/...` + `next.config.mjs` 的 `afterFiles` 回退 |
+
+比估的 899 张少很多：估算是按「6 语言目录全量 md5 去重」，实际去重范围是同一产品的全部引用（含跨语言），且旧站有大量同名不同文重复图。
+

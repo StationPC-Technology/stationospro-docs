@@ -49,6 +49,8 @@ PORT=3458 node .next/standalone/server.js
    - 站点顶部公告条：「本文档已迁移到 docs.stationpc.com，本页内容将停止更新」+ 对应新页链接
 3. 双跑统计 2 周：旧站 GA（`G-KN8GW9JM3K` / `G-DS9C35LTB6`）与新站 PostHog 对照，确认新站流量与旧站收敛。
 
+> 应用侧已经做好兜底（`next.config.mjs` 的 `legacySiteRedirects()`）：`/pocketcloud/*`、`/zh-CN/pocketcloud/*`、`/zh-TW/pocketcloud/*`、`/ja-JP|ko-KR|de-DE/pocketcloud/*`、`/pocketcloud/search`、`/en/pocketcloud/*` 全部 308 到新地址。灰度期旧链接即使被外部改指到 `docs.stationpc.com` 也不会 404，nginx 的 301 只是省一跳。
+
 ---
 
 ## 4. 切流四条验收（全绿才动 301）

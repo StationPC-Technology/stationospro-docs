@@ -44,6 +44,55 @@ function legacyDocsRedirects() {
   return rules;
 }
 
+// 旧站 URL（VuePress 时期）：`/pocketcloud/...` 与带语言前缀的 `/zh-CN/pocketcloud/...`。
+// 旧站六种语言前缀与新站不同名（zh-CN→zh、zh-TW→zh-Hant、ja-JP→ja、ko-KR→ko、de-DE→de）。
+// 交付后如果历史链接直接打到 docs.stationpc.com（而不是还在跑的 help.stationpc.*），
+// 这些规则能让它落到正确页面，而不是 404。
+const LEGACY_LOCALES = {
+  'zh-CN': 'zh',
+  'zh-TW': 'zh-Hant',
+  'ja-JP': 'ja',
+  'ko-KR': 'ko',
+  'de-DE': 'de',
+};
+
+function legacySiteRedirects() {
+  const rules = [];
+
+  for (const [oldLocale, newLocale] of Object.entries(LEGACY_LOCALES)) {
+    rules.push(
+      { source: `/${oldLocale}/pocketcloud`, destination: `/${newLocale}/portable`, permanent: true },
+      {
+        source: `/${oldLocale}/pocketcloud/:path*`,
+        destination: `/${newLocale}/portable/:path*`,
+        permanent: true,
+      },
+      // 旧站语言首页（`/zh-CN/`）落到新站对应语言首页
+      { source: `/${oldLocale}`, destination: `/${newLocale}`, permanent: true },
+    );
+  }
+
+  // 新站语言前缀 + 旧产品名（`/zh/pocketcloud/x`，手工拼过的链接会遇到）
+  for (const locale of languages) {
+    const base = locale === DEFAULT_LOCALE ? '' : `/${locale}`;
+    rules.push({
+      source: `/${locale}/pocketcloud/:path*`,
+      destination: `${base}/portable/:path*`,
+      permanent: true,
+    });
+  }
+
+  // 旧站英文站没有语言前缀（`/pocketcloud/...`）。
+  // 顺序敏感：`/pocketcloud/search`（已废弃的站内搜索页）必须排在通配之前。
+  rules.push(
+    { source: '/pocketcloud/search', destination: '/portable', permanent: true },
+    { source: '/pocketcloud', destination: '/portable', permanent: true },
+    { source: '/pocketcloud/:path*', destination: '/portable/:path*', permanent: true },
+  );
+
+  return rules;
+}
+
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
@@ -61,7 +110,8 @@ const config = {
     };
   },
   async redirects() {
-    return legacyDocsRedirects();
+    // 顺序：VuePress 旧站规则在前（更具体），`/docs` 前缀规则在后
+    return [...legacySiteRedirects(), ...legacyDocsRedirects()];
   },
 };
 
