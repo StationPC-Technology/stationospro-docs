@@ -66,7 +66,22 @@ PORT=3458 node .next/standalone/server.js
 
 ### 5.1 旧站 nginx 301
 
-按 [merge-plan 附录 B.1](./merge-plan.md) 的规则改旧站 server 块：语言首页 exact match 6 条、`^/pocketcloud/search/?$` 特例放在通配之前、6 条 `^/pocketcloud/(.*)/?$` → `/portable/$1`。保留 `help.stationpc.cn` 与 `help.stationpc.com` 两个域名（包装盒二维码在 `help.stationpc.com` 上），至少保留 12 个月。
+**用生成好的文件，不要手写**：
+
+```bash
+node scripts/portable/nginx-map.mjs      # 旧站代码有更新时重跑一次
+```
+
+产物 `docs/deployment/nginx-redirect-pocketcloud.conf`：739 条旧 URL、共 1,314 条精确 `location =`（含无尾斜杠变体），映射表在 `reports/url-map-full.csv`。拷到 ECS 后：
+
+```nginx
+# 旧站（help.stationpc.cn 与 help.stationpc.com 同一份 dist）server 块内
+include /etc/nginx/snippets/pocketcloud-redirects.conf;
+```
+
+`nginx -t` 通过再 reload。两个域名都保留（包装盒二维码印的是 `help.stationpc.com`），至少 12 个月。
+
+> 应用侧还有一层兜底（`next.config.mjs` 的 `legacySiteRedirects()`），即使某条 nginx 规则漏了，链接被指到 `docs.stationpc.com` 也不会 404。
 
 ### 5.2 旧仓库归档
 
@@ -87,5 +102,5 @@ README 顶部加一行：本仓库已归档，内容维护转移至 `StationPC-T
 ## 6. 回滚
 
 - **站点回滚**：GHCR 镜像按 `$sha` 保留，`scripts/deploy-remote.sh` 指定上一个 sha 重新部署即可。
-- **301 回滚**：nginx 配置保留 `.bak`，`nginx -s reload` 前先 `nginx -t`；301 改回 200 只需注释掉 6 条 rewrite。
+- **301 回滚**：nginx 配置保留 `.bak`，`nginx -s reload` 前先 `nginx -t`；回滚只需去掉那行 `include` 再 reload。
 - **代码回滚**：`git revert` 合并提交；文档内容全在 `content/docs/**`，回滚不影响旧站。

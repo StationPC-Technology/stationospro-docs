@@ -387,6 +387,12 @@ cd stationospro-docs && git switch -c feat/pocketcloud && npm ci
 
 ### B.1 旧站 → 新站
 
+**推荐直接用生成好的文件**：`docs/deployment/nginx-redirect-pocketcloud.conf` —— 739 条旧 URL（含无尾斜杠变体共 1,314 条 `location =`），由 `node scripts/portable/nginx-map.mjs` 扫描旧站 `docs/<locale>/pocketcloud/**/*.md` 生成，映射明细在 `reports/url-map-full.csv`（`locale,from,to,kind`）。生成器的落点规则：页面存在 → 同页；目录页没有 index → 第一个子页（36 条）；被删页（Authing 5 篇、空占位 8 篇）→ 最近存在的祖先或产品落地页（42 条）；`contact/contact` → 站级 `/contact`；`search` → 产品落地页；`trouble_issue/connect_issue` → `troubleshooting/connect-issue`。
+
+旧站 server 块里 `include /etc/nginx/snippets/pocketcloud-redirects.conf;` 即可，且 `.conf` 里全是精确 `location =`，不依赖顺序。
+
+下面的通配写法是等价简化版，适合想少几条配置的场景（但覆盖不到被删页的落点）：
+
 ```nginx
 # help.stationpc.com / help.stationpc.cn（同一份 dist，两域名规则完全相同）
 # 站首页：英文在 /，中文在 /zh-CN/；其余语言在各自目录下
