@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>方向 B · 产品货架</title>
+<style>
+  :root{
+    --bg:#fff; --fg:#0a0a0a; --muted:#71717a; --faint:#6b6b74;
+    --border:#e7e7e9; --hover:#f8f8f9; --radius:14px;
+    --desktop:#2563eb; --portable:#0d9488;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+
+  .top{height:56px;display:flex;align-items:center;gap:24px;padding:0 28px;border-bottom:1px solid var(--border)}
+  .brand{font-weight:600;font-size:15px;letter-spacing:-.01em}
+  .top .spacer{flex:1}
+  .top .links{display:flex;align-items:center;gap:18px;color:var(--muted);font-size:14px}
+  .search{display:flex;align-items:center;gap:8px;height:36px;padding:0 10px;min-width:200px;
+    border:1px solid var(--border);border-radius:9px;color:var(--faint);font-size:14px;background:#fafafa}
+  .search kbd{margin-left:auto;font:inherit;font-size:11px;color:var(--faint);border:1px solid var(--border);
+    border-radius:4px;padding:1px 5px;background:#fff}
+  .icon{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:var(--muted);font-size:13px}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:56px 28px 100px}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .head h1{margin:0;font-size:36px;line-height:1.15;letter-spacing:-.03em;font-weight:650;max-width:22ch}
+  .head p{margin:10px 0 0;color:var(--muted);font-size:15px;max-width:46ch}
+  .head .hot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;max-width:520px}
+  .hot .lab{font-size:12px;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+  .hot a{font-size:13.5px;color:#3f3f46;border:1px solid var(--border);border-radius:999px;padding:5px 12px;background:#fff}
+  .hot a:hover{background:var(--hover);border-color:#d4d4d8}
+
+  .shelf{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .shelf.single{grid-template-columns:1fr}
+
+  .card{position:relative;border:1px solid var(--border);border-radius:var(--radius);background:#fff;
+    padding:26px 26px 22px;display:flex;flex-direction:column;gap:18px;
+    transition:box-shadow .16s ease,transform .16s ease,border-color .16s ease}
+  .card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;background:var(--rail)}
+  .card.desktop{--rail:var(--desktop)}
+  .card.portable{--rail:var(--portable)}
+  .card:hover{border-color:#d9d9de;box-shadow:0 8px 24px -12px rgba(10,10,10,.18);transform:translateY(-2px)}
+
+  .card .top-line{display:flex;align-items:center;gap:10px}
+  .tile{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:14px;color:#fff}
+  .desktop .tile{background:var(--desktop)}
+  .portable .tile{background:var(--portable)}
+  .line-label{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--faint);text-transform:uppercase}
+  .badge{margin-left:auto;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;
+    border:1px solid var(--border);border-radius:999px;padding:2px 9px}
+
+  .card h2{margin:0;font-size:25px;letter-spacing:-.025em;font-weight:640;line-height:1.25}
+  .card .models{margin:-10px 0 0;color:var(--muted);font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.01em}
+
+  .entries{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .entries a{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--border);
+    border-radius:9px;font-size:14px;color:#27272a;background:#fff;transition:background .14s,border-color .14s}
+  .entries a:hover{background:var(--hover);border-color:#d4d4d8}
+  .entries .n{margin-left:auto;font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+
+  .card .cta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;border-top:1px solid var(--border);font-size:13.5px;font-weight:550}
+  .card .cta a{color:var(--muted)}
+  .card:hover .cta a{color:var(--fg)}
+
+  .foot{margin-top:36px;padding-top:20px;border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .foot .grp{display:flex;gap:18px}
+  .foot a:hover{color:var(--fg)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">StationPC 帮助中心</div>
+  <div class="spacer"></div>
+  <div class="links">
+    <div class="search"><span>⌕</span><span>搜索</span><kbd>Ctrl K</kbd></div>
+    <span class="icon">中</span>
+    <span class="icon">◐</span>
+    <span class="icon">◯</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <div>
+      <h1>先选产品线，再看对应文档</h1>
+      <p>两条线的固件、客户端和型号都不一样，所以文档分开维护。目标一致：装好、连上、用起来。</p>
+    </div>
+    <div class="hot">
+      <span class="lab">热门</span>
+      <a href="#">安装客户端</a>
+      <a href="#">初始化设备</a>
+      <a href="#">M.2 SSD 兼容列表</a>
+      <a href="#">文件管理</a>
+    </div>
+  </div>
+
+  <div class="shelf">
+    <section class="card desktop">
+      <div class="top-line">
+        <div class="tile">D</div>
+        <div class="line-label">桌面式 NAS</div>
+        <div class="badge">38 篇</div>
+      </div>
+      <h2>StationOS Pro</h2>
+      <div class="models">DA400 · DA400 Air</div>
+      <div class="entries">
+        <a href="#">快速开始<span class="n">1</span></a>
+        <a href="#">应用教程<span class="n">22</span></a>
+        <a href="#">系统设置<span class="n">15</span></a>
+        <a href="#">兼容性<span class="n">3</span></a>
+        <a href="#">常见问题<span class="n">1</span></a>
+        <a href="#">版本记录<span class="n">6</span></a>
+      </div>
+      <div class="cta"><a href="#">进入文档 →</a><span style="color:var(--faint);font-size:12px">StationOS Pro</span></div>
+    </section>
+
+    <section class="card portable">
+      <div class="top-line">
+        <div class="tile">P</div>
+        <div class="line-label">便携式 NAS</div>
+        <div class="badge">111 篇</div>
+      </div>
+      <h2>PocketCloud（PA100）</h2>
+      <div class="models">PA100 · PA100 Pro · PA200</div>
+      <div class="entries">
+        <a href="#">视频教程<span class="n">10</span></a>
+        <a href="#">硬件安装<span class="n">4</span></a>
+        <a href="#">快速开始<span class="n">16</span></a>
+        <a href="#">文件共享服务<span class="n">10</span></a>
+        <a href="#">备份与同步<span class="n">3</span></a>
+        <a href="#">常见问题<span class="n">23</span></a>
+      </div>
+      <div class="cta"><a href="#">进入文档 →</a><span style="color:var(--faint);font-size:12px">StationOS</span></div>
+    </section>
+  </div>
+
+  <div class="foot">
+    <div class="grp"><a href="#">法务与隐私</a><a href="#">联系我们</a><a href="#">更新日志（最近 2026-10-26）</a></div>
+    <div class="grp"><a href="#">简体中文</a><a href="#">8 种语言</a></div>
+  </div>
+</main>
+</body>
+</html>
