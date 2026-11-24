@@ -5,6 +5,7 @@ import { Steps, Step } from 'fumadocs-ui/components/steps';
 import type { MDXComponents } from 'mdx/types';
 import type { ImgHTMLAttributes } from 'react';
 import { VideoEmbed } from './video-embed';
+import { ContactInfo } from './contact-info';
 
 function ZoomedImage(props: ImgHTMLAttributes<HTMLImageElement>) {
   // 译文图片未本地化时 remark 编译期拿不到尺寸（onError: 'ignore'），
@@ -22,6 +23,7 @@ export function getMDXComponents(components?: MDXComponents) {
     img: ZoomedImage,
     // 旧站 VuePress 用到的组件，在新站全局可用（不必逐页 import）
     VideoEmbed,
+    ContactInfo,
     Tabs,
     Tab,
     Steps,

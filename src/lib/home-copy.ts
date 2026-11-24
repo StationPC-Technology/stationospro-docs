@@ -16,11 +16,7 @@ export interface HomeScenario {
 }
 
 interface HomeStrings {
-  kicker: string;
-  title: string;
-  lede: string;
   searchPlaceholder: string;
-  browse: string;
   scenarios: string;
   scenariosHint: string;
   /** 与 `SCENARIO_LINKS` 一一对应 */
@@ -29,7 +25,8 @@ interface HomeStrings {
   videosMore: (n: number) => string;
   faq: string;
   faqMore: (n: number) => string;
-  badges: { hot: string; recommended: string };
+  /** 常见问题第一条的标签，如「热门」 */
+  hotBadge: string;
   footer: { changelog: string; compatible: string };
 }
 
@@ -59,11 +56,7 @@ const SCENARIO_LINKS: { desktop: string[]; portable: string[] }[] = [
 
 const homeStrings: Record<Locale, HomeStrings> = {
   en: {
-    kicker: 'Help center',
-    title: 'Search first, then pick a product line',
-    lede: 'Two systems with separate docs. Describe the problem instead of digging through the sidebar.',
     searchPlaceholder: 'Search all docs, e.g. "initialize", "SD card capacity", "WebDAV mount"',
-    browse: 'Browse by product',
     scenarios: 'Browse by task',
     scenariosHint: 'Not sure which line?',
     scenarioLabels: [
@@ -75,18 +68,14 @@ const homeStrings: Record<Locale, HomeStrings> = {
       'Create accounts for family members',
     ],
     videos: 'Video tutorials',
-    videosMore: (n) => `All ${n} videos →`,
+    videosMore: (n) => `All ${n} videos`,
     faq: 'FAQ',
-    faqMore: (n) => `All ${n} questions →`,
-    badges: { hot: 'Popular', recommended: 'Recommended' },
+    faqMore: (n) => `All ${n} questions`,
+    hotBadge: 'Popular',
     footer: { changelog: 'Changelog', compatible: 'Compatibility' },
   },
   zh: {
-    kicker: '帮助中心',
-    title: '先搜，再进产品线',
-    lede: '桌面式与便携式两套系统，文档分开维护。直接描述问题，比翻侧栏快。',
     searchPlaceholder: '搜索全部文档，例如「初始化」「SD 卡容量」「WebDAV 挂载」',
-    browse: '按产品浏览',
     scenarios: '按场景找',
     scenariosHint: '不知道选哪条线？',
     scenarioLabels: [
@@ -98,18 +87,14 @@ const homeStrings: Record<Locale, HomeStrings> = {
       '给家人分账号、限制权限',
     ],
     videos: '视频教程',
-    videosMore: (n) => `查看全部 ${n} 个 →`,
+    videosMore: (n) => `查看全部 ${n} 个`,
     faq: '常见问题',
-    faqMore: (n) => `查看全部 ${n} 条 →`,
-    badges: { hot: '热门', recommended: '推荐' },
+    faqMore: (n) => `查看全部 ${n} 条`,
+    hotBadge: '热门',
     footer: { changelog: '更新日志', compatible: '兼容性列表' },
   },
   'zh-Hant': {
-    kicker: '說明中心',
-    title: '先搜，再進產品線',
-    lede: '桌上型與可攜式兩套系統，文件分開維護。直接描述問題，比翻側邊欄快。',
     searchPlaceholder: '搜尋全部文件，例如「初始化」「SD 卡容量」「WebDAV 掛載」',
-    browse: '依產品瀏覽',
     scenarios: '依情境找',
     scenariosHint: '不知道選哪條線？',
     scenarioLabels: [
@@ -121,18 +106,14 @@ const homeStrings: Record<Locale, HomeStrings> = {
       '給家人分帳號、限制權限',
     ],
     videos: '影片教學',
-    videosMore: (n) => `查看全部 ${n} 支 →`,
+    videosMore: (n) => `查看全部 ${n} 支`,
     faq: '常見問題',
-    faqMore: (n) => `查看全部 ${n} 條 →`,
-    badges: { hot: '熱門', recommended: '推薦' },
+    faqMore: (n) => `查看全部 ${n} 條`,
+    hotBadge: '熱門',
     footer: { changelog: '更新記錄', compatible: '相容性清單' },
   },
   ja: {
-    kicker: 'ヘルプセンター',
-    title: 'まず検索、次に製品ライン',
-    lede: 'デスクトップとポータブルの 2 系統で、ドキュメントも別々です。サイドバーをたどるより、問題をそのまま検索してください。',
     searchPlaceholder: 'すべてのドキュメントを検索（例:「初期化」「SD カード容量」「WebDAV マウント」）',
-    browse: '製品から探す',
     scenarios: '用途から探す',
     scenariosHint: 'どちらのラインか分からない？',
     scenarioLabels: [
@@ -144,18 +125,14 @@ const homeStrings: Record<Locale, HomeStrings> = {
       '家族用のアカウントと権限を分ける',
     ],
     videos: '動画チュートリアル',
-    videosMore: (n) => `全 ${n} 本を見る →`,
+    videosMore: (n) => `全 ${n} 本を見る`,
     faq: 'よくある質問',
-    faqMore: (n) => `全 ${n} 件を見る →`,
-    badges: { hot: '人気', recommended: 'おすすめ' },
+    faqMore: (n) => `全 ${n} 件を見る`,
+    hotBadge: '人気',
     footer: { changelog: '更新履歴', compatible: '対応リスト' },
   },
   ko: {
-    kicker: '도움말 센터',
-    title: '먼저 검색, 그다음 제품 라인',
-    lede: '데스크톱과 휴대용, 두 시스템의 문서가 따로 있습니다. 사이드바를 뒤지는 대신 문제를 그대로 검색하세요.',
     searchPlaceholder: '모든 문서 검색 (예: "초기화", "SD 카드 용량", "WebDAV 마운트")',
-    browse: '제품별로 찾기',
     scenarios: '상황별로 찾기',
     scenariosHint: '어떤 라인인지 모르겠다면?',
     scenarioLabels: [
@@ -167,18 +144,14 @@ const homeStrings: Record<Locale, HomeStrings> = {
       '가족 계정과 권한 분리',
     ],
     videos: '동영상 튜토리얼',
-    videosMore: (n) => `전체 ${n}개 보기 →`,
+    videosMore: (n) => `전체 ${n}개 보기`,
     faq: '자주 묻는 질문',
-    faqMore: (n) => `전체 ${n}개 보기 →`,
-    badges: { hot: '인기', recommended: '추천' },
+    faqMore: (n) => `전체 ${n}개 보기`,
+    hotBadge: '인기',
     footer: { changelog: '변경 기록', compatible: '호환성 목록' },
   },
   de: {
-    kicker: 'Hilfe-Center',
-    title: 'Erst suchen, dann Produktlinie wählen',
-    lede: 'Zwei Systeme, zwei Doku-Sätze. Beschreiben Sie das Problem, statt die Seitenleiste zu durchsuchen.',
     searchPlaceholder: 'Alle Dokumente durchsuchen, z. B. „Initialisierung", „SD-Kartenkapazität", „WebDAV einbinden"',
-    browse: 'Nach Produkt',
     scenarios: 'Nach Aufgabe',
     scenariosHint: 'Unsicher, welche Linie?',
     scenarioLabels: [
@@ -190,18 +163,14 @@ const homeStrings: Record<Locale, HomeStrings> = {
       'Konten für Familienmitglieder anlegen',
     ],
     videos: 'Video-Tutorials',
-    videosMore: (n) => `Alle ${n} Videos →`,
+    videosMore: (n) => `Alle ${n} Videos`,
     faq: 'Häufige Fragen',
-    faqMore: (n) => `Alle ${n} Fragen →`,
-    badges: { hot: 'Beliebt', recommended: 'Empfohlen' },
+    faqMore: (n) => `Alle ${n} Fragen`,
+    hotBadge: 'Beliebt',
     footer: { changelog: 'Änderungen', compatible: 'Kompatibilität' },
   },
   fr: {
-    kicker: "Centre d'aide",
-    title: "Chercher d'abord, choisir la gamme ensuite",
-    lede: 'Deux systèmes, deux documentations. Décrivez le problème plutôt que de parcourir la barre latérale.',
     searchPlaceholder: 'Rechercher dans tous les documents, ex. « initialisation », « capacité SD », « montage WebDAV »',
-    browse: 'Par produit',
     scenarios: 'Par besoin',
     scenariosHint: 'Vous hésitez ?',
     scenarioLabels: [
@@ -213,18 +182,14 @@ const homeStrings: Record<Locale, HomeStrings> = {
       'Créer des comptes pour la famille',
     ],
     videos: 'Tutoriels vidéo',
-    videosMore: (n) => `Les ${n} vidéos →`,
+    videosMore: (n) => `Les ${n} vidéos`,
     faq: 'Questions fréquentes',
-    faqMore: (n) => `Les ${n} questions →`,
-    badges: { hot: 'Populaire', recommended: 'Conseillé' },
+    faqMore: (n) => `Les ${n} questions`,
+    hotBadge: 'Populaire',
     footer: { changelog: 'Nouveautés', compatible: 'Compatibilité' },
   },
   es: {
-    kicker: 'Centro de ayuda',
-    title: 'Busca primero, elige la línea después',
-    lede: 'Dos sistemas con documentación separada. Describe el problema en lugar de recorrer la barra lateral.',
     searchPlaceholder: 'Buscar en todos los documentos, p. ej. «inicialización», «capacidad SD», «montaje WebDAV»',
-    browse: 'Por producto',
     scenarios: 'Por tarea',
     scenariosHint: '¿No sabes cuál?',
     scenarioLabels: [
@@ -236,10 +201,10 @@ const homeStrings: Record<Locale, HomeStrings> = {
       'Crear cuentas para la familia',
     ],
     videos: 'Tutoriales en vídeo',
-    videosMore: (n) => `Los ${n} vídeos →`,
+    videosMore: (n) => `Los ${n} vídeos`,
     faq: 'Preguntas frecuentes',
-    faqMore: (n) => `Las ${n} preguntas →`,
-    badges: { hot: 'Destacado', recommended: 'Recomendado' },
+    faqMore: (n) => `Las ${n} preguntas`,
+    hotBadge: 'Destacado',
     footer: { changelog: 'Novedades', compatible: 'Compatibilidad' },
   },
 };

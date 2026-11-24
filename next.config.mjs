@@ -61,6 +61,12 @@ function legacySiteRedirects() {
 
   for (const [oldLocale, newLocale] of Object.entries(LEGACY_LOCALES)) {
     rules.push(
+      // 旧站「联系我们」是独立页 `/pocketcloud/contact/contact`，新站并到产品域下的 `/portable/contact`
+      {
+        source: `/${oldLocale}/pocketcloud/contact/contact`,
+        destination: `/${newLocale}/portable/contact`,
+        permanent: true,
+      },
       { source: `/${oldLocale}/pocketcloud`, destination: `/${newLocale}/portable`, permanent: true },
       {
         source: `/${oldLocale}/pocketcloud/:path*`,
@@ -75,16 +81,25 @@ function legacySiteRedirects() {
   // 新站语言前缀 + 旧产品名（`/zh/pocketcloud/x`，手工拼过的链接会遇到）
   for (const locale of languages) {
     const base = locale === DEFAULT_LOCALE ? '' : `/${locale}`;
-    rules.push({
-      source: `/${locale}/pocketcloud/:path*`,
-      destination: `${base}/portable/:path*`,
-      permanent: true,
-    });
+    rules.push(
+      {
+        source: `/${locale}/pocketcloud/contact/contact`,
+        destination: `${base}/portable/contact`,
+        permanent: true,
+      },
+      {
+        source: `/${locale}/pocketcloud/:path*`,
+        destination: `${base}/portable/:path*`,
+        permanent: true,
+      },
+    );
   }
 
   // 旧站英文站没有语言前缀（`/pocketcloud/...`）。
-  // 顺序敏感：`/pocketcloud/search`（已废弃的站内搜索页）必须排在通配之前。
+  // 顺序敏感：`/pocketcloud/search`（已废弃的站内搜索页）与 `/pocketcloud/contact/contact`
+  // 必须排在通配之前。
   rules.push(
+    { source: '/pocketcloud/contact/contact', destination: '/portable/contact', permanent: true },
     { source: '/pocketcloud/search', destination: '/portable', permanent: true },
     { source: '/pocketcloud', destination: '/portable', permanent: true },
     { source: '/pocketcloud/:path*', destination: '/portable/:path*', permanent: true },

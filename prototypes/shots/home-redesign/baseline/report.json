@@ -1,0 +1,58 @@
+[
+  {
+    "file": "page-1440x900.png",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 38,
+        "examples": [
+          "span.text-[11px].font-semibold「帮助中心」（4.35:1）",
+          "kbd.ml-auto.shrink-0「Ctrl K」（4.35:1）",
+          "span.shrink-0「按产品浏览」（4.35:1）"
+        ]
+      },
+      {
+        "rule": "boxedGroups",
+        "label": "用边框分组过多（首屏多块各自加框，或框里又套着几个加框的小块）",
+        "count": 1,
+        "examples": [
+          "button.group.mx-auto「⌕ 搜索全部文档，例如「初始化」「SD 卡容量」」（首屏 4 块各自加框）"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "page-390x844.png",
+    "state": null,
+    "size": "390x844",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 38,
+        "examples": [
+          "span.text-[11px].font-semibold「帮助中心」（4.35:1）",
+          "kbd.ml-auto.shrink-0「Ctrl K」（4.35:1）",
+          "span.shrink-0「按产品浏览」（4.35:1）"
+        ]
+      },
+      {
+        "rule": "boxedGroups",
+        "label": "用边框分组过多（首屏多块各自加框，或框里又套着几个加框的小块）",
+        "count": 1,
+        "examples": [
+          "button.group.mx-auto「⌕ 搜索全部文档，例如「初始化」「SD 卡容量」」（首屏 4 块各自加框）"
+        ]
+      }
+    ]
+  }
+]

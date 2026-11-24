@@ -24,3 +24,20 @@ html > body[data-scroll-locked] {
 .prose [role='tabpanel'] table {
   border: none;
 }
+
+/* 站首页设备线稿的各个面与描边，跟随亮暗主题；见 src/components/device-art.tsx */
+.home-art {
+  --art-front: #fff;
+  --art-side: #e4e8ee;
+  --art-top: #f4f6f8;
+  --art-band: #e4e8ee;
+  --art-line: #3d434d;
+}
+
+.dark .home-art {
+  --art-front: #22262d;
+  --art-side: #171a1f;
+  --art-top: #2c313a;
+  --art-band: #171a1f;
+  --art-line: #b6bec9;
+}
