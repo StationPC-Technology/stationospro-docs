@@ -1,0 +1,101 @@
+[
+  {
+    "file": "a.png",
+    "target": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\lin\\codeWSL\\stationpc\\stationpc_help_new\\stationospro-docs\\explore\\a.html",
+    "name": "a",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": []
+  },
+  {
+    "file": "b.png",
+    "target": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\lin\\codeWSL\\stationpc\\stationpc_help_new\\stationospro-docs\\explore\\b.html",
+    "name": "b",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": []
+  },
+  {
+    "file": "c.png",
+    "target": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\lin\\codeWSL\\stationpc\\stationpc_help_new\\stationospro-docs\\explore\\c.html",
+    "name": "c",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": []
+  },
+  {
+    "file": "sheet.png",
+    "width": 1358,
+    "height": 246,
+    "columns": 3,
+    "items": [
+      {
+        "naturalWidth": 373,
+        "naturalHeight": 92,
+        "scale": 1,
+        "renderScale": 1,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 373,
+          "height": 92
+        },
+        "width": 373,
+        "height": 92,
+        "labelHeight": 32,
+        "x": 50,
+        "y": 24,
+        "label": "a",
+        "labelY": 124
+      },
+      {
+        "naturalWidth": 212,
+        "naturalHeight": 166,
+        "scale": 1,
+        "renderScale": 1,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 212,
+          "height": 166
+        },
+        "width": 212,
+        "height": 166,
+        "labelHeight": 32,
+        "x": 573,
+        "y": 24,
+        "label": "b",
+        "labelY": 198
+      },
+      {
+        "naturalWidth": 426,
+        "naturalHeight": 80,
+        "scale": 1,
+        "renderScale": 1,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 426,
+          "height": 80
+        },
+        "width": 426,
+        "height": 80,
+        "labelHeight": 32,
+        "x": 908,
+        "y": 24,
+        "label": "c",
+        "labelY": 112
+      }
+    ],
+    "issues": []
+  }
+]

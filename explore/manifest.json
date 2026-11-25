@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "lang": "zh",
+  "project": "StationPC 帮助中心",
+  "brief": "保留搜索、两条产品线、常见问题和站级链接。每条产品线精选六个模块。请对比搜索是否醒目、能否认出自己的设备，以及文档入口是否好找。",
+  "nativeViewport": "1440x900",
+  "candidates": [
+    {"id":"a","source":"a.html","name":"设备图鉴","concept":"先用搜索找答案，再按系统名和型号辨认产品。","typography":"无衬线标题，等宽型号","traits":["浅蓝搜索区","分层硬盘插图","三列模块卡"],"palette":["#ebf2ff","#235ed1","#132440","#087364"]},
+    {"id":"b","source":"b.html","name":"设备工作台","concept":"把首页当作工具台：搜索在手边，文档入口集中排布。","typography":"无衬线正文，等宽索引","traits":["石墨底色","信号色","紧凑检索"],"palette":["#141b20","#78e3c9","#e6f0ef"]},
+    {"id":"c","source":"c.html","name":"纸本手册","concept":"像翻设备手册一样，沿章节和编号找到条目。","typography":"衬线标题，无衬线索引","traits":["纸色背景","章节编号","双栏目录"],"palette":["#f7f4ec","#24211f","#aa3928"]}
+  ]
+}

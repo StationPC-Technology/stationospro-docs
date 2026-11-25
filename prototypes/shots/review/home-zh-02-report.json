@@ -1,0 +1,30 @@
+[
+  {
+    "file": "page.png",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 12,
+        "examples": [
+          "span.shrink-0.text-[12.5px]「1 篇文档」（4.20:1）",
+          "span.shrink-0.text-[12.5px]「8 篇文档」（4.20:1）",
+          "span.shrink-0.text-[12.5px]「15 篇文档」（4.20:1）"
+        ]
+      },
+      {
+        "rule": "boxedGroups",
+        "label": "用边框分组过多（首屏多块各自加框，或框里又套着几个加框的小块）",
+        "count": 1,
+        "examples": [
+          "article.flex.flex-col「快速开始 1 篇文档 DA400 安装指南」（首屏 9 块各自加框）"
+        ]
+      }
+    ]
+  }
+]

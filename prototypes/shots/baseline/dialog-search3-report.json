@@ -1,0 +1,28 @@
+[
+  {
+    "file": "page.png",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 1,
+        "examples": [
+          "div.inline-flex.items-center「帮助中心 StationOS Pro 应用教程」（3.78:1）"
+        ]
+      },
+      {
+        "rule": "dialogActions",
+        "label": "弹窗的操作按钮不在视口内（要滚动才够得着）",
+        "count": 1,
+        "examples": [
+          "button.relative.select-none「NFS（Network File System）」"
+        ]
+      }
+    ]
+  }
+]
