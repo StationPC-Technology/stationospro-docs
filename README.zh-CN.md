@@ -49,5 +49,6 @@ npm run dev
 
 - [Fumadocs 常用内置组件编写指南](./docs/fumadocs-components.md)
 - [文档编写与发布工作流](./docs/writing-workflow.md)
+- [首页模块：图标与 FAQ 徽标](./docs/homepage-blocks.md) —— 模块卡图标与常见问题徽标的配置方式
 
 提交前请运行 `npm run types:check` 和 `npm run build`。推送及创建 Pull Request 时会自动执行质量检查。

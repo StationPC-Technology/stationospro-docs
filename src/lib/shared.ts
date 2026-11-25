@@ -14,3 +14,13 @@ export const gitConfig = {
   repo: 'stationospro-docs',
   branch: 'main',
 };
+
+// 正站在用的社交渠道，首页底栏的圆钮从这里取链接；增删渠道时同步
+// src/components/brand-icons.tsx 与首页底栏。
+export const socialLinks = {
+  facebook: 'https://www.facebook.com/NAS.StationPC/',
+  instagram: 'https://www.instagram.com/stationpc_official/',
+  tiktok: 'https://www.tiktok.com/@stationpc.official',
+  youtube: 'https://www.youtube.com/@StationPC_Official',
+  discord: 'https://discord.gg/R9acnGtDnP',
+} as const;

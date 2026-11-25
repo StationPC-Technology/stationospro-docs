@@ -1,17 +1,6 @@
-import { source } from '@/lib/source';
-import { createFromSource } from 'fumadocs-core/search/server';
-import { localeConfigs } from '@/lib/i18n';
-import { getCjkTokenizer } from '@/lib/search-tokenizers';
+import { defaultLanguage, languages } from '@/lib/i18n';
 import { productSlugs } from '@/lib/products';
-
-const search = createFromSource(source, {
-  localeMap: Object.fromEntries(
-    localeConfigs.map((locale) => [
-      locale.id,
-      locale.search === 'cjk' ? { tokenizer: getCjkTokenizer(locale.id) } : locale.search,
-    ]),
-  ),
-});
+import { getSearchAPI } from '@/lib/search-api';
 
 type SearchRecord = { url?: string };
 
@@ -25,8 +14,22 @@ function inScope(url: string | undefined, scope: string) {
   return url.split('/').includes(scope);
 }
 
+/**
+ * 搜索接口按 `?locale=` 取语言，只构建该语言的索引（见 `@/lib/search-api`）。
+ * `?warm=1` 不返回结果，只用来在空闲时先把索引建好，见首页搜索框的预热请求。
+ */
 export async function GET(request: Request) {
-  const scope = new URL(request.url).searchParams.get('scope');
+  const url = new URL(request.url);
+  const scope = url.searchParams.get('scope');
+  const locale = url.searchParams.get('locale');
+  const search = getSearchAPI(locale && languages.includes(locale) ? locale : defaultLanguage);
+
+  if (url.searchParams.get('warm') === '1') {
+    // 任意 query 都会触发建索引；结果没人要，省一次序列化
+    await search.search('a');
+    return Response.json([]);
+  }
+
   const response = await search.GET(request);
   if (!scope || !productSlugs.includes(scope as never) || !response.ok) return response;
 

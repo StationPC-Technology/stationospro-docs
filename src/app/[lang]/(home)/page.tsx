@@ -1,68 +1,83 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
-import { DeviceArt } from '@/components/device-art';
+import { ArrowRight, Mail, icons } from 'lucide-react';
 import { HeroSearch } from '@/components/hero-search';
-import { VideoThumb } from '@/components/video-thumb';
+import {
+  DiscordIcon,
+  FacebookIcon,
+  InstagramIcon,
+  TikTokIcon,
+  YouTubeIcon,
+} from '@/components/brand-icons';
 import { source } from '@/lib/source';
 import { languages } from '@/lib/i18n';
-import { HOME_FAQ_SLUGS, HOME_VIDEO_IDS, getHomeScenarios, getHomeStrings } from '@/lib/home-copy';
-import {
-  productModels,
-  productName,
-  productUrl,
-  products,
-  type Product,
-} from '@/lib/products';
+import { getHomeStrings } from '@/lib/home-copy';
+import { HOME_FAQ, type HomeFaqBadge } from '@/lib/home-faq';
+import { getHomeModules, type HomeModuleCard } from '@/lib/home-modules';
+import { productModels, productUrl, products, type Product } from '@/lib/products';
 import { getProductLabels } from '@/lib/product-labels';
-import { countProductDocs } from '@/lib/product-tree';
+import { getContactStrings } from '@/lib/contact-copy';
+import { appName, socialLinks } from '@/lib/shared';
 
-type Video = { videoId: string; url: string; title: string };
+/**
+ * 底栏法务入口：标题取本地页面树（各语言已翻译），链接指向主站正式条款页；
+ * 本地页面仍在 /policies/*，只是底栏不再指向它。
+ */
+const FOOTER_LEGAL_LINKS: { slug: string; href: string }[] = [
+  { slug: 'privacy-policy', href: 'https://www.stationpc.com/policies/privacy-policy' },
+  { slug: 'user-agreement', href: 'https://www.stationpc.com/policies/terms-of-service' },
+];
+
+const SUPPORT_EMAIL = 'support@stationpc.com';
 
 /** 键盘焦点环全页统一用品牌蓝，不用浏览器默认环 */
 const focusRing =
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:focus-visible:outline-blue-400';
 
+/** 常见问题条目标徽标的样式：热门、推荐各一种 */
+const faqBadgeStyles: Record<HomeFaqBadge, string> = {
+  hot: 'bg-amber-500/12 text-amber-800 dark:bg-amber-400/15 dark:text-amber-300',
+  recommend: 'border border-fd-foreground/20 bg-fd-popover text-fd-foreground/70',
+};
+
 /**
- * 两条产品线的识别色，只影响观感，不参与路由。
- * panel 是产品面板的底色，ink 是线名、可点的文档名这类文字，glow 是线稿里点亮的部分。
- * 小字在亮色下要用 700/800 色阶才够对比度，线稿用 600 更鲜；暗色统一用 400。
+ * 模块卡图标的胶囊底色：按产品线取色，和分区标题的识别色一致。
+ *
+ * `shell` 是圆角方底的浅色，`glyph` 是图标本身的颜色（Lucide 图标跟随 currentColor）；
+ * 换成自定义图片时图片自带颜色，只借用 `shell` 的底。
  */
-const lineTone: Record<Product['slug'], { panel: string; ink: string; glow: string }> = {
+const iconTone: Record<Product['slug'], { shell: string; glyph: string }> = {
   desktop: {
-    panel: 'bg-blue-600/13 hover:bg-blue-600/19 dark:bg-blue-400/18 dark:hover:bg-blue-400/28',
-    ink: 'text-blue-700 dark:text-blue-400',
-    glow: 'text-blue-600 dark:text-blue-400',
+    shell: 'bg-blue-600/10 dark:bg-blue-400/15',
+    glyph: 'text-blue-700 dark:text-blue-300',
   },
   portable: {
-    panel: 'bg-teal-600/13 hover:bg-teal-600/19 dark:bg-teal-400/18 dark:hover:bg-teal-400/28',
-    ink: 'text-teal-800 dark:text-teal-400',
-    glow: 'text-teal-600 dark:text-teal-400',
+    shell: 'bg-teal-700/10 dark:bg-teal-400/15',
+    glyph: 'text-teal-800 dark:text-teal-300',
   },
 };
 
 /**
  * 站首页：唯一入口页。
  *
- * 结构：搜索入口 → 两块产品面板（「两扇门」，各站一台设备线稿）→ 按场景找（两条产品线对照）
- * → 视频教程（1 大 + 4 小，标题取自页面树）→ 常见问题 → 站级链接。
+ * 结构：内联搜索（输入即出结果）→ 桌面式 NAS 模块卡 → 便携式 NAS 模块卡 → 常见问题 → 站级链接。
  *
- * 设计取舍：不放解释页面的标题区，顶栏已有站名，页面标题只留给读屏（视觉隐藏的 h1）；
- * 认产品靠面板上的设备形象，不靠字母图标；产品面板之外不加外框，靠留白和细行线分组；
- * 两条产品线的蓝、青从首屏一路带到场景表和常见问题，缩小看也知道哪一列属于哪条线。
+ * 设计取舍：两条产品线不再各占一块「二选一」面板——用户常常并不知道自己属于哪条线，
+ * 所以两棵树都直接摊开模块和热门文档，靠留白和线色区分，而不是要求先做一次选择。
+ * 分区标题只保留两行：线名（桌面式 NAS）和型号，产品名交给卡片与文档页。
+ * 模块名与卡片里的文档标题全部取自页面树（各语言已翻译），不在这里写死文案。
  */
 export default async function HomePage({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params;
   const labels = getProductLabels(lang);
   const copy = getHomeStrings(lang);
-  const scenarios = getHomeScenarios(lang);
 
   const pages = source.getPages(lang);
-  const policies = source.getPage(['policies', 'privacy-policy'], lang);
-  const contact = source.getPage(['contact'], lang);
+  const contactPage = source.getPage(['contact'], lang);
+  const contactStrings = getContactStrings(lang);
 
   /**
    * slug 解析成链接 + 标题。
-   * 精确页找不到就退到同前缀的第一页（场景表里有些 slug 指向的是分组），
+   * 精确页找不到就退到同前缀的第一页（有些 slug 指向的是分组），
    * 再不济退到产品落地页——保证首页的任何一条链接都不会 404。
    */
   const resolve = (slugs: string[]): { url: string; title: string } => {
@@ -78,163 +93,125 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
 
   const link = (slugs: string[]): string => resolve(slugs).url;
 
-  /** 视频：按 HOME_VIDEO_IDS 的顺序找页面，标题用页面树里的译文 */
-  const videos = Object.entries(HOME_VIDEO_IDS)
-    .map(([file, videoId]) => {
-      const page = pages.find(
-        (item) => item.slugs[1] === 'video_tutorial' && item.slugs.at(-1)?.toLowerCase() === file,
-      );
-      return page ? { videoId, url: page.url, title: page.data.title } : null;
-    })
-    .filter((item): item is Video => item !== null);
+  /** 搜索框下的热门搜索：直达几条被问得最多的页面 */
+  const hot = labels.hot.map((item) => ({ label: item.label, href: link(item.slug) }));
 
-  const [featured, ...rest] = videos;
+  /** 常见问题：条目与「热门/推荐」徽标都写在 `home-faq.ts` 里，标题取页面树的译文 */
+  const faqItems = HOME_FAQ.flatMap((item) => {
+    const page = source.getPage(item.slug, lang);
+    return page ? [{ page, badge: item.badge }] : [];
+  });
 
-  /** 视频总数（首页只展示 5 个，剩下的在 video_tutorial 里） */
-  const videoTotal = pages.filter((page) => page.slugs[1] === 'video_tutorial').length;
-  /** 常见问题总数 */
-  const faqTotal = pages.filter((page) => page.slugs[0] === 'portable' && page.slugs[1] === 'faq').length;
+  /** 底栏圆钮：正站在用的社交渠道 + 支持邮箱 */
+  const socialChannels = [
+    { label: 'Facebook', href: socialLinks.facebook, Icon: FacebookIcon },
+    { label: 'Instagram', href: socialLinks.instagram, Icon: InstagramIcon },
+    { label: 'TikTok', href: socialLinks.tiktok, Icon: TikTokIcon },
+    { label: 'YouTube', href: socialLinks.youtube, Icon: YouTubeIcon },
+    { label: 'Discord', href: socialLinks.discord, Icon: DiscordIcon },
+    { label: contactStrings.items[1].label, href: `mailto:${SUPPORT_EMAIL}`, Icon: Mail },
+  ];
 
-  /** 常见问题：固定选页（标题取页面树里的译文） */
-  const faqPages = HOME_FAQ_SLUGS.map((slugs) => source.getPage(slugs, lang)).filter(
-    (page): page is NonNullable<typeof page> => page !== undefined,
-  );
+  /** 底栏链接行：主站、社区在前，法务页与联系我们在后；标题全部来自既有文案或页面树 */
+  const footerLinks = [
+    ...[contactStrings.items[0], contactStrings.items[2]].flatMap((item) =>
+      item.href ? [{ label: item.label, href: item.href, external: true }] : [],
+    ),
+    ...FOOTER_LEGAL_LINKS.flatMap(({ slug, href }) => {
+      const page = source.getPage(['policies', slug], lang);
+      return page ? [{ label: page.data.title, href, external: true }] : [];
+    }),
+    ...(contactPage
+      ? [{ label: contactPage.data.title, href: contactPage.url, external: false }]
+      : []),
+  ];
+
+  const year = new Date().getFullYear();
 
   return (
-    <div className="flex flex-1 flex-col px-5 py-10 sm:px-6 sm:py-14">
-      <div className="mx-auto flex w-full max-w-[1080px] flex-col">
-        <h1 className="sr-only">{labels.hub.title}</h1>
+    <div className="flex flex-1 flex-col">
+      <div className="px-5 py-10 sm:px-6 sm:py-14">
+        <div className="mx-auto flex w-full max-w-[1080px] flex-col">
+          {/* 页首：一句定位 + 内联搜索，主操作不隔一层点击 */}
+          <header className="text-center">
+            <h1 className="text-[26px] font-semibold tracking-tight sm:text-3xl">{labels.hub.title}</h1>
+            <p className="mx-auto mt-2 max-w-[520px] text-sm leading-relaxed text-fd-foreground/65">
+              {copy.subtitle}
+            </p>
+          </header>
 
-        {/* 搜索入口 */}
-        <HeroSearch placeholder={copy.searchPlaceholder} />
-
-        {/* 两扇门：两条产品线各一块面板，整块可点；按下时轻微收一下，有「推门」的手感 */}
-        <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-5 md:grid-cols-2">
-          {products.map((product) => {
-            const tone = lineTone[product.slug];
-            return (
-              <Link
-                key={product.slug}
-                href={productUrl(product.slug, lang)}
-                className={`group relative flex min-h-[250px] flex-col rounded-2xl p-5 no-underline transition-[background-color,transform] duration-200 ease-out active:scale-[0.99] motion-reduce:transition-none motion-reduce:active:scale-100 sm:min-h-[300px] sm:rounded-3xl sm:p-6 ${focusRing} ${tone.panel}`}
-              >
-                <span className={`flex items-center gap-2 text-[13px] font-medium ${tone.ink}`}>
-                  <span aria-hidden className="size-1.5 rounded-full bg-current" />
-                  {labels.line[product.slug]}
-                </span>
-                <h2 className="mt-2.5 text-[22px] leading-tight font-semibold tracking-tight text-fd-foreground sm:max-w-[60%] sm:text-[26px]">
-                  {productName(product)}
-                </h2>
-                <span className="mt-1.5 block font-mono text-[13px] text-fd-foreground/70">
-                  {productModels(product)}
-                </span>
-                <span className="mt-8 flex items-center gap-2 text-[15px] font-medium text-fd-foreground sm:mt-12">
-                  {labels.docsCount(countProductDocs(lang, product.slug))}
-                  <ArrowRight className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-1 motion-reduce:transition-none" />
-                </span>
-                <span
-                  aria-hidden
-                  className={`home-art pointer-events-none absolute right-4 bottom-4 block w-[160px] transition-transform duration-200 ease-out group-hover:-translate-y-1 motion-reduce:transition-none sm:right-7 sm:bottom-5 sm:w-[232px] ${tone.glow}`}
-                >
-                  <DeviceArt product={product.slug} />
-                </span>
-              </Link>
-            );
-          })}
+          <div className="mt-7 sm:mt-8">
+            <HeroSearch
+              locale={lang}
+              placeholder={copy.searchPlaceholder}
+              hotSearch={copy.hotSearch}
+              noResults={copy.noResults}
+              clear={copy.clear}
+              searchMore={copy.searchMore}
+              hot={hot}
+            />
         </div>
 
-        {/* 按场景找：两条产品线并排对照；窄屏时每个场景占一组，链接上方标出产品线 */}
-        <section className="mt-14 sm:mt-16">
-          <SectionHead
-            title={copy.scenarios}
-            action={{ label: copy.scenariosHint, href: productUrl('portable', lang) }}
-          />
-          <div className="hidden grid-cols-[1.15fr_1fr_1fr] gap-x-6 border-b border-fd-border pb-2.5 sm:-mx-4 sm:grid sm:px-4">
-            <span />
-            {products.map((product) => (
-              <span
-                key={product.slug}
-                className={`flex items-center gap-1.5 text-[13px] font-medium ${lineTone[product.slug].ink}`}
-              >
-                <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-current" />
-                {labels.line[product.slug]}
-                <span className="truncate text-fd-foreground/60">
-                  · {product.slug === 'desktop' ? 'StationOS Pro' : productName(product)}
-                </span>
-              </span>
-            ))}
-          </div>
-          <ul className="m-0 list-none p-0">
-            {scenarios.map((scenario) => (
-              <li
-                key={scenario.label}
-                className="-mx-3 grid grid-cols-2 items-start gap-x-4 gap-y-2.5 border-b border-fd-border/70 px-3 py-4 transition-colors hover:bg-fd-accent/50 last:border-0 sm:-mx-4 sm:grid-cols-[1.15fr_1fr_1fr] sm:items-center sm:gap-x-6 sm:gap-y-0 sm:px-4 sm:py-3 motion-reduce:transition-none"
-              >
-                <span className="col-span-2 text-sm font-medium text-fd-foreground sm:col-span-1 sm:text-[13.5px] sm:font-normal sm:text-fd-foreground/70">
-                  {scenario.label}
-                </span>
-                {(['desktop', 'portable'] as const).map((slug) => {
-                  const target = resolve(scenario[slug]);
-                  return (
-                    <Link key={slug} href={target.url} className={`group/cell min-w-0 no-underline ${focusRing}`}>
-                      <LineTag slug={slug} label={labels.line[slug]} className="mb-1.5 sm:hidden" />
-                      <span
-                        className={`text-sm leading-5 font-medium group-hover/cell:underline group-hover/cell:underline-offset-4 ${lineTone[slug].ink}`}
-                      >
-                        {target.title}
-                      </span>
-                    </Link>
-                  );
-                })}
-              </li>
-            ))}
-          </ul>
-        </section>
+        {/* 两条产品线各按模块摊开：不要求用户先选产品，再进文档 */}
+        {products.map((product) => {
+          const cards = getHomeModules(lang, product.slug);
+          if (cards.length === 0) return null;
 
-        {/* 视频教程：窄屏主视频占满一行，其余 2×2 */}
-        {featured && (
-          <section className="mt-14 sm:mt-16">
-            <SectionHead
-              title={copy.videos}
-              action={{ label: copy.videosMore(videoTotal), href: link(['portable', 'video_tutorial']) }}
-            />
-            <div className="grid gap-4 sm:grid-cols-[1.2fr_1fr]">
-              <VideoCard video={featured} featured />
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                {rest.map((video) => (
-                  <VideoCard key={video.videoId} video={video} />
+          return (
+            <section key={product.slug} className="mt-12 sm:mt-16">
+              <div className="flex items-end justify-between gap-4">
+                <div className="min-w-0">
+                  <h2 className="text-[22px] font-semibold tracking-tight sm:text-2xl">
+                    {labels.line[product.slug]}
+                  </h2>
+                  <p className="mt-1 font-mono text-[13px] text-fd-foreground/70">
+                    {productModels(product)}
+                  </p>
+                </div>
+                <Link
+                  href={productUrl(product.slug, lang)}
+                  className={`group -my-2 flex shrink-0 items-center gap-1 py-2 text-[13px] text-fd-foreground/70 no-underline hover:text-fd-foreground sm:text-sm ${focusRing}`}
+                >
+                  {labels.enter}
+                  <ArrowRight className="size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none" />
+                </Link>
+              </div>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {cards.map((card) => (
+                  <ModuleCard key={`${product.slug}-${card.title}`} card={card} tone={product.slug} />
                 ))}
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          );
+        })}
 
-        {/* 常见问题：只有第一条带「热门」标，整列都是精选，不再逐条重复「推荐」 */}
-        {faqPages.length > 0 && (
-          <section className="mt-14 sm:mt-16">
-            <SectionHead
-              title={copy.faq}
-              action={{ label: copy.faqMore(faqTotal), href: link(['portable', 'faq']) }}
-            />
-            <ul className="m-0 list-none p-0">
-              {faqPages.map((page, i) => (
-                <li key={page.url} className="border-b border-fd-border/70 last:border-0">
+        {/* 常见问题 */}
+        {faqItems.length > 0 && (
+          <section className="mt-12 sm:mt-16">
+            <h2 className="mb-2 text-[17px] font-semibold tracking-tight sm:mb-3 sm:text-lg">{copy.faq}</h2>
+            <ul className="mt-2 border-y border-fd-border">
+              {faqItems.map(({ page, badge }) => (
+                <li key={page.url} className="border-b border-fd-border last:border-b-0">
                   <Link
                     href={page.url}
-                    className={`group -mx-3 flex items-start gap-x-3 rounded-xl px-3 py-3 no-underline transition-colors hover:bg-fd-accent/50 sm:-mx-4 sm:px-4 motion-reduce:transition-none ${focusRing}`}
+                    className={`group flex items-center justify-between gap-4 py-3.5 text-sm no-underline ${focusRing}`}
                   >
-                    <span className="min-w-0 flex-1 text-sm text-fd-foreground/85 sm:text-[13.5px]">
-                      {page.data.title}
-                    </span>
-                    {i === 0 && (
-                      <span className="mt-px shrink-0 rounded-full bg-amber-500/12 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-400/15 dark:text-amber-300">
-                        {copy.hotBadge}
+                    <span className="flex min-w-0 items-center gap-2.5">
+                      <span className="line-clamp-2 text-fd-foreground/80 transition-colors group-hover:text-fd-foreground motion-reduce:transition-none">
+                        {page.data.title}
                       </span>
-                    )}
-                    <LineTag
-                      slug={page.slugs[0] as Product['slug']}
-                      label={labels.line[page.slugs[0] as Product['slug']] ?? ''}
-                      className="mt-0.5"
+                      {badge && (
+                        <span
+                          className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${faqBadgeStyles[badge]}`}
+                        >
+                          {badge === 'hot' ? copy.hotBadge : copy.recommendBadge}
+                        </span>
+                      )}
+                    </span>
+                    <ArrowRight
+                      aria-hidden
+                      className="size-3.5 shrink-0 text-fd-muted-foreground transition-[transform,color] duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-fd-foreground motion-reduce:transition-none"
                     />
                   </Link>
                 </li>
@@ -242,79 +219,125 @@ export default async function HomePage({ params }: PageProps<'/[lang]'>) {
             </ul>
           </section>
         )}
-
-        {/* 站级链接 */}
-        <div className="mt-10 flex flex-wrap gap-x-6 border-t border-fd-border text-sm sm:mt-12">
-          {policies && <SiteLink href={policies.url}>{labels.hub.policies}</SiteLink>}
-          {contact && <SiteLink href={contact.url}>{labels.hub.contact}</SiteLink>}
-          <SiteLink href={link(['portable', 'changelog'])}>{copy.footer.changelog}</SiteLink>
-          <SiteLink href={link(['desktop', 'compatible'])}>{copy.footer.compatible}</SiteLink>
         </div>
       </div>
+
+      <footer className="border-t border-fd-border bg-fd-secondary/50 print:hidden">
+        <div className="mx-auto flex w-full max-w-[1080px] flex-col items-center px-5 py-10 text-center sm:px-6">
+          {/* 社交圆钮：链接取自 shared.ts 的 socialLinks，增删渠道时两处一起改 */}
+          <ul className="flex flex-wrap items-center justify-center gap-3">
+            {socialChannels.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  aria-label={label}
+                  title={label}
+                  {...(href.startsWith('mailto:')
+                    ? {}
+                    : { target: '_blank', rel: 'noreferrer noopener' })}
+                  className={`grid size-10 place-items-center rounded-full border border-fd-border text-fd-foreground/70 no-underline transition-colors hover:border-fd-foreground/25 hover:bg-fd-popover hover:text-fd-foreground motion-reduce:transition-none ${focusRing}`}
+                >
+                  <Icon className="size-[22px]" />
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* 链接之间只用留白分隔：文案随语言变长会折行，竖线会掉到行首，反而不整齐 */}
+          <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2.5 text-[13px]">
+            {footerLinks.map((item) => (
+              <li key={item.href} className="flex items-center">
+                <a
+                  href={item.href}
+                  {...(item.external
+                    ? { target: '_blank', rel: 'noreferrer noopener' }
+                    : {})}
+                  className={`inline-flex items-center gap-0.5 text-fd-foreground/70 no-underline transition-colors hover:text-fd-foreground motion-reduce:transition-none ${focusRing}`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-5 text-xs text-fd-foreground/55">
+            © {year} {appName}
+          </p>
+          {/* 备案号：拿到真实备案信息后再加一行指向 beian.miit.gov.cn 的链接 */}
+        </div>
+      </footer>
     </div>
   );
 }
 
-/** 分区标题：左侧标题，右侧可选的「查看全部」动作，统一带一个箭头 */
-function SectionHead({
-  title,
-  action,
-}: {
-  title: string;
-  action?: { label: string; href: string };
-}) {
-  return (
-    <div className="mb-2 flex items-baseline justify-between gap-4 sm:mb-3">
-      <h2 className="text-[17px] font-semibold tracking-tight sm:text-lg">{title}</h2>
-      {action && (
-        <Link
-          href={action.href}
-          className={`group -my-2 flex shrink-0 items-center gap-1 py-2 text-[13px] text-fd-foreground/65 no-underline hover:text-fd-foreground sm:text-sm ${focusRing}`}
-        >
-          {action.label}
-          <ArrowRight className="size-3.5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none" />
-        </Link>
-      )}
-    </div>
-  );
-}
+/**
+ * 模块卡图标。
+ *
+ * 取 `ModuleDef.icon`：
+ * - Lucide 图标名（`Rocket`）→ 32px 圆角浅色底 + 22px 图标，底色跟随所属产品线；
+ * - `/` 开头的路径 → 直接按 32px 渲染图片，不再套浅色底，避免和图标自带的背景叠成两层。
+ *
+ * 名字不认识时不渲染，不会把卡片挤歪。
+ */
+function ModuleIcon({ name, tone }: { name: string; tone: Product['slug'] }) {
+  const isAsset = name.startsWith('/');
 
-/** 产品线小标：色点续上首屏的线色，文字退成次要色，不跟正文抢 */
-function LineTag({ slug, label, className = '' }: { slug: Product['slug']; label: string; className?: string }) {
+  if (isAsset) {
+    return (
+      // 自定义图标来自 public/，尺寸固定 32px，不需要 next/image 优化
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={name}
+        alt=""
+        width={32}
+        height={32}
+        className="size-8 shrink-0 rounded-lg object-contain"
+      />
+    );
+  }
+
+  const Icon = icons[name as keyof typeof icons];
+  if (!Icon) return null;
+
+  const palette = iconTone[tone];
   return (
-    <span className={`flex shrink-0 items-center gap-1.5 text-xs text-fd-foreground/60 ${className}`}>
-      <span aria-hidden className={`size-1.5 rounded-full bg-current ${lineTone[slug].ink}`} />
-      {label}
+    <span
+      aria-hidden
+      className={`grid size-8 shrink-0 place-items-center rounded-lg ${palette.shell}`}
+    >
+      <Icon className={`size-[22px] ${palette.glyph}`} />
     </span>
   );
 }
 
-/** 视频卡：缩略图在上、标题在下，点击进对应的 video_tutorial 页面 */
-function VideoCard({ video, featured = false }: { video: Video; featured?: boolean }) {
+/** 模块卡：图标 + 模块名 + 最多三条热门文档；整卡不承担点击，避免误触 */
+function ModuleCard({ card, tone }: { card: HomeModuleCard; tone: Product['slug'] }) {
   return (
-    <Link href={video.url} className={`group flex flex-col gap-2.5 no-underline sm:gap-3 ${focusRing}`}>
-      <VideoThumb videoId={video.videoId} featured={featured} />
-      <span
-        className={`text-[13px] leading-5 text-fd-foreground/80 transition-colors group-hover:text-fd-foreground sm:text-sm motion-reduce:transition-none ${
-          featured ? 'font-medium sm:text-[15px] sm:leading-6' : 'sm:line-clamp-2'
-        }`}
-      >
-        {video.title}
-      </span>
-    </Link>
+    <article className="flex flex-col gap-3 rounded-xl border border-fd-border bg-fd-popover p-4 shadow-xs transition-[border-color,box-shadow] duration-200 ease-out hover:border-fd-foreground/25 hover:shadow-sm motion-reduce:transition-none">
+      <h3 className="flex items-center gap-2.5 text-base leading-snug font-semibold">
+        {card.icon && <ModuleIcon name={card.icon} tone={tone} />}
+        <span className="line-clamp-2">{card.title}</span>
+      </h3>
+      <ul className="flex flex-col gap-1.5">
+        {card.docs.map((doc) => (
+          <li key={doc.url}>
+            <Link
+              href={doc.url}
+              className={`group/link flex items-start gap-1.5 text-sm leading-[1.6] text-fd-foreground/85 no-underline transition-colors hover:text-fd-foreground motion-reduce:transition-none ${focusRing}`}
+            >
+              <span className="line-clamp-2">{doc.title}</span>
+              <ArrowRight
+                aria-hidden
+                className="mt-1 size-3.5 shrink-0 text-fd-muted-foreground opacity-0 transition-opacity duration-200 ease-out group-hover/link:opacity-100 motion-reduce:transition-none"
+              />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </article>
   );
 }
 
-function SiteLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className={`-my-px py-3 text-fd-foreground/65 no-underline transition-colors hover:text-fd-foreground motion-reduce:transition-none ${focusRing}`}
-    >
-      {children}
-    </Link>
-  );
-}
 
 export function generateStaticParams() {
   return languages.map((lang) => ({ lang }));

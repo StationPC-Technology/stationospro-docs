@@ -31,7 +31,7 @@ export const productLabels: Record<Locale, ProductLabels> = {
     line: { desktop: 'Desktop NAS', portable: 'Portable NAS' },
     enter: 'Open docs',
     lookingFor: (name) => `Looking for ${name}?`,
-    docsCount: (n) => `${n} articles`,
+    docsCount: (n) => `${n} ${n === 1 ? 'article' : 'articles'}`,
     hot: [
       { label: 'Install the client', slug: ['portable', 'guides', 'install-app'] },
       { label: 'Initialize your device', slug: ['portable', 'guides', 'initialize-pocketcloud'] },
@@ -139,7 +139,7 @@ export const productLabels: Record<Locale, ProductLabels> = {
     line: { desktop: 'NAS de bureau', portable: 'NAS portable' },
     enter: 'Voir la documentation',
     lookingFor: (name) => `Vous cherchez ${name} ?`,
-    docsCount: (n) => `${n} articles`,
+    docsCount: (n) => `${n} ${n === 1 ? 'article' : 'articles'}`,
     hot: [
       { label: 'Installer le client', slug: ['portable', 'guides', 'install-app'] },
       { label: 'Initialiser l’appareil', slug: ['portable', 'guides', 'initialize-pocketcloud'] },
@@ -157,7 +157,7 @@ export const productLabels: Record<Locale, ProductLabels> = {
     line: { desktop: 'NAS de escritorio', portable: 'NAS portátil' },
     enter: 'Ver la documentación',
     lookingFor: (name) => `¿Busca ${name}?`,
-    docsCount: (n) => `${n} artículos`,
+    docsCount: (n) => `${n} ${n === 1 ? 'artículo' : 'artículos'}`,
     hot: [
       { label: 'Instalar el cliente', slug: ['portable', 'guides', 'install-app'] },
       { label: 'Inicializar el dispositivo', slug: ['portable', 'guides', 'initialize-pocketcloud'] },

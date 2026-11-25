@@ -19,7 +19,7 @@ export interface ContactStrings {
 }
 
 const OFFICIAL = 'https://www.stationpc.com';
-const COMMUNITY = 'https://www.stationpc.com/community/forum';
+const COMMUNITY = 'https://community.stationpc.com/';
 const DISCORD = 'https://discord.gg/R9acnGtDnP';
 
 const COPY: Record<string, ContactStrings> = {

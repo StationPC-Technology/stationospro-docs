@@ -27,7 +27,8 @@ export const products: Product[] = [
     slug: 'portable',
     system: 'StationOS',
     family: 'PocketCloud',
-    models: ['PA100', 'PA100 Pro', 'PA200'],
+    // PA200 还没发布，先不出现在界面与元数据里；发布时加回这一项即可
+    models: ['PA100', 'PA100 Pro'],
   },
 ];
 
