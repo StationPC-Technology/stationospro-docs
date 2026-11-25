@@ -21,8 +21,9 @@ const i18nMiddleware = createI18nMiddleware({
 //
 // 站内没有 `/docs` 前缀了，但**不能**用一个 `{/*path}` 通配：那会把 `/`、`/zh`
 // 这类非文档路径也改写成 content.md 请求（LLM 爬取首页会 404）。所以按内容根
-// 逐个生成 pattern——产品线（desktop / portable）+ 站级页（policies / contact）。
-const contentRoots = [...productSlugs, 'policies', 'contact'];
+// 逐个生成 pattern——产品线（desktop / portable）+ 站级页（faq / policies / contact）。
+const siteContentRoots = ['faq', 'policies', 'contact'];
+const contentRoots = [...productSlugs, ...siteContentRoots];
 
 interface Rewriter {
   rewrite: (pathname: string) => string | false;
