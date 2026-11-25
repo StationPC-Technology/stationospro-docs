@@ -13,6 +13,7 @@ export function Feedback({ locale, path, title }: { locale: string; path: string
         submit: '提交',
         thankYou: '感谢你的反馈！',
         submitAgain: '再次提交',
+        submitFailed: '提交失败，请稍后重试。',
       }
     : undefined;
 
