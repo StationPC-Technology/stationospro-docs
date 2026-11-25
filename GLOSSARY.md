@@ -29,7 +29,7 @@
 | **StationPC** | 公司/品牌名，站点名 `StationPC 帮助中心` 的来源。 | Station PC、思特森（对外中文文案不用） |
 | **便携式 NAS** | 产品线分类词，对应 StationOS 系统。 | 移动 NAS、随身 NAS、便携 NAS、口袋云 |
 | **桌面式 NAS** | 产品线分类词，对应 StationOS Pro 系统。 | 台式 NAS、桌面 NAS、固定式 NAS |
-| **PocketCloud** | 便携式产品名，**即将改名为 PA100**（改名迁移期两名字并存，规则见 §8）。 | Pocket Cloud、口袋云、StationCloud（这是客户端） |
+| **PocketCloud** | 便携式产品名，**即将改名为 PA100**（改名迁移期两名字并存，规则见 §8）。 | Pocket Cloud、口袋云、PocketNAS（这是客户端） |
 | **PA100** | 便携式型号，PocketCloud 的新名字；也是整个系列的型号族前缀。 | Pa100、PA-100 |
 | **PA100 Pro** | 便携式高配型号（旧代号 `pkc2`）。 | PocketCloud Pro（改名后不再用旧名） |
 | **PA200** | 便携式即将发布的新型号。 | PA-200 |
@@ -42,11 +42,13 @@
 
 | 术语 | 平台 | 归属 | 不要写成 |
 |---|---|---|---|
-| **StationCloud** | Windows / macOS / Linux / iOS / Android | 便携式（StationOS / PA100 系列） | StationNAS、Station Hub、StationCloud App（写「StationCloud 客户端」） |
+| **PocketNAS** | Windows / macOS / Linux / iOS / Android | 便携式（StationOS / PA100 系列） | StationNAS、Station Hub、PocketNAS App（写「PocketNAS 客户端」） |
 | **StationNAS** | Windows / macOS | 桌面式（StationOS Pro / DA400 系列） | Station NAS、StationNAS 客户端（多余） |
 | **StationHub** | iOS / Android | 桌面式（StationOS Pro / DA400 系列） | Station Hub、Hub App |
 
-**最容易出的错**：旧站（便携式）的客户端叫 StationCloud，新站（桌面式）的叫 StationNAS / StationHub。三者是不同软件，**不得在翻译或改写时互相替换**——尤其别把 StationCloud 当成「StationOS 的客户端」去统一成 StationNAS。
+**最容易出的错**：便携式（旧站）的客户端现在叫 PocketNAS（旧名 StationCloud），桌面式（新站）的叫 StationNAS / StationHub。三者是不同软件，**不得在翻译或改写时互相替换**——尤其别把 PocketNAS 当成「StationOS 的客户端」去统一成 StationNAS。
+
+> 电视端应用仍是 **StationCloudTV**，与 PocketNAS 配套，不随本次改名调整。
 
 ## 4. 功能概念（两条线共享概念，实现不同）
 
@@ -59,10 +61,11 @@
 | **备份中心** | 便携式的备份聚合入口（`backup-center/`）；桌面式叫「备份」（`app-guide/backup`）。**同一概念、各自沿用本站叫法**，不强行统一。 |
 | **更新日志** | 便携式按日期一页（`changelog/2026-10-26.mdx`），桌面式点分隔（`changelog/2026.11.16.mdx`）。**两种命名都保留**。 |
 | **兼容性列表** | 支持的硬盘/SSD/SD 卡/相机型号表格。 |
+| **客户端支持平台** | 客户端能装在哪些操作系统上（Windows、macOS、iOS、Android 等）。两条线各有一份答案，因为客户端不同（§3）。不要写成「系统兼容性」：本站的「系统」专指 StationOS / StationOS Pro。 |
 
 ## 5. 保留原文（不翻译）的词
 
-系统与品牌：`StationPC` `StationOS` `StationOS Pro` `PocketCloud` `PA100` `PA100 Pro` `PA200` `StationCloud` `DA400` `DA400 Air` `DA200` `StationNAS` `StationHub` `StationLinks` `Station AI`
+系统与品牌：`StationPC` `StationOS` `StationOS Pro` `PocketCloud` `PA100` `PA100 Pro` `PA200` `PocketNAS` `StationCloudTV` `DA400` `DA400 Air` `DA200` `StationNAS` `StationHub` `StationLinks` `Station AI`
 
 技术与产品：`Docker` `Compose` `App Store` `OTA` `WebDAV` `SMB` `Samba` `NFS` `FTP` `SFTP` `Syncthing` `OpenWrt` `Debian` `OpenClaw` `YouTube` `Discord`
 
@@ -92,6 +95,8 @@
 | **产品落地页** | 每个产品域的 `index.mdx`：hero + 热门 + 快速入门 Cards + 核心功能 Cards；有侧栏。 |
 | **URL 前缀** | 路径**不带** `docs` 段——域名 `docs.stationpc.com` 已承担该语义（ADR-0006）；产品段紧跟语言段：`/zh/portable/faq/support-max-sd`。 |
 | **孤儿页** | 存在于内容目录但未在 `meta.json` 登记的页面。合并后应为 0（有意隐藏的 changelog 日期页除外）。 |
+| **对应页** | 两条线上回答同一个问题的两篇文档，例如两条线各自的「兼容哪些操作系统」。它们是两份不同的答案，不是重复，也不共用一篇。不要叫「重复页」「同一篇」。 |
+| **单线内容** | 只有一条线才有的页面或问题，例如便携式的「能否带上飞机」、桌面式的 Station AI。在另一条线上没有对应页。 |
 
 ## 8. 命名迁移期规则（PocketCloud → PA100）
 
