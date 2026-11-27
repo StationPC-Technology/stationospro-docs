@@ -1,0 +1,125 @@
+---
+sourceHash: 83dea30dba6f
+title: "Wie greift man über WebDAV auf die Dateien in PocketCloud zu?"
+---
+
+WebDAV (Web-basiertes verteiltes Erstellen und Versionieren) ist ein erweitertes Protokoll basierend auf HTTP, das für Datei-Sharing und Zusammenarbeit im Netzwerk verwendet wird.
+Es ermöglicht Benutzern, über einen Webbrowser oder eine Client-Anwendung auf Dateien auf einem Remote-Server zuzugreifen, sie zu bearbeiten und zu verwalten.
+
+**Hauptsächlich folgende Funktionen:**
+1. Datei-Upload und -Download: Unterstützt das Hochladen lokaler Dateien auf den Server oder das Herunterladen von Dateien vom Server auf den lokalen Computer.
+2. Dateiverwaltung: Dateien und Ordner können auf dem entfernten Server erstellt, gelöscht, umbenannt oder verschoben werden.
+3. Dateisynchronisation: Unterstützt die Synchronisation von lokalen und entfernten Dateien, um sicherzustellen, dass die Daten konsistent bleiben.
+4. Datei-Teilen und Zusammenarbeit: Dateien auf dem Server können mit anderen Benutzern geteilt werden, um Teamarbeit zu ermöglichen.
+
+## WebDAV aktivieren
+WebDAV ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte folgen Sie den folgenden Schritten:
+1. Öffnen Sie die **Dateifreigabeprotokoll**-Seite von App. <br />
+2. Klicken Sie auf **WebDAV Service**. <br />
+3. Schalten Sie den **Schalter** ein, um den **WebDAV-Dienst** zu aktivieren. <br />
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-3.png" width="240" height="500" />
+
+## Mit dem Browser zugreifen
+
+1. Öffnen Sie den Browser und geben Sie in der Adressleiste ein
+   ```http://NASGerätIP:5005```
+   <br />
+   <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
+
+2. Nachdem Sie den Benutzernamen und das Passwort eingegeben haben, können Sie auf das Datei-Freigabeverzeichnis WebDAV zugreifen
+   <img src="/images/common/portable/file-service/access-webdav-service/1-2.png" width="100%" height="100%" />
+
+---
+
+## Zugriff auf Windows
+
+> **Hinweis**: Es wird empfohlen, den **[RaiDrive](https://www.raidrive.com)** auf Windows zu verwenden, um auf den Dienst WebDAV zuzugreifen.
+
+1. Drücken Sie **Win + E**, um den **Datei-Explorer** zu öffnen
+2. Klicken Sie im linken Bereich mit der rechten Maustaste auf **Netzwerk** und wählen Sie **Netzlaufwerk verbinden**
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+
+3. Geben Sie im Popup-Fenster die Adresse WebDAV ein:
+   ```http://NASGerätIP:5005```
+Klicken Sie dann auf **Fertig**
+   <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
+
+4. Geben Sie im Anmeldehinweis den Benutzernamen und das Passwort ein
+   <img src="/images/common/portable/file-service/access-webdav-service/1-5.png" width="100%" height="100%" />
+
+5. Nach Abschluss können Sie auf die Dateien auf NAS in **Dieser PC** wie auf eine lokale Festplatte zugreifen
+   <img src="/images/common/portable/file-service/access-webdav-service/1-6.png" width="100%" height="100%" />
+
+---
+
+## Zugriff auf macOS
+
+1. Rechtsklicken Sie auf **Finder**, wählen Sie in der Menüleiste **Gehe zu → Mit Server verbinden...**
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+
+2. Geben Sie in die Adressleiste des Servers ein:
+   ```http://NASGerätIP:5005```
+Klicken Sie dann auf **Verbinden**
+   <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
+
+3. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **Verbinden**
+   <img src="/images/common/portable/file-service/access-webdav-service/3-3.png" width="100%" height="100%" />
+
+4. Jetzt können Sie in Finder Dateien auf NAS durchsuchen und verwalten, als ob es lokale Ordner wären.
+   <img src="/images/common/portable/file-service/access-webdav-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Zugriff auf Linux
+
+Verwenden Sie **davfs**, um das WebDAV-Freigabe zu mounten:
+
+```bash
+# davfs2 installieren
+sudo apt-get install davfs2
+
+# Mountpunkt erstellen
+# Beispiel: /mnt/webdav_share als Mount-Verzeichnis verwenden
+sudo mkdir /mnt/webdav_share
+
+# WebDAV-Dienst mounten
+sudo mount.davfs http://NASGerätIP:5005 /mnt/webdav_share
+
+# Nach erfolgreichem Mounten können Sie im Verzeichnis /mnt/webdav_share auf die Dateien auf dem NAS zugreifen und diese verwalten
+```
+
+---
+
+## Zugriff über andere Clients
+- Verbindungsinformationen
+    - IP: NAS-Geräte-IP
+    - Port: http standardmäßig 5005, https wird derzeit nicht unterstützt
+    - Konto: Anmeldebenutzername des NAS-Geräts
+    - Passwort: Anmeldepasswort des NAS-Geräts
+- Beschreibung des Mount-Verzeichnisses
+    - Haupt-SSD: `/Anmeldebenutzername`
+      - Beispiel 1: Alle Verzeichnisse. Wenn der aktuelle Benutzer test ist, lautet das Mount-Verzeichnis `/test`
+      - Beispiel 2: Angegebenes Verzeichnis. Wenn der aktuelle Benutzer test ist, lautet das Mount-Verzeichnis `/test/Pictures`
+      - Weitere: Mehrere Benutzer werden unterstützt, jeder Benutzer entspricht einem Mount-Verzeichnis
+    - Externer Speicher: `/Name_des_externen_Speichers`
+      - Beispiel 1: Alle Verzeichnisse. Wenn die externe SD-Karte SD 60GB BA26 heißt, lautet das Mount-Verzeichnis `/SD_60GB_BA26`
+      - Beispiel 2: Angegebenes Verzeichnis. Wenn die externe SD-Karte SD 60GB BA26 heißt, lautet das Mount-Verzeichnis `/SD_60GB_BA26/Pictures`
+    - ⚠️ Hinweis:
+      - Einige Clients können nicht nur das Root-Verzeichnis `/` verwenden. Geben Sie das entsprechende konkrete Mount-Verzeichnis oben an
+      - Nach dem Upgrade von Firmware &lt;= 3.1.0.16 auf die neueste Firmware wird das Mount-Verzeichnis angepasst. Verwenden Sie die Mount-Methode der neuen Version
+
+## Andere Fragen
+
+* Frage: Was soll ich tun, wenn der Datei-Explorer Windows die Dienste WebDAV und HTTP nicht einhängen kann?
+* Antwort: Bitte beachten Sie [Windows Kann WebDAV nicht auf den lokalen Computer einbinden](/portable/file-service/windows-webdav-http-mount)
+
+* Frage: Unterstützt Windows WebDAV HTTPS?
+* Antwort: Der Datei-Explorer von Windows unterstützt WebDAV über HTTPS nicht. Sie können **[RaiDrive](https://www.raidrive.com)** verwenden, um den WebDAV-HTTPS-Dienst einzubinden.
+
+* Frage: Welchen Port verwendet der WebDAV-HTTPS-Dienst?
+* Antwort: Der Standardport von WebDAV-HTTPS ist 5006. Du kannst den Dienst über die folgende Adresse erreichen: `https://NAS_IP_Address:5006`.
+
+* Frage: Warum kann Windows große Dateien nicht über WebDAV öffnen?
+* Antwort: Bitte beachten Sie [Windows Beim Zugriff auf Dateien größer als 50 MB über WebDAV wird eine Fehlermeldung angezeigt](/portable/file-service/windows-webdav-filelimit)

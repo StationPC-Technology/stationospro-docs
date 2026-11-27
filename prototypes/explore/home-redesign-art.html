@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>首页「两扇门」· 设备线稿小样（v2：按实物剪影）</title>
+<style>
+  :root{
+    --art-front:#fff; --art-side:#e4e8ee; --art-top:#f4f6f8; --art-line:#3d434d;
+    --art-blue:#2563eb; --art-teal:#0d9488;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:24px;display:grid;gap:20px;font-family:system-ui,sans-serif;
+    color:#0a0a0a;grid-template-columns:504px 504px;width:max-content}
+  .panel{position:relative;width:504px;height:300px;border-radius:20px;padding:24px;overflow:hidden;
+    display:flex;flex-direction:column}
+  .blue{background:color-mix(in oklab,var(--art-blue) 13%,#fff)}
+  .teal{background:color-mix(in oklab,var(--art-teal) 13%,#fff)}
+  .dark{--art-front:#22262d;--art-side:#171a1f;--art-top:#2c313a;--art-line:#b6bec9;
+    --art-blue:#60a5fa;--art-teal:#2dd4bf;color:#f5f5f5;
+    background:#121212;margin:-24px;padding:24px}
+  .dark .blue{background:color-mix(in oklab,#2563eb 18%,#121212)}
+  .dark .teal{background:color-mix(in oklab,#0d9488 18%,#121212)}
+  .label{font-size:13px;font-weight:500}
+  .blue .label{color:#1d4ed8} .teal .label{color:#0f766e}
+  .dark .blue .label{color:var(--art-blue)} .dark .teal .label{color:var(--art-teal)}
+  .name{margin-top:6px;font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+  .models{margin-top:6px;font:13px ui-monospace,monospace;opacity:.7}
+  .count{margin-top:48px;font-size:15px;font-weight:500;display:flex;align-items:center;gap:8px}
+  .art{position:absolute;right:24px;bottom:20px;width:232px;color:var(--art-line)}
+  svg{display:block;width:100%;height:auto}
+</style>
+</head>
+<body>
+<div class="panel blue"><span class="label">● 桌面式 NAS</span><span class="name">StationOS Pro</span>
+  <span class="models">DA400 / DA400 Air</span><span class="count">38 篇文档 →</span>
+  <div class="art" data-art="desktop" style="color:var(--art-blue)"></div></div>
+<div class="panel teal"><span class="label">● 便携式 NAS</span><span class="name">PocketCloud (PA100)</span>
+  <span class="models">PA100 / PA100 Pro / PA200</span><span class="count">111 篇文档 →</span>
+  <div class="art" data-art="portable" style="color:var(--art-teal)"></div></div>
+
+<div class="dark" style="grid-column:1 / -1;display:grid;grid-template-columns:504px 504px;gap:20px">
+  <div class="panel blue"><span class="label">● 桌面式 NAS</span><span class="name">StationOS Pro</span>
+    <span class="models">DA400 / DA400 Air</span><span class="count">38 篇文档 →</span><div class="art" data-art="desktop" style="color:var(--art-blue)"></div></div>
+  <div class="panel teal"><span class="label">● 便携式 NAS</span><span class="name">PocketCloud (PA100)</span>
+    <span class="models">PA100 / PA100 Pro / PA200</span><span class="count">111 篇文档 →</span><div class="art" data-art="portable" style="color:var(--art-teal)"></div></div>
+</div>
+
+<script>
+const n = (v) => Math.round(v * 100) / 100;
+const P = (p) => `${n(p[0])} ${n(p[1])}`;
+
+/** 圆角多边形：每个顶点用一段二次曲线切角；cut 是切角长度，可按顶点分别给 */
+function roundedPoly(pts, cut) {
+  let d = '';
+  const m = pts.length;
+  for (let i = 0; i < m; i++) {
+    const p = pts[i], prev = pts[(i - 1 + m) % m], next = pts[(i + 1) % m];
+    const len = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
+    const li = len(prev, p), lo = len(p, next);
+    const r = Math.min(Array.isArray(cut) ? cut[i] : cut, li / 2, lo / 2);
+    const a = [p[0] - ((p[0] - prev[0]) / li) * r, p[1] - ((p[1] - prev[1]) / li) * r];
+    const b = [p[0] + ((next[0] - p[0]) / lo) * r, p[1] + ((next[1] - p[1]) / lo) * r];
+    d += `${i ? 'L' : 'M'}${P(a)}Q${P(p)} ${P(b)}`;
+  }
+  return d + 'Z';
+}
+
+const S = 'fill="none" stroke="var(--art-line)" stroke-linejoin="round" vector-effect="non-scaling-stroke"';
+const THIN = 'fill="none" stroke="var(--art-line)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"';
+
+/**
+ * 斜投影盒子（平面：正面、右侧面、顶面）。(x, y) 是正面左上角，(dx, dy) 是深度方向的投影位移。
+ */
+function isoBox(id, x, y, w, h, dx, dy, r) {
+  const sil = roundedPoly(
+    [[x, y + h], [x + w, y + h], [x + w + dx, y + h + dy], [x + w + dx, y + dy], [x + dx, y + dy], [x, y]], r);
+  const J = [x + w, y + r];
+  const K = 8, FAR = 4000;
+  const front = `M${x - 2} ${y}L${x + w - r} ${y}Q${x + w} ${y} ${P(J)}L${x + w} ${FAR}L${x - 2} ${FAR}Z`;
+  const top = `M${x - 2} ${y}L${x + w - r} ${y}Q${x + w} ${y} ${P(J)}L${P([J[0] + dx * K, J[1] + dy * K])}L${P([x + dx * K, y + dy * K])}L${x - 2} ${y + dy * K}Z`;
+  const side = `M${P(J)}L${x + w} ${FAR}L${FAR} ${FAR}L${FAR} ${n(J[1] + (FAR - J[0]) * dy / dx)}Z`;
+  const crease = `M${n(x + r * 0.9)} ${y}L${x + w - r} ${y}Q${x + w} ${y} ${P(J)}L${x + w} ${y + h - 1.5}`;
+  const creaseTop = `M${P(J)}L${x + w + dx} ${y + r + dy}`;
+  return `<clipPath id="${id}"><path d="${sil}"/></clipPath>
+<g clip-path="url(#${id})">
+  <path d="${front}" fill="var(--art-front)"/><path d="${top}" fill="var(--art-top)"/><path d="${side}" fill="var(--art-side)"/>
+</g>
+<path d="${sil}" ${S} stroke-width="1.5"/>
+<path d="${crease}" ${S} stroke-width="1.1" stroke-linecap="round"/>
+<path d="${creaseTop}" ${S} stroke-width="1.1" stroke-linecap="round"/>`;
+}
+
+/**
+ * 圆角剖面沿深度方向挤出的机身（表面是连续曲面，没有顶面棱线）：
+ * 先铺「侧面带」，再盖「正面」；r 是正面四个角的切角长度 [左下, 右下, 右上, 左上]。
+ */
+function extrusion(id, x, y, w, h, dx, dy, r) {
+  const [bl, br, tr, tl] = r;
+  const sil = roundedPoly(
+    [[x, y + h], [x + w, y + h], [x + w + dx, y + h + dy], [x + w + dx, y + dy], [x + dx, y + dy], [x, y]],
+    [bl, br, br, tr, tl, tl]);
+  const face = roundedPoly([[x, y + h], [x + w, y + h], [x + w, y], [x, y]], [bl, br, tr, tl]);
+  return `<clipPath id="${id}"><path d="${sil}"/></clipPath>
+<g clip-path="url(#${id})"><path d="${sil}" fill="var(--art-band)"/><path d="${face}" fill="var(--art-front)"/></g>
+<path d="${sil}" ${S} stroke-width="1.5"/>
+<path d="${face}" ${S} stroke-width="1.1"/>`;
+}
+
+const svgOpen = (id) => `<svg viewBox="0 0 280 205" aria-hidden="true" focusable="false">
+<defs><radialGradient id="ground-${id}" cx="50%" cy="50%" r="50%">
+  <stop offset="0" stop-color="var(--art-line)" stop-opacity=".2"/><stop offset="100%" stop-color="var(--art-line)" stop-opacity="0"/>
+</radialGradient></defs>`;
+const ground = (id, cx, rx) => `<ellipse cx="${cx}" cy="194" rx="${rx}" ry="7" fill="url(#ground-${id})"/>`;
+/** 以 O 为原点、U 为深度方向、V 为竖直方向的斜面坐标 */
+const lin = (O, U, V, a, b) => [O[0] + U[0] * a + V[0] * b, O[1] + U[1] * a + V[1] * b];
+
+/** 桌面式 DA400：底座、硬盘仓、顶盖同宽，叠成一台小塔；侧面的风扇护罩是点亮的部分 */
+function desktop(id) {
+  let ridges = '';
+  for (let i = 1; i <= 13; i++) ridges += `M${n(64 + (124 * i) / 14)} 81V147`;
+  const ports = `<circle cx="76" cy="172" r="2.6" fill="currentColor"/>
+<circle cx="90" cy="172" r="3.6" ${THIN}/><circle cx="90" cy="172" r="1.3" fill="var(--art-line)"/>
+<rect x="99" y="168" width="13" height="8" rx="2" ${THIN}/>
+<rect x="117" y="166" width="16" height="12" rx="1.5" ${THIN}/><path d="M120 166v-2.5h10v2.5" ${THIN}/>
+<rect x="138" y="168" width="8" height="8" rx="2" ${THIN}/><rect x="150" y="168" width="8" height="8" rx="1.5" ${THIN}/>`;
+  const O = [188, 149], U = [62, -31], V = [0, -1];
+  const A = lin(O, U, V, 0.14, 8), B = lin(O, U, V, 0.86, 8), C = lin(O, U, V, 0.86, 68), D = lin(O, U, V, 0.14, 68);
+  const inset = (p, q, s) => lin(p, [q[0] - p[0], q[1] - p[1]], [s[0] - p[0], s[1] - p[1]], 0.16, 0.16);
+  const hub = lin(O, U, V, 0.5, 38);
+  const GLOW = 'fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke"';
+  const guard = `<path d="M${P(A)}L${P(B)}L${P(C)}L${P(D)}Z" ${GLOW} fill="currentColor" fill-opacity=".3"/>
+<path d="M${P(inset(A, B, D))}L${P(inset(C, D, B))}M${P(inset(B, A, C))}L${P(inset(D, C, A))}" ${THIN}/>
+<circle cx="${n(hub[0])}" cy="${n(hub[1])}" r="6.5" fill="var(--art-front)" ${THIN}/>`;
+  return `${svgOpen(id)}${ground(id, 157, 96)}
+${isoBox(`${id}-base`, 64, 153, 124, 38, 62, -31, 10)}
+<g>${ports}</g>
+${isoBox(`${id}-stack`, 64, 73, 124, 82, 62, -31, 6)}
+<path d="${ridges}" ${THIN} opacity=".45"/>
+${guard}
+${isoBox(`${id}-cover`, 62, 37, 128, 40, 64, -32, 16)}
+</svg>`;
+}
+
+/** 便携式 PocketCloud：银灰圆顶机身坐在更宽的黑色底座上，正面是亮着的一块屏 */
+function portable(id) {
+  const DOCK = '--art-front:#2c3036;--art-band:#202329;--art-line:#101216';
+  const BODY = '--art-front:#e6e8ec;--art-band:#c9cdd4;--art-line:#4a505a';
+  return `${svgOpen(id)}<linearGradient id="screen-${id}" x1="0" y1="0" x2="1" y2="1">
+  <stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#0f766e"/>
+</linearGradient>
+${ground(id, 151, 118)}
+<g style="${DOCK}">
+  ${extrusion(`${id}-dock`, 30, 152, 208, 38, 34, -17, [10, 10, 8, 8])}
+</g>
+<g ${THIN} stroke="#4a5058" opacity=".9">
+  <path d="${Array.from({ length: 14 }, (_, i) => `M${70 + i * 6} 176V183`).join('')}"/>
+</g>
+<rect x="212" y="164" width="13" height="7" rx="2" ${THIN} stroke="#6a7078"/>
+<circle cx="48" cy="169" r="2.6" fill="currentColor"/>
+<g style="${BODY}">
+  ${extrusion(`${id}-body`, 62, 46, 150, 112, 40, -20, [8, 8, 48, 48])}
+</g>
+<path d="M110 36Q137 31 164 36" ${THIN} stroke="#3b4048" stroke-width="6"/>
+<g ${THIN} stroke="#6a7078" opacity=".7">
+  <path d="${Array.from({ length: 5 }, (_, i) => `M221 ${86 + i * 5}H233`).join('')}"/>
+</g>
+<rect x="78" y="62" width="118" height="74" rx="14" fill="url(#screen-${id})"/>
+<rect x="78" y="62" width="118" height="74" rx="14" ${THIN} stroke="#3a404a" opacity=".55"/>
+<g transform="translate(137 97) scale(.82) skewX(-8)" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round">
+  <path d="M9 -10C3 -14 -10 -13 -10 -5.5C-10 1 -1 1 1 1C3 1 12 1 12 8C12 15 0 16 -8 12"/>
+</g>
+</svg>`;
+}
+
+let seq = 0;
+for (const el of document.querySelectorAll('[data-art]')) {
+  const id = `art${seq++}`;
+  el.innerHTML = el.dataset.art === 'desktop' ? desktop(id) : portable(id);
+}
+</script>
+</body>
+</html>

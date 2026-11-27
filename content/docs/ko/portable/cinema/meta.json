@@ -1,0 +1,8 @@
+{
+  "title": "영화관",
+  "pages": [
+    "create-cinema",
+    "info-modify",
+    "re-index"
+  ]
+}

@@ -1,0 +1,23 @@
+---
+sourceHash: 4e7c3743ceb7
+title: "Remote Access Principle"
+---
+
+PocketCloud provides **Remote Access Services**, offering users a stable, secure, and convenient remote access experience. It eliminates the need for users to master professional skills like public IP setup, port forwarding, or DDNS configuration, greatly lowering the usage barrier and allowing non-technical users to easily perform remote operations.
+>Users can obtain a Station ID by binding a mobile number/email, and use the Station ID for remote access.
+
+## Connection Principle
+Remote access uses the P2P (Peer-to-Peer) connection mode. Its core principle is:  
+Through coordinated "hole punching" between the official relay server and the user’s network, network boundary restrictions are broken. Finally, a direct communication connection is established between PocketCloud and the client (mobile/PC), with no need for data forwarding via a third-party server.
+
+## Advantages of P2P Connection Mode
+| Feature | Description |
+|---------|-------------|
+| Zero Configuration | Extremely low entry barrier; no manual network parameter setup required. Users can try connecting just by enabling the function. |
+| Efficient Transmission | When direct connection conditions are met, data is transmitted directly between PocketCloud and the client. Bandwidth is not limited by the relay server, ensuring faster access speed. |
+| Multi-Device Compatibility | Supports both mobile clients (mobile/tablet) and PC clients, adapting to different scenarios (e.g., remote work outside the office, home remote management). |
+
+## Notes
+1. When the device and client are on the same LAN, the connection will automatically switch to LAN mode.  
+2. If P2P direct connection fails to establish, it will automatically switch to StationPC relay server forwarding mode to ensure remote access remains available.  
+3. In relay mode, access speed and bandwidth will be limited by the relay server.

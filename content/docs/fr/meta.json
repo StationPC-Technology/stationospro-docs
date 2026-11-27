@@ -1,4 +1,10 @@
 {
-  "title": "Centre d'aide",
-  "pages": ["index", "quick-start", "app-guide","explore", "compatible", "faq", "changelog", "contact"]
+  "title": "Centre d’aide",
+  "pages": [
+    "desktop",
+    "portable",
+    "faq",
+    "policies",
+    "contact"
+  ]
 }

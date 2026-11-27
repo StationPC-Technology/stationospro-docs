@@ -1,0 +1,116 @@
+---
+sourceHash: b6d5ceeee92c
+title: "Samba で PocketCloud 内のファイルにアクセスするには？"
+---
+
+Samba は SMB/CIFS（Server Message Block / Common Internet File System） プロトコルに基づくファイル共有サービスであり、Linux、macOS、および Windows システム間でのファイルおよび印刷の共有に広く利用されています。
+Sambaを通じて、ユーザーはローカルファイルにアクセスするようにリモートサーバー上の共有ディレクトリにアクセスでき、クロスプラットフォームでのファイル共有と協力を実現できます。
+
+**主に以下の機能を備えています：**
+1. ファイル共有：ユーザーがネットワーク上で共有ファイルやフォルダにアクセス、アップロード、ダウンロード、管理することを許可する。
+2. プリンタ共有：ネットワークを通じてプリンタを共有でき、複数のデバイスが同じプリントリソースを便利に利用できます。
+3. ユーザー権限管理：異なるユーザーまたはユーザーグループのアクセス権を設定でき、データの安全性を確保します。
+4. クロスプラットフォームアクセス：Windows、Linux、macOS などの主要なオペレーティングシステムに対応し、複数のクライアント接続をサポートします。
+
+## Sambaを有効にする
+
+Samba デフォルトではオフになっており、手動で有効にする必要があります。以下の手順に従って操作してください：
+
+1. Appの**ファイル共有プロトコル**のページを開きます。<br />
+2. **Samba サービス**をクリックします。<br />
+3. **スイッチボタン**をオンにすると、**Samba サービス**を有効にできます。<br />
+
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-3.png" width="240" height="500" />
+
+## Windows 上でアクセス
+
+### 方法 1
+
+1. **Win   R** の組み合わせキーを押します。
+2. `\\NASデバイスIP` を入力して、次に **確定** をクリックします。
+   <img src="/images/common/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
+3. ユーザー名とパスワードを入力し、**OK**をクリックします。
+   <img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+4. これで、**ファイルエクスプローラー** でローカルフォルダーをアクセスするように、NAS 上のファイルを閲覧および管理できるようになります。
+   <img src="/images/common/portable/file-service/access-samba-service/1-3.png" width="100%" height="100%" />
+
+### 方法 2
+
+1. **ファイルエクスプローラー** を開きます。
+2. **ネットワーク** を右クリックし、**ネットワークドライブの割り当て** を選択します。
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+3. `\\NASデバイスIP\管理者名` を入力して、**完了** をクリックします。
+   <img src="/images/common/portable/file-service/access-samba-service/9-2.png" width="100%" height="100%" />
+4. ユーザー名とパスワードを入力し、**OK**をクリックします。
+   <img src="/images/common/portable/file-service/access-samba-service/9-3.png" width="100%" height="100%" />
+5. これで、**ファイルエクスプローラー** でローカルフォルダーをアクセスするように、NAS 上のファイルを閲覧および管理できるようになります。
+   <img src="/images/common/portable/file-service/access-samba-service/9-4.png" width="100%" height="100%" />
+
+---
+
+## iOS 上でアクセス
+
+1. **ファイル** を開く App。
+2. 右上の **「…」** アイコンをクリックし、**サーバーに接続** を選択します。
+   <img src="/images/common/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
+3. `smb://NASデバイスIP` を入力し、**接続** をクリックします。
+   <img src="/images/common/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
+4. ユーザー名とパスワードを入力し、**次へ** をクリックします。
+   <img src="/images/common/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
+5. これで、**ファイル** App でローカルフォルダにアクセスするように NAS 上のファイルを閲覧および管理できるようになりました。
+   <img src="/images/common/portable/file-service/access-samba-service/2-4.png" width="240" height="500" />
+
+---
+
+## macOS 上でアクセス
+
+1. 右クリックで **Finder（Finder）** を開き、メニューバーから **移動 → サーバに接続** を選択します。
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. サーバーのアドレスバーに `smb://NASデバイスIP` を入力し、次に **接続** をクリックします。
+   <img src="/images/common/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
+3. ユーザー名とパスワードを入力し、**接続**をクリックします。
+   <img src="/images/common/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
+4. これで、Finderでローカルフォルダを訪問するように NAS 上のファイルを参照および管理できます。
+   <img src="/images/common/portable/file-service/access-samba-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Linux 上でアクセス
+
+**cifs-utils** を使用して Samba 共有をマウント：
+
+```bash
+# cifs-utils をインストール
+sudo apt-get install cifs-utils
+
+# マウントポイントを作成
+# 例：/mnt/samba_share をマウントディレクトリとして使用する
+sudo mkdir -p /mnt/samba_share
+
+# Samba 共有ディレクトリをマウント
+sudo mount -t cifs //NASデバイスIP/共有ディレクトリ /mnt/samba_share -o username=ユーザー名,password=パスワード
+
+# マウントに成功した後、/mnt/samba_share ディレクトリで NAS 上のファイルにアクセスして管理できます
+```
+
+---
+
+## その他のクライアントでアクセス
+- 接続情報
+    - IP：NASデバイスIP
+    - ポート：デフォルトは445
+    - アカウント：NASデバイスのログインユーザー名
+    - パスワード：NASデバイスのログインパスワード
+- マウントディレクトリの説明
+    - メインSSD：`/ログインユーザー名`
+      - 例1：すべてのディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/test`
+      - 例2：指定ディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/test/Pictures`
+      - その他：複数ユーザーに対応し、各ユーザーに1つのマウントディレクトリが対応します
+    - 外部ストレージ：`/外部ストレージ名`
+      - 例1：すべてのディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/SD_60GB_BA26`
+      - 例2：指定ディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/SD_60GB_BA26/Pictures`
+    - ⚠️ 注意：
+      - 一部のクライアントではルートディレクトリ `/` だけを指定できないため、上記の対応する具体的なマウントディレクトリを指定してください
+      - ファームウェア &lt;= 3.1.0.16 から最新ファームウェアへアップグレードした後は、マウントディレクトリが調整されます。新バージョンのマウント方式に従ってください

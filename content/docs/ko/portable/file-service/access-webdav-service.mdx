@@ -1,0 +1,125 @@
+---
+sourceHash: 83dea30dba6f
+title: "WebDAV를 통해 PocketCloud의 파일에 어떻게 접근합니까?"
+---
+
+WebDAV(Web 기반 분산 저작 및 버전 관리)는 네트워크에서 파일 공유 및 협업을 위해 HTTP를 기반으로 한 확장 프로토콜입니다.
+사용자가 웹 브라우저 또는 클라이언트 응용 프로그램을 통해 원격 서버의 파일에 접근하고, 편집하며, 관리할 수 있도록 합니다.
+
+**주요 기능은 다음과 같습니다:**
+1. 파일 업로드 및 다운로드: 로컬 파일을 서버에 업로드하거나 서버에서 로컬로 파일을 다운로드하는 것을 지원합니다.
+2. 파일 관리: 원격 서버에서 파일과 폴더를 생성, 삭제, 이름 변경 또는 이동할 수 있습니다.
+3. 파일 동기화: 로컬과 원격 파일의 동기화를 지원하여 데이터를 일치하도록 보장합니다.
+4. 파일 공유 및 협업: 서버의 파일을 다른 사용자와 공유하여 팀 협업을 실현할 수 있습니다.
+
+## WebDAV 활성화
+WebDAV 기본적으로 꺼져 있으며 수동으로 활성화해야 합니다. 다음 단계를 따라 주세요:
+1. App의 **파일 공유 프로토콜** 페이지를 엽니다. <br />
+2. **WebDAV 서비스**를 클릭합니다. <br />
+3. **스위치 버튼**을 켜면 **WebDAV 서비스**를 사용할 수 있습니다. <br />
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-3.png" width="240" height="500" />
+
+## 브라우저 사용하여 접속
+
+1. 브라우저를 열고 주소창에 입력
+   ```http://NAS장치IP:5005```
+   <br />
+   <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
+
+2. 사용자 이름과 비밀번호를 입력한 후 WebDAV 파일 공유 디렉터리에 접근할 수 있습니다
+   <img src="/images/common/portable/file-service/access-webdav-service/1-2.png" width="100%" height="100%" />
+
+---
+
+## Windows에서 방문
+
+> **주의**: Windows에서 **[RaiDrive](https://www.raidrive.com)**를 사용하여 WebDAV 서비스를 이용하는 것을 권장합니다.
+
+1. **Win + E**를 눌러 **파일 탐색기**를 엽니다
+2. 왼쪽 사이드바에서 **네트워크**를 마우스 오른쪽 버튼으로 클릭하고, **네트워크 드라이브 연결**을 선택합니다
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+
+3. 팝업 창에 WebDAV 주소를 입력합니다:
+   ```http://NAS장치IP:5005```
+그런 다음 **완료**를 클릭하세요
+   <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
+
+4. 로그인 프롬프트에 사용자 이름과 비밀번호를 입력합니다
+   <img src="/images/common/portable/file-service/access-webdav-service/1-5.png" width="100%" height="100%" />
+
+5. 완료 후, **이 PC**에서 로컬 디스크처럼 NAS의 파일에 액세스할 수 있습니다
+   <img src="/images/common/portable/file-service/access-webdav-service/1-6.png" width="100%" height="100%" />
+
+---
+
+## macOS에서 방문
+
+1. **Finder**에서 마우스 오른쪽 버튼을 클릭하고, 메뉴 막대에서 **이동 → 서버에 연결...**을 선택합니다
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+
+2. 서버 주소창에 입력:
+   ```http://NAS장치IP:5005```
+그런 다음 **연결**을 클릭하세요
+   <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
+
+3. 사용자 이름과 비밀번호를 입력하고 **연결**을 클릭합니다
+   <img src="/images/common/portable/file-service/access-webdav-service/3-3.png" width="100%" height="100%" />
+
+4. 이제 파인더에서 로컬 폴더를 탐색하고 관리하듯이 NAS의 파일을 탐색하고 관리할 수 있습니다
+   <img src="/images/common/portable/file-service/access-webdav-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## 리눅스에서 접근
+
+**davfs**를 사용하여 WebDAV 공유를 마운트:
+
+```bash
+# davfs2 설치
+sudo apt-get install davfs2
+
+# 마운트 지점 생성
+# 예: /mnt/webdav_share를 마운트 디렉터리로 사용
+sudo mkdir /mnt/webdav_share
+
+# WebDAV 서비스 마운트
+sudo mount.davfs http://NAS장치IP:5005 /mnt/webdav_share
+
+# 마운트 성공 후, /mnt/webdav_share 디렉터리에서 NAS의 파일에 접근하고 관리할 수 있습니다
+```
+
+---
+
+## 기타 클라이언트에서 접근
+- 연결 정보
+    - IP: NAS 장치 IP
+    - 포트: http 기본값은 5005이며, https는 현재 지원되지 않습니다
+    - 계정: NAS 장치 로그인 사용자 이름
+    - 비밀번호: NAS 장치 로그인 비밀번호
+- 마운트 디렉터리 설명
+    - 메인 SSD: `/로그인 사용자 이름`
+      - 예 1: 모든 디렉터리. 현재 사용자가 test인 경우 마운트 디렉터리는 `/test`
+      - 예 2: 지정 디렉터리. 현재 사용자가 test인 경우 마운트 디렉터리는 `/test/Pictures`
+      - 기타: 다중 사용자를 지원하며 각 사용자는 하나의 마운트 디렉터리에 대응합니다
+    - 외부 저장소: `/외부 저장소 이름`
+      - 예 1: 모든 디렉터리. 외부 SD 카드 이름이 SD 60GB BA26인 경우 마운트 디렉터리는 `/SD_60GB_BA26`
+      - 예 2: 지정 디렉터리. 외부 SD 카드 이름이 SD 60GB BA26인 경우 마운트 디렉터리는 `/SD_60GB_BA26/Pictures`
+    - ⚠️ 주의:
+      - 일부 클라이언트는 루트 디렉터리 `/` 만 입력할 수 없으므로 위의 해당 구체적인 마운트 디렉터리를 지정해야 합니다
+      - 펌웨어 &lt;= 3.1.0.16에서 최신 펌웨어로 업그레이드한 후에는 마운트 디렉터리가 조정됩니다. 새 버전의 마운트 방식을 기준으로 사용하세요
+
+## 기타 문제
+
+* 질문: Windows 파일 탐색기가 WebDAV HTTP 서비스를 마운트할 수 없으면 어떻게 해야 하나요?
+* 답변: [Windows WebDAV를 로컬 컴퓨터에 마운트할 수 없음](/portable/file-service/windows-webdav-http-mount)을 참고하세요
+
+* 질문: Windows은 WebDAV와 HTTPS를 지원합니까?
+* 답변: Windows 파일 탐색기는 HTTPS 위의 WebDAV를 지원하지 않습니다. **[RaiDrive](https://www.raidrive.com)** 를 사용하여 WebDAV-HTTPS 서비스를 마운트할 수 있습니다.
+
+* 질문: WebDAV-HTTPS 서비스는 어떤 포트를 사용합니까?
+* 답변: WebDAV-HTTPS의 기본 포트는 5006입니다. 다음 주소를 사용하여 서비스에 접근할 수 있습니다: `https://NAS_IP_Address:5006`.
+
+* 질문: 왜 Windows는 WebDAV를 통해 큰 파일을 열 수 없나요?
+* 답변: [Windows 통해 WebDAV로 50MB 이상 파일 액세스 시 오류 메시지 발생](/portable/file-service/windows-webdav-filelimit)를 참조하세요

@@ -1,0 +1,14 @@
+---
+sourceHash: f18a3520c865
+title: "Problema de caracteres ilegibles en chino al acceder a un disco NFS desde Windows"
+---
+
+> Los caracteres ilegibles en chino suelen deberse a una codificación que no coincide o a un problema de configuración regional del sistema. Para el problema de caracteres ilegibles en chino en los discos NFS asignados en Windows, las pruebas han confirmado que los siguientes métodos lo resuelven:
+
+> Pasos:
+
+1. Abra **Panel de control** → **Reloj y región** → **Región**.
+2. Cambie a la pestaña **«Administración»** y haga clic en **«Cambiar la configuración regional del sistema»**.
+3. Asegúrese de que está seleccionado **«Chino (simplificado, China)»**. ```marque la opción Beta que aparece al final```
+<img src="/images/es/portable/file-service/windows-nfs-garbled-code/1-1.png" width="100%" height="100%" />
+4. Reinicie el sistema después del cambio, vuelva a montar el disco NFS y compruebe si el chino se muestra correctamente.

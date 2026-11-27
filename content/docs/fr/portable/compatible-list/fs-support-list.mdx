@@ -1,0 +1,19 @@
+---
+sourceHash: dcc582e36c29
+title: "Liste de compatibilité des systèmes de fichiers"
+---
+
+## Formats de systèmes de fichiers pris en charge par le stockage interne
+
+Le stockage interne prend principalement en charge exFAT, NTFS et FAT32 ; exFAT est recommandé par la marque.
+
+Comparaison des systèmes de fichiers exFAT, NTFS et FAT32 :
+
+| Caractéristique          | exFAT (recommandé)                          | NTFS                  | FAT32                   |
+| :------------ | :------------------------------------- | :------------------------------------ | :------------------------------------ |
+| **Taille maximale de fichier**  | **Prise en charge des fichiers de très grande taille** | **Prise en charge des fichiers de très grande taille** | **Un fichier ne peut pas dépasser 4 Go** |
+| **Taille maximale de partition**  | **Prise en charge des partitions de très grande taille** | **Prise en charge des partitions de très grande taille**     | **2 To maximum**      |
+| **Compatibilité système** | **Compatible Windows, Mac et Linux**     | **Lecture seule sous Mac** | **Compatible Windows, Mac et Linux**                       |
+| **Sécurité**    | **Moyenne**               | **Élevée**        | **Faible**                |
+| **Stabilité**    | **Bonne**             | **Excellente**              | **Faible**               |
+| **Vitesse**      | **Rapide**         | **Rapide**            | **Lente**         |

@@ -1,0 +1,21 @@
+---
+title: "Window 挂载 WebDAV 到本地失败"
+---
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-1.png" width="60%" />
+
+- 导致上述问题的原因其实非常简单。windows 默认的 WebClient 服务仅支持 HTTPS 协议，而本地搭建的 webdav 服务和链接都是基于 HTTP 协议的，因此才造成了挂载失败的情况。
+
+## 设置 WebClient，允许 HTTP 链接挂载
+
+1. 按下 “windows徽标键” + “R”，打开运行窗口，输入regedit，点击确定后，打开注册表编辑器窗口。
+2. 将路径定位到以下路径：计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters。双击右侧界面中的 BasicAuthLevel 条目，将数值数据修改为“2”，点击确定后关闭注册表编辑器。
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-2.png" width="60%" />
+
+3. 按下 “windows徽标键” + “R”，打开运行窗口，输入services.msc，点击确定后，打开“服务”界面。找到 “WebClient”
+服务，右键点击打开选项菜单，选择重新启动，稍等几秒，待完成后，关闭“服务”界面。
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-3.png" width="60%" />
+
+完成上述三个步骤后，WebClient 服务已经允许使用 HTTP 协议进行挂载。

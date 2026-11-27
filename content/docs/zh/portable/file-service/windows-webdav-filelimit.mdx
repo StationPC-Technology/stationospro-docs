@@ -1,0 +1,19 @@
+---
+title: "Windows访问服务时，大于50M文件提示错误(错误:0x800700DF)"
+---
+
+在 Windows 中使用 WebDAV 时，如果尝试打开或复制超过 50MB 的文件，会提示错误 ```0x800700DF```，这是因为 Windows WebDAV 客户端默认文件大小限制为 50MB。可以通过修改注册表提高限制：
+
+1. 按 Win + R 打开 “运行” 对话框，在输入框中键入 ```regedit```，然后按“回车”键。
+
+2. 在注册表编辑器中，导航到 ```HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters``` 路径。
+
+<img src="/images/common/portable/file-service/windows-webdav-filelimit/1-1.png" width="100%" />
+
+3. 在右侧窗格中，查找 ```FileSizeLimitInBytes``` 项。若选项不存在，请在空白处右键点击选择 “新建” > 选择 “DWORD (32 位) 值”。
+
+4. 将其中的数值数据所对应的文本框改成```ffffffff```，或者选择 “十进制”，输入 4294967295（最大值约 4GB）。然后点击“确定”保存更改。
+
+5. 重启计算机，使更改生效。
+
+6. 重启后重新尝试复制或编辑大文件，验证修改是否生效。

@@ -1,0 +1,159 @@
+---
+sourceHash: c6059cc56312
+title: "Sincronización de archivos con el PC"
+---
+
+PocketCloud permite sincronizar archivos con varios ordenadores. Las altas, modificaciones y eliminaciones de archivos se sincronizan en tiempo real, sin necesidad de intervención manual y manteniendo siempre la misma versión de los archivos en todos los dispositivos.
+
+> Nota:
+> * La ejecución de las políticas de sincronización depende de que **el cliente de PocketCloud para PC se ejecute de forma continua**. Si cierra el cliente, la sincronización se detiene.
+> * Solo se admite la sincronización dentro del mismo entorno de red; no se admite la sincronización remota.
+---
+
+## Instalación e inicio de sesión
+
+- Instale el **cliente de PocketCloud** en el ordenador
+- Inicie sesión desde el cliente en el dispositivo **PocketCloud** mediante la dirección IP
+- Haga clic en «Aplicaciones» en el menú de la izquierda y seleccione el menú **«Sincronización de archivos»**
+- Haga clic en **«Añadir»** → seleccione la ruta y la política de sincronización, y cree la tarea de sincronización
+
+---
+
+## Configurar la ruta de sincronización
+
+En la pantalla «Ruta de sincronización», configure lo siguiente:
+
+<img src="/images/es/portable/backup/syncthing/1.png" />
+
+### Configuración de las rutas
+
+- **Ruta del ordenador**: seleccione la carpeta del equipo local que desea sincronizar
+- **Ruta de PocketCloud**: seleccione la ubicación de destino del NAS donde se guardarán los archivos sincronizados
+
+### Modo de sincronización (elija uno)
+
+- **Sincronización bidireccional**: el ordenador ↔ el NAS se sincronizan mutuamente y se mantienen iguales
+- **Descarga unidireccional**: solo se descarga del NAS → ordenador
+- **Carga unidireccional**: solo se carga del ordenador → NAS
+
+### Ejemplo (sincronización bidireccional)
+
+Si desea sincronizar los datos del equipo local con el NAS y mantener ambos extremos iguales en el próximo uso:
+
+- Ruta del ordenador: carpeta **B**
+- **Ruta de PocketCloud**: carpeta compartida **A**
+- Modo de sincronización: **Sincronización bidireccional**
+
+Efecto: los archivos del ordenador y del NAS se mantienen siempre iguales.
+
+### Sincronizar los mismos datos con varios ordenadores (ampliación)
+
+Si desea que otro ordenador sincronice también los mismos datos:
+
+- Instale el cliente de PocketCloud en el otro ordenador e inicie sesión
+- Cree una tarea de sincronización:
+  - Ruta del ordenador: una carpeta concreta de ese ordenador
+  - **Ruta de PocketCloud**: siga seleccionando la carpeta compartida **A**
+
+Efecto: los datos se mantienen sincronizados entre varios ordenadores y el NAS (tres extremos).
+
+---
+
+## Configurar la política de sincronización
+
+Una vez configurada la «Ruta de sincronización», haga clic en **«Siguiente»** para ir a **«Reglas de sincronización»**:
+
+<img src="/images/es/portable/backup/syncthing/2.png" />
+
+- **Sincronización en tiempo real**: sincroniza automáticamente en cuanto se detecta un cambio en los archivos
+- **Sincronización manual**: solo sincroniza al hacer clic en **«Sincronizar ahora»**
+- **Filtro de archivos**: filtra los archivos o las carpetas que no necesita sincronizar
+
+### Filtro de archivos
+
+- **Sincronizar o no los archivos y carpetas que empiezan por «.»**
+
+  - Predeterminado: no se sincronizan los archivos ni las carpetas ocultos
+  - Si necesita sincronizarlos: marque la opción manualmente
+
+- **Filtrar nombres de archivo o extensiones concretas**
+  - Marque **«Filtrar los siguientes nombres de archivo o extensiones de archivo»**
+  - Puede ajustar o añadir reglas de filtrado
+  - Eliminar una regla: haga clic en **«X»** a la derecha de la regla
+  - Añadir una regla: haga clic en **«Añadir»** → introduzca el nombre de archivo o la extensión
+  - Separe varias reglas con **`;`**
+
+**Ejemplo de filtrado:**
+
+- Filtrar nombres de archivo concretos: `abc.doc`, `test*.doc`, `tmp.*`
+- Filtrar tipos de archivo concretos: `*.jpg`
+
+**Formatos de filtrado predeterminados:**
+
+- `*.tmp`
+- `*.temp`
+- `*.swp`
+- `*.link`
+- `*.pst`
+- `~*.*`
+- `@eadir`
+- `.SynologyWorkingDirectory`
+- `#recycle`
+- `desktop.ini`
+- `.DS_STORE`
+- `lcon\r`
+- `thumbs.db`
+- `$Recycle.Bin`
+- `@sharebin`
+- `System Volume Information`
+- `Program Files`
+- `Program Files (x86)`
+- `ProgramData`
+- `#snapshot`
+
+## Configuración avanzada
+
+En **«Configuración avanzada»** puede ajustar con más detalle la sincronización.
+
+<img src="/images/es/portable/backup/syncthing/set.png" />
+
+### Lógica de eliminación de archivos
+
+- Predeterminado: **Mover a la papelera**
+- Puede configurarse como «Eliminar definitivamente»
+
+### Gestión de conflictos de archivos
+
+- Predeterminado: **Sobrescribir**
+- Puede configurarse como «Conservar ambos», en cuyo caso se cambiará el nombre
+
+---
+
+Una vez seleccionado, haga clic en **«Siguiente»** para ir a la vista previa.
+
+---
+
+## Vista previa y creación de la tarea
+
+En la pantalla **«Vista previa»**:
+
+<img src="/images/es/portable/backup/syncthing/3.png" />
+
+- Puede personalizar el **nombre de la tarea de sincronización**
+- Revise todos los elementos de configuración
+- Si necesita modificar algo: haga clic en **«Anterior»** para volver y ajustarlo
+- Si todo es correcto: haga clic en **«Crear»** para crear la tarea
+
+---
+
+## Gestión de tareas
+
+Una vez creada la tarea, puede gestionar los dispositivos y las tareas en la pantalla **«Sincronización»**:
+
+<img src="/images/es/portable/backup/syncthing/list-edit.png" />
+
+- **Pausar la sincronización**: haga clic en **«Pausar la sincronización»**
+- **Más acciones**: pase el ratón por **«Más»** para consultar el historial de sincronización, editar o eliminar la tarea
+- **Crear tareas rápidamente**: haga clic en **«+»** a la derecha de la tarea de sincronización para crear rápidamente una nueva tarea de sincronización para ese dispositivo
+
+---

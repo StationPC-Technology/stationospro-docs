@@ -1,0 +1,42 @@
+---
+sourceHash: ba925e835eb6
+title: "Guía de solución de problemas de fallo de conexión de PocketCloud"
+---
+
+Cuando intente conectarse a PocketCloud y se encuentre con un fallo, puede localizar la causa siguiendo los pasos de «primero comprobar el estado del dispositivo y después revisar el entorno de red» para resolver el problema de forma eficaz.  
+
+> Se recomienda utilizar primero el cliente móvil para solucionar el problema  
+
+## 1. Confirmación del estado del hardware del dispositivo  
+- **Encendido y batería de PocketCloud**  
+  Asegúrese de que el dispositivo se ha encendido correctamente (pantalla encendida, sin pantalla negra ni parpadeos anómalos); se recomienda intentar la conexión con una batería ≥20 %. Si la batería está baja, conéctelo primero a la alimentación y vuelva a intentarlo, para evitar que el dispositivo entre en suspensión por falta de batería.  
+
+- **Comprobación del estado de red de PocketCloud**  
+  - Si se conecta por WiFi: compruebe en la pantalla pequeña del dispositivo el estado de la conexión de red (por ejemplo, «Conectado», «Intensidad de la señal») y la dirección IP correspondiente, y confirme que el WiFi no se ha desconectado.  
+  - Si se conecta por cable: compruébelo mediante el indicador de estado del dispositivo (luz verde fija = red normal; luz roja parpadeante = cable de red mal insertado o red anómala). Puede volver a enchufar y desenchufar el cable de red para comprobarlo.  
+
+## 2. Comprobación básica del entorno de red  
+
+### 1. Escenario: no se encuentra PocketCloud
+- Modo de conexión directa WiFi  
+  - Confirme que la «función de conexión directa WiFi» del dispositivo está activada: en la pantalla del dispositivo, vaya a 【Configuración】-【Modo de conexión】 y marque «Permitir la búsqueda por conexión directa WiFi» (en algunos modelos está desactivada de forma predeterminada).  
+  - Controle la distancia de conexión: el teléfono y PocketCloud deben estar a menos de 1 metro; una distancia excesiva provoca atenuación de la señal. Además, desactive el «Bluetooth» y la «Compartición de punto de acceso» del teléfono para evitar interferencias de señal.  
+  - Reinicie el cliente: cierre la APP de PocketCloud, elimine por completo el proceso de los antecedentes del teléfono, vuelva a abrirla y haga clic en 【Direct Device】 para escanear, descartando así problemas de caché de la APP.  
+
+- Modo de red de área local  
+  - Verifique la validez de la dirección IP:  
+    ① Obtenga la IP oficial desde la pantalla pequeña del dispositivo (ruta: 【Información del dispositivo】-【Configuración de red】-【IP de la red de área local】, ejemplo: 192.168.1.40);  
+    ② Si obtiene la IP a través del panel de administración del router o de herramientas de terceros, compárela con la IP oficial para evitar usar una «IP que no sea la actual del dispositivo» (el reinicio del router puede provocar cambios de IP).  
+  - Desactive la VPN/proxy: la VPN/proxy del teléfono u ordenador cambia el enrutamiento de red y puede impedir el acceso a los dispositivos de la red de área local; desactívela por completo y vuelva a intentarlo.  
+  - Confirme que está en la misma red de área local: asegúrese de que el teléfono/ordenador y PocketCloud están conectados a la misma red de área local (evite conexiones entre bandas de frecuencia distintas, por ejemplo, que el teléfono se conecte al WiFi de 5G y el dispositivo al WiFi de 2.4G).  
+
+### 2. Escenario: se encuentra el dispositivo, pero la conexión agota el tiempo o falla  
+- Problema de verificación de cuenta y contraseña  
+  - Compruebe la cuenta y la contraseña: asegúrese de que la cuenta y la contraseña introducidas coinciden con la cuenta vinculada a PocketCloud; si ha olvidado la contraseña, puede hacer clic en «Olvidé mi contraseña» en la página de inicio de sesión de la APP y recibir un código de verificación en el correo o el teléfono vinculado para restablecerla; tras el restablecimiento, se recomienda volver a intentarlo en un plazo de 5 minutos.  
+  - Distinga los permisos de las cuentas: solo la «cuenta de administrador del dispositivo» tiene permiso para iniciar la primera conexión; la «cuenta de invitado» debe ser autorizada primero por el administrador en 【Configuración de permisos】 del dispositivo para poder conectarse con normalidad.  
+
+- Conflicto de puertos y direcciones  
+  - Compruebe la introducción de la dirección IP:  
+    ① Al introducir manualmente la IP (por ejemplo, 192.168.1.40), confirme que no hay errores (como introducir por error 192.168.0.40) ni caracteres adicionales;  
+    ② Si la dirección incluye un número de puerto (por ejemplo, 192.168.1.40:8080), confirme que el número de puerto es el predeterminado del dispositivo (se puede consultar en 【Configuración de red】-【Configuración de puertos】); si no es el predeterminado, debe introducirlo manualmente en la página de conexión de la APP.  
+  - Compruebe la ocupación de puertos: si en la red de área local hay otros dispositivos que usan puertos habituales como «32400», «8096» o «8080», puede entrar en 【Configuración de red】-【Configuración de puertos】 del dispositivo y cambiar el puerto predeterminado por uno no ocupado (por ejemplo, cambiar 8080 por 8081); tras el cambio, reinicie el dispositivo y vuelva a intentar la conexión.

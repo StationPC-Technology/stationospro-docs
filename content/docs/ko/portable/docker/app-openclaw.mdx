@@ -1,0 +1,90 @@
+---
+sourceHash: 67bf12144a2d
+title: "Openclaw 설치 가이드"
+---
+
+## 애플리케이션 소개
+
+Openclaw는 로컬 장치에서 실행되는 개인 AI 도우미로, 다양한 일반 통신 도구를 지원하며 지능형 상호작용 경험을 제공합니다.
+
+## 사전 준비
+
+시작하기 전에, 준비가 되었는지 확인하십시오:
+
+- ✅ 사용 가능한 API 키(예: [OpenAI](https://platform.openai.com/api-keys) / [Z.AI](https://bigmodel.cn/apikey/platform) 등)
+
+## 빠른 설치 과정
+
+1. 앱 센터에서 Openclaw를 다운로드하세요
+
+<img src="/images/common/portable/docker/app-openclaw/1-1.png" width="100%" />
+
+2. Openclaw 컨테이너의 콘솔을 엽니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-2.png" width="100%" />
+
+3. 터미널을 열고 명령어 **su node**를 입력한 후 엔터를 누릅니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-3.png" width="100%" />
+
+4. 명령어 **openclaw onboard**를 입력한 다음, 엔터 키를 누릅니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-4.png" width="100%" />
+
+5. 잠시 기다린 후, Openclaw 구성 안전 안내가 표시되면 **Yes**를 선택하고 Enter를 눌러 선택을 확인합니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-5.png" width="100%" />
+
+6. **QuickStart**를 선택하고, 위아래 키로 옵션을 조정할 수 있습니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-6.png" width="100%" />
+
+7. **기존 값 사용** 선택
+
+<img src="/images/common/portable/docker/app-openclaw/1-7.png" width="100%" />
+
+8. 모델을 선택하고, 준비된 **API 키**의 공급업체를 선택하세요
+
+<img src="/images/common/portable/docker/app-openclaw/1-8.png" width="100%" />
+
+9. 여기서는 Z.AI 예를 듭니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-9.png" width="100%" />
+
+10. **지금 API 키 붙여넣기** 선택
+
+<img src="/images/common/portable/docker/app-openclaw/1-10.png" width="100%" />
+
+11. **API 키** 입력
+
+<img src="/images/common/portable/docker/app-openclaw/1-11.png" width="100%" />
+
+12. 기본 모델을 선택합니다. 일반적으로 ```Keep current```를 선택합니다.
+
+<img src="/images/common/portable/docker/app-openclaw/1-12.png" width="100%" />
+
+13. 상호작용 소프트웨어를 선택하세요, 여기서는 일단 **지금 건너뛰기**를 선택합니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-13.png" width="100%" />
+
+14. 여기서 끝납니다. 이때 앱이 재시작되며, **앱 센터**로 가서 **열기**를 클릭하세요.
+
+<img src="/images/common/portable/docker/app-openclaw/1-15.png" width="100%" />
+
+15. 열면, **Openclaw**과 채팅할 수 있습니다
+
+<img src="/images/common/portable/docker/app-openclaw/1-16.png" width="100%" />
+
+## 자주 묻는 질문
+
+* Q: 새로 고침 후 연결할 수 없다고 표시되는 이유는 무엇인가요?
+* A: OpenClaw 프론트엔드와 백엔드는 보안 인증 메커니즘을 사용하며, 해결 방법:
+> 왼쪽 사이드바 열기: 제어 → 개요, 게이트웨이 토큰 입력, '연결' 클릭하면 정상 사용 가능
+
+* Q: 어떤 파일을 조작할 수 있나요?
+* A: 기본 마운트 디렉토리는: /pocketcloud입니다. OpenClaw에게 직접 실행하도록 할 수 있습니다, 예를 들어:
+> /pocketcloud 아래 모든 이미지 파일을 나열해 주세요
+
+* Q: 매번 /pocketcloud를 입력하고 싶지 않나요?
+* A: '별명'을 설정할 수 있으며, 더 자연스러운 표현 방식을 사용할 수 있습니다. 예를 들어:
+> /pocketcloud를 내 문서라고 부르기

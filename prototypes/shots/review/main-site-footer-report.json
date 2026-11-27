@@ -1,0 +1,14 @@
+[
+  {
+    "file": "page.png",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [
+      "脚本错误：TypeError: Cannot read properties of null (reading 'querySelector')",
+      "加载错误：Framing 'https://shop.app/' violates the following Content Security Policy directive: \"frame-ancestors 'self' https://shop.app https://admin.shopify.com\". The request has been blocked."
+    ],
+    "lint": []
+  }
+]

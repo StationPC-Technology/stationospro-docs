@@ -1,0 +1,116 @@
+---
+sourceHash: b6d5ceeee92c
+title: "Wie greift man über Samba auf die Dateien in PocketCloud zu?"
+---
+
+Samba ist ein Dateifreigabedienst basierend auf dem SMB/CIFS (Server Message Block / Common Internet File System) Protokoll, der weit verbreitet für Datei- und Druckfreigaben zwischen Linux-, macOS- und Windows-Systemen verwendet wird.
+Durch Samba können Benutzer auf freigegebene Verzeichnisse auf einem Remote-Server so zugreifen, als ob sie auf lokale Dateien zugreifen würden, und so plattformübergreifende Dateifreigabe und Zusammenarbeit realisieren.
+
+**Hauptsächlich folgende Funktionen:**
+1. Dateifreigabe: Ermöglicht es Benutzern, auf gemeinsam genutzte Dateien oder Ordner im Netzwerk zuzugreifen, diese hochzuladen, herunterzuladen und zu verwalten.
+2. Druckenfreigabe: Unterstützt das Teilen von Druckern über das Netzwerk, um mehreren Geräten die gemeinsame Nutzung derselben Druckressourcen zu ermöglichen.
+3. Benutzerberechtigungskontrolle: Es können unterschiedliche Zugriffsrechte für verschiedene Benutzer oder Benutzergruppen festgelegt werden, um die Datensicherheit zu gewährleisten.
+4. Plattformübergreifender Zugriff: Kompatibel mit den gängigen Betriebssystemen Windows, Linux, macOS usw., unterstützt den Zugriff über verschiedene Clients.
+
+## Samba aktivieren
+
+Samba ist standardmäßig deaktiviert und muss manuell aktiviert werden. Bitte folgen Sie den folgenden Schritten:
+
+1. Öffnen Sie die **Dateifreigabeprotokoll**-Seite von App. <br />
+2. Klicken Sie auf **Samba Service**. <br />
+3. Schalten Sie den **Schalter** ein, um den **Samba-Dienst** zu aktivieren. <br />
+
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-samba-service/5-3.png" width="240" height="500" />
+
+## Zugriff auf Windows
+
+### Methode 1
+
+1. Drücken Sie die Tastenkombination **Win + R**.
+2. Geben Sie `\\NASGerätIP` ein und klicken Sie dann auf **OK**.
+   <img src="/images/common/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
+3. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **OK**.
+   <img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+4. Jetzt kannst du im **Datei-Explorer** auf die Dateien auf NAS zugreifen und sie verwalten, als würdest du lokale Ordner durchsuchen.
+   <img src="/images/common/portable/file-service/access-samba-service/1-3.png" width="100%" height="100%" />
+
+### Methode 2
+
+1. Öffnen Sie den **Datei-Explorer**.
+2. Klicken Sie mit der rechten Maustaste auf **Netzwerk** und wählen Sie **Netzlaufwerk verbinden**.
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+3. Geben Sie `\\NAS_IP-Adresse\Administratorname` ein und klicken Sie dann auf **Fertig stellen**.
+   <img src="/images/common/portable/file-service/access-samba-service/9-2.png" width="100%" height="100%" />
+4. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **OK**.
+   <img src="/images/common/portable/file-service/access-samba-service/9-3.png" width="100%" height="100%" />
+5. Jetzt kannst du im **Datei-Explorer** auf die Dateien auf NAS zugreifen und sie verwalten, als würdest du lokale Ordner durchsuchen.
+   <img src="/images/common/portable/file-service/access-samba-service/9-4.png" width="100%" height="100%" />
+
+---
+
+## Zugriff auf iOS
+
+1. Öffnen Sie die **Datei** App.
+2. Klicken Sie auf das **„...“** Symbol oben rechts und wählen Sie **Mit Server verbinden**.
+   <img src="/images/common/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
+3. Geben Sie `smb://NASGerätIP` ein und klicken Sie auf **Verbinden**.
+   <img src="/images/common/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
+4. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **Weiter**.
+   <img src="/images/common/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
+5. Jetzt kannst du in **Datei** App die Dateien auf NAS so durchsuchen und verwalten, wie du einen lokalen Ordner durchsuchen würdest.
+   <img src="/images/common/portable/file-service/access-samba-service/2-4.png" width="240" height="500" />
+
+---
+
+## Zugriff auf macOS
+
+1. Rechtsklicken Sie auf **Finder**, wählen Sie in der Menüleiste **Gehe zu → Mit Server verbinden**.
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. Geben Sie in der Adressleiste des Servers `smb://NASGerätIP` ein und klicken Sie dann auf **Verbinden**.
+   <img src="/images/common/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
+3. Geben Sie den Benutzernamen und das Passwort ein und klicken Sie auf **Verbinden**.
+   <img src="/images/common/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
+4. Jetzt können Sie in Finder die Dateien auf NAS wie lokale Ordner durchsuchen und verwalten.
+   <img src="/images/common/portable/file-service/access-samba-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Zugriff auf Linux
+
+Verwendung von **cifs-utils**, um das Samba-Freigabe zu mounten:
+
+```bash
+# cifs-utils installieren
+sudo apt-get install cifs-utils
+
+# Mountpunkt erstellen
+# Beispiel: /mnt/samba_share als Mount-Verzeichnis verwenden
+sudo mkdir -p /mnt/samba_share
+
+# Samba-Freigabeverzeichnis mounten
+sudo mount -t cifs //NASGerätIP/Freigabeverzeichnis /mnt/samba_share -o username=Benutzername,password=Passwort
+
+# Nach erfolgreichem Mounten können Sie im Verzeichnis /mnt/samba_share auf die Dateien auf dem NAS zugreifen und diese verwalten
+```
+
+---
+
+## Zugriff über andere Clients
+- Verbindungsinformationen
+    - IP: NAS-Geräte-IP
+    - Port: standardmäßig 445
+    - Konto: Anmeldebenutzername des NAS-Geräts
+    - Passwort: Anmeldepasswort des NAS-Geräts
+- Beschreibung des Mount-Verzeichnisses
+    - Haupt-SSD: `/Anmeldebenutzername`
+      - Beispiel 1: Alle Verzeichnisse. Wenn der aktuelle Benutzer test ist, lautet das Mount-Verzeichnis `/test`
+      - Beispiel 2: Angegebenes Verzeichnis. Wenn der aktuelle Benutzer test ist, lautet das Mount-Verzeichnis `/test/Pictures`
+      - Weitere: Mehrere Benutzer werden unterstützt, jeder Benutzer entspricht einem Mount-Verzeichnis
+    - Externer Speicher: `/Name_des_externen_Speichers`
+      - Beispiel 1: Alle Verzeichnisse. Wenn die externe SD-Karte SD 60GB BA26 heißt, lautet das Mount-Verzeichnis `/SD_60GB_BA26`
+      - Beispiel 2: Angegebenes Verzeichnis. Wenn die externe SD-Karte SD 60GB BA26 heißt, lautet das Mount-Verzeichnis `/SD_60GB_BA26/Pictures`
+    - ⚠️ Hinweis:
+      - Einige Clients können nicht nur das Root-Verzeichnis `/` verwenden. Geben Sie das entsprechende konkrete Mount-Verzeichnis oben an
+      - Nach dem Upgrade von Firmware &lt;= 3.1.0.16 auf die neueste Firmware wird das Mount-Verzeichnis angepasst. Verwenden Sie die Mount-Methode der neuen Version

@@ -1,0 +1,19 @@
+{
+  "title": "システム設定",
+  "pages": [
+    "device-info",
+    "users",
+    "storage",
+    "disk",
+    "file-sharing-protocol",
+    "ai-models",
+    "network-settings",
+    "remote-access",
+    "ssh",
+    "security",
+    "notification-settings",
+    "hardware-power",
+    "time-timezone",
+    "update-restore"
+  ]
+}

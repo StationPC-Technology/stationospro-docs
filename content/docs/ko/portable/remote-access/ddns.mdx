@@ -1,0 +1,192 @@
+---
+sourceHash: b4a5dab8e386
+title: "DDNS 사용 방법"
+---
+
+회사, 출장지 또는 모바일 네트워크 등 외부 네트워크에서 집의 NAS에 직접 연결하여 속도 제한 없이 접근하려면, `DDNS 설정 + 라우터 포트 포워딩`을 사용해 파일과 애플리케이션에 원격으로 접근할 수 있습니다.
+
+## 공인 IP 주소 보유 여부 확인
+
+1. 가정의 메인 라우터 관리 페이지에 로그인하여 WAN 포트 IP 주소를 확인합니다.
+2. DDNS 설정을 생성할 때 자동으로 감지된 IP 주소가 라우터의 WAN 포트 IP 주소와 일치하는지 확인합니다.
+
+## 타사 서비스 제공업체 인증 정보 가져오기
+
+### 1. Cloudflare
+
+1. [Cloudflare](https://dash.cloudflare.com/)에 로그인하고 왼쪽 메뉴에서 `Domains` > `Registrations`를 선택한 후 도메인을 구매합니다.
+
+![Cloudflare 도메인 등록](/images/common/portable/remote-access/ddns/image-20260817091122396.png)
+
+2. [Cloudflare API Token](https://dash.cloudflare.com/profile/api-tokens)을 엽니다.
+3. `Create Token`을 클릭합니다.
+
+![Cloudflare API Token 생성](/images/common/portable/remote-access/ddns/image-20260817091856430.png)
+
+4. `Edit zone DNS`를 선택합니다.
+
+![Edit zone DNS 선택](/images/common/portable/remote-access/ddns/image-20260817092033969.png)
+
+5. `Zone Resources` 드롭다운에서 구매한 도메인을 선택하고 `Continue to summary`를 클릭합니다.
+
+![Cloudflare Zone 선택](/images/common/portable/remote-access/ddns/image-20260817092336158.png)
+
+6. `Create Token`을 클릭합니다.
+
+![Token 생성](/images/common/portable/remote-access/ddns/image-20260817092454271.png)
+
+7. **API Token**을 복사합니다. 이 Token은 NAS DDNS 설정에 사용됩니다.
+
+![API Token 복사](/images/common/portable/remote-access/ddns/image-20260817092814598.png)
+
+### 2. FreeDNS
+
+[freedns.afraid.org](https://freedns.afraid.org/)에서 무료 도메인을 신청할 수 있습니다.
+
+1. `Subdomains`를 클릭합니다.
+
+![Subdomains 열기](/images/common/portable/remote-access/ddns/image-20260814165825310.png)
+
+2. 계정과 비밀번호를 입력하여 로그인합니다. 계정이 없다면 먼저 `Sign up Free`를 클릭하여 계정을 만듭니다.
+
+![FreeDNS 로그인](/images/common/portable/remote-access/ddns/image-20260814165908860.png)
+
+3. 필요한 정보를 입력하고 `Save`를 클릭합니다.
+
+![FreeDNS 하위 도메인 생성](/images/common/portable/remote-access/ddns/image-20260818095014297.png)
+
+- **Type**: IPv4 레코드를 의미하는 `A`를 선택합니다.
+- **Subdomain**: 원하는 하위 도메인을 입력합니다.
+- **Domain**: 사용할 상위 도메인을 선택합니다.
+
+4. `Dynamic DNS` > `quick cron example`을 클릭합니다.
+
+![quick cron example 열기](/images/common/portable/remote-access/ddns/image-20260818095206426.png)
+
+5. 이미지에 표시된 키를 저장합니다. `?` 뒤의 key 값만 사용하며 `?` 자체는 포함하지 않습니다. 이 키는 PocketCloud DDNS 설정에 필요합니다.
+
+![FreeDNS 키 복사](/images/common/portable/remote-access/ddns/image-20260814171842858.png)
+
+### 3. Duck DNS
+
+1. [Duck DNS](https://www.duckdns.org/)를 엽니다.
+2. 로그인 방법을 선택하여 로그인합니다.
+
+![Duck DNS 로그인](/images/common/portable/remote-access/ddns/image-20260814173457409.png)
+
+3. `reCaptcha`를 완료하여 도메인을 등록합니다.
+
+![reCaptcha 완료](/images/common/portable/remote-access/ddns/image-20260814173644397.png)
+
+4. `domains`에 하위 도메인을 입력하고 `add domain`을 클릭합니다.
+
+![Duck DNS 도메인 추가](/images/common/portable/remote-access/ddns/image-20260814174542622.png)
+
+5. `Token`을 저장합니다. 이후 PocketCloud DDNS 설정에 사용됩니다.
+
+## NAS에서 DDNS 설정
+
+1. `Device` > `Remote Access` > `DDNS`로 이동한 후 오른쪽 위의 `Add` 또는 화면 중앙의 `Add Configuration`을 클릭합니다.
+
+![DDNS 설정 추가](/images/common/portable/remote-access/ddns/image-20260817093613450.png)
+
+2. 이용 중인 도메인 서비스 제공업체를 선택하고 해당 업체의 요구 사항에 따라 도메인 및 인증 정보를 입력합니다.
+3. `Test`를 클릭합니다. 연결 상태가 `Normal`로 표시되면 `Confirm`을 클릭하여 저장합니다. IP 주소가 변경되면 NAS가 자동으로 도메인 레코드를 업데이트합니다.
+
+![DDNS 설정 테스트 및 저장](/images/common/portable/remote-access/ddns/image-20260817094239125.png)
+
+## 라우터 포트 포워딩 설정
+
+1. **라우터 관리 페이지에 로그인합니다.**
+
+   브라우저에 `192.168.1.1` 또는 `192.168.0.1`과 같은 라우터 IP 주소를 입력하고 로그인합니다.
+
+2. **고정 IP 주소를 설정합니다.**
+
+   라우터의 LAN 설정에서 DHCP 고정 IP 할당 기능을 찾습니다.
+
+   - NAS의 MAC 주소를 고정 IP 주소에 바인딩합니다.
+   - 현재 연결된 NAS를 선택하고 `Apply`를 클릭하여 저장합니다.
+
+   > **참고:** 포트 포워딩 설정 위치는 라우터 제조업체마다 다릅니다. 제조업체 설명서를 참고하고 외부 포트가 다른 설정과 충돌하지 않는지 확인하십시오.
+
+3. **포트 포워딩 규칙을 추가합니다.**
+
+   `Advanced Settings` > `Port Forwarding` 또는 `Port Mapping`으로 이동한 후 `Add`를 클릭하여 규칙을 생성합니다.
+
+4. **설정을 저장합니다.**
+
+   설정을 검토한 후 규칙을 저장합니다.
+
+5. **접속을 확인합니다.**
+
+   외부 네트워크에서 `도메인:포트 번호` 형식으로 접속하여 서비스에 연결되는지 확인합니다.
+
+## 도메인으로 NAS에 접속
+
+라우터에서 포트 매핑을 완료하고 DDNS 설정을 성공적으로 마친 후, 외부 네트워크(회사 네트워크, 모바일 데이터 등)에서 PocketCloud 시스템에 원격으로 로그인해야 하는 경우 다음 방법을 참고하십시오.
+
+장치 로그인 화면에서 `도메인:라우터 매핑 포트`를 입력하여 접속할 수 있습니다.
+
+![image-20260817172227254](/images/common/portable/remote-access/ddns/image-20260817172227254.png)
+
+> **참고:** 아래 로그인 방법은 PocketCloud PC 클라이언트, 웹 브라우저, 앱 모두에 적용됩니다.
+
+## 도메인으로 접속할 수 없는 경우 문제 해결
+
+DDNS 설정 후에도 외부 네트워크에서 서비스에 접근할 수 없다면 다음의 일반적인 원인을 확인하십시오.
+
+### 1. 라우터 포트 매핑 문제
+
+라우터의 포트 포워딩 규칙이 외부 포트를 NAS의 `9500` 포트에 매핑하는지 확인합니다. 접속할 때는 라우터에서 외부에 공개한 포트를 사용하십시오.
+
+### 2. 클라이언트가 공인 IP를 가져올 수 없음
+
+인터넷 서비스 제공업체가 `10.10.x.x`와 같은 사설 IP 주소를 할당했을 수 있습니다.
+
+가정의 라우터에 로그인하여 WAN IPv4 주소를 확인하고 [What Is My IP Address](https://whatismyipaddress.com/)에 표시되는 IP와 비교합니다. 일치하지 않으면 인터넷 서비스 제공업체에 문의하십시오.
+
+### 3. DNS가 올바른 IP 주소를 반환하지 않음
+
+도메인이 올바른 IP 주소로 확인되지 않는다면 **DNS 캐시가 업데이트되지 않았거나** **DNS 확인에 문제가 있을** 수 있습니다.
+
+**1. DNS 캐시가 업데이트되지 않음**
+
+- **증상**
+
+  DNS 레코드를 변경한 후 일부 장치나 네트워크에서는 접속할 수 없거나 변경 전 IP 주소가 반환되지만, 다른 장치에서는 정상적으로 접속됩니다.
+
+- **원인**
+
+  DNS 레코드 변경 사항은 모든 DNS 서버에 즉시 반영되지 않습니다. DNS의 **TTL(Time to Live) 캐시** 때문에 컴퓨터, 라우터 또는 인터넷 서비스 제공업체의 DNS 서버에 이전 결과가 남아 있을 수 있습니다.
+
+- **해결 방법**
+
+  1. 로컬 DNS 캐시를 지운 후 도메인을 다시 확인합니다.
+  2. DNS 서버를 변경한 후 올바른 IP 주소를 가져오는지 확인합니다.
+
+> **참고:** DNS 캐시 업데이트 시간은 레코드의 TTL에 따라 달라집니다. 변경 사항이 여러 네트워크에 완전히 반영되기까지 시간이 걸릴 수 있습니다.
+
+**2. 비정상적인 DNS 확인 또는 DNS 오염**
+
+- **증상**
+
+  DNS 조회 결과가 도메인에 실제로 설정한 IP 주소와 다릅니다.
+
+  예를 들어 터미널에서 다음 명령을 실행합니다.
+
+  ```text
+  ping www.example.com
+  ```
+
+  반환된 IP 주소가 올바르지 않다면 현재 네트워크의 DNS 확인 결과를 점검하십시오. [DNS Checker](https://dnschecker.org/)를 사용하여 여러 국가와 지역의 결과를 비교할 수도 있습니다.
+
+- **해결 방법**
+
+  1. 클라이언트 장치의 DNS 서버를 변경합니다. 예를 들어 Google Public DNS를 사용할 수 있습니다.
+     - `8.8.8.8`
+     - `8.8.4.4`
+     - `dns.google`
+  2. 신뢰할 수 있는 다른 DNS 서비스 제공업체로 변경한 후 도메인을 다시 확인합니다.
+
+> **참고:** 일부 네트워크나 지역에서만 문제가 발생한다면 여러 지역 및 DNS 서비스 제공업체를 이용해 테스트하여 특정 DNS 서비스 또는 네트워크가 원인인지 확인하십시오.

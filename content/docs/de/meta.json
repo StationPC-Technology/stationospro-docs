@@ -1,4 +1,10 @@
 {
   "title": "Hilfe-Center",
-  "pages": ["index", "quick-start", "app-guide","explore", "compatible", "faq", "changelog", "contact"]
+  "pages": [
+    "desktop",
+    "portable",
+    "faq",
+    "policies",
+    "contact"
+  ]
 }

@@ -1,0 +1,10 @@
+---
+sourceHash: a089f365ea15
+title: "File Manager freezes after a failed WebDAV connection in Windows"
+---
+
+1. Press the Windows logo key + R to open the Run window, enter cmd, and click OK. This will open the Registry Editor window.
+
+2. Enter `net use z: /delete``` and press Enter to delete the WebDAV mount.
+
+- "z:" is the drive letter of the WebDAV mount. If the drive letter is not "z", replace "z" with the actual drive letter.

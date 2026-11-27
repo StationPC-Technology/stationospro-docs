@@ -1,0 +1,156 @@
+---
+sourceHash: 6fd34b11dd96
+title: "Leitfaden zur Dateisynchronisierung zwischen Computer und PocketCloud NAS"
+---
+
+> Hinweis: Die Ausführung der Synchronisierungsstrategie hängt davon ab, dass **der PocketCloud PC-Client kontinuierlich läuft**. Wenn der Client beendet wird, wird die Synchronisierung gestoppt.
+
+---
+
+## Installation und Anmeldung
+
+- Installieren Sie den **PocketCloud-Client** auf dem Computer
+- Verwenden Sie den Client, um sich über IP bei dem Gerät **PocketCloud** anzumelden
+- Klicken Sie im linken Menü auf 'Anwendungen' und wählen Sie: **【Dateisynchronisation】** Menü
+- Klicken Sie auf **„Neu hinzufügen“** →, wählen Sie den Pfad und die Synchronisationsstrategie aus und erstellen Sie dann den Synchronisationsauftrag
+
+---
+
+## Synchronisierungspfad einstellen
+
+Konfigurieren Sie die folgenden Inhalte auf der Seite 'Synchronisierungspfad':
+
+<img src="/images/de/portable/backup/syncthing/1.png" />
+
+### Pfadeinstellungen
+
+- **Computerpfad**: Wählen Sie den Ordner auf diesem Computer, der synchronisiert werden soll
+- **PocketCloud Pfad**: Wählen Sie den Zielort auf NAS, an dem die synchronisierten Dateien gespeichert werden sollen
+
+### Synchronisationsmodus (wähle eine Option)
+
+- **Bidirektionale Synchronisation**: Computer ↔ NAS wechselseitig synchronisieren, konsistent bleiben
+- **Einweg-Download**: Nur von NAS → Computer herunterladen
+- **Einweg-Upload**: Nur vom Computer → NAS hochladen
+
+### Beispiel (Bidirektionale Synchronisation)
+
+Wenn Sie die Daten dieses Geräts mit NAS synchronisieren und beim nächsten Mal die Konsistenz zwischen beiden Geräten aufrechterhalten möchten:
+
+- Computerpfad: Ordner **B**
+- **PocketCloud Pfad**: Gemeinsamer Ordner **A**
+- Synchronisationsart: **Bidirektionale Synchronisation**
+
+Effekt: Die Dateien des Computers und von NAS bleiben ständig synchron.
+
+### Mehrere Computer synchronisieren dieselben Daten (erweitert)
+
+Wenn Sie möchten, dass ein anderer Computer dieselben Daten synchronisiert:
+
+- Installieren Sie den PocketCloud-Client auf einem anderen Computer und melden Sie sich an
+- Synchronisationsaufgabe erstellen:
+  - Computerpfad: Der angegebene Ordner auf diesem Computer
+  - **PocketCloud Pfad**: Wählen Sie weiterhin den freigegebenen Ordner **A**
+
+Effekt: Die Daten bleiben zwischen mehreren Computern und dem NAS synchron.
+
+---
+
+## Synchronisationsstrategie einstellen
+
+Nach dem Abschluss der „Synchronisierungspfad-Einstellung“ klicken Sie auf **„Weiter“**, um zu **【Synchronisierungsregeln】** zu gelangen:
+
+<img src="/images/de/portable/backup/syncthing/2.png" />
+
+- **Echtzeit-Synchronisation**: Dateien werden bei Änderungen automatisch synchronisiert
+- **Manuelle Synchronisation**: Synchronisiert nur beim Klicken auf **„Jetzt synchronisieren“**
+- **Dateifilter**: Dateien oder Ordner filtern, die nicht synchronisiert werden müssen
+
+### Dateifilter
+
+- **Ob Dateien/Ordner, die mit „.“ beginnen, synchronisiert werden sollen**
+
+  - Standard: Versteckte Dateien/Ordner nicht synchronisieren
+  - Synchronisation erforderlich: manuell zum Aktivieren markieren
+
+- **Bestimmte Dateinamen oder Erweiterungen filtern**
+  - Aktivieren Sie **„Folgende Dateinamen oder Dateierweiterungen filtern“**
+  - Filterregeln können angepasst/hinzugefügt werden
+  - Regel löschen: Klicken Sie rechts neben der Regel auf **„X“**
+  - Neue Regel hinzufügen: Klicken Sie auf **„Neu hinzufügen“** → Dateiname oder Erweiterung eingeben
+  - Mehrere Regeln durch **`;`** getrennt
+
+**Filterbeispiel:**
+
+- Bestimmte Dateinamen filtern: `abc.doc`, `test*.doc`, `tmp.*`
+- Bestimmte Dateitypen filtern: `*.jpg`
+
+**Standardfilterformat:**
+
+- `*.tmp`
+- `*.temp`
+- `*.swp`
+- `*.link`
+- `*.pst`
+- `~*.*`
+- `@eadir`
+- `.SynologyWorkingDirectory`
+- `#recycle`
+- `desktop.ini`
+- `.DS_STORE`
+- `lcon\r`
+- `thumbs.db`
+- `$Recycle.Bin`
+- `@sharebin`
+- `System Volume Information`
+- `Program Files`
+- `Program Files (x86)`
+- `ProgramData`
+- `#snapshot`
+
+## Erweiterte Einstellungen
+
+In den **[Erweiterten Einstellungen]** können weitere Details zur Synchronisierung konfiguriert werden.
+
+<img src="/images/de/portable/backup/syncthing/set.png" />
+
+### Datei-Löschlogik
+
+- Standard: **In den Papierkorb verschieben**
+- Kann auf „Endgültig löschen“ eingestellt werden
+
+### Umgang mit Datei-Konflikten
+
+- Standard: **Überschreiben**
+- Kann auf 'Beide behalten' eingestellt werden, wird umbenannt
+
+---
+
+Nach der Auswahl auf **„Weiter“** klicken, um eine Vorschau zu sehen.
+
+---
+
+## Vorschau und Erstellung von Aufgaben
+
+Im **[Vorschau]**-Fenster:
+
+<img src="/images/de/portable/backup/syncthing/3.png" />
+
+- Benutzerdefinierbarer **Name der Synchronisationsaufgabe**
+- Überprüfen Sie alle Konfigurationseinstellungen
+- Zum Ändern: Klicken Sie auf **„Vorheriger Schritt“**, um zurückzugehen und Anpassungen vorzunehmen
+- Überprüfung korrekt: Klicken Sie auf **„Erstellen“**, um die Aufgabe zu erstellen
+
+---
+
+## Aufgabenverwaltung
+
+Nach der Erstellung können Geräte und Aufgaben im **[Synchronisieren]**-Fenster verwaltet werden:
+
+<img src="/images/de/portable/backup/syncthing/list-edit.png" />
+
+- **Synchronisation pausieren**: Klicken Sie auf **„Synchronisation pausieren“**
+- **Weitere Aktionen**: Mit der Maus über **„Mehr“** fahren, um Synchronisierungsprotokolle anzuzeigen, Aufgaben zu bearbeiten oder zu löschen
+- **Aufgaben schnell erstellen**: Klicken Sie auf der rechten Seite der Synchronisierungsaufgabe auf **„+“**, um schnell eine neue Synchronisierungsaufgabe für dieses Gerät zu erstellen
+
+---

@@ -1,0 +1,71 @@
+---
+sourceHash: 917f9e91e1ba
+title: "Plik — Système de téléversement de fichiers temporaires"
+---
+
+## Présentation
+Plik est un service de partage de fichiers temporaires open source, léger et sécurisé, **utilisable entièrement depuis un navigateur** : ouvrez votre navigateur pour téléverser, partager et transférer des fichiers. Avec Docker, vous pouvez rapidement créer votre propre plateforme privée de transfert de fichiers temporaires, sans configuration complexe, simple à utiliser et respectueuse de la confidentialité.
+
+## Cas d'utilisation
+- Transfert temporaire de fichiers entre appareils : téléphone et ordinateur communiquent directement, sans installer de client
+- Partage rapide de fichiers entre collègues et amis, à la demande, efficace et pratique
+- Pour les fichiers privés que vous ne souhaitez pas téléverser sur un cloud public, un service auto-hébergé est plus sûr et mieux contrôlé
+- Partage temporaire de journaux, paquets d'installation, fichiers de configuration et autres documents de travail
+
+## Caractéristiques
+- Accès uniquement par navigateur, compatible avec toutes les plateformes, sans installer d'application, avec un faible seuil d'utilisation
+- Prise en charge d'un client CLI pour téléverser et gérer les fichiers en ligne de commande
+- Prise en charge du chiffrement des fichiers et définition d'un mot de passe de partage pour garantir la sécurité des fichiers
+- Personnalisation de la durée d'expiration et du nombre de téléchargements, avec prise en charge de « lecture unique » (OneShot)
+- Génération de liens de partage en un clic, désactivation possible à tout moment, pour un contrôle flexible
+- Faible consommation de ressources, déploiement Docker en un clic, coût de maintenance réduit
+
+> Pour plus d'informations :
+> 
+> Documentation officielle : [https://root-gg.github.io/plik](https://root-gg.github.io/plik)
+>
+> GitHub officiel : [https://github.com/root-gg/plik](https://github.com/root-gg/plik)
+
+## Tutoriel de déploiement
+### Créer un conteneur Plik
+1.  Accédez à l'interface Docker, cliquez sur « Images », saisissez « plik » dans le champ de recherche, trouvez l'image correspondante puis cliquez sur Télécharger.
+    <img src="/images/fr/portable/docker/plik/1-2.png" width="100%" />
+
+2.  Une fois l'image téléchargée, accédez à la page « Containers » (Conteneurs), cliquez sur « Créer un conteneur », sélectionnez l'image « rootgg/plik » et cliquez sur « Suivant ».
+    > Conseil : si vous souhaitez que le conteneur démarre automatiquement avec l'appareil, cochez l'option « Démarrage automatique » sur la page.
+    <img src="/images/fr/portable/docker/plik/1-3.png" width="100%" />
+
+3.  Paramètres de mappage de chemin : cliquez sur Ajouter un mappage de chemin
+    * Stockage des fichiers téléversés : créez le chemin de stockage local « Mes fichiers/upload » et mappez le chemin dans le conteneur « /root/files » sur le chemin local « Mes fichiers/upload »
+    
+
+4.  Une fois tous les paramètres vérifiés, cliquez sur « Confirmer », sélectionnez « Démarrer après création » pour terminer la création et le démarrage du conteneur Plik.
+    <img src="/images/fr/portable/docker/plik/1-4.png" width="100%" />
+
+## Utilisation de base de Plik
+### 1.  Accéder à Plik :
+
+<img src="/images/fr/portable/docker/plik/1-6.png" width="100%" />
+
+Adresse d'accès : http://IP:8080/ ; remplacez IP par l'adresse IP de votre serveur (ou de votre appareil PocketCloud) ;
+> Remarque : s'il s'agit d'un appareil PocketCloud, utilisez directement l'adresse IP de l'appareil ;
+> Si le port a été modifié lors du déploiement, ajustez le numéro de port de l'adresse d'accès en conséquence.
+
+### 2.  Configurer Plik :
+Configurez les paramètres selon vos besoins.
+<img src="/images/fr/portable/docker/plik/1-7.png" width="100%" />
+
+| Paramètre | Description |
+| ---- | ---- |
+| Destruction après téléchargement | Le fichier est définitivement supprimé après un téléchargement |
+| Diffusion en flux | Le fichier est diffusé directement au téléchargeur, sans être stocké sur le serveur |
+| Suppression possible | Toute personne disposant du lien peut supprimer les fichiers téléversés |
+| Chiffrement de bout en bout | Le fichier est chiffré avant le téléversement ; seul le détenteur du mot de passe peut le déchiffrer |
+| Protection par mot de passe | Définition d'un mot de passe d'accès via l'authentification HTTP de base, pour garantir la sécurité |
+| Commentaires | Prise en charge de l'ajout de commentaires dans le contenu téléversé |
+| Durée d'expiration | Définition de la durée de validité du fichier, avec expiration automatique à échéance |
+
+#### 3.  Téléverser des fichiers
+Glissez-déposez directement les fichiers dans la zone de téléversement de la page Web, ou cliquez sur « Choisir des fichiers » pour les téléverser.
+#### 4.  Partager des fichiers
+Une fois le téléversement terminé, copiez le lien de partage généré par la page ; cliquez sur le lien pour télécharger.

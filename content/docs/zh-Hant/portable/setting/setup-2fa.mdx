@@ -1,0 +1,66 @@
+---
+sourceHash: 7dfafa7c38df
+title: "啟用帳號雙重驗證（2FA）"
+---
+
+帳號雙重驗證（2FA）是一種更安全的登入方式。除了輸入密碼外，還需提供動態驗證碼（OTP），透過兩步驗證身分，提升帳號安全性。
+
+> 注意：
+> * 需使用支援 TOTP 通訊協定的身分驗證器 APP（如 [Microsoft Authenticator](https://www.microsoft.com/security/mobile-authenticator-app)）；
+> * 建議提前設定安全信箱，用於手機遺失時接收緊急驗證碼。
+
+## 準備工作
+1. 檢查系統時間準確性: 
+檢查並修正系統時間的誤差，若手機與系統的時間不一致，將導致基於時間的動態驗證碼驗證失敗。如希望系統時間始終保持準確，建議將系統時間設定為自動同步。
+
+<img src="/images/zh-Hant/portable/setting/setup-2fa/1-1-1.png" width="30%" />
+
+2. 開啟郵件通知服務
+[開啟郵件通知服務](/portable/setting/setup-smtp)，授權系統傳送郵件的能力，以便系統可以傳送 密碼重設 和 雙重驗證緊急驗證碼 等郵件到使用者設定的 安全信箱。
+
+3. 啟用強制雙重驗證
+支援設定全部使用者與部分使用者，明確需要提高帳號安全性的使用者範圍，針對他們啟用強制雙重驗證。
+<img src="/images/zh-Hant/portable/setting/setup-2fa/1-3-1.png" width="30%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/1-3-2.png" width="30%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/1-3-3.png" width="30%" />
+
+## 使用者設定流程
+前往 **個人設定** 頁面，設定安全信箱並啟用雙重驗證
+
+### 設定安全信箱
+為避免發生手機或金鑰意外遺失造成無法登入帳號的風險，首先設定 安全信箱
+
+<img src="/images/zh-Hant/portable/setting/setup-2fa/2-1-1.png" width="30%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/2-1-2.png" width="30%" />
+
+### 啟用雙重驗證
+1. 點選啟用按鈕，輸入使用者登入帳號；
+2. 複製金鑰，使用「Microsoft Authenticator」等支援 TOTP 通訊協定的身分驗證器 APP，依提示完成 key 綁定；
+3. 在驗證框中輸入身分驗證器 APP 顯示的動態驗證碼，完成設定。
+
+<img src="/images/zh-Hant/portable/setting/setup-2fa/2-2-1.png" width="30%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/2-2-2.png" width="30%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/2-2-3.png" width="30%" />
+
+## 登入流程
+
+啟用雙重驗證後，登入時需完成兩步驗證：
+
+1. 輸入帳號和密碼；
+2. 輸入身分驗證器 APP 上顯示的動態驗證碼，進行登入。
+> 注意:
+> * 在輸入動態驗證碼介面可勾選**信任本裝置**，勾選後該裝置後續登入無需再次輸入驗證碼。
+> * 當無法取得動態驗證碼時，點選驗證介面的**無法取得**，系統將傳送一次性緊急驗證碼至安全信箱，輸入後即可完成登入。
+
+<img src="/images/zh-Hant/portable/setting/setup-2fa/2-3-1.png" width="30%" />
+
+## 身分驗證器指引
+
+支援 TOTP 通訊協定（基於時間的一次性密碼）的身分驗證器 APP 均可使用。支援手動輸入帳號與金鑰，或透過掃描 QR 碼於 Web／PC 用戶端進行輸入
+
+### Microsoft Authenticator
+
+<img src="/images/zh-Hant/portable/setting/setup-2fa/3-1-1.png" width="20%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/3-1-2.png" width="20%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/3-1-3.png" width="20%" />
+<img src="/images/zh-Hant/portable/setting/setup-2fa/3-1-4.png" width="20%" />

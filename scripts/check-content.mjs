@@ -115,6 +115,8 @@ for (const locale of [SOURCE_LOCALE, ...TARGET_LOCALES]) {
     const prefix = `content/docs/${locale}${dirRel ? '/' + dirRel : ''}`;
 
     for (const p of meta.pages) {
+      // fumadocs 的特殊条目：!name 隐藏、...folder 摊平、[标题](url) 纯链接、--- 分隔线
+      if (p.startsWith('!') || p.startsWith('...') || p.startsWith('[') || p.startsWith('---')) continue;
       if (!pages.includes(p) && !folders.includes(p)) {
         err(`[meta] ${prefix}/meta.json 引用了不存在的页面或文件夹: "${p}"`);
       }
@@ -122,8 +124,12 @@ for (const locale of [SOURCE_LOCALE, ...TARGET_LOCALES]) {
     const dup = meta.pages.filter((p, i) => meta.pages.indexOf(p) !== i);
     for (const d of dup) err(`[meta] ${prefix}/meta.json 中 "${d}" 重复出现`);
 
+    // 被 !name 隐藏的页面也算「已登记」，不再提示追加到末尾
+    const hidden = new Set(
+      meta.pages.filter((p) => p.startsWith('!')).map((p) => p.slice(1)),
+    );
     for (const p of pages) {
-      if (!meta.pages.includes(p)) {
+      if (!meta.pages.includes(p) && !hidden.has(p)) {
         warn(`[meta] ${prefix}/${p}.mdx 未登记在 meta.json 的 pages 中（Fumadocs 会将其追加到栏目末尾）`);
       }
     }

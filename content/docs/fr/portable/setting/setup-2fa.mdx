@@ -1,0 +1,66 @@
+---
+sourceHash: 7dfafa7c38df
+title: "Activer la double authentification du compte (2FA)"
+---
+
+La double authentification du compte (2FA) est un mode de connexion plus sûr. Outre le mot de passe, elle requiert un code de vérification dynamique (OTP) : l'identité est vérifiée en deux étapes, ce qui renforce la sécurité du compte.
+
+> Remarque :
+> * Utilisez une application d'authentification prenant en charge le protocole TOTP (par exemple [Microsoft Authenticator](https://www.microsoft.com/security/mobile-authenticator-app)) ;
+> * Il est recommandé de configurer à l'avance une adresse e-mail de sécurité, afin de pouvoir recevoir un code d'urgence en cas de perte du téléphone.
+
+## Préparation
+1. Vérifier l'exactitude de l'heure système :
+Vérifiez et corrigez l'écart de l'heure système ; si l'heure du téléphone et celle du système ne coïncident pas, la vérification du code dynamique basé sur le temps échouera. Pour que l'heure système reste toujours exacte, il est recommandé de la définir sur une synchronisation automatique.
+
+<img src="/images/fr/portable/setting/setup-2fa/1-1-1.png" width="30%" />
+
+2. Activer le service de notification par e-mail
+[Activer le service de notification par e-mail](/portable/setting/setup-smtp) pour autoriser le système à envoyer des e-mails, afin qu'il puisse expédier à l'adresse e-mail de sécurité configurée par l'utilisateur des messages tels que la réinitialisation du mot de passe et le code d'urgence de double authentification.
+
+3. Activer la double authentification obligatoire
+La configuration peut s'appliquer à tous les utilisateurs ou à une partie d'entre eux, afin de définir clairement le périmètre des utilisateurs devant renforcer la sécurité de leur compte et d'activer la double authentification obligatoire pour eux.
+<img src="/images/fr/portable/setting/setup-2fa/1-3-1.png" width="30%" />
+<img src="/images/fr/portable/setting/setup-2fa/1-3-2.png" width="30%" />
+<img src="/images/fr/portable/setting/setup-2fa/1-3-3.png" width="30%" />
+
+## Processus de configuration côté utilisateur
+Accédez à la page **Paramètres personnels** pour configurer l'adresse e-mail de sécurité et activer la double authentification.
+
+### Configurer l'adresse e-mail de sécurité
+Pour éviter le risque de ne plus pouvoir vous connecter à votre compte en cas de perte accidentelle du téléphone ou de la clé, configurez d'abord l'adresse e-mail de sécurité.
+
+<img src="/images/fr/portable/setting/setup-2fa/2-1-1.png" width="30%" />
+<img src="/images/fr/portable/setting/setup-2fa/2-1-2.png" width="30%" />
+
+### Activer la double authentification
+1. Cliquez sur le bouton d'activation, puis saisissez le compte de connexion de l'utilisateur ;
+2. Copiez la clé, puis utilisez une application d'authentification prenant en charge le protocole TOTP, comme « Microsoft Authenticator », pour effectuer l'appairage de la clé en suivant les instructions ;
+3. Saisissez dans le champ de vérification le code de vérification dynamique affiché par l'application d'authentification pour terminer la configuration.
+
+<img src="/images/fr/portable/setting/setup-2fa/2-2-1.png" width="30%" />
+<img src="/images/fr/portable/setting/setup-2fa/2-2-2.png" width="30%" />
+<img src="/images/fr/portable/setting/setup-2fa/2-2-3.png" width="30%" />
+
+## Processus de connexion
+
+Une fois la double authentification activée, la connexion requiert deux étapes de vérification :
+
+1. Saisissez le compte et le mot de passe ;
+2. Saisissez le code de vérification dynamique affiché par l'application d'authentification pour vous connecter.
+> Remarque :
+> * Sur l'écran de saisie du code de vérification dynamique, vous pouvez cocher **Faire confiance à cet appareil** ; une fois cochée, cet appareil n'aura plus besoin de saisir de code lors des connexions suivantes.
+> * Si vous ne parvenez pas à obtenir le code de vérification dynamique, appuyez sur **Impossible d'obtenir le code** dans l'écran de vérification ; le système envoie un code d'urgence à usage unique à l'adresse e-mail de sécurité, et sa saisie suffit pour vous connecter.
+
+<img src="/images/fr/portable/setting/setup-2fa/2-3-1.png" width="30%" />
+
+## Guide des applications d'authentification
+
+Toute application d'authentification prenant en charge le protocole TOTP (mot de passe à usage unique basé sur le temps) peut être utilisée. La saisie du compte et de la clé peut se faire manuellement ou par scan d'un QR code depuis le client Web/PC.
+
+### Microsoft Authenticator
+
+<img src="/images/fr/portable/setting/setup-2fa/3-1-1.png" width="20%" />
+<img src="/images/fr/portable/setting/setup-2fa/3-1-2.png" width="20%" />
+<img src="/images/fr/portable/setting/setup-2fa/3-1-3.png" width="20%" />
+<img src="/images/fr/portable/setting/setup-2fa/3-1-4.png" width="20%" />

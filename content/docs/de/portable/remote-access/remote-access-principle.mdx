@@ -1,0 +1,23 @@
+---
+sourceHash: 4e7c3743ceb7
+title: "Prinzipbeschreibung"
+---
+
+PocketCloud bietet Fernzugriffsservices an und schafft für die Nutzer ein stabiles, sicheres und bequemes Fernzugriffserlebnis. Nutzer müssen keine Fachkenntnisse über öffentliches Netzwerk IP, Portweiterleitung oder DDNS-Konfiguration besitzen, wodurch die Nutzungshürde erheblich gesenkt wird und auch nicht-technische Nutzer problemlos Fernoperationen durchführen können.
+> Benutzer können den Station ID erhalten, indem sie ihre Handynummer/E-Mail-Adresse verknüpfen, und über Station ID auf die Fernzugriffsfunktion zugreifen.
+
+## 1. Erklärung des Verbindungsprinzips
+Fernzugriff verwendet das P2P (Peer-to-Peer, Punkt-zu-Punkt) Verbindungsmodell, wobei das Kernprinzip lautet:
+Durch die Zusammenarbeit von offiziellen Relay-Servern und dem eigenen Netzwerk des Nutzers wird ein „Loch gebohrt“, um Netzwerkgrenzen zu überwinden und schließlich eine direkte Kommunikationsverbindung zwischen PocketCloud und dem Client (Handy/PC) herzustellen, ohne dass Daten über einen Drittserver weitergeleitet werden müssen.
+
+## 2. Vorteile des P2P-Verbindungsmodus
+| Eigenschaften | Beschreibung |
+|------|------|
+| Null Konfiguration | Sehr niedrige Einstiegshürde, Benutzer müssen keine Netzwerkeinstellungen manuell vornehmen, Funktion einfach aktivieren und Verbindung ausprobieren |
+| Effiziente Übertragung | Wenn die Direktverbindungsbedingungen erfüllt sind, werden die Daten direkt zwischen PocketCloud und dem Client übertragen, die Bandbreite ist nicht durch Zwischenserver begrenzt, und der Zugriff ist schneller |
+| Multi-Plattform-Kompatibilität | Unterstützt gleichzeitig mobile Clients (Handy/Tablet) und PC-Client, angepasst an verschiedene Nutzungsszenarien (z. B. Außendienst, Heim-Remote-Management) |
+
+## 3. Hinweise
+1. Wenn sich das Gerät und der Client im selben lokalen Netzwerk befinden, wird automatisch auf die Verbindung über das lokale Netzwerk umgeschaltet.
+2. Wenn die P2P-Direktverbindung nicht hergestellt werden kann, wird automatisch auf den Weiterleitungsmodus über den StationPC-Relay-Server umgeschaltet, um die Funktion des Fernzugriffs sicherzustellen.
+3. Im Transfermodus werden Zugriffsgeschwindigkeit und Bandbreite durch den Transferserver begrenzt.

@@ -1,8 +1,9 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import { i18n, localeConfigs } from './i18n';
 import { uiTranslations } from 'fumadocs-ui/i18n';
-import { appName, gitConfig } from './shared';
+import { gitConfig } from './shared';
 import { uiStrings } from './ui-translations';
+import { getProductLabels } from './product-labels';
 
 // UI translations: official Fumadocs language pack + per-locale display names
 // + localized UI strings (src/lib/ui-translations.ts; missing keys fall back to
@@ -21,11 +22,15 @@ export const translations = i18n
   );
 
 export function baseOptions(locale: string): BaseLayoutProps {
+  const labels = getProductLabels(locale);
+
   return {
     nav: {
-      // JSX supported
-      title: appName,
+      // 站名（各语言文案在 src/lib/product-labels.ts 的 hub.title）
+      title: labels.hub.title,
     },
+    // 产品切换不放顶栏：文档页由侧栏 tabs 承担（tabMode='auto'），站首页由产品卡承担
+    links: [],
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   };
 }

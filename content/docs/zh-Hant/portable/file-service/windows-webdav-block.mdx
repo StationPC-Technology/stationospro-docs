@@ -1,0 +1,10 @@
+---
+sourceHash: a089f365ea15
+title: "Windows WebDAV 連結失效後檔案總管卡住"
+---
+
+1. 按下「Windows 標誌鍵」+「R」，開啟「執行」視窗，輸入 cmd，點選確定後，開啟登錄編輯程式視窗。
+
+2. 輸入```net use z: /delete```，然後按 Enter，刪除 WebDAV 掛載。
+
+- 其中「z:」為 WebDAV 掛載的磁碟機代號，若掛載的磁碟機代號不是 z，請將 z 替換為實際的磁碟機代號。

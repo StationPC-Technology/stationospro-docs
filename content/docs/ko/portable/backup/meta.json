@@ -1,0 +1,8 @@
+{
+  "title": "백업 및 동기화",
+  "pages": [
+    "create-cloud-backup",
+    "sd-backup",
+    "syncthing"
+  ]
+}

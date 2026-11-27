@@ -1,0 +1,8 @@
+---
+sourceHash: f527eea48714
+title: "Capacité affichée de manière anormale après le montage du service WebDAV sous Windows"
+---
+
+Ce problème provient de l'incapacité du composant WebClient intégré à Windows à obtenir la capacité de stockage réelle du serveur WebDAV. Lors du montage d'un lecteur réseau WebDAV, comme le système ne peut pas obtenir les données de quota d'espace de stockage distant, il lit par défaut les informations de capacité du disque système local (lecteur C) et les affiche dans le lecteur mappé, ce qui finit par provoquer un affichage anormal de la capacité du disque.
+
+Si vous devez résoudre le problème d'affichage de la capacité, il est recommandé d'utiliser des outils tiers : RaiDrive, CloudMounter, etc.

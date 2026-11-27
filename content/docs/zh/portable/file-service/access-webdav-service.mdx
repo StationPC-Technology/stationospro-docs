@@ -1,0 +1,124 @@
+---
+title: "如何通过 WebDAV 访问 PocketCloud 中的文件？"
+---
+
+WebDAV（Web-based Distributed Authoring and Versioning）是一种基于 HTTP 的扩展协议，用于在网络上进行文件共享和协作。
+它允许用户通过 Web 浏览器 或 客户端应用程序 访问、编辑和管理远程服务器上的文件。
+
+**主要具备以下功能：**
+1. 文件上传与下载：支持将本地文件上传到服务器，或从服务器下载文件到本地。
+2. 文件管理：可在远程服务器上创建、删除、重命名或移动文件和文件夹。
+3. 文件同步：支持本地与远程文件的同步，确保数据保持一致。
+4. 文件共享与协作：可将服务器上的文件共享给其他用户，实现团队协作。
+
+## 启用 WebDAV
+WebDAV 默认处于关闭状态，需要手动启用。请按照以下步骤操作：
+1. 打开 App 的 **文件共享协议** 页面。<br />
+2. 点击 **WebDAV 服务**。<br />
+3. 打开 **开关按钮**，即可启用 **WebDAV 服务**。<br />
+<img src="/images/common/portable/file-service/access-webdav-service/5-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-3.png" width="240" height="500" />
+
+## 使用浏览器访问
+
+1. 打开浏览器，在地址栏输入  
+   ```http://NAS设备IP:5005```
+   <br />
+   <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
+
+2. 输入用户名和密码后，即可访问 WebDAV 文件共享目录  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-2.png" width="100%" height="100%" />
+
+---
+
+## 在 Windows 上访问
+
+> **注意**：建议在 Windows 上使用 **[RaiDrive](https://www.raidrive.com)** 访问 WebDAV 服务。
+
+1. 按下 **Win + E** 打开 **文件资源管理器**  
+2. 在左侧栏右键点击 **网络**，选择 **映射网络驱动器**  
+   <img src="/images/common/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+
+3. 在弹出的窗口中输入 WebDAV 地址：  
+   ```http://NAS设备IP:5005```
+   然后点击 **完成**  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
+
+4. 在登录提示中输入用户名和密码  
+   <img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+
+5. 完成后，你可以在 **此电脑** 中像本地磁盘一样访问 NAS 上的文件  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-6.png" width="100%" height="100%" />
+
+---
+
+## 在 macOS 上访问
+
+1. 右键 **访达（Finder）**，在菜单栏中选择 **前往 → 连接服务器...**  
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+
+2. 在服务器地址栏输入：  
+   ```http://NAS设备IP:5005```
+   然后点击 **连接**  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
+
+3. 输入用户名和密码，点击 **连接**  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-3.png" width="100%" height="100%" />
+
+4. 现在，你可以在访达中像访问本地文件夹一样浏览和管理 NAS 上的文件  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## 在 Linux 上访问
+
+使用 **davfs** 挂载 WebDAV 共享：
+
+```bash
+# 安装 davfs2
+sudo apt-get install davfs2
+
+# 创建挂载点
+# 示例：将 /mnt/webdav_share 作为挂载目录
+sudo mkdir /mnt/webdav_share
+
+# 挂载 WebDAV 服务
+sudo mount.davfs http://NAS设备IP:5005 /mnt/webdav_share
+
+# 挂载成功后，你可以在 /mnt/webdav_share 目录中访问和管理 NAS 上的文件
+```
+
+---
+
+## 在 其它客户端 上访问
+- 连接信息
+    - IP：NAS设备IP
+    - 端口：http默认为5005，https暂不支持
+    - 账号：NAS设备登录用户名
+    - 密码：NAS设备登录密码
+- 挂载目录说明
+    - 主盘SSD：`/登录用户名`
+      - 示例1：所有目录，当前用户为 test，挂载目录为 `/test`
+      - 示例2：指定目录，当前用户为 test，挂载目录为 `/test/Pictures`
+      - 其它：支持多用户，每个用户对应一个挂载目录
+    - 外接存储：`/外接存储名称`
+      - 示例1：所有目录，外接SD卡名称为 SD 60GB BA26，挂载目录为 `/SD_60GB_BA26`
+      - 示例2：指定目录，接SD卡名称为 SD 60GB BA26，挂载目录为 `/SD_60GB_BA26/Pictures`
+    - ⚠️ 注意：
+      - 部分客户端无法仅填写根目录 `/`，需指定上面对应的具体挂载目录
+      - 固件&lt;= 3.1.0.16升级到最新固件后，挂载目录有所调整，以新版本的挂载方式为准
+
+## 其他问题
+
+* 问：Windows 文件资源管理器无法挂载 WebDAV HTTP 服务怎么办？
+* 答：请参考 [Windows 无法挂载 WebDAV 到本地计算机](/portable/file-service/windows-webdav-http-mount)
+
+* 问：Windows 支持 WebDAV HTTPS 吗？
+* 答：Windows 文件资源管理器不支持 WebDAV over HTTPS。你可以使用 **[RaiDrive](https://www.raidrive.com)** 来挂载 WebDAV-HTTPS 服务。
+
+* 问：WebDAV-HTTPS 服务使用哪个端口？
+* 答：WebDAV-HTTPS 的默认端口是 5006。你可以使用以下地址访问服务：`https://NAS_IP_Address:5006`.
+
+* 问：为什么 Windows 无法通过 WebDAV 打开大文件？
+* 答：请参考 [Windows 通过 WebDAV 访问大于 50MB 文件时出现错误提示](/portable/file-service/windows-webdav-filelimit)

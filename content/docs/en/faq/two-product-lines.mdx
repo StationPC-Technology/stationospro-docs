@@ -1,0 +1,41 @@
+---
+sourceHash: bb6a5a5451e4
+title: Why are there two product lines and two systems?
+description: Desktop NAS (StationOS Pro) and portable NAS (StationOS) are two independent product lines. Their hardware, system base, clients, and release tracks all differ, so each has its own system and documentation.
+---
+
+StationPC currently has two parallel NAS product lines: **desktop NAS** and **portable NAS**. They target different usage scenarios, and their hardware forms, system bases, and clients are designed separately. They are not a "standard edition" and a "portable edition" of the same machine, but two independent products and systems. That is also why the Help Center is split into two sets of documentation.
+
+## What the two product lines are
+
+| | Desktop NAS | Portable NAS |
+| --- | --- | --- |
+| Models | DA400, DA400 Air | PA100, PA100 Pro |
+| System | StationOS Pro | StationOS |
+| System base | Debian | OpenWrt |
+| Hardware form | Stationary, multiple drive bays, primarily fixed power and wired networking | Built-in battery, portable, supports wireless / AP connections |
+| Typical use | Long-term storage for home or studio, RAID, Station AI | Business trips, mobile work |
+| Clients | StationNAS (Windows / macOS), StationHub (iOS / Android) | PocketNAS (Windows / macOS / Linux / iOS / Android) |
+
+## Why can't one system serve both?
+
+1. **Different hardware limits.** A desktop NAS must support multiple drives, RAID, and higher sustained throughput; a portable NAS must work within battery, thermal, and size limits. Drivers, power management, drive management, and thermal policies are hard to share.
+2. **Different system bases.** StationOS Pro is based on Debian, while StationOS is based on OpenWrt. Package management, service management, update methods, and low-level toolchains all differ, so the same system image cannot be installed on the other product line.
+3. **Different features and clients.** The desktop line offers Station AI, RAID, and more; the portable line is designed around battery, AP mode, SD / USB backup, and PocketNAS. Both have Docker and file sharing, but menu paths, interfaces, and limits are not the same.
+4. **Independent release tracks.** The two systems are updated separately, with independent changelogs and version numbers. A portable update package cannot be installed on a desktop, and vice versa.
+
+## What does this mean for me?
+
+- **Confirm your model first.** Check the device label or your purchase record: DA400 / DA400 Air means desktop; PA100 / PA100 Pro means portable.
+- **Use the documentation for your product line.** Menus, screenshots, and limits differ, so enter through the matching "Desktop NAS" or "Portable NAS" section and do not follow steps from the other line.
+- **Do not mix clients or update packages.** Desktop uses StationNAS / StationHub; portable uses PocketNAS. Update packages are not interchangeable either.
+- **Check the product line when a feature name looks familiar.** The same feature name (for example, backup or remote access) may be in a different place and work differently on each line.
+
+## Why is the Help Center split into two sets of docs?
+
+Because the two systems differ in menus, screenshots, limits, and release cadence, mixing them would produce two answers to the same question, and search could send users to steps for the wrong product line. The site therefore uses one site with two parallel product domains: common content (legal, contact, site-wide search) is shared, while specific procedures live in the desktop and portable docs respectively.
+
+If you are not sure which product line your device belongs to, check the model on the device label, or [contact us](../contact).
+
+- [Go to the desktop NAS documentation](../desktop)
+- [Go to the portable NAS documentation](../portable)

@@ -1,4 +1,6 @@
 {
   "title": "자주 묻는 질문",
-  "pages": ["overview", "storage-concept"]
+  "pages": [
+    "two-product-lines"
+  ]
 }

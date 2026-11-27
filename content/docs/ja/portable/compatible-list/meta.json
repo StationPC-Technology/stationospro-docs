@@ -1,0 +1,12 @@
+{
+  "title": "互換性リスト",
+  "pages": [
+    "ssd-support-list",
+    "raw-pic-support-list",
+    "power-adapter",
+    "!aud-support-list",
+    "!fs-support-list",
+    "!pic-support-list",
+    "!vid-support-list"
+  ]
+}

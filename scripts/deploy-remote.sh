@@ -18,8 +18,11 @@ command -v docker >/dev/null 2>&1 || { echo "ERROR: docker not found"; exit 1; }
 command -v curl >/dev/null 2>&1 || { echo "ERROR: curl not found"; exit 1; }
 [ -r "$ENV_FILE" ] || { echo "ERROR: $ENV_FILE not readable"; exit 1; }
 
+# 值也必须非空：后端是 fail-closed 的，空值会让 /api/feedback 一律 502，
+# 只有在用户点击提交时才暴露，所以部署时就拦下来。
 for key in FEEDBACK_API_URL FEEDBACK_API_TOKEN; do
   grep -Eq "^${key}=" "$ENV_FILE" || { echo "ERROR: missing $key in $ENV_FILE"; exit 1; }
+  grep -Eq "^${key}=.+[^[:space:]]" "$ENV_FILE" || { echo "ERROR: $key is empty in $ENV_FILE"; exit 1; }
 done
 
 # 记录旧镜像，健康检查失败时回滚

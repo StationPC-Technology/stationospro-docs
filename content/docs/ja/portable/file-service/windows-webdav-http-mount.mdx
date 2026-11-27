@@ -1,0 +1,22 @@
+---
+sourceHash: 13183a089f61
+title: "Windows で WebDAV をローカルにマウントできない"
+---
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-1.png" width="60%" />
+
+- 上記の問題を引き起こす原因は実は非常に簡単です。デフォルトのサービスはhttpsプロトコルのみをサポートしており、ローカルで構築したwebdavサービスとリンクはすべてhttpプロトコルに基づいているため、マウントに失敗する状況が発生したのです。
+
+## WebClient を設定し、http のリンクマウントを許可する
+
+1. 「windowsロゴキー」と「R」を押して、[ファイル名を指定して実行] ウィンドウを開き、regedit を入力して[OK] をクリックすると、レジストリエディターウィンドウが開きます。
+2. 次のパスに移動します：コンピュータ\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters。右側の画面で BasicAuthLevel エントリをダブルクリックし、数値データを「2」に変更して、OK をクリックしてレジストリエディタを閉じます。
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-2.png" width="60%" />
+
+3. “windowsロゴキー”を押して、“R”を開き、実行ウィンドウにservices.mscを入力し、［OK］をクリックすると、“サービス”画面が開きます。“WebClient”を見つけます
+サービスで、右クリックしてオプションメニューを開き、再起動を選択し、数秒待って完了したら、「サービス」画面を閉じます。
+
+<img src="/images/common/portable/file-service/windows-webdav-http-mount/1-3.png" width="60%" />
+
+上記の三つのステップを完了した後、WebClient サービスはすでに http プロトコルを使用したマウントを許可しています。

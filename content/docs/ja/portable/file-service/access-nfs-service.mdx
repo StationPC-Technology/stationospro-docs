@@ -1,0 +1,123 @@
+---
+sourceHash: 5df5499a65a1
+title: "NFS で PocketCloud 内のファイルにアクセスするには？"
+---
+
+NFS（Network File System）は、高効率のネットワークファイル共有プロトコルであり、ファイル共有、データバックアップと復元、マルチメディアの保存とアクセスなどのシナリオで広く使用されています。PocketCloud は便利で、安全で、高性能な NFS サービスを提供し、異なるユーザーのニーズを満たす柔軟な設定をサポートします。
+
+---
+
+**主に以下の機能を備えています：**
+
+1. ファイル共有: NFS は、ユーザーがネットワークを通じてファイルやディレクトリを共有できるようにし、複数のユーザーやシステムが同じファイルシステムにアクセスできるようにします。
+2. マルチメディアストレージ: NFS は、オーディオ、ビデオ、画像などのマルチメディアファイルを保存およびアクセスするために使用できます。
+3. クロスプラットフォーム互換性: NFS は Linux、Windows、macOS などの複数のオペレーティングシステムをサポートしており、クロスプラットフォームのファイル共有を実現できます。
+4. 高性能：中型または小型のファイルに対して、NFSは特に連続読み取りの場合に優れた性能を提供します。
+
+---
+
+## NFSを有効にする
+
+NFS デフォルトではオフになっており、手動で有効にする必要があります。以下の手順に従って操作してください：
+
+1. Appの**ファイル共有プロトコル**のページを開きます。<br />
+2. **NFS サービス**をクリックします。<br />
+3. **スイッチボタン**をオンにすると、**NFS サービス**を有効にできます。<br />
+<img src="/images/common/portable/file-service/access-nfs-service/2-1.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-2.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-3.png" width="230" height="500" />
+
+---
+
+## Windows 上でアクセス
+
+>⚠️ **Windows 家庭版** はデフォルトで **NFS** 機能をサポートしていません。操作を行うには **Windows プロ版** または **Windows エンタープライズ版** にアップグレードしてください。
+
+> **Windows** サービスにアクセスするには、いくつかの設定が必要です。以下の手順に従って操作してください：
+
+1. **コントロールパネル**を開く
+2. **プログラム** をクリック
+<img src="/images/common/portable/file-service/access-nfs-service/3-1.png" width="100%" height="100%" />
+
+3. **Windows 機能をオンまたはオフにする**をクリック
+<img src="/images/common/portable/file-service/access-nfs-service/3-2.png" width="100%" height="100%" />
+
+4. **NFS サービス**のすべてのオプションを選択し、**確定**をクリックします
+<img src="/images/common/portable/file-service/access-nfs-service/3-3.png" width="100%" height="100%" />
+
+デスクトップに戻り、**Win R** の組み合わせキーを押します
+6。**regedit** を入力して、**OK** をクリックしてください
+<img src="/images/common/portable/file-service/access-nfs-service/4-2.png" width="100%" height="100%" />
+
+7. **HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default** に入る
+8. 空白の部分で右クリックし、新規作成をクリックして、**DWORD(32ビット)の値(D)** を選択します
+<img src="/images/common/portable/file-service/access-nfs-service/4-4.png" width="100%" height="100%" />
+
+9. 新しく **AnonymousGid** と **AnonymousUid** を作成
+<img src="/images/common/portable/file-service/access-nfs-service/4-5.png" width="100%" height="100%" />
+
+10. その後、それらを右クリックして、**変更** をクリックします
+<img src="/images/common/portable/file-service/access-nfs-service/4-6.png" width="100%" height="100%" />
+
+11. それぞれ **数値データ** を **251c** に変更し、**OK** をクリックする<br />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-1.png" width="45%" height="100%" />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-2.png" width="45%" height="100%" />
+
+12. 次のページが表示されたら、**コンピュータを再起動**
+<img src="/images/common/portable/file-service/access-nfs-service/4-8.png" width="100%" height="100%" />
+
+---
+> 上記の手順を実行した後、Windows は **NFS** サービスにアクセスできるようになります。手順は以下の通りです：
+
+1. **ファイルエクスプローラー** を開く
+2. 右クリックで **ネットワーク** を選び、**ネットワークドライブの割り当て** を選択
+<img src="/images/common/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+
+3。ポップアップウィンドウで、**NFS** サービスのアドレス **\\\NASデバイスIP\mnt\nfs\storage** を入力し、**完了** をクリックします
+<img src="/images/common/portable/file-service/access-nfs-service/5-2.png" width="100%" height="100%" />
+
+4. **ユーザー名** と **パスワード** を入力し、**確認** をクリックします
+<img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+
+5. これで、ローカルフォルダをアクセスするのと同じように **NAS** 上のファイルを閲覧および管理できます
+<img src="/images/common/portable/file-service/access-nfs-service/5-4.png" width="100%" height="100%" />
+
+---
+
+## macOS 上でアクセス
+
+1. 右クリックで **Finder（Finder）** を選び、メニューバーで **サーバへ接続...** を選択します
+<img src="/images/common/portable/file-service/access-nfs-service/6-1.png" height="20%" />
+
+サーバーのアドレスバーに **nfs://NASデバイスIP/mnt/nfs/storage** を入力し、次に **接続** をクリックします
+<img src="/images/common/portable/file-service/access-nfs-service/6-2.png" width="100%" height="100%" />
+
+3. ユーザー名とパスワードを入力し、**接続**をクリックします
+<img src="/images/common/portable/file-service/access-nfs-service/6-3.png" width="100%" height="100%" />
+
+4. これで、Finderでローカルフォルダを訪問するのと同じように **NAS** 上のファイルを閲覧および管理できます
+<img src="/images/common/portable/file-service/access-nfs-service/6-4.png" width="100%" height="100%" />
+
+---
+
+## その他のクライアントでアクセス
+
+- 接続情報
+    - IP：NASデバイスIP
+    - ポート：不要
+    - アカウント：不要
+    - パスワード：不要
+- マウントディレクトリの説明
+    - メインSSD：`/mnt/nfs/storage/ログインユーザー名`
+      - 例1：すべてのディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/mnt/nfs/storage/test`
+      - 例2：指定ディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/mnt/nfs/storage/test/Pictures`
+      - その他：複数ユーザーには対応しておらず、管理者ユーザーのみ対応しています
+    - 外部ストレージ：`/mnt/nfs/storage/外部ストレージ名`
+      - 例1：すべてのディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/mnt/nfs/storage/SD_60GB_BA26`
+      - 例2：指定ディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/mnt/nfs/storage/SD_60GB_BA26/Pictures`
+    - すべてのディレクトリ：`/mnt/nfs/storage`
+
+## その他の問題
+
+* 質問：なぜWindowsがNFSのサービスにアクセスすると、ファイル名が文字化けするのですか
+* 回答：[Windows で NFS ディスクにアクセスすると中国語が文字化けする問題](/portable/file-service/windows-nfs-garbled-code)を参照してください

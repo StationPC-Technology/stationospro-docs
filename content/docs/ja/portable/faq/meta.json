@@ -1,0 +1,28 @@
+{
+  "title": "よくある質問",
+  "pages": [
+    "feedback",
+    "support-max-sd",
+    "support-language",
+    "compatible-system",
+    "support-remote-access",
+    "usb-drive-mode",
+    "support-cloud-sync",
+    "support-transfer-protocols",
+    "difference-file-rw-speed-theoretical",
+    "support-multi-login",
+    "bind-account-1",
+    "factoryreset",
+    "thirdparty-charger",
+    "external-storage-filesys",
+    "uninterrupted-operation",
+    "offline-download",
+    "android-backup-interrupt",
+    "by-air",
+    "consume-phone-traffic",
+    "play-video-stuttering",
+    "indicator-led-off",
+    "upload-store-sever",
+    "app-cannot-connect-device"
+  ]
+}

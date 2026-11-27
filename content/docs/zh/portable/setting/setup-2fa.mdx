@@ -1,0 +1,65 @@
+---
+title: "启用账号双重验证（2FA）"
+---
+
+账号双重验证（2FA）是一种更安全的登录方式。除了输入密码外，还需提供动态验证码（OTP），通过两步验证身份，提升账户安全性。
+
+> 注意：
+> * 需使用支持 TOTP 协议的身份验证器 APP（如 [Microsoft Authenticator](https://www.microsoft.com/security/mobile-authenticator-app)）；
+> * 建议提前配置安全邮箱，用于手机丢失时接收紧急验证码。
+
+## 准备工作
+1. 检查系统时间准确性: 
+检查和修正系统时间的误差，若手机和系统的时间不一致，将导致基于时间的动态验证码验证失败。如希望系统时间始终保持准确，建议将系统时间设置为自动同步。
+
+<img src="/images/common/portable/setting/setup-2fa/1-1-1.png" width="30%" />
+
+2. 开启邮件通知服务
+[开启邮件通知服务](/portable/setting/setup-smtp)，授权系统发送邮件的能力，以便系统可以发送 密码重置 和 双重验证紧急验证码 等邮件到用户设置的 安全邮箱。
+
+3. 启用强制双重验证
+支持设置全部用户和部分用户,明确需要提高账号安全性的用户范围，针对他们启用强制双重验证。
+<img src="/images/common/portable/setting/setup-2fa/1-3-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-3.png" width="30%" />
+
+## 用户设置流程
+前往 **个人设置** 页面，设置安全邮箱和启用双重验证
+
+### 设置安全邮箱
+为避免发生手机或密钥意外丢失造成无法登录账号的风险，首先设置 安全邮箱
+
+<img src="/images/common/portable/setting/setup-2fa/2-1-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-1-2.png" width="30%" />
+
+### 启用双重验证
+1. 点击启用按钮，输入用户登录账号；
+2. 复制密钥,使用 “Microsoft Authenticator” 等支持 TOTP 协议的身份验证器 APP，根据提示完成key绑定；
+3. 在验证框中输入身份验证器 APP 显示的动态验证码，完成设置。
+
+<img src="/images/common/portable/setting/setup-2fa/2-2-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-3.png" width="30%" />
+
+## 登录流程
+
+启用双重验证后，登录时需完成两步验证：
+
+1. 输入账号和密码；
+2. 输入身份验证器 APP 上显示的动态验证码，进行登录。
+> 注意:
+> * 在输入动态验证码界面可勾选**信任本设备**，勾选后该设备后续登录无需再次输入验证码。
+> * 当无法获取动态验证码时，点击验证界面的**无法获取**,系统将发送一次性紧急验证码至安全邮箱，输入后即可完成登录。
+
+<img src="/images/common/portable/setting/setup-2fa/2-3-1.png" width="30%" />
+
+## 身份验证器指引
+
+支持 TOTP 协议（基于时间的一次性密码）的 身份验证器 APP 均可使用。支持手动进行账号和密钥进行录入或二维码扫描Web/PC客户端进行录入
+
+### Microsoft Authenticator
+
+<img src="/images/common/portable/setting/setup-2fa/3-1-1.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-2.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-3.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-4.png" width="20%" />

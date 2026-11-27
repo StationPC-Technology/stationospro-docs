@@ -1,0 +1,101 @@
+---
+sourceHash: 77c8f3d1ee6a
+title: "Centro de aplicaciones"
+---
+
+Para simplificar el despliegue y el uso de contenedores Docker por parte de los usuarios, no es necesario investigar la compleja selección de imágenes, la configuración y las pruebas de compatibilidad de Docker: a través del Centro de aplicaciones puede obtener rápidamente aplicaciones en contenedor adaptadas y completar el despliegue y el uso con facilidad, lo que reduce enormemente el umbral de uso de las aplicaciones Docker.
+
+> Nota: las aplicaciones en contenedor solo se pueden abrir en un entorno de red de área local. Asegúrese de que su PocketCloud y el dispositivo cliente estén en la misma red de área local.
+
+## Instalar aplicaciones en contenedor
+### Preparación antes de la instalación
+La primera vez que instale una aplicación en contenedor, debe inicializar los ajustes relacionados con Docker y asignar espacio de almacenamiento.
+1. Abra la aplicación y vaya a **Inicio > Funciones habituales > Docker**;
+2. Siga las indicaciones y asigne espacio de almacenamiento.
+
+> Nota:
+> * El espacio de almacenamiento disponible debe ser superior a 20 GB; con menos capacidad no se podrá completar la instalación;
+> * Una vez asignado el espacio de almacenamiento, solo se puede ampliar, no reducir. Se recomienda asignarlo de forma razonable según las necesidades reales y reservar espacio adicional;
+> * El proceso de asignación de espacio tarda bastante; tenga paciencia. Si necesita atender otras tareas temporalmente, puede salir de la interfaz de asignación, ya que la operación continuará en segundo plano.
+
+<img src="/images/es/portable/docker/app-center/1-1.jpg" width="30%" /> 
+<img src="/images/es/portable/docker/app-center/1-2.jpg" width="30%" /> 
+<img src="/images/es/portable/docker/app-center/1-3.jpg" width="30%" /> 
+
+### Instalar la aplicación
+1. Acceda al **Centro de aplicaciones**;
+2. Busque la aplicación en contenedor que desee instalar;
+3. Haga clic en «Instalar» y espere a que el sistema complete automáticamente la instalación y el despliegue. Una vez finalizada la instalación, la aplicación en contenedor generará el contenedor correspondiente en Docker.
+
+<img src="/images/es/portable/docker/app-center/2-1.jpg" width="30%" /> 
+<img src="/images/es/portable/docker/app-center/2-2.jpg" width="30%" /> 
+<img src="/images/es/portable/docker/app-center/2-3.jpg" width="30%" /> 
+
+## Acceder a las aplicaciones en contenedor
+### Formas de acceso
+* Mediante el cliente: se puede acceder a las aplicaciones en contenedor desde el **Centro de aplicaciones**;
+* Mediante la versión web: dentro de la misma red de área local, se puede acceder mediante la IP del dispositivo y el puerto de la aplicación.
+
+> Nota:
+> * El puerto de la aplicación se puede consultar en los detalles de la aplicación;
+> * La dirección IP de las imágenes es un ejemplo; debe sustituirla por la IP de su dispositivo.
+
+<img src="/images/es/portable/docker/app-center/2-3.jpg" width="30%" />
+<img src="/images/es/portable/docker/app-center/3-1.jpg" width="30%" />
+
+### Desactivar/activar aplicaciones en contenedor
+Realice las operaciones de desactivación y activación en el **Centro de aplicaciones**.
+
+<img src="/images/es/portable/docker/app-center/3-3.jpg" width="30%" />
+<img src="/images/es/portable/docker/app-center/3-4.jpg" width="30%" />
+
+### Desinstalar
+Desinstale la aplicación en el **Centro de aplicaciones**.
+
+<img src="/images/es/portable/docker/app-center/3-3.jpg" width="30%" />
+<img src="/images/es/portable/docker/app-center/3-5.jpg" width="30%" />
+
+## Aplicaciones adaptadas
+### Información de las aplicaciones
+| Nombre de la aplicación     | Versión    | Dirección de acceso         | Descripción de la aplicación                                                                 |
+|--------------|-----------|------------------|--------------------------------------------------------------------------|
+| Jellyfin     | 10.10.7   | IP:35000         | Jellyfin es un software gratuito de sistema multimedia que le ayuda a gestionar de forma integral sus recursos multimedia personales y admite la reproducción entre dispositivos. |
+| Plex         | 1.42.2    | IP:35006/web     | Plex integra contenido gratuito de películas y televisión con diversos servicios multimedia gratuitos de calidad, y le abre continuamente nuevos horizontes para explorar el mundo audiovisual. |
+| Syncthing    | 2.0.10    | IP:35008         | Syncthing es una herramienta de sincronización de archivos que permite sincronizar datos en tiempo real y de forma segura entre varios ordenadores, con protección de seguridad en todo el proceso para evitar accesos no autorizados. |
+| Transmission | 4.0.6     | IP:35011         | Un cliente BitTorrent rápido, sencillo y gratuito.                                 |
+
+### Notas
+#### Directorios accesibles de las aplicaciones
+* Directorio real: se encuentra en el directorio @docker del disco principal. Por ejemplo, en el caso de Jellyfin, el directorio real es @docker/jellyfin/data/;
+* Directorios asignados:
+  * El directorio de la aplicación se asigna a /data;
+  * El directorio del disco principal se asigna a /pocketcloud. Tenga en cuenta que, al montar el directorio del disco principal en una aplicación, no monte el directorio raíz del disco principal.
+  > Nota: al montar el directorio del disco principal en una aplicación, no monte directamente el directorio raíz del disco principal, para evitar afectar el funcionamiento normal del dispositivo.
+  
+#### Notas sobre Jellyfin
+1. Añadir bibliotecas multimedia
+   * Vaya a Consola → Bibliotecas multimedia → Añadir biblioteca multimedia;
+   * Haga clic en «Añadir carpeta» y seleccione la ruta:
+     * Directorio asignado de la aplicación: / → seleccione data;
+     * Directorio asignado del disco principal: / → seleccione pocketcloud → seleccione la carpeta de destino.
+
+2. Tras desinstalar y volver a instalar, se solicita seleccionar un servidor para conectarse
+   Después de desinstalar Jellyfin, al volver a instalarlo es posible que no se muestre la interfaz de registro y que, al entrar, se solicite seleccionar un servidor para conectarse.
+   Solución:
+   * Mantenga pulsado el icono del servidor para que aparezca el menú de operaciones;
+   * Haga clic en «Eliminar» y salga de Jellyfin;
+   * Vuelva a abrir Jellyfin y aparecerá la interfaz de registro, donde podrá crear una cuenta nueva.
+
+3. Tras desinstalar y volver a instalar, no se puede registrar un usuario
+   Después de desinstalar Jellyfin, al volver a instalarlo es posible que no se muestre la interfaz de registro y que se entre directamente en la interfaz de inicio de sesión (pero sin cuenta ni contraseña configuradas).
+   Solución:
+   * Acceda a la IP y el puerto del dispositivo (por ejemplo, 192.168.10.140:35000) con un navegador en modo incógnito;
+   * Debería ver la interfaz de registro; cree una cuenta nueva.
+
+#### Notas sobre Syncthing
+* Al añadir una carpeta, la ruta solo puede ser data; de lo contrario, no se reconocerá;
+* Consulte los datos sincronizados en @/docker/syncthing/data.
+
+#### Notas sobre Transmission
+* Admite la adición de archivos torrent o enlaces torrent;
+* Los archivos descargados se guardan en la carpeta correspondiente de @docker/transmission.

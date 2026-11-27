@@ -1,0 +1,15 @@
+{
+  "title": "ファイル共有サービス",
+  "pages": [
+    "access-ftp-service",
+    "access-nfs-service",
+    "access-samba-service",
+    "access-webdav-service",
+    "windows-webdav-http-mount",
+    "windows-webdav-filelimit",
+    "windows-webdav-incorrect-capacity",
+    "windows-webdav-block",
+    "windows-webdav-mount",
+    "windows-nfs-garbled-code"
+  ]
+}

@@ -1,0 +1,14 @@
+---
+sourceHash: f18a3520c865
+title: "Caractères chinois illisibles sur un disque NFS sous Windows"
+---
+
+> L'apparition de caractères chinois illisibles est généralement due à une inadéquation d'encodage ou à un problème de paramètres régionaux du système. Concernant le problème de caractères chinois illisibles sur un disque mappé en NFS sous Windows, les tests montrent que la méthode suivante permet de le résoudre :
+
+> Étapes :
+
+1. Ouvrez le **Panneau de configuration** → **Horloge et région** → **Région**.
+2. Basculez vers l'onglet **« Administration »**, puis cliquez sur **« Modifier les paramètres régionaux du système »**.
+3. Assurez-vous que **« Chinois (simplifié, Chine) »** est sélectionné. Cochez l’option **Beta** en bas de la liste.
+<img src="/images/fr/portable/file-service/windows-nfs-garbled-code/1-1.png" width="100%" height="100%" />
+4. Après la modification, redémarrez le système, remontez le disque NFS et vérifiez si les caractères chinois s'affichent correctement.

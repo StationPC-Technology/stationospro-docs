@@ -1,0 +1,125 @@
+---
+sourceHash: 83dea30dba6f
+title: "WebDAV で PocketCloud 内のファイルにアクセスするには？"
+---
+
+WebDAV（Web-based Distributed Authoring and Versioning）は、HTTPに基づく拡張プロトコルであり、ネットワーク上でのファイル共有と協力のために使用されます。
+それはユーザーが Web ブラウザ または クライアントアプリケーション を通じてリモートサーバー上のファイルにアクセス、編集、管理することを可能にします。
+
+**主に以下の機能を備えています：**
+1. ファイルのアップロードとダウンロード：ローカルファイルをサーバーにアップロードしたり、サーバーからローカルにファイルをダウンロードすることをサポートします。
+2. ファイル管理：リモートサーバー上でファイルやフォルダを作成、削除、名前変更、または移動することができます。
+3. ファイル同期：ローカルとリモートのファイルの同期をサポートし、データの一貫性を維持します。
+4. ファイル共有とコラボレーション：サーバー上のファイルを他のユーザーと共有し、チームでの協力を実現できます。
+
+## WebDAVを有効にする
+WebDAV デフォルトではオフになっており、手動で有効にする必要があります。以下の手順に従って操作してください：
+1. Appの**ファイル共有プロトコル**のページを開きます。<br />
+2. **WebDAV サービス**をクリックします。<br />
+3. **スイッチボタン**をオンにすると、**WebDAV サービス**を有効にできます。<br />
+<img src="/images/common/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-2.png" width="240" height="500" />
+<img src="/images/common/portable/file-service/access-webdav-service/5-3.png" width="240" height="500" />
+
+## ブラウザでアクセスする
+
+ブラウザを開き、アドレスバーに入力します
+   ```http://NASデバイスIP:5005```
+   <br />
+   <img src="/images/common/portable/file-service/access-webdav-service/1-1.png" width="100%" height="100%" />
+
+2. ユーザー名とパスワードを入力すると、WebDAV ファイル共有ディレクトリにアクセスできます  
+   <img src="/images/common/portable/file-service/access-webdav-service/1-2.png" width="100%" height="100%" />
+
+---
+
+## Windows 上でアクセス
+
+> **注意**：Windows で WebDAV サービスにアクセスするには、**[RaiDrive](https://www.raidrive.com)** の使用をお勧めします。
+
+1. **Win + E** を押して **ファイルエクスプローラー** を開きます  
+2. 左側のサイドバーで **ネットワーク** を右クリックし、**ネットワークドライブの割り当て** を選択します  
+   <img src="/images/common/portable/file-service/access-samba-service/9-1.png" width="100%" height="100%" />
+
+3. 表示されたウィンドウに WebDAV アドレスを入力します：  
+   ```http://NASデバイスIP:5005```
+そして **完了** をクリックします
+   <img src="/images/common/portable/file-service/access-webdav-service/1-4.png" width="100%" height="100%" />
+
+4. ログインのプロンプトでユーザー名とパスワードを入力する
+   <img src="/images/common/portable/file-service/access-webdav-service/1-5.png" width="100%" height="100%" />
+
+5. 完了したら、**このPC**でローカルディスクのようにNAS上のファイルにアクセスできます
+   <img src="/images/common/portable/file-service/access-webdav-service/1-6.png" width="100%" height="100%" />
+
+---
+
+## macOS 上でアクセス
+
+1. 右クリックで **Finder（Finder）** を開き、メニューバーから **移動 → サーバへ接続…** を選択します
+   <img src="/images/common/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+
+2. サーバーのアドレスバーに入力してください：
+   ```http://NASデバイスIP:5005```
+   続いて **接続** をクリックします  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-2.png" width="100%" height="100%" />
+
+3. ユーザー名とパスワードを入力し、**接続** をクリックします  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-3.png" width="100%" height="100%" />
+
+4. これで、Finder でローカルフォルダにアクセスするのと同じように、NAS 上のファイルを閲覧および管理できます  
+   <img src="/images/common/portable/file-service/access-webdav-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Linux 上でアクセス
+
+**davfs** を使用して WebDAV 共有をマウント：
+
+```bash
+# インストール davfs2
+sudo apt-get install davfs2
+
+# マウントポイントを作成
+# 例：/mnt/webdav_share をマウントディレクトリとして使用する
+sudo mkdir /mnt/webdav_share
+
+# WebDAV サービスをマウント
+sudo mount.davfs http://NAS装置IP:5005 /mnt/webdav_share
+
+# マウントに成功した後、/mnt/webdav_share ディレクトリで NAS 上のファイルにアクセスして管理できます
+```
+
+---
+
+## その他のクライアントでアクセス
+- 接続情報
+    - IP：NASデバイスIP
+    - ポート：http のデフォルトは5005、https は現在サポートされていません
+    - アカウント：NASデバイスのログインユーザー名
+    - パスワード：NASデバイスのログインパスワード
+- マウントディレクトリの説明
+    - メインSSD：`/ログインユーザー名`
+      - 例1：すべてのディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/test`
+      - 例2：指定ディレクトリ。現在のユーザーが test の場合、マウントディレクトリは `/test/Pictures`
+      - その他：複数ユーザーに対応し、各ユーザーに1つのマウントディレクトリが対応します
+    - 外部ストレージ：`/外部ストレージ名`
+      - 例1：すべてのディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/SD_60GB_BA26`
+      - 例2：指定ディレクトリ。外部SDカード名が SD 60GB BA26 の場合、マウントディレクトリは `/SD_60GB_BA26/Pictures`
+    - ⚠️ 注意：
+      - 一部のクライアントではルートディレクトリ `/` だけを指定できないため、上記の対応する具体的なマウントディレクトリを指定してください
+      - ファームウェア &lt;= 3.1.0.16 から最新ファームウェアへアップグレードした後は、マウントディレクトリが調整されます。新バージョンのマウント方式に従ってください
+
+## その他の問題
+
+* 質問：Windows のファイルエクスプローラーで WebDAV の HTTP サービスをマウントできない場合はどうすればよいですか
+* 回答：[Windows で WebDAV をローカルにマウントできない](/portable/file-service/windows-webdav-http-mount)を参照してください
+
+* 質問：Windows は WebDAV の HTTPS に対応していますか
+* 回答：Windows のファイルエクスプローラーは WebDAV over HTTPS に対応していません。**[RaiDrive](https://www.raidrive.com)** を使用して WebDAV-HTTPS サービスをマウントできます。
+
+* 質問：WebDAV-HTTPS サービスはどのポートを使用しますか
+* 回答：WebDAV-HTTPS のデフォルトポートは 5006 です。以下のアドレスを使用してサービスにアクセスできます：`https://NAS_IP_Address:5006`.
+
+* 質問：Windows で WebDAV 経由で大きなファイルを開けないのはなぜですか
+* 回答：[Windows で 50M を超えるファイルにアクセスするとエラーが出る](/portable/file-service/windows-webdav-filelimit)を参照してください

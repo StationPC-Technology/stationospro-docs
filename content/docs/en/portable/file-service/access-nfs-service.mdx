@@ -1,0 +1,126 @@
+---
+sourceHash: 5df5499a65a1
+title: "How to Access PocketCloud Files via NFS?"
+---
+
+NFS (Network File System) is a high-efficiency network file-sharing protocol widely used for file sharing, data backup and recovery, and multimedia storage and access. PocketCloud provides convenient, secure, and high-performance NFS services, supporting flexible configuration to meet different user needs.
+
+---
+
+**Key features include:**
+
+1. File Sharing: NFS allows users to share files and directories over a network, enabling multiple users and systems to access the same file system.
+
+2. Multimedia Storage: NFS can be used to store and access multimedia files such as audio, video, and images.
+
+3. Cross-Platform Compatibility: NFS supports multiple operating systems, such as Linux, Windows, and macOS, enabling cross-platform file sharing.
+
+4. High Performance: NFS provides excellent performance for medium or small files, especially in sequential read scenarios.
+
+---
+
+## Enable NFS
+
+NFS is disabled by default and needs to be manually enabled. Please follow these steps:
+
+1. Open the **File Services** section in the app.<br />
+2. Tap **NFS Service**.<br />
+3. Toggle the **switch** to turn on the **NFS service**.<br />
+<img src="/images/common/portable/file-service/access-nfs-service/2-1.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-2.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-3.png" width="230" height="500" />
+
+---
+
+## Accessing on Windows
+
+>⚠️ The **Windows Home edition** does not support the **NFS feature** by default. Please upgrade to the **Windows Professional** or **Windows Enterprise edition** before proceeding.<br />
+
+> Accessing **NFS** services on Windows requires some configuration. Please follow these steps:
+
+1. Open **Control Panel**
+
+2. Click **Programs**
+<img src="/images/common/portable/file-service/access-nfs-service/3-1.png" width="100%" height="100%" />
+
+3. Click **Turn Windows features on or off**
+<img src="/images/common/portable/file-service/access-nfs-service/3-2.png" width="100%" height="100%" />
+
+4. Select all options for **Services for NFS** and click **OK**.
+<img src="/images/common/portable/file-service/access-nfs-service/3-3.png" width="100%" height="100%" />
+
+5. Return to the desktop and press the **Win + R** key combination.
+
+6. Type **regedit** and click **OK**.
+<img src="/images/common/portable/file-service/access-nfs-service/4-2.png" width="100%" height="100%" />
+
+7. Navigate to **HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default**.
+<img src="/images/common/portable/file-service/access-nfs-service/4-3.png" width="100%" height="100%" />
+
+8. Right-click on an empty area, click New, and select **DWORD (32-bit) Value**.
+<img src="/images/common/portable/file-service/access-nfs-service/4-4.png" width="100%" height="100%" />
+
+9. Create **AnonymousGid** and **AnonymousUid**
+<img src="/images/common/portable/file-service/access-nfs-service/4-5.png" width="100%" height="100%" />
+
+10. Then right-click them and click **Modify...**
+<img src="/images/common/portable/file-service/access-nfs-service/4-6.png" width="100%" height="100%" />
+
+11. Change the **Value data** to **251c**, and click **OK**<br />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-1.png" width="45%" height="100%" />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-2.png" width="45%" height="100%" />
+
+12. After the following page is displayed, **restart your computer**.
+<img src="/images/common/portable/file-service/access-nfs-service/4-8.png" width="100%" height="100%" />
+
+---
+> After completing the above steps, Windows You can now access the **NFS** service. Here are the steps:
+
+1. Open **File Explorer**
+
+2. Right-click **Network** and select **Map network drive**
+<img src="/images/common/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+
+3. In the pop-up window, enter the **NFS** service address: **\\\NAS device IP\mnt\nfs\storage**, and click **Finish**.
+<img src="/images/common/portable/file-service/access-nfs-service/5-2.png" width="100%" height="100%" />
+
+4. Enter the **username** and **password**, and click **OK**.
+<img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+
+5. Now you can browse and manage files on your **NAS** just like you would a local folder.
+<img src="/images/common/portable/file-service/access-nfs-service/5-4.png" width="100%" height="100%" />
+
+---
+
+## Accessing on macOS
+
+1. Right-click **Finder**, then in the menu bar select **Connect to Server...**  
+<img src="/images/common/portable/file-service/access-nfs-service/6-1.png" height="20%" />
+
+2. In the server address field, enter: **nfs://NAS设备IP/mnt/nfs/storage**, Then click **Connect**.  
+<img src="/images/common/portable/file-service/access-nfs-service/6-2.png" width="100%" height="100%" />
+
+3. Enter your **username** and **password**, then click **Connect**.  
+<img src="/images/common/portable/file-service/access-nfs-service/6-3.png" width="100%" height="100%" />
+
+4. You can now browse and manage NAS files in Finder just like local folders.  
+<img src="/images/common/portable/file-service/access-nfs-service/6-4.png" width="100%" height="100%" />
+
+---
+
+## Accessing on Other Clients
+
+- Connection information
+    - IP: NAS_IP_Address
+    - Port: Not required
+    - Account: Not required
+    - Password: Not required
+- Mount directory description
+    - Main SSD: `/mnt/nfs/storage/login_username`
+      - Example 1: All directories. If the current user is test, the mount directory is `/mnt/nfs/storage/test`
+      - Example 2: A specified directory. If the current user is test, the mount directory is `/mnt/nfs/storage/test/Pictures`
+      - Other: Multiple users are not supported; only the administrator user is supported
+    - External storage: `/mnt/nfs/storage/external_storage_name`
+      - Example 1: All directories. If the external SD card name is SD 60GB BA26, the mount directory is `/mnt/nfs/storage/SD_60GB_BA26`
+      - Example 2: A specified directory. If the external SD card name is SD 60GB BA26, the mount directory is `/mnt/nfs/storage/SD_60GB_BA26/Pictures`
+    - All directories: `/mnt/nfs/storage`

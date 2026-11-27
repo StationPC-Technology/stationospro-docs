@@ -1,0 +1,20 @@
+---
+sourceHash: b812b770a62d
+title: "Windows : erreur pour les fichiers de plus de 50 Mo lors de l'accès au service (erreur : 0x800700DF)"
+---
+
+Lorsque vous utilisez WebDAV sous Windows, si vous tentez d'ouvrir ou de copier un fichier de plus de 50 Mo, une erreur ```0x800700DF``` s'affiche, car la taille de fichier maximale par défaut du client WebDAV de Windows est de 50 Mo. Vous pouvez augmenter cette limite en modifiant le Registre :
+
+1. Appuyez sur Win + R pour ouvrir la boîte de dialogue « Exécuter », saisissez ```regedit``` dans le champ, puis appuyez sur la touche « Entrée ».
+
+2. Dans l'Éditeur du Registre, accédez au chemin ```HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters```.
+
+<img src="/images/fr/portable/file-service/windows-webdav-filelimit/1-1.png" width="100%" />
+
+3. Dans le volet de droite, recherchez l'élément ```FileSizeLimitInBytes```. Si l'option n'existe pas, faites un clic droit dans une zone vide, choisissez « Nouveau » > « Valeur DWORD (32 bits) ».
+
+4. Remplacez la donnée de la valeur correspondante par```ffffffff```, ou sélectionnez « Décimal » et saisissez 4294967295 (valeur maximale d'environ 4 Go). Cliquez ensuite sur « OK » pour enregistrer les modifications.
+
+5. Redémarrez l'ordinateur pour que les modifications prennent effet.
+
+6. Après le redémarrage, réessayez de copier ou de modifier un fichier volumineux pour vérifier que la modification a pris effet.

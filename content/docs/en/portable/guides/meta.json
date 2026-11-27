@@ -1,0 +1,17 @@
+{
+  "title": "Quick Start",
+  "pages": [
+    "initialize-pocketcloud",
+    "remote-access",
+    "web",
+    "create-user",
+    "device-indicator-led",
+    "usb-drive-mode",
+    "install-app",
+    "device-connection",
+    "manual",
+    "!beta-version-update",
+    "!install-tv-app",
+    "!ios-testflight"
+  ]
+}

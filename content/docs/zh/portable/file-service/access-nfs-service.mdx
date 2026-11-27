@@ -1,0 +1,122 @@
+---
+title: "如何通过 NFS 访问 PocketCloud 中的文件？"
+---
+
+NFS（Network File System）是一种高效的网络文件共享协议，广泛用于文件共享、数据备份与恢复，以及多媒体存储与访问等场景。PocketCloud 提供了便捷、安全、高性能的 NFS 服务，支持灵活的配置以满足不同用户需求。
+
+---
+
+**主要具备以下功能：**
+
+1. 文件共享: NFS 允许用户通过网络共享文件和目录，让多个用户和系统访问同一文件系统。
+2. 多媒体存储: NFS 可以用于存储和访问多媒体文件，如音频、视频和图片。
+3. 跨平台兼容: NFS 支持多种操作系统，如 Linux、Windows 和 macOS，可以实现跨平台文件共享。
+4. 高性能：对于中型或小型文件，NFS提供了极佳的性能，特别是在顺序读取情况下 。
+
+---
+
+## 启用 NFS
+
+NFS 默认处于关闭状态，需要手动启用。请按照以下步骤操作：
+
+1. 打开 App 的 **文件共享协议** 页面。<br />
+2. 点击 **NFS 服务**。<br />
+3. 打开 **开关按钮**，即可启用 **NFS 服务**。<br />
+<img src="/images/common/portable/file-service/access-nfs-service/2-1.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-2.png" width="230" height="500" />
+<img src="/images/common/portable/file-service/access-nfs-service/2-3.png" width="230" height="500" />
+
+---
+
+## 在 Windows 上访问
+
+>⚠️ **Windows 家庭版** 默认不支持 **NFS** 功能，请升级到 **Windows 专业版** 或 **Windows 企业版** 后再进行操作。
+
+> **Windows** 访问 **NFS** 服务需要做一些设置，请按照以下步骤操作：
+
+1. 打开 **控制面板**
+2. 点击 **程序**
+<img src="/images/common/portable/file-service/access-nfs-service/3-1.png" width="100%" height="100%" />
+
+3. 点击 **启用或关闭 Windows 功能**
+<img src="/images/common/portable/file-service/access-nfs-service/3-2.png" width="100%" height="100%" />
+
+4. 选择 **NFS 服务**的所有选项，并点击 **确定**
+<img src="/images/common/portable/file-service/access-nfs-service/3-3.png" width="100%" height="100%" />
+
+5. 回到桌面，按下 **Win + R** 组合键
+6. 输入 **regedit**，并点击 **确定**
+<img src="/images/common/portable/file-service/access-nfs-service/4-2.png" width="100%" height="100%" />
+
+7. 进入 **HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default**
+8. 右键空白处，点击新建，选中 **DWORD(32位)值(D)**
+<img src="/images/common/portable/file-service/access-nfs-service/4-4.png" width="100%" height="100%" />
+
+9. 新建 **AnonymousGid** 和 **AnonymousUid**
+<img src="/images/common/portable/file-service/access-nfs-service/4-5.png" width="100%" height="100%" />
+
+10. 随后右键它们，点击 **修改**
+<img src="/images/common/portable/file-service/access-nfs-service/4-6.png" width="100%" height="100%" />
+
+11. 分别将 **数值数据** 改为 **251c**，点击 **确定**<br />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-1.png" width="45%" height="100%" />
+<img src="/images/common/portable/file-service/access-nfs-service/4-7-2.png" width="45%" height="100%" />
+
+12. 显示如下页面后，**重启电脑**
+<img src="/images/common/portable/file-service/access-nfs-service/4-8.png" width="100%" height="100%" />
+
+---
+> 执行完以上步骤后，Windows 就可以访问 **NFS** 服务了，步骤如下：
+
+1. 打开 **文件资源管理器**
+2. 右键 **网络**，选择 **映射网络驱动器**
+<img src="/images/common/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+
+3. 在弹出的窗口中，输入 **NFS** 服务的地址 **\\\NAS设备IP\mnt\nfs\storage**，并点击 **完成**
+<img src="/images/common/portable/file-service/access-nfs-service/5-2.png" width="100%" height="100%" />
+
+4. 输入 **用户名** 和 **密码**，点击 **确定**
+<img src="/images/common/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+
+5. 现在，你可以像访问本地文件夹一样浏览和管理 **NAS** 上的文件
+<img src="/images/common/portable/file-service/access-nfs-service/5-4.png" width="100%" height="100%" />
+
+---
+
+## 在 macOS 上访问
+
+1. 右键 **访达（Finder）**，在菜单栏中选择 **连接服务器...**
+<img src="/images/common/portable/file-service/access-nfs-service/6-1.png" height="20%" />
+
+2. 在服务器地址栏输入：**nfs://NAS设备IP/mnt/nfs/storage**，然后点击 **连接**  
+<img src="/images/common/portable/file-service/access-nfs-service/6-2.png" width="100%" height="100%" />
+
+3. 输入用户名和密码，点击 **连接**  
+<img src="/images/common/portable/file-service/access-nfs-service/6-3.png" width="100%" height="100%" />
+
+4. 现在，你可以在访达中像访问本地文件夹一样浏览和管理 **NAS** 上的文件
+<img src="/images/common/portable/file-service/access-nfs-service/6-4.png" width="100%" height="100%" />
+
+---
+
+## 在 其它客户端 上访问
+
+- 连接信息
+    - IP：NAS设备IP
+    - 端口：无需
+    - 账号：无需
+    - 密码：无需
+- 挂载目录说明
+    - 主盘SSD：`/mnt/nfs/storage/登录用户名`
+      - 示例1：所有目录，当前用户为 test，挂载目录为 `/mnt/nfs/storage/test`
+      - 示例2：指定目录，当前用户为 test，挂载目录为 `/mnt/nfs/storage/test/Pictures`
+      - 其它：不支持多用户，仅支持管理员用户
+    - 外接存储：`/mnt/nfs/storage/外接存储名称`
+      - 示例1：所有目录，外接SD卡名称为 SD 60GB BA26，挂载目录为 `/mnt/nfs/storage/SD_60GB_BA26`
+      - 示例2：指定目录，接SD卡名称为 SD 60GB BA26，挂载目录为 `/mnt/nfs/storage/SD_60GB_BA26/Pictures`
+    - 所有目录：`/mnt/nfs/storage`
+
+## 其它问题
+
+* 问：为什么Windows访问NFS服务，文件名乱码
+* 答：请参考 [Windows 访问 NFS 磁盘中文乱码问题](/portable/file-service/windows-nfs-garbled-code)

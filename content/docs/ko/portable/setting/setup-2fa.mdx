@@ -1,0 +1,66 @@
+---
+sourceHash: 7dfafa7c38df
+title: "계정 이중 인증 활성화(2FA)"
+---
+
+계정 이중 인증(2FA)은 보다 안전한 로그인 방식입니다. 비밀번호 입력 외에도 동적 인증 코드(OTP)를 제공해야 하며, 두 단계 인증을 통해 신원을 확인하여 계정 보안을 향상시킵니다.
+
+> 주의:
+> * TOTP 프로토콜을 지원하는 인증기 APP(예: [Microsoft Authenticator](https://www.microsoft.com/security/mobile-authenticator-app))를 사용해야 합니다;
+> * 휴대폰 분실 시 긴급 인증 코드를 받을 수 있도록 사전에 안전 이메일을 설정하는 것을 권장합니다.
+
+## 준비 작업
+1. 시스템 시간 정확성 확인:
+시스템 시간의 오차를 확인하고 수정하십시오. 휴대폰과 시스템 시간이 일치하지 않으면 시간 기반 동적 인증 코드 검증에 실패할 수 있습니다. 시스템 시간이 항상 정확하게 유지되기를 원하면 시스템 시간을 자동 동기화로 설정하는 것이 좋습니다.
+
+<img src="/images/common/portable/setting/setup-2fa/1-1-1.png" width="30%" />
+
+2. 이메일 알림 서비스 시작
+[메일 알림 서비스 시작](/portable/setting/setup-smtp), 시스템이 이메일을 보낼 수 있는 권한을 부여하여 시스템이 비밀번호 재설정 및 이중 인증 긴급 인증 코드 등의 이메일을 사용자가 설정한 안전한 이메일로 보낼 수 있도록 합니다.
+
+3. 강제 이중 인증 활성화
+모든 사용자와 일부 사용자 설정을 지원하며, 계정 보안을 높일 필요가 있는 사용자 범위를 명확히 하고, 이들에게 강제 이중 인증을 활성화합니다.
+<img src="/images/common/portable/setting/setup-2fa/1-3-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/1-3-3.png" width="30%" />
+
+## 사용자 설정 프로세스
+**개인 설정** 페이지로 이동하여 보안 이메일을 설정하고 이중 인증을 활성화하세요
+
+### 보안 이메일 설정
+휴대폰이나 키가 우연히 분실되어 계정에 로그인할 수 없는 위험을 피하기 위해 먼저 보안 이메일을 설정하십시오.
+
+<img src="/images/common/portable/setting/setup-2fa/2-1-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-1-2.png" width="30%" />
+
+### 이중 인증 활성화
+1. 활성화 버튼을 클릭하고 사용자 로그인 계정을 입력합니다;
+2. 키를 복사하고 'Microsoft Authenticator' 등 TOTP 프로토콜을 지원하는 인증기 APP를 사용하여 안내에 따라 키 바인딩을 완료합니다;
+3. 인증 창에 인증기 APP에 표시된 동적 인증 코드를 입력하고 설정을 완료합니다.
+
+<img src="/images/common/portable/setting/setup-2fa/2-2-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-2fa/2-2-3.png" width="30%" />
+
+## 로그인 절차
+
+이중 인증을 활성화하면 로그인 시 두 단계 인증을 완료해야 합니다:
+
+1. 계정과 비밀번호를 입력합니다.
+2. 로그인하기 위해 인증기 APP에 표시된 동적 인증 코드를 입력합니다.
+> 주의:
+> * 동적 인증 코드 입력 화면에서 **이 기기 신뢰**를 선택할 수 있으며, 선택하면 이후 이 기기로 로그인할 때 인증 코드를 다시 입력할 필요가 없습니다.
+> * 동적 인증 코드를 받을 수 없을 때, 인증 화면의 **받을 수 없음**을 클릭하면, 시스템이 일회용 긴급 인증 코드를 안전한 이메일로 보내며, 입력하면 로그인할 수 있습니다.
+
+<img src="/images/common/portable/setting/setup-2fa/2-3-1.png" width="30%" />
+
+## 인증기 가이드
+
+TOTP 프로토콜(시간 기반 일회용 비밀번호)을 지원하는 인증기 APP를 모두 사용할 수 있습니다. 계정과 키를 수동으로 입력하거나 QR 코드를 스캔하여 Web/PC 클라이언트에서 입력하는 것을 지원합니다.
+
+### Microsoft Authenticator
+
+<img src="/images/common/portable/setting/setup-2fa/3-1-1.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-2.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-3.png" width="20%" />
+<img src="/images/common/portable/setting/setup-2fa/3-1-4.png" width="20%" />

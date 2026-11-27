@@ -1,0 +1,19 @@
+---
+sourceHash: dcc582e36c29
+title: "Lista de compatibilidad de sistemas de archivos"
+---
+
+## Formatos de sistema de archivos compatibles con el almacenamiento interno
+
+El almacenamiento interno es compatible principalmente con exFAT, NTFS y FAT32; se recomienda oficialmente el uso de exFAT.
+
+Comparación de los sistemas de archivos exFAT, NTFS y FAT32:
+
+| Característica          | exFAT (recomendado)                          | NTFS                  | FAT32                   |
+| :------------ | :------------------------------------- | :------------------------------------ | :------------------------------------ |
+| **Tamaño máximo de archivo**  | **Compatible con archivos muy grandes** | **Compatible con archivos muy grandes** | **Un solo archivo no puede superar los 4 GB** |
+| **Partición máxima**  | **Compatible con particiones muy grandes** | **Compatible con particiones muy grandes**     | **Máximo 2 TB**      |
+| **Compatibilidad del sistema** | **Compatible con Windows, Mac y Linux**     | **En Mac solo lectura** | **Compatible con Windows, Mac y Linux**                       |
+| **Seguridad**    | **Normal**               | **Alta**        | **Baja**                |
+| **Estabilidad**    | **Buena**             | **Excelente**              | **Baja**               |
+| **Velocidad**      | **Rápida**         | **Rápida**            | **Lenta**         |

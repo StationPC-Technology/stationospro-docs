@@ -25,11 +25,13 @@ export interface FeedbackLabels {
   submit: string;
   thankYou: string;
   submitAgain: string;
+  submitFailed: string;
 }
 
 const defaultLabels: FeedbackLabels = {
   question: 'How is this guide?', good: 'Good', bad: 'Bad', placeholder: 'Leave your feedback...',
   submit: 'Submit', thankYou: 'Thank you for your feedback!', submitAgain: 'Submit Again',
+  submitFailed: 'Could not send your feedback. Please try again.',
 };
 
 export function Feedback({ onSendAction, labels = defaultLabels }: {
@@ -43,18 +45,24 @@ export function Feedback({ onSendAction, labels = defaultLabels }: {
   });
   const [opinion, setOpinion] = useState<'good' | 'bad' | null>(null);
   const [message, setMessage] = useState('');
+  const [failed, setFailed] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   function submit(event?: SyntheticEvent) {
+    event?.preventDefault();
     if (opinion == null) return;
     startTransition(async () => {
       const feedback: PageFeedback = { url: location.href, opinion, message };
-      const response = await onSendAction(feedback);
-      setPrevious({ response, ...feedback });
-      setMessage('');
-      setOpinion(null);
+      try {
+        const response = await onSendAction(feedback);
+        setPrevious({ response, ...feedback });
+        setMessage('');
+        setOpinion(null);
+        setFailed(false);
+      } catch {
+        setFailed(true);
+      }
     });
-    event?.preventDefault();
   }
 
   const activeOpinion = previous?.opinion ?? opinion;
@@ -79,7 +87,10 @@ export function Feedback({ onSendAction, labels = defaultLabels }: {
           </div>
         ) : (
           <form className="flex flex-col gap-3" onSubmit={submit}>
-            <textarea autoFocus required value={message} onChange={(event) => setMessage(event.target.value)} className="resize-none rounded-lg border bg-fd-secondary p-3 text-fd-secondary-foreground placeholder:text-fd-muted-foreground focus-visible:outline-none" placeholder={labels.placeholder} maxLength={2000} onKeyDown={(event) => { if (!event.shiftKey && event.key === 'Enter') submit(event); }} />
+            <textarea autoFocus required value={message} onChange={(event) => { setMessage(event.target.value); setFailed(false); }} className="resize-none rounded-lg border bg-fd-secondary p-3 text-fd-secondary-foreground placeholder:text-fd-muted-foreground focus-visible:outline-none" placeholder={labels.placeholder} maxLength={2000} onKeyDown={(event) => { if (!event.shiftKey && event.key === 'Enter') submit(event); }} />
+            {failed && (
+              <p role="alert" className="text-sm text-red-600 dark:text-red-400">{labels.submitFailed}</p>
+            )}
             <button type="submit" className={cn(buttonVariants({ color: 'outline' }), 'w-fit px-3')} disabled={isPending}>{labels.submit}</button>
           </form>
         )}

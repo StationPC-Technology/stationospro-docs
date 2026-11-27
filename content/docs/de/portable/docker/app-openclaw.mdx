@@ -1,0 +1,90 @@
+---
+sourceHash: 67bf12144a2d
+title: "Openclaw Installationsanleitung"
+---
+
+## App-Übersicht
+
+Openclaw ist ein persönlicher KI-Assistent, der auf lokalen Geräten läuft, mehrere gängige Kommunikationswerkzeuge unterstützt und ein intelligentes Interaktionserlebnis bietet.
+
+## Vorbereitungen
+
+Bevor Sie beginnen, stellen Sie bitte sicher, dass Sie vorbereitet sind:
+
+- ✅ Verfügbarer API-Schlüssel (z. B. [OpenAI](https://platform.openai.com/api-keys) / [Z.AI](https://bigmodel.cn/apikey/platform) usw.)
+
+## Schnelle Installationsanleitung
+
+1. Laden Sie Openclaw im Anwendungszentrum herunter
+
+<img src="/images/common/portable/docker/app-openclaw/1-1.png" width="100%" />
+
+2. Öffnen Sie die Konsole des Openclaw-Containers
+
+<img src="/images/common/portable/docker/app-openclaw/1-2.png" width="100%" />
+
+3. Öffnen Sie das Terminal, geben Sie den Befehl **su node** ein und drücken Sie dann die Eingabetaste
+
+<img src="/images/common/portable/docker/app-openclaw/1-3.png" width="100%" />
+
+4. Geben Sie den Befehl **openclaw onboard** ein und drücken Sie dann die Eingabetaste
+
+<img src="/images/common/portable/docker/app-openclaw/1-4.png" width="100%" />
+
+5. Nach einer Weile wird die Sicherheitsinformation für die Openclaw-Konfiguration angezeigt. Wählen Sie **Yes** und drücken Sie die Eingabetaste, um die Auswahl zu bestätigen.
+
+<img src="/images/common/portable/docker/app-openclaw/1-5.png" width="100%" />
+
+6. Wählen Sie **QuickStart**, und Sie können die Optionen mit den Auf- und Ab-Tasten anpassen
+
+<img src="/images/common/portable/docker/app-openclaw/1-6.png" width="100%" />
+
+7. Wählen Sie **Vorhandene Werte verwenden**
+
+<img src="/images/common/portable/docker/app-openclaw/1-7.png" width="100%" />
+
+8. Wählen Sie ein Modell und den Anbieter basierend auf dem vorbereiteten **API-Schlüssel** aus
+
+<img src="/images/common/portable/docker/app-openclaw/1-8.png" width="100%" />
+
+9. Hier am Beispiel von Z.AI
+
+<img src="/images/common/portable/docker/app-openclaw/1-9.png" width="100%" />
+
+10. Wählen Sie **Jetzt API-Schlüssel einfügen**
+
+<img src="/images/common/portable/docker/app-openclaw/1-10.png" width="100%" />
+
+11. Geben Sie den **API-Schlüssel** ein
+
+<img src="/images/common/portable/docker/app-openclaw/1-11.png" width="100%" />
+
+12. Wählen Sie das Standardmodell, in der Regel wählen Sie ```Keep current```
+
+<img src="/images/common/portable/docker/app-openclaw/1-12.png" width="100%" />
+
+13. Wählen Sie die interaktive Software, hier vorerst **Jetzt überspringen**
+
+<img src="/images/common/portable/docker/app-openclaw/1-13.png" width="100%" />
+
+14. Damit ist es abgeschlossen. Die App wird jetzt neu starten. Gehe zum **App-Zentrum** und klicke auf **Öffnen**
+
+<img src="/images/common/portable/docker/app-openclaw/1-15.png" width="100%" />
+
+15. Nach dem Öffnen können Sie mit **Openclaw** chatten.
+
+<img src="/images/common/portable/docker/app-openclaw/1-16.png" width="100%" />
+
+## Häufig gestellte Fragen
+
+* F: Warum wird nach dem Aktualisieren angezeigt, dass keine Verbindung hergestellt werden kann?
+* A: OpenClaw Frontend und Backend verwenden einen sicheren Authentifizierungsmechanismus, Lösung:
+> Öffnen Sie die linke Seitenleiste: Steuerung → Übersicht, geben Sie das Gateway-Token ein und klicken Sie auf „Verbinden“, um die normale Nutzung wiederherzustellen
+
+* F: Welche Dateien können bearbeitet werden?
+* A: Das Standard-Mount-Verzeichnis ist: /pocketcloud, du kannst OpenClaw direkt ausführen, zum Beispiel:
+> Zeig mir alle Bilddateien unter /pocketcloud
+
+* Q: Willst du nicht jedes Mal /pocketcloud eingeben?
+* A: Sie können einen „Alias“ festlegen, um eine natürlichere Ausdrucksweise zu verwenden, zum Beispiel:
+> Nenne /pocketcloud Meine Dateien

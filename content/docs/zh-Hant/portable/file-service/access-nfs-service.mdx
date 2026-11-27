@@ -1,0 +1,123 @@
+---
+sourceHash: 5df5499a65a1
+title: "如何透過 NFS 存取 PocketCloud 中的檔案？"
+---
+
+NFS（Network File System）是一種高效的網路檔案分享協定，廣泛用於檔案分享、資料備份與還原，以及多媒體儲存與存取等情境。PocketCloud 提供便利、安全、高效能的 NFS 服務，支援靈活的設定以滿足不同使用者的需求。
+
+---
+
+**主要提供以下功能：**
+
+1. 檔案分享: NFS 允許使用者透過網路分享檔案和目錄，讓多個使用者和系統存取同一個檔案系統。
+2. 多媒體儲存: NFS 可用於儲存和存取多媒體檔案，如音訊、影片和圖片。
+3. 跨平台相容: NFS 支援多種作業系統，如 Linux、Windows 和 macOS，可實現跨平台檔案分享。
+4. 高效能：對於中型或小型檔案，NFS 提供極佳的效能，特別是在循序讀取的情況下。
+
+---
+
+## 啟用 NFS
+
+NFS 預設為關閉狀態，需要手動啟用。請依照以下步驟操作：
+
+1. 開啟 App 的 **檔案分享協定** 頁面。<br />
+2. 點選 **NFS 服務**。<br />
+3. 開啟 **開關按鈕**，即可啟用 **NFS 服務**。<br />
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/2-1.png" width="230" height="500" />
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/2-2.png" width="230" height="500" />
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/2-3.png" width="230" height="500" />
+
+---
+
+## 在 Windows 上存取
+
+>⚠️ **Windows 家用版** 預設不支援 **NFS** 功能，請升級到 **Windows 專業版** 或 **Windows 企業版** 後再進行操作。
+
+> **Windows** 存取 **NFS** 服務需要做一些設定，請依照以下步驟操作：
+
+1. 開啟 **控制台**
+2. 點選 **程式集**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/3-1.png" width="100%" height="100%" />
+
+3. 點選 **開啟或關閉 Windows 功能**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/3-2.png" width="100%" height="100%" />
+
+4. 選擇 **NFS 服務**的所有選項，並點選 **確定**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/3-3.png" width="100%" height="100%" />
+
+5. 回到桌面，按下 **Win + R** 組合鍵
+6. 輸入 **regedit**，並點選 **確定**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/4-2.png" width="100%" height="100%" />
+
+7. 進入 **HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default**
+8. 在空白處按右鍵，點選新增，選取 **DWORD(32 位元)值(D)**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/4-4.png" width="100%" height="100%" />
+
+9. 新增 **AnonymousGid** 和 **AnonymousUid**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/4-5.png" width="100%" height="100%" />
+
+10. 接著在它們上面按右鍵，點選 **修改**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/4-6.png" width="100%" height="100%" />
+
+11. 分別將 **數值資料** 改為 **251c**，點選 **確定**<br />
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/4-7-1.png" width="45%" height="100%" />
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/4-7-2.png" width="45%" height="100%" />
+
+12. 顯示如下頁面後，**重新啟動電腦**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/4-8.png" width="100%" height="100%" />
+
+---
+> 執行完以上步驟後，Windows 就可以存取 **NFS** 服務了，步驟如下：
+
+1. 開啟 **檔案總管**
+2. 在 **網路** 上按右鍵，選擇 **對應網路磁碟機**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+
+3. 在彈出的視窗中，輸入 **NFS** 服務的位址 **\\\NAS裝置IP\mnt\nfs\storage**，並點選 **完成**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/5-2.png" width="100%" height="100%" />
+
+4. 輸入 **使用者名稱** 和 **密碼**，點選 **確定**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/5-3.png" width="100%" height="100%" />
+
+5. 現在，你可以像存取本機資料夾一樣瀏覽和管理 **NAS** 上的檔案
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/5-4.png" width="100%" height="100%" />
+
+---
+
+## 在 macOS 上存取
+
+1. 在 **Finder** 上按右鍵，在選單列中選擇 **連接伺服器...**
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/6-1.png" height="20%" />
+
+2. 在伺服器位址欄輸入：**nfs://NAS裝置IP/mnt/nfs/storage**，然後點選 **連接**  
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/6-2.png" width="100%" height="100%" />
+
+3. 輸入使用者名稱和密碼，點選 **連接**  
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/6-3.png" width="100%" height="100%" />
+
+4. 現在，你可以在 Finder 中像存取本機資料夾一樣瀏覽和管理 **NAS** 上的檔案
+<img src="/images/zh-Hant/portable/file-service/access-nfs-service/6-4.png" width="100%" height="100%" />
+
+---
+
+## 在 其他用戶端 上存取
+
+- 連線資訊
+    - IP：NAS 裝置 IP
+    - 連接埠：無需
+    - 帳號：無需
+    - 密碼：無需
+- 掛載目錄說明
+    - 主磁碟 SSD：`/mnt/nfs/storage/登入使用者名稱`
+      - 範例1：所有目錄，目前使用者為 test，掛載目錄為 `/mnt/nfs/storage/test`
+      - 範例2：指定目錄，目前使用者為 test，掛載目錄為 `/mnt/nfs/storage/test/Pictures`
+      - 其他：不支援多使用者，僅支援管理員使用者
+    - 外接儲存：`/mnt/nfs/storage/外接儲存名稱`
+      - 範例1：所有目錄，外接 SD 卡名稱為 SD 60GB BA26，掛載目錄為 `/mnt/nfs/storage/SD_60GB_BA26`
+      - 範例2：指定目錄，SD 卡名稱為 SD 60GB BA26，掛載目錄為 `/mnt/nfs/storage/SD_60GB_BA26/Pictures`
+    - 所有目錄：`/mnt/nfs/storage`
+
+## 其他問題
+
+* 問：為什麼 Windows 存取 NFS 服務時，檔案名稱會亂碼
+* 答：請參考 [Windows 存取 NFS 磁碟中文亂碼問題](/portable/file-service/windows-nfs-garbled-code)

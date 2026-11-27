@@ -1,0 +1,44 @@
+---
+sourceHash: c76aac96b2f0
+title: "メール通知サービスを有効にする"
+---
+
+メール通知サービスは、システムがメールを送信する能力を許可できます。例えば、二要素認証の緊急確認コードメールやパスワードリセットメールなどを送信できます。
+
+>現在サポートされているメールサービスプロバイダー: Gmail, Yahoo, Apple, QQ, 163, そしてカスタム SMTP サーバー。
+
+## メール通知サービスを有効にする
+
+1. あなたは **デバイス > メッセージ通知 > メール通知** でメール通知サービスをオンにすることができます。
+2. 自分の実際の状況に応じて、適切なメールサービスプロバイダーを選択し、以下の方法で対応するメールサービスの認証コードを取得し、設定を完了してください。
+3. 設定完了後、テストメールを送信し、メールサービスが正常に認証されたことを確認します。
+
+<img src="/images/common/portable/setting/setup-smtp/1-1-1.png" width="30%" />
+<img src="/images/common/portable/setting/setup-smtp/1-1-2.png" width="30%" />
+<img src="/images/common/portable/setting/setup-smtp/1-1-3.png" width="30%" />
+
+## メールアカウントの認証コードを取得する方法
+### Gmail
+1. [myaccount.google.com](myaccount.google.com) にアクセスして Google アカウント管理ページに入ります。検索アイコンをクリックし、**アプリ専用パスワード** を入力して、検索結果をクリックすると設定ページに移動します。
+<img src="/images/common/portable/setting/setup-smtp/2-1-1.png" width="100%" />
+
+2. カスタムのアプリ名を入力し、「作成」をクリックすると、認証コードが生成されます。
+<img src="/images/common/portable/setting/setup-smtp/2-1-2.png" width="100%" />
+
+### Apple
+1. Apple ID の公式ウェブサイト：[appleid.apple.com](appleid.apple.com) にアクセスし、あなたの Apple ID アカウントにログインしてください。
+
+2. 「ログインとセキュリティ > App 専用パスワード」ページにアクセスします。
+<img src="/images/common/portable/setting/setup-smtp/2-2-1.png" width="100%" />
+
+3. 「App専用パスワードを生成」をクリックします。
+<img src="/images/common/portable/setting/setup-smtp/2-2-2.png" width="100%" />
+
+4. タグを入力してそのパスワードに名前を付ける（例：StationPC）、そして「作成」をクリック。
+
+### Yahoo
+1. あなたの [Yahoo アカウントのセキュリティページ](https://login.yahoo.com/?done=https%3A%2F%2Flogin.yahoo.com%2Fmyaccount%2Fsecurity%3F.lang%3Den-US%26.intl%3Dus%26.src%3Dyhelp%26.scrumb%3D0&src=mc&.intl=us&.lang=en-US) にログインしてください。
+2。「外部接続」欄で、「アプリパスワードを作成」をクリックします。
+3. テキストボックスにアプリ名を入力します。
+4. 「パスワードを生成」をクリックします。
+5. 生成した使い捨てパスワードでサードパーティのアプリにログインする。

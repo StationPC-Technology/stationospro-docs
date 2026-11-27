@@ -1,0 +1,71 @@
+---
+sourceHash: 917f9e91e1ba
+title: "Plik Temporäres Datei-Upload-System"
+---
+
+## Einführung
+Plik ist ein Open-Source-, leichtgewichtiges und sicheres temporäres Dateifreigabesystem, **unterstützt die reine Webnutzung**, man kann über den Browser Dateien hochladen, teilen und übertragen. In Verbindung mit Docker kann man schnell einen eigenen privaten temporären Dateitransfer-Server einrichten, ohne komplizierte Konfigurationen, einfach zu bedienen und dabei Datenschutz und Sicherheit gewährleisten.
+
+## Anwendungsszenarien
+- Temporäre Dateiübertragung zwischen Geräten, direkte Verbindung zwischen Handy und Computer, keine Installation eines Clients erforderlich
+- Dateien schnell mit Kollegen und Freunden teilen, sofort verwenden und wieder gehen, effizient und bequem
+- Private Dateien möchte man nicht auf öffentliche Cloud-Laufwerke hochladen, selbstgehostete Dienste sind sicherer und besser kontrollierbar
+- Temporäre Freigabe von Protokollen, Installationspaketen, Konfigurationsdateien und anderen Arbeitsunterlagen
+
+## Funktionen und Merkmale
+- Reiner Webzugriff, plattformübergreifend, keine Installation von APP erforderlich, niedrige Einstiegshürde
+- Unterstützt die Bedienung des CLI-Clients, Dateien können über die Befehlszeile hochgeladen und verwaltet werden
+- Unterstützt Dateiverschlüsselung, kann ein Freigabepasswort festlegen, um die Dateisicherheit zu gewährleisten
+- Benutzerdefinierbare Ablaufzeiten und Download-Anzahlen von Dateien, unterstützt 'Einmal ansehen und dann löschen' (OneShot)
+- Mit einem Klick einen Freigabelink erstellen, die Freigabe jederzeit deaktivieren, flexibel und kontrollierbar
+- Geringe Ressourcennutzung, Docker Ein-Klick-Bereitstellung, niedrige Wartungskosten
+
+> Weitere Erläuterungen siehe:
+> 
+> Offizielle Dokumentation: [https://root-gg.github.io/plik](https://root-gg.github.io/plik)
+>
+> Offizielles GitHub: [https://github.com/root-gg/plik](https://github.com/root-gg/plik)
+
+## Bereitstellungsanleitung
+### Erstellen eines Plik-Containers
+1. Gehen Sie zur Docker-Oberfläche, klicken Sie auf „Images“ (Images), geben Sie „plik“ in das Suchfeld ein, und klicken Sie nach dem Auffinden des entsprechenden Images auf Download.
+    <img src="/images/common/portable/docker/plik/1-2.png" width="100%" />
+
+2. Nach dem Herunterladen des Images gehen Sie zur Seite „Containers“ (Container), klicken Sie auf „Container erstellen“, wählen Sie das Image „rootgg/plik“ und klicken Sie auf „Weiter“.
+> Freundlicher Hinweis: Wenn der Container beim Hochfahren des Geräts automatisch gestartet werden soll, aktivieren Sie einfach die Option „Beim Start ausführen“ auf der Seite.
+    <img src="/images/common/portable/docker/plik/1-3.png" width="100%" />
+
+3. Pfadzuordnungseinstellungen, klicken Sie auf Pfadzuordnung hinzufügen
+* Speichern hochgeladener Dateien: Erstellen Sie den lokalen Speicherpfad „My Files/upload“ und ordnen Sie den Pfad im Container „/root/files“ dem lokalen Pfad „My Files/upload“ zu
+    
+
+4. Nachdem alle Einstellungen überprüft und korrekt sind, klicken Sie auf „Bestätigen“, wählen Sie „Nach der Erstellung starten“, und der Plik-Container wird erstellt und gestartet.
+    <img src="/images/common/portable/docker/plik/1-4.png" width="100%" />
+
+## Grundlegende Verwendung von Plik
+### 1.  Zugriff auf Plik:
+
+<img src="/images/common/portable/docker/plik/1-6.png" width="100%" />
+
+Besuchsadresse: http://IP:8080/. Ersetzen Sie IP durch die IP-Adresse Ihres eigenen Servers (oder PocketCloud-Geräts).
+> Hinweis: Bei einem PocketCloud-Gerät verwenden Sie direkt das eigene IP des Geräts;
+> Wenn der Port bei der Bereitstellung geändert wurde, muss die Portnummer in der Zugriffsadresse entsprechend angepasst werden.
+
+### 2.  Plik einstellen：
+Kann je nach Bedarf entsprechend konfiguriert werden.
+<img src="/images/common/portable/docker/plik/1-7.png" width="100%" />
+
+| Einstellung | Beschreibung |
+| ---- | ---- |
+| Nach dem Herunterladen löschen | Die Datei wird nach dem einmaligen Herunterladen dauerhaft gelöscht |
+| Streaming | Die Datei wird direkt an den Downloader gestreamt, ohne auf dem Server gespeichert zu werden |
+| Kann gelöscht werden | Personen mit Link können hochgeladene Dateien löschen |
+| Ende-zu-Ende-Verschlüsselung | Dateien werden vor dem Hochladen verschlüsselt und können nur von denjenigen entschlüsselt werden, die das Passwort besitzen |
+| Passwortschutz | Stellen Sie ein Zugriffskennwort über die Basisauthentifizierung HTTP ein, um die Sicherheit zu gewährleisten |
+| Anmerkungen | Unterstützung zum Hinzufügen von Kommentaren zu hochgeladenen Inhalten |
+| Ablaufdatum | Legt die Gültigkeitsdauer der Datei fest, läuft nach Ablauf automatisch ab |
+
+#### 3. Datei hochladen
+Ziehen Sie die Datei direkt in den Upload-Bereich der Webseite oder klicken Sie auf „Datei auswählen“, um sie hochzuladen.
+#### 4.  Dateien teilen
+Nach dem Hochladen kopieren Sie den auf der Seite erstellten Freigabelink und klicken auf den Link, um den Download zu starten.

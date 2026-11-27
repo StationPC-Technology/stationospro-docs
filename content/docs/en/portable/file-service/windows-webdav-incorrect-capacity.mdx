@@ -1,0 +1,8 @@
+---
+sourceHash: f527eea48714
+title: "When accessing a WebDAV service in Windows, wrong disk capacity is shown on the mapped drive"
+---
+
+This issue occurs because Windows' built-in WebClient component cannot retrieve the actual storage capacity from the WebDAV server. When mounting a WebDAV network drive, the system fails to obtain remote storage quota data, so it displays the capacity information of the local system drive (C drive) on the mapped drive, resulting in abnormal disk capacity display.
+
+If you need to resolve this capacity display issue, you may use third-party mounting tools such as RaiDrive and CloudMounter.

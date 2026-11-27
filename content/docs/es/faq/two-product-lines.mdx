@@ -1,0 +1,41 @@
+---
+sourceHash: bb6a5a5451e4
+title: ¿Por qué hay dos líneas de productos y dos sistemas?
+description: El NAS de escritorio (StationOS Pro) y el NAS portátil (StationOS) son dos líneas de productos independientes. Su hardware, base del sistema, clientes y ciclos de actualización son distintos, por lo que cada una tiene su propio sistema y su propia documentación.
+---
+
+StationPC tiene actualmente dos líneas de NAS paralelas: el **NAS de escritorio** y el **NAS portátil**. Están pensadas para escenarios de uso distintos, y su forma física, base del sistema y clientes se diseñan por separado. No son la «versión estándar» y la «versión portátil» de un mismo equipo, sino dos productos y dos sistemas independientes. Por eso el Centro de ayuda también se divide en dos conjuntos de documentación.
+
+## En qué consisten las dos líneas de productos
+
+| | NAS de escritorio | NAS portátil |
+| --- | --- | --- |
+| Modelos | DA400, DA400 Air | PA100, PA100 Pro |
+| Sistema | StationOS Pro | StationOS |
+| Base del sistema | Debian | OpenWrt |
+| Forma física | Ubicación fija, varias bahías de discos, principalmente alimentación fija y red por cable | Batería integrada, transportable, admite conexiones inalámbricas / AP |
+| Uso típico | Almacenamiento a largo plazo para el hogar o el estudio, RAID, Station AI | Viajes de trabajo, trabajo móvil |
+| Clientes | StationNAS (Windows / macOS), StationHub (iOS / Android) | PocketNAS (Windows / macOS / Linux / iOS / Android) |
+
+## ¿Por qué no basta con un solo sistema?
+
+1. **Los límites de hardware son distintos.** El NAS de escritorio debe mover varios discos, RAID y mayores velocidades sostenidas de forma continua; el NAS portátil debe funcionar dentro de los límites de batería, disipación y tamaño. Los controladores, la gestión de energía, la gestión de discos y las estrategias térmicas difícilmente pueden compartirse.
+2. **La base del sistema es distinta.** StationOS Pro se basa en Debian y StationOS en OpenWrt. La gestión de paquetes y servicios, los métodos de actualización y las cadenas de herramientas difieren, así que la misma imagen del sistema no se puede instalar en la otra línea.
+3. **Las funciones y los clientes son distintos.** El NAS de escritorio ofrece Station AI, RAID, etc.; el NAS portátil se diseña en torno a la batería, el modo AP, las copias en SD / USB y PocketNAS. Ambos tienen Docker y uso compartido de archivos, pero las rutas de menú, la interfaz y los límites no son iguales.
+4. **Los ciclos de actualización son independientes.** Los dos sistemas se actualizan por separado, con registros de cambios y números de versión propios. Un paquete de actualización del NAS portátil no se puede instalar en el NAS de escritorio, ni al contrario.
+
+## ¿Qué implica para mí?
+
+- **Confirme primero el modelo.** Mire la etiqueta del equipo o el comprobante de compra: DA400 / DA400 Air corresponde al NAS de escritorio; PA100 / PA100 Pro, al NAS portátil.
+- **Consulte la documentación de su línea.** Los menús, las capturas y los límites son distintos; entre por la sección «NAS de escritorio» o «NAS portátil» correspondiente y no siga los pasos de la otra línea.
+- **No mezcle clientes ni paquetes de actualización.** El NAS de escritorio usa StationNAS / StationHub; el NAS portátil, PocketNAS. Los paquetes de actualización tampoco son intercambiables.
+- **Ante un nombre de función igual, compruebe la línea.** Una misma función (por ejemplo, copias de seguridad o acceso remoto) puede estar en otro lugar y funcionar de forma distinta en cada línea.
+
+## ¿Por qué el Centro de ayuda también se divide en dos documentaciones?
+
+Como los dos sistemas difieren en menús, capturas, límites y ritmo de publicación, mezclar los contenidos daría dos respuestas a la misma pregunta y la búsqueda podría llevar al usuario a los pasos de la línea equivocada. Por eso el sitio adopta un único sitio con dos dominios de producto paralelos: los contenidos comunes (aspectos legales, contacto, búsqueda global) se comparten, mientras que los procedimientos concretos se reparten entre la documentación del NAS de escritorio y la del NAS portátil.
+
+Si no sabe a qué línea pertenece su equipo, compruebe el modelo en la etiqueta del dispositivo o [póngase en contacto con nosotros](../contact).
+
+- [Ir a la documentación del NAS de escritorio](../desktop)
+- [Ir a la documentación del NAS portátil](../portable)

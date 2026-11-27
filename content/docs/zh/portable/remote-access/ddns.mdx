@@ -1,0 +1,201 @@
+---
+title: "如何使用 DDNS"
+---
+
+当你身处外网（如公司、出差、室外移动网络），希望突破网络限制，以直连、不限速的方式访问家中的 NAS 时，可以通过“DDNS 配置 + 路由器端口映射”来实现文件与应用的全局远程访问。
+
+## 检查是否拥有公网 IP
+
+1. 登录家中主路由器的管理后台，找到WAN口 IP 地址
+
+2. 在创建DDNS配置时，查看自动获取的IP是否与路由器WAN口 IP 地址一致
+
+## 获取第三方服务商认证信息
+
+### 1. Cloudflare
+
+1. 登录[Cloudflare](https://dash.cloudflare.com/)，点击左侧栏的`Domains` -> `Registrations`，寻找并购买你的域名
+
+![image-20260817091122396](/images/common/portable/remote-access/ddns/image-20260817091122396.png)
+
+2. 通过这个链接获取Cloudflare令牌信息: [Cloudflare API-Token](https://dash.cloudflare.com/profile/api-tokens)
+2. 点击 `Create Token`
+
+![image-20260817091856430](/images/common/portable/remote-access/ddns/image-20260817091856430.png)
+
+4. 选择`Edit zone DNS`
+
+![image-20260817092033969](/images/common/portable/remote-access/ddns/image-20260817092033969.png)
+
+5. 在`Zone Resources`下拉菜单中，选择您刚刚购买的域名，并点击`Continuue to summary`
+
+![image-20260817092336158](/images/common/portable/remote-access/ddns/image-20260817092336158.png)
+
+6. 点击`Create Token`
+
+![image-20260817092454271](/images/common/portable/remote-access/ddns/image-20260817092454271.png)
+
+7. 复制**API Token**（此 API Token 会在NAS DDNS 配置中使用）
+
+![image-20260817092814598](/images/common/portable/remote-access/ddns/image-20260817092814598.png)
+
+### 2. FreeDNS
+
+使用FreeDNS你可以通过这个网站申请一个自己的域名[freedns.afraid.org](https://freedns.afraid.org/)
+
+1. 点击`Subdomains`
+
+![image-20260814165825310](/images/common/portable/remote-access/ddns/image-20260814165825310.png)
+
+2. 输入你的账号密码进行登录（如果没有账号请先点击`Sign up Free`创建一个账号）
+
+![image-20260814165908860](/images/common/portable/remote-access/ddns/image-20260814165908860.png)
+
+3. 输入相关信息，并点击`Save`
+
+![image-20260818095014297](/images/common/portable/remote-access/ddns/image-20260818095014297.png)
+
+- **Type**：A（表示这个记录是ipv4记录）
+- **Subdomain**：输入一个自定义的子域名
+- **Domain**：选择一个你喜欢的主域名
+
+4.  点击`Dynamic DNS` -> `quick cron example`
+
+![image-20260818095206426](/images/common/portable/remote-access/ddns/image-20260818095206426.png)
+
+5. 记住并保存图中框选的密钥信息（`?`后面的key，不包括`?`），后续会在`PocketCloud DDNS`配置中进行使用
+
+![image-20260814171842858](/images/common/portable/remote-access/ddns/image-20260814171842858.png)
+
+### 3. Duck DNS
+
+1. 访问[Duck DNS](https://www.duckdns.org/)
+2. 选择一种登录方式进行登录
+
+![image-20260814173457409](/images/common/portable/remote-access/ddns/image-20260814173457409.png)
+
+3. 点击`reCaptcha`注册一个域名
+
+![image-20260814173644397](/images/common/portable/remote-access/ddns/image-20260814173644397.png)
+
+4. 在`domains`中输入一个子域名进行创建，输入完成后点击`add domain`
+
+![image-20260814174542622](/images/common/portable/remote-access/ddns/image-20260814174542622.png)
+
+5. 同时保存并记住`Token`，这将会在后续配置`PocketCloud DDNS`中使用
+
+## 在 NAS 中配置 DDNS
+
+1. 在`Device`  -> `Remote Access` -> `DDNS`中，可以点击右上角`Add`或中间`Add Configuration`增加一条配置
+
+![image-20260817093613450](/images/common/portable/remote-access/ddns/image-20260817093613450.png)
+
+2. 选择您所购域名平台的服务商，并按照服务商提供的规范填写各项密钥与域名信息
+2. 填写完成后，点击`Test`。确认系统连接状态为`Normal`后，点击`Confirm`保存配置信息。NAS 将在后台自动将变动的 IP 实步更新到该域名上。
+
+![image-20260817094239125](/images/common/portable/remote-access/ddns/image-20260817094239125.png)
+
+## 创建路由器端口映射
+
+1. 登录路由器管理界面
+
+在浏览器中输入路由器 IP 地址（如 192.168.1.1 或 192.168.0.1），登录路由器管理界面。
+
+2. 配置静态 IP 地址
+
+进入路由器的局域网设置页面，找到 DHCP 静态 IP 分配 功能。
+- 将 NAS 设备的 MAC 地址与静态 IP 地址进行绑定
+- 选择当前已连接的 NAS 设备，点击"应用"保存
+
+注意：
+- 不同品牌路由器的端口转发设置位置可能不同，请参考路由器制造商提供的说明书  
+- 需要确保外部端口不与设置端口冲突
+
+3. 添加端口转发规则
+
+进入路由器的 高级设置 > 端口转发（或 端口映射）页面，点击"添加"创建新的转发规则。
+
+4. 检查设置
+
+设置完成后，保存规则。
+
+5. 验证访问
+
+在外网环境下使用 `域名:端口号` 格式访问，验证是否能成功访问服务。
+
+## 使用域名访问 NAS
+
+在路由器完成端口映射，并成功配置 DDNS 后，如需在外网环境（如公司网络、手机流量）远程登录PocketCloud系统，请参考以下方式。
+
+在设备登录界面可以通过输入`域名:路由器映射端口`进行访问。
+
+![image-20260817172227254](/images/common/portable/remote-access/ddns/image-20260817172227254.png)
+
+> 注：PocketCloud PC 客户端、Web 浏览器端、APP 端均适用以下登录规则。
+
+## 无法通过域名访问问题排查
+
+本地做了动态域名解析后，但测试在外网无法访问服务是比较常见的问题，一些常见原因排查如下：
+
+### 1. 路由端口映射原因
+
+确认路由器端口转发规则正确，将路由器外部访问端口映射到 NAS 的访问端口`9500`。在连接访问时，请输入路由器暴露的映射端口。
+
+### 2. 客户端无法获取公网IP
+
+原因是运营商分配的是内网IP（如10.10.X.X）。
+
+登录到家中主路由器的管理后台，找到 WAN IPv4  地址，比对IP和从 [https://whatismyipaddress.com/](https://whatismyipaddress.com/) 获取的 IP 一致性。如果 IP 不一致，请联系运营商客服寻求解决方案。
+
+### 3. 域名解析（DNS）问题：通过域名无法获取到正确的IP地址
+
+当您通过域名访问服务时，如果域名无法解析到正确的 IP 地址，可能是由于 **DNS 缓存未更新** 或 **DNS 解析异常** 导致。您可以按照以下方法进行排查。
+
+**1. DNS 缓存未更新**
+
+- **现象**
+
+修改域名解析记录后，部分设备或网络环境仍然无法访问，或者解析到修改前的 IP 地址，而其他设备可以正常访问。
+
+- **原因**
+
+域名解析记录修改后，不会立即在所有 DNS 服务器上同步生效。由于 DNS 存在 **TTL（Time to Live）缓存机制**，本地电脑、路由器或运营商 DNS 服务器可能仍然缓存修改前的解析结果。
+
+- **处理方案**
+
+可以尝试以下方式进行排查：
+
+1. **清除本地 DNS 缓存**，然后重新进行域名解析。
+2. 更换 DNS 后重新执行域名解析，确认是否能够获取正确的 IP 地址。
+
+> **注意：** DNS 缓存的更新时间与域名设置的 TTL 有关。修改解析记录后，可能需要等待一段时间才能在不同网络环境下完全生效。
+
+**2. DNS 解析异常或 DNS 污染**
+
+- **现象**：
+
+通过 DNS 查询发现，域名解析得到的 IP 地址与实际配置的 IP 地址不一致。
+
+例如，在终端执行以下命令：
+
+```
+ping www.example.com
+```
+
+如果返回的 IP 地址与您配置的 IP 地址不一致，可以进一步检查当前网络环境下的 DNS 解析结果。
+
+也可以**使用第三方 DNS 查询工具进行验证**，例如访问：[DNS Checker](https://dnschecker.org/)
+
+输入您的域名，查看不同国家和地区的 DNS 解析结果是否与您配置的 IP 地址一致。
+
+- **处理方案**：
+
+可以尝试以下方式：
+
+1. 修改客户端设备的 DNS 服务器地址，例如使用 Google Public DNS：
+	- `8.8.8.8`
+	- `8.8.4.4`
+	- `dns.google`
+2. 更换其他可靠的 DNS 服务商，然后重新进行域名解析。
+
+> **注意：** 如果仅部分网络或地区存在解析异常，建议使用多个不同地区、不同 DNS 服务商进行测试，以进一步判断问题是否由特定 DNS 服务或网络环境导致。

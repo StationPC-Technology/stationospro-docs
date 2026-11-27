@@ -1,0 +1,102 @@
+[
+  {
+    "file": "page.png",
+    "target": "https://help.fnnas.com/",
+    "name": "page",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [
+      "加载错误：Failed to load resource: the server responded with a status of 401 () https://help.fnnas.com/member-service/api/v1/account/detail",
+      "控制台错误：Failed to fetch account detail: 401"
+    ],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 1,
+        "examples": [
+          "input.semi-input.semi-input-default（1.78:1）"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "page-2.png",
+    "target": "https://help.stationpc.com/",
+    "name": "page",
+    "state": null,
+    "size": "1440x900",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 16,
+        "examples": [
+          "p.doc-description「快速找到 PocketCloud 使用指南，安全」（2.46:1）",
+          "span.hot-search-label「热门搜索：」（2.68:1）",
+          "p.card-desc「安装 M.2 SSD、电池及底座配件」（2.85:1）"
+        ]
+      },
+      {
+        "rule": "boxedGroups",
+        "label": "用边框分组过多（首屏多块各自加框，或框里又套着几个加框的小块）",
+        "count": 1,
+        "examples": [
+          "a.link-card「🔧 硬件安装 安装 M.2 SSD、电池及底座」（首屏 9 块各自加框）"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "sheet.png",
+    "width": 1344,
+    "height": 1112,
+    "columns": 2,
+    "items": [
+      {
+        "naturalWidth": 1440,
+        "naturalHeight": 2321,
+        "scale": 1,
+        "renderScale": 0.4444444444444444,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 2321
+        },
+        "width": 640,
+        "height": 1032,
+        "labelHeight": 32,
+        "x": 24,
+        "y": 24,
+        "label": "page",
+        "labelY": 1064
+      },
+      {
+        "naturalWidth": 1440,
+        "naturalHeight": 1352,
+        "scale": 1,
+        "renderScale": 0.4444444444444444,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1352
+        },
+        "width": 640,
+        "height": 601,
+        "labelHeight": 32,
+        "x": 680,
+        "y": 24,
+        "label": "page",
+        "labelY": 633
+      }
+    ],
+    "issues": []
+  }
+]

@@ -1,0 +1,23 @@
+---
+sourceHash: 4e7c3743ceb7
+title: "Descripción del funcionamiento"
+---
+
+PocketCloud ofrece un servicio de acceso remoto que proporciona a los usuarios una experiencia de acceso remoto estable, segura y cómoda. No es necesario que el usuario domine conocimientos técnicos como la IP pública, la redirección de puertos o la configuración de DDNS, lo que reduce notablemente la barrera de uso y permite que los usuarios no técnicos también realicen operaciones remotas con facilidad.
+> Los usuarios pueden obtener un Station ID vinculando un número de teléfono o un correo electrónico, y acceder de forma remota mediante ese Station ID.
+
+## 1. Descripción del principio de conexión
+El acceso remoto utiliza el modo de conexión P2P (Peer-to-Peer, punto a punto). El principio básico es el siguiente:
+Gracias a la colaboración entre el servidor de retransmisión oficial y la red del propio usuario para «perforar» las restricciones de red, se superan los límites de la red y se establece finalmente una conexión de comunicación directa entre PocketCloud y el cliente (teléfono/PC), sin necesidad de que un servidor de terceros reenvíe los datos.
+
+## 2. Ventajas del modo de conexión P2P
+| Característica | Descripción |
+|------|------|
+| Cero configuración | La barrera de entrada es mínima: el usuario no necesita configurar manualmente ningún parámetro de red; basta con activar la función para intentar la conexión |
+| Transmisión eficiente | Cuando se cumplen las condiciones de conexión directa, los datos se transmiten directamente entre PocketCloud y el cliente, y el ancho de banda no está limitado por el servidor de retransmisión, por lo que el acceso es más rápido |
+| Compatibilidad con varios dispositivos | Compatible tanto con clientes móviles (teléfono/tableta) como con clientes de PC, y se adapta a distintos escenarios de uso (como trabajar fuera de la oficina o gestionar el equipo desde casa) |
+
+## 3. Notas
+1. Cuando el dispositivo y el cliente están en la misma red de área local, la conexión cambia automáticamente a una conexión de red local.
+2. Si no se puede establecer la conexión directa P2P, se cambia automáticamente al modo de reenvío mediante el servidor de retransmisión de StationPC para garantizar la disponibilidad del acceso remoto;
+3. En el modo de retransmisión, la velocidad de acceso y el ancho de banda están limitados por el servidor de retransmisión.

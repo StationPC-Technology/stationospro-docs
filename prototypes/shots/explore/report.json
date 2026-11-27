@@ -1,0 +1,151 @@
+[
+  {
+    "file": "a.png",
+    "target": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\lin\\codeWSL\\stationpc\\stationpc_help_new\\stationospro-docs\\prototypes\\explore\\a.html",
+    "name": "a",
+    "state": null,
+    "size": "1440x1000",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 8,
+        "examples": [
+          "span「搜索」（2.46:1）",
+          "kbd「Ctrl K」（2.56:1）",
+          "div.kicker「HELP CENTER」（2.56:1）"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "b.png",
+    "target": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\lin\\codeWSL\\stationpc\\stationpc_help_new\\stationospro-docs\\prototypes\\explore\\b.html",
+    "name": "b",
+    "state": null,
+    "size": "1440x1000",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 13,
+        "examples": [
+          "span「搜索」（2.46:1）",
+          "kbd「Ctrl K」（2.56:1）",
+          "span.lab「热门」（2.56:1）"
+        ]
+      },
+      {
+        "rule": "boxedGroups",
+        "label": "用边框分组过多（首屏多块各自加框，或框里又套着几个加框的小块）",
+        "count": 2,
+        "examples": [
+          "section.card.desktop「D 桌面式 NAS 38 篇 StationOS」（框里又有 7 个加框的块）",
+          "section.card.portable「P 便携式 NAS 111 篇 PocketCl」（框里又有 7 个加框的块）"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "c.png",
+    "target": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\lin\\codeWSL\\stationpc\\stationpc_help_new\\stationospro-docs\\prototypes\\explore\\c.html",
+    "name": "c",
+    "state": null,
+    "size": "1440x1000",
+    "zoom": 1,
+    "animationWaitMs": 0,
+    "issues": [],
+    "lint": [
+      {
+        "rule": "contrastLow",
+        "label": "文字对比度不达标（14px 以下的小字和占位文字低于 4.5:1，其他文字低于 3:1，大字低于 2.5:1）",
+        "count": 11,
+        "examples": [
+          "div.kicker「HELP CENTER」（2.50:1）",
+          "kbd「Ctrl K」（2.46:1）",
+          "div.label「或者按产品浏览」（2.50:1）"
+        ]
+      },
+      {
+        "rule": "boxedGroups",
+        "label": "用边框分组过多（首屏多块各自加框，或框里又套着几个加框的小块）",
+        "count": 1,
+        "examples": [
+          "div.field「⌕ 搜索全部文档，例如「初始化」「SD 卡容量」」（首屏 4 块各自加框）"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "sheet.png",
+    "width": 2000,
+    "height": 524,
+    "columns": 3,
+    "items": [
+      {
+        "naturalWidth": 1440,
+        "naturalHeight": 1000,
+        "scale": 1,
+        "renderScale": 0.4444444444444444,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "width": 640,
+        "height": 444,
+        "labelHeight": 32,
+        "x": 24,
+        "y": 24,
+        "label": "a",
+        "labelY": 476
+      },
+      {
+        "naturalWidth": 1440,
+        "naturalHeight": 1000,
+        "scale": 1,
+        "renderScale": 0.4444444444444444,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "width": 640,
+        "height": 444,
+        "labelHeight": 32,
+        "x": 680,
+        "y": 24,
+        "label": "b",
+        "labelY": 476
+      },
+      {
+        "naturalWidth": 1440,
+        "naturalHeight": 1000,
+        "scale": 1,
+        "renderScale": 0.4444444444444444,
+        "sourceCrop": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000
+        },
+        "width": 640,
+        "height": 444,
+        "labelHeight": 32,
+        "x": 1336,
+        "y": 24,
+        "label": "c",
+        "labelY": 476
+      }
+    ],
+    "issues": []
+  }
+]

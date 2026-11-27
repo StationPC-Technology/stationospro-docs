@@ -1,0 +1,7 @@
+{
+  "title": "备份中心",
+  "pages": [
+    "sd-card-backup",
+    "usb-backup"
+  ]
+}

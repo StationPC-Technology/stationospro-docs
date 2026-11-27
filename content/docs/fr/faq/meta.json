@@ -1,4 +1,6 @@
 {
   "title": "FAQ",
-  "pages": ["overview", "storage-concept"]
+  "pages": [
+    "two-product-lines"
+  ]
 }

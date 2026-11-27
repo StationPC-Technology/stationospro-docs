@@ -1,0 +1,41 @@
+---
+sourceHash: bb6a5a5451e4
+title: Pourquoi existe-t-il deux gammes de produits et deux systèmes ?
+description: "Le NAS de bureau (StationOS Pro) et le NAS portable (StationOS) sont deux gammes indépendantes. Leur matériel, leur base système, leurs clients et leurs cycles de publication diffèrent : chacun dispose donc de son propre système et de sa propre documentation."
+---
+
+StationPC propose actuellement deux gammes de NAS parallèles : le **NAS de bureau** et le **NAS portable**. Elles répondent à des usages différents, et leur forme matérielle, leur base système et leurs clients sont conçus séparément. Il ne s'agit pas d'une « version standard » et d'une « version portable » d'un même appareil, mais de deux produits et de deux systèmes indépendants. C'est aussi pour cela que le Centre d'aide est divisé en deux ensembles de documentation.
+
+## Les deux gammes de produits
+
+| | NAS de bureau | NAS portable |
+| --- | --- | --- |
+| Modèles | DA400, DA400 Air | PA100, PA100 Pro |
+| Système | StationOS Pro | StationOS |
+| Base système | Debian | OpenWrt |
+| Forme matérielle | Poste fixe, plusieurs baies de disques, principalement alimentation fixe et réseau filaire | Batterie intégrée, transportable, connexions sans fil / AP prises en charge |
+| Usage typique | Stockage longue durée pour la maison ou le studio, RAID, Station AI | Déplacements professionnels, travail mobile |
+| Clients | StationNAS (Windows / macOS), StationHub (iOS / Android) | PocketNAS (Windows / macOS / Linux / iOS / Android) |
+
+## Pourquoi un seul système ne suffit-il pas ?
+
+1. **Des contraintes matérielles différentes.** Le NAS de bureau doit faire fonctionner en continu plusieurs disques, le RAID et des débits soutenus plus élevés ; le NAS portable doit fonctionner dans les limites de la batterie, de la dissipation thermique et de l'encombrement. Les pilotes, la gestion de l'alimentation, la gestion des disques et les stratégies thermiques sont difficiles à mutualiser.
+2. **Une base système différente.** StationOS Pro repose sur Debian, StationOS sur OpenWrt. La gestion des paquets et des services, les méthodes de mise à jour et les chaînes d'outils diffèrent : la même image système ne peut pas être installée sur l'autre gamme.
+3. **Des fonctions et des clients différents.** Le NAS de bureau propose Station AI, le RAID, etc. ; le NAS portable est conçu autour de la batterie, du mode AP, de la sauvegarde SD / USB et de PocketNAS. Les deux proposent Docker et le partage de fichiers, mais les chemins de menu, l'interface et les limites ne sont pas les mêmes.
+4. **Des cycles de publication indépendants.** Les deux systèmes sont mis à jour séparément, avec leurs propres journaux des modifications et numéros de version. Un paquet de mise à jour pour le NAS portable ne peut pas être installé sur le NAS de bureau, et inversement.
+
+## Qu'est-ce que cela change pour moi ?
+
+- **Vérifiez d'abord le modèle.** Consultez l'étiquette de l'appareil ou la preuve d'achat : DA400 / DA400 Air correspond au NAS de bureau ; PA100 / PA100 Pro au NAS portable.
+- **Consultez la documentation de votre gamme.** Les menus, captures d'écran et limites diffèrent : passez par la section « NAS de bureau » ou « NAS portable » correspondante, et ne suivez pas les étapes de l'autre gamme.
+- **Ne mélangez pas les clients ni les paquets de mise à jour.** Le NAS de bureau utilise StationNAS / StationHub, le NAS portable utilise PocketNAS ; les paquets de mise à jour ne sont pas interchangeables.
+- **Pour un nom de fonction identique, vérifiez la gamme.** Une même fonction (par exemple la sauvegarde ou l'accès à distance) peut se trouver à un autre endroit et fonctionner différemment selon la gamme.
+
+## Pourquoi le Centre d'aide est-il aussi divisé en deux documentations ?
+
+Parce que les deux systèmes diffèrent par leurs menus, leurs captures d'écran, leurs limites et leur rythme de publication, mélanger les contenus donnerait deux réponses à la même question et la recherche pourrait envoyer les utilisateurs vers les étapes de la mauvaise gamme. Le site adopte donc un seul site avec deux domaines produits parallèles : les contenus communs (mentions légales, contact, recherche globale) sont partagés, tandis que les procédures spécifiques sont réparties entre la documentation du NAS de bureau et celle du NAS portable.
+
+Si vous n'êtes pas sûr de la gamme à laquelle appartient votre appareil, vérifiez le modèle sur l'étiquette de l'appareil ou [contactez-nous](../contact).
+
+- [Accéder à la documentation du NAS de bureau](../desktop)
+- [Accéder à la documentation du NAS portable](../portable)

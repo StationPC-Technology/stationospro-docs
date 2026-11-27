@@ -1,0 +1,6 @@
+{
+  "title": "Réinitialisation d’usine",
+  "pages": [
+    "!force_factory_reset"
+  ]
+}

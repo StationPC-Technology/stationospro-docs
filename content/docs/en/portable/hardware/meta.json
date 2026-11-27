@@ -1,0 +1,8 @@
+{
+  "title": "Hardware Installation",
+  "pages": [
+    "dock",
+    "battery-install",
+    "...ssd-install"
+  ]
+}

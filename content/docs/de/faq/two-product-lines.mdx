@@ -1,0 +1,41 @@
+---
+sourceHash: bb6a5a5451e4
+title: Warum gibt es zwei Produktlinien und zwei Systeme?
+description: Desktop-NAS (StationOS Pro) und tragbares NAS (StationOS) sind zwei unabhängige Produktlinien. Hardware, Systembasis, Clients und Release-Zweige unterscheiden sich, daher hat jede Linie ihr eigenes System und ihre eigene Dokumentation.
+---
+
+StationPC bietet derzeit zwei parallele NAS-Produktlinien: **Desktop-NAS** und **tragbares NAS**. Sie richten sich an unterschiedliche Einsatzszenarien, und Hardwareform, Systembasis und Clients sind jeweils separat entwickelt. Es handelt sich nicht um eine „Standardversion“ und eine „Portable-Version“ desselben Geräts, sondern um zwei eigenständige Produkte und Systeme. Deshalb ist auch das Hilfe-Center in zwei Dokumentationssätze aufgeteilt.
+
+## Was die beiden Produktlinien sind
+
+| | Desktop-NAS | tragbares NAS |
+| --- | --- | --- |
+| Modelle | DA400, DA400 Air | PA100, PA100 Pro |
+| System | StationOS Pro | StationOS |
+| Systembasis | Debian | OpenWrt |
+| Hardwareform | Fester Aufstellort, mehrere Laufwerksschächte, überwiegend feste Stromversorgung und kabelgebundenes Netzwerk | Integrierter Akku, tragbar, unterstützt WLAN-/AP-Verbindungen |
+| Typische Nutzung | Langzeitspeicher für Zuhause oder Studio, RAID, Station AI | Dienstreisen, mobiles Arbeiten |
+| Clients | StationNAS (Windows / macOS), StationHub (iOS / Android) | PocketNAS (Windows / macOS / Linux / iOS / Android) |
+
+## Warum reicht nicht ein einziges System?
+
+1. **Unterschiedliche Hardwaregrenzen.** Das Desktop-NAS muss dauerhaft mehrere Laufwerke, RAID und höheren Dauerthroughput bewältigen; das tragbare NAS muss innerhalb der Grenzen von Akku, Kühlung und Bauraum arbeiten. Treiber, Energieverwaltung, Laufwerksverwaltung und Kühlstrategien lassen sich kaum gemeinsam nutzen.
+2. **Unterschiedliche Systembasis.** StationOS Pro basiert auf Debian, StationOS auf OpenWrt. Paketverwaltung, Dienstverwaltung, Updateverfahren und Toolchains unterscheiden sich, daher kann dasselbe Systemabbild nicht auf die andere Produktlinie installiert werden.
+3. **Unterschiedliche Funktionen und Clients.** Das Desktop-NAS bietet Station AI, RAID und weitere Funktionen; das tragbare NAS ist auf Akku, AP-Modus, SD-/USB-Sicherung und PocketNAS ausgelegt. Beide bieten Docker und Dateifreigabe, aber Menüpfade, Oberfläche und Einschränkungen unterscheiden sich.
+4. **Getrennte Release-Zweige.** Die beiden Systeme werden separat aktualisiert, mit eigenen Änderungsprotokollen und Versionsnummern. Ein Update-Paket für das tragbare NAS lässt sich nicht auf dem Desktop-NAS installieren und umgekehrt.
+
+## Was bedeutet das für mich?
+
+- **Modell zuerst prüfen.** Sehen Sie auf dem Geräteetikett oder in den Kaufunterlagen nach: DA400 / DA400 Air bedeutet Desktop-NAS; PA100 / PA100 Pro bedeutet tragbares NAS.
+- **Dokumentation der passenden Produktlinie verwenden.** Menüs, Screenshots und Einschränkungen unterscheiden sich; bitte über den passenden Bereich „Desktop-NAS“ oder „tragbares NAS“ einsteigen und nicht den Schritten der anderen Linie folgen.
+- **Clients und Update-Pakete nicht mischen.** Desktop-NAS verwendet StationNAS / StationHub, das tragbare NAS PocketNAS; auch Update-Pakete sind nicht austauschbar.
+- **Bei gleichen Funktionsnamen zuerst die Produktlinie prüfen.** Derselbe Funktionsname (zum Beispiel Sicherung oder Fernzugriff) kann auf den beiden Linien an anderer Stelle liegen und anders funktionieren.
+
+## Warum ist auch das Hilfe-Center in zwei Dokumentationssätze aufgeteilt?
+
+Da sich die beiden Systeme in Menüs, Screenshots, Einschränkungen und Release-Rhythmus unterscheiden, würde eine gemischte Dokumentation zwei Antworten auf dieselbe Frage erzeugen, und die Suche könnte Nutzer zu Schritten der falschen Produktlinie führen. Die Website verwendet daher ein einziges Angebot mit zwei parallelen Produktbereichen: gemeinsame Inhalte (Rechtliches, Kontakt, standortweite Suche) werden geteilt, konkrete Anleitungen stehen getrennt in der Desktop- und der Portable-Dokumentation.
+
+Wenn Sie unsicher sind, zu welcher Produktlinie Ihr Gerät gehört, prüfen Sie die Modellbezeichnung auf dem Geräteetikett oder [kontaktieren Sie uns](../contact).
+
+- [Zur Dokumentation des Desktop-NAS](../desktop)
+- [Zur Dokumentation des tragbaren NAS](../portable)

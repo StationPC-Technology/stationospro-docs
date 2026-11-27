@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>PROTOTYPE · 文档页产品切换器三方案（对齐 fumadocs 官方做法）</title>
+<style>
+  :root {
+    --bg:#fff; --soft:#f7f8fa; --fg:#0b0b0f; --fg2:#5b6472; --fg3:#8b93a1;
+    --line:#e6e8ec; --line2:#d6dae1; --accent:#2563eb; --accent-soft:#eef3ff;
+    --portable:#0d9488; --portable-soft:#ecfdf9; --radius:12px;
+    --shadow:0 10px 30px -12px rgba(16,24,40,.25), 0 2px 6px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:ui-sans-serif,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--fg);background:var(--bg);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .proto{background:#f59e0b;color:#442b00;text-align:center;font-size:12px;font-weight:600;letter-spacing:.04em;padding:5px 10px}
+
+  /* 顶栏 */
+  .top{height:56px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 20px;position:relative;z-index:40;background:var(--bg)}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px}
+  .mark{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#2563eb,#0d9488)}
+  .grow{flex:1}
+  .pill{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:9px;padding:6px 10px;color:var(--fg3);font-size:13px;min-width:200px}
+  .kbd{margin-left:auto;font-size:11px;border:1px solid var(--line);border-radius:4px;padding:1px 5px;background:var(--soft)}
+  .ib{width:30px;height:30px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;font-size:13px;color:var(--fg2)}
+
+  /* F 方案：顶栏下拉 */
+  .sw{position:relative}
+  .sw-trigger{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:9px;border:1px solid var(--line);cursor:pointer;font-size:13.5px;background:var(--bg)}
+  .sw-trigger:hover{background:var(--soft)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--portable)}
+  .dot.d{background:var(--accent)}
+  .sw-trigger .who{color:var(--fg3)}
+  .sw-trigger .nm{font-weight:600}
+  .chev{color:var(--fg3);font-size:11px}
+  .dropdown{position:absolute;top:calc(100% + 8px);left:0;width:340px;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px}
+  .dd-head{font-size:11.5px;color:var(--fg3);padding:6px 10px 4px;letter-spacing:.04em}
+  .dd-item{display:flex;gap:10px;padding:10px;border-radius:9px;align-items:flex-start}
+  .dd-item:hover{background:var(--soft)}
+  .radio{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line2);margin-top:3px;flex:none;display:grid;place-items:center}
+  .dd-item.cur .radio{border-color:var(--portable)}
+  .dd-item.cur .radio::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--portable)}
+  .dd-item .t{font-weight:600;font-size:13.5px}
+  .dd-item .d{font-size:12.5px;color:var(--fg2)}
+  .dd-item .badge{margin-left:auto;font-size:11px;color:var(--fg3);flex:none}
+
+  /* 版式 */
+  .doc{display:grid;grid-template-columns:274px minmax(0,1fr) 220px}
+  .doc.no-toc{grid-template-columns:274px minmax(0,1fr)}
+  .side{border-right:1px solid var(--line);padding:16px 14px;min-height:calc(100vh - 92px)}
+  .side-head{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:0 4px 12px}
+
+  /* D 方案：fumadocs 原生 tabMode:'auto' 下拉（就长这样） */
+  .ftabs{width:100%;display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--soft);
+    border-radius:10px;padding:9px 10px;cursor:pointer;font-size:13.5px;text-align:left}
+  .ftabs:hover{background:#f2f4f7}
+  .ftabs .ic{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;background:var(--portable-soft);color:var(--portable);font-size:12px;flex:none}
+  .ftabs .lbl{font-weight:600}
+  .ftabs .updown{margin-left:auto;color:var(--fg3);font-size:11px;letter-spacing:-2px}
+  .fpop{position:absolute;left:14px;top:150px;width:300px;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;z-index:50}
+  .fpop .h{font-size:11.5px;color:var(--fg3);padding:6px 10px 4px}
+  .fpop .it{display:flex;gap:10px;padding:10px;border-radius:9px;align-items:flex-start}
+  .fpop .it:hover{background:var(--soft)}
+  .fpop .it .ic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:12px;flex:none;background:var(--accent-soft);color:var(--accent)}
+  .fpop .it.p .ic{background:var(--portable-soft);color:var(--portable)}
+  .fpop .it .t{font-weight:600;font-size:13.5px;display:flex;align-items:center;gap:6px}
+  .fpop .it .d{font-size:12px;color:var(--fg3)}
+  .fpop .chk{margin-left:auto;color:var(--portable);font-size:12px}
+
+  /* 身份条（F 方案用） */
+  .identity{border:1px solid var(--line);border-radius:11px;padding:11px 12px;margin-bottom:14px;background:var(--soft)}
+  .identity .l1{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fg2)}
+  .identity .pn{font-weight:600;font-size:14px;margin-top:3px}
+  .identity .md{font-size:12px;color:var(--fg3)}
+
+  /* E 方案：tabMode:'top' 顶部横条 */
+  .tabstrip{border-bottom:1px solid var(--line);display:flex;gap:6px;padding:0 20px;background:var(--bg)}
+  .tabstrip a{padding:11px 12px;font-size:13.5px;color:var(--fg2);border-bottom:2px solid transparent;display:flex;align-items:center;gap:7px}
+  .tabstrip a.on{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
+  .tabstrip a .ic{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:11px;background:var(--soft);color:var(--fg2)}
+  .tabstrip a.p .ic{background:var(--portable-soft);color:var(--portable)}
+  .tabstrip a.d .ic{background:var(--accent-soft);color:var(--accent)}
+
+  /* 导航树 */
+  .g{margin-bottom:2px}
+  .g>.r{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:7px;font-size:13.5px;color:var(--fg2)}
+  .g>.r:hover{background:var(--soft)}
+  .g>.r .c{font-size:10px;color:var(--fg3)}
+  .g>.r .n{margin-left:auto;color:var(--fg3);font-size:12px}
+  .g.open>.r{color:var(--fg);font-weight:500}
+  .kids{padding:2px 0 6px 22px}
+  .kids a{display:block;padding:5px 8px;border-radius:6px;font-size:13px;color:var(--fg2)}
+  .kids a:hover{background:var(--soft)}
+  .kids a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+
+  .main{padding:26px 40px 80px}
+  .crumb{font-size:12.5px;color:var(--fg3);margin-bottom:10px}
+  h1{font-size:28px;letter-spacing:-.01em;margin:8px 0 6px}
+  .sub{color:var(--fg2);margin:0 0 18px}
+  .prose h3{font-size:17px;margin-top:26px}
+  .prose p{color:#262b33}
+  .callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:10px 12px;background:var(--accent-soft);font-size:13.5px;margin:16px 0}
+  .toc{padding:26px 20px;font-size:12.5px;color:var(--fg2)}
+  .toc .t{color:var(--fg3);margin-bottom:8px}
+  .toc a{display:block;padding:3px 0}
+
+  /* 浮动条 */
+  .bar{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;gap:6px;
+    background:#101318;color:#fff;padding:6px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.35);font-size:12.5px}
+  .bar button{border:0;background:transparent;color:#cfd3da;padding:5px 9px;border-radius:8px;cursor:pointer;font:inherit}
+  .bar button.on{background:#2b313b;color:#fff;font-weight:600}
+  .bar .lbl{color:#7d848f;padding:0 4px}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="proto">PROTOTYPE · 文档页产品切换器三方案 · 底部浮动条切换 D / E / F</div>
+
+<!-- 顶栏：F 方案才有下拉 -->
+<div class="top">
+  <div class="brand"><span class="mark"></span>StationPC 帮助中心</div>
+  <div id="topSw" hidden>
+    <div class="sw">
+      <div class="sw-trigger" onclick="go({pop:!state.pop})">
+        <span class="dot"></span><span class="who">便携式 NAS</span><span class="nm">PocketCloud</span><span class="chev">▾</span>
+      </div>
+      <div class="dropdown" id="topDropdown" hidden>
+        <div class="dd-head">切换产品线</div>
+        <a class="dd-item" href="#"><span class="radio"></span><span><span class="t">桌面式 NAS</span><br><span class="d">StationOS Pro · DA400 / DA400 Air</span></span><span class="badge">44 篇</span></a>
+        <a class="dd-item cur" href="#"><span class="radio"></span><span><span class="t">便携式 NAS</span><br><span class="d">PocketCloud（PA100）· PA100 Pro / PA200</span></span><span class="badge">111 篇</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="grow"></div>
+  <div class="pill">⌕ 搜索文档<span class="kbd">Ctrl K</span></div>
+  <div class="ib">文</div><div class="ib">◐</div><div class="ib">⌥</div>
+</div>
+
+<!-- E 方案的顶部 tab 条 -->
+<div class="tabstrip" id="tabstrip" hidden>
+  <a href="#" class="d"><span class="ic">▣</span>桌面式 NAS</a>
+  <a href="#" class="p on"><span class="ic">▤</span>便携式 NAS</a>
+</div>
+
+<div class="doc" id="doc">
+  <aside class="side">
+    <div class="side-head">StationPC 帮助中心</div>
+
+    <!-- D：fumadocs 原生下拉 -->
+    <div id="dHead" hidden style="position:relative">
+      <button class="ftabs" onclick="go({pop:!state.pop})">
+        <span class="ic">▤</span><span class="lbl">便携式 NAS</span><span class="updown">⌃⌄</span>
+      </button>
+      <div class="fpop" id="fpop" hidden>
+        <div class="h">切换产品线</div>
+        <a class="it" href="#"><span class="ic">▣</span><span><span class="t">桌面式 NAS</span><span class="d">StationOS Pro · DA400 / DA400 Air</span></span></a>
+        <a class="it p" href="#"><span class="ic">▤</span><span><span class="t">便携式 NAS<span class="chk">✓</span></span><span class="d">PocketCloud · PA100 / PA100 Pro / PA200</span></span></a>
+      </div>
+    </div>
+
+    <!-- F：身份条 -->
+    <div class="identity" id="fHead" hidden>
+      <div class="l1"><span class="dot"></span>便携式 NAS</div>
+      <div class="pn">PocketCloud（PA100）</div>
+      <div class="md">PA100 Pro · PA200 · 111 篇文档</div>
+    </div>
+
+    <div id="nav" style="margin-top:14px">
+      <div class="g"><div class="r"><span class="c">▸</span>视频教程<span class="n">10</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>硬件安装<span class="n">4</span></div></div>
+      <div class="g open"><div class="r"><span class="c">▾</span>快速开始<span class="n">16</span></div>
+        <div class="kids">
+          <a href="#">如何下载安装客户端？</a>
+          <a href="#">如何初始化 PocketCloud？</a>
+          <a href="#">如何进行远程访问？</a>
+          <a href="#">如何通过网页端访问设备？</a>
+          <a href="#">如何创建子用户？</a>
+        </div>
+      </div>
+      <div class="g"><div class="r"><span class="c">▸</span>远程访问<span class="n">2</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>相册<span class="n">2</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>影院<span class="n">3</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>文件<span class="n">2</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>文件共享服务<span class="n">10</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>备份与同步<span class="n">3</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>Docker<span class="n">3</span></div></div>
+      <div class="g"><div class="r"><span class="c">▸</span>系统设置<span class="n">5</span></div></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="crumb">便携式 NAS / 快速开始</div>
+    <h1>如何初始化 PocketCloud？</h1>
+    <p class="sub">本文介绍如何初始化 PocketCloud。首次使用需要完成设备注册并绑定账号。</p>
+    <div class="prose">
+      <div class="callout">新装置注册时，需位于同一局域网环境（支持 WiFi 与有线网络，暂不支持 WiFi 直连）。</div>
+      <h3>1. 安装手机端 App</h3>
+      <p>下载并打开 StationCloud，选择「新装置注册」，按提示完成后续步骤。</p>
+      <h3>2. 连接设备热点</h3>
+      <p>设备首次上电会开启配置热点，手机连接后在 App 内选择对应的设备名称。</p>
+      <h3>3. 完成注册</h3>
+      <p>回到 App 首页即可看到设备，之后可在「设置 → 设备」中查看固件版本与存储状态。</p>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="t">本页内容</div>
+    <a href="#">安装手机端 App</a><a href="#">连接设备热点</a><a href="#">完成注册</a>
+  </div>
+</div>
+
+<div class="bar">
+  <span class="lbl">方案</span>
+  <button data-doc="D" class="on">D 官方侧栏下拉</button>
+  <button data-doc="E">E 官方顶部 tabs</button>
+  <button data-doc="F">F 顶栏下拉（现版）</button>
+  <span class="lbl">点下拉可展开 · ← → 切换</span>
+</div>
+
+<script>
+  function readState() {
+    const q = new URLSearchParams(location.search);
+    const h = new URLSearchParams(location.hash.replace(/^#/, ''));
+    const get = (k) => q.get(k) ?? h.get(k);
+    return { doc: (get('doc') || 'D').toUpperCase(), pop: get('pop') === '1' };
+  }
+  const state = readState();
+
+  function syncUrl() {
+    try {
+      const p = new URLSearchParams();
+      p.set('doc', state.doc);
+      if (state.pop) p.set('pop', '1');
+      history.replaceState(null, '', '?' + p.toString());
+    } catch (e) { /* file:// 下忽略 */ }
+  }
+
+  function render() {
+    const d = state.doc;
+    document.getElementById('topSw').hidden = d !== 'F';
+    document.getElementById('dHead').hidden = d !== 'D';
+    document.getElementById('fHead').hidden = d !== 'F';
+    document.getElementById('tabstrip').hidden = d !== 'E';
+
+    const popVisible = state.pop && (d === 'D' || d === 'F');
+    document.getElementById('fpop').hidden = !(popVisible && d === 'D');
+    document.getElementById('topDropdown').hidden = !(popVisible && d === 'F');
+
+    document.querySelectorAll('[data-doc]').forEach((b) => b.classList.toggle('on', b.dataset.doc === d));
+  }
+
+  function go(next) { Object.assign(state, next); render(); syncUrl(); }
+
+  document.querySelectorAll('[data-doc]').forEach((b) =>
+    b.addEventListener('click', () => go({ doc: b.dataset.doc, pop: false }))
+  );
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const order = ['D', 'E', 'F'];
+    const i = order.indexOf(state.doc);
+    go({ doc: order[(i + (e.key === 'ArrowRight' ? 1 : 2)) % 3], pop: false });
+  });
+
+  render();
+</script>
+</body>
+</html>

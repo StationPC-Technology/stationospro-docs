@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>方向 C · 搜索优先 v3（含功能卡片与视频）</title>
+<style>
+  :root{
+    --bg:#fcfcfc; --surface:#fff; --fg:#0a0a0a; --muted:#6b6b74; --faint:#6b6b74;
+    --border:#e7e7e9; --hair:#f1f1f2; --hover:#f4f4f5; --radius:12px;
+    --desktop:#2563eb; --portable:#0d9488;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;font-size:15px;line-height:1.6}
+  a{color:inherit;text-decoration:none}
+
+  .top{height:56px;display:flex;align-items:center;gap:24px;padding:0 28px;border-bottom:1px solid var(--border);background:var(--bg)}
+  .brand{font-weight:600;font-size:15px;letter-spacing:-.01em}
+  .top .spacer{flex:1}
+  .top .links{display:flex;align-items:center;gap:16px;color:var(--muted);font-size:14px}
+  .icon{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:var(--muted);font-size:13px}
+
+  .wrap{max-width:860px;margin:0 auto;padding:72px 24px 64px}
+
+  /* ── 首屏 ── */
+  .hero{text-align:center}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  h1{margin:14px 0 10px;font-size:34px;line-height:1.2;letter-spacing:-.03em;font-weight:650}
+  .lede{margin:0 auto;color:var(--muted);font-size:15px;max-width:44ch}
+  .field{display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;margin:28px auto 0;max-width:640px;
+    background:var(--surface);border:1px solid #dcdce0;border-radius:13px;text-align:left;
+    box-shadow:0 1px 2px rgba(10,10,10,.04),0 10px 28px -20px rgba(10,10,10,.3);
+    transition:border-color .15s,box-shadow .15s}
+  .field:hover{border-color:#c9c9cf;box-shadow:0 1px 2px rgba(10,10,10,.05),0 12px 30px -20px rgba(10,10,10,.35)}
+  .field .glass{font-size:17px;color:var(--muted)}
+  .field .ph{color:#8b8b93;font-size:15.5px}
+  .field kbd{margin-left:auto;font:inherit;font-size:11.5px;color:var(--faint);border:1px solid var(--border);
+    border-radius:5px;padding:2px 6px;background:#fafafa;white-space:nowrap}
+
+  /* ── 区段标题 ── */
+  .label{display:flex;align-items:center;gap:12px;margin:52px 0 14px;
+    font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+  .label::after{content:"";flex:1;height:1px;background:var(--border)}
+  .label .more{margin-left:0;text-transform:none;letter-spacing:0;font-weight:500;font-size:12.5px;color:var(--muted)}
+  .label .more:hover{color:var(--fg)}
+
+  /* ── 产品横条 ── */
+  .rows{display:flex;flex-direction:column;gap:10px}
+  .prow{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--radius);text-align:left;
+    transition:border-color .15s,box-shadow .15s,transform .15s}
+  .prow:hover{border-color:#d4d4d8;box-shadow:0 8px 20px -16px rgba(10,10,10,.32);transform:translateY(-1px)}
+  .prow .tile{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;flex:none}
+  .prow.desktop .tile{background:var(--desktop)}
+  .prow.portable .tile{background:var(--portable)}
+  .prow .name{font-size:16px;font-weight:600;letter-spacing:-.015em}
+  .prow .meta{margin-top:1px;color:var(--muted);font-size:12.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .prow .right{margin-left:auto;display:flex;align-items:center;gap:14px;color:var(--faint);
+    font-size:12.5px;white-space:nowrap}
+  .prow .arrow{color:#c4c4ca;transition:transform .15s,color .15s}
+  .prow:hover .arrow{color:var(--fg);transform:translateX(2px)}
+
+  /* ── 功能卡片 ── */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:16px 16px 12px;
+    transition:border-color .15s,box-shadow .15s,transform .15s}
+  .card:hover{border-color:#d4d4d8;box-shadow:0 10px 24px -20px rgba(10,10,10,.38);transform:translateY(-1px)}
+  .card .hd{display:flex;align-items:center;gap:9px;margin-bottom:2px}
+  .card .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none;
+    background:#f4f4f5;color:#3f3f46}
+  .card .ic svg{width:15px;height:15px;stroke-width:1.7}
+  .card.desktop .ic{background:#eff5ff;color:var(--desktop)}
+  .card.portable .ic{background:#ecfdf7;color:var(--portable)}
+  .card .nm{font-size:14.5px;font-weight:600;letter-spacing:-.01em;color:var(--fg)}
+  .card .nm:hover{text-decoration:underline;text-underline-offset:3px}
+  .card ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:2px}
+  .card li a{display:block;padding:4px 0;font-size:13px;color:var(--muted);
+    border-bottom:1px solid transparent}
+  .card li a:hover{color:var(--fg)}
+  .card .go{margin-top:auto;padding-top:10px;font-size:12.5px;color:#a8a8b0}
+  .card:hover .go{color:var(--fg)}
+
+  /* ── 按场景找（对照表） ── */
+  .matrix{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .mh,.mr{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:12px;align-items:center;padding:10px 16px}
+  .mh{padding-top:11px;padding-bottom:9px;border-bottom:1px solid var(--border);background:#fafafa;
+    font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--muted)}
+  .mh .c{display:flex;align-items:center;gap:6px}
+  .mh .c i{width:6px;height:6px;border-radius:50%;display:block}
+  .mh .c.desktop i{background:var(--desktop)}
+  .mh .c.portable i{background:var(--portable)}
+  .mr{border-bottom:1px solid var(--hair);font-size:13.5px}
+  .mr:last-child{border-bottom:none}
+  .mr:hover{background:var(--hover)}
+  .mr .sc{color:#3f3f46}
+  .mr a{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+  .mr a::before{content:"·";color:#c9c9cf}
+  .mr a:hover{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+
+  /* ── 视频教程 ── */
+  .vids{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;align-items:start}
+  .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .vid{position:relative;display:flex;flex-direction:column;border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--border);background:var(--surface)}
+  .vid .thumb{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#f4f4f5}
+  .vid .cap{display:block;padding:8px 11px;font-size:12.5px;font-weight:500;line-height:1.45;
+    color:#3f3f46;border-top:1px solid var(--hair)}
+  .vid:hover{border-color:#d4d4d8}
+  .vid:hover .cap{color:var(--fg)}
+  .vid .badge{position:absolute;top:10px;left:10px;font-size:11px;font-weight:600;letter-spacing:.02em;
+    color:#0b3f6b;background:#d6ecff;border-radius:6px;padding:2px 7px}
+  .vid .play{position:absolute;left:50%;top:calc(50% - 18px);transform:translate(-50%,-50%);
+    width:46px;height:46px;border-radius:50%;background:rgba(10,10,10,.68);color:#fff;
+    display:grid;place-items:center;font-size:13px;pointer-events:none}
+  .vid.big .cap{font-size:13.5px;padding:10px 12px}
+
+  /* ── 常见问题 ── */
+  .faq{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .faq a{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--hair);font-size:14px}
+  .faq a:last-child{border-bottom:none}
+  .faq a:hover{background:var(--hover)}
+  .faq .q{color:#27272a}
+  .faq .tag{margin-left:auto;flex:none;font-size:11px;color:var(--muted);border:1px solid var(--border);
+    border-radius:999px;padding:1px 8px;background:#fff}
+  .faq .tag.hot{color:#b45309;border-color:#f5d9b8;background:#fffaf3}
+  .faq .who{flex:none;font-size:11px;color:var(--faint)}
+  .moreline{display:flex;justify-content:center;margin-top:14px;font-size:13px;color:var(--muted)}
+  .moreline a:hover{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+
+  .foot{margin-top:44px;padding-top:20px;border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    font-size:13px;color:var(--muted)}
+  .foot .grp{display:flex;gap:18px;flex-wrap:wrap}
+  .foot a:hover{color:var(--fg)}
+  .lang{color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">StationPC 帮助中心</div>
+  <div class="spacer"></div>
+  <div class="links"><span class="icon">中</span><span class="icon">◐</span><span class="icon">◯</span></div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="kicker">Help Center</div>
+    <h1>先搜，再进产品线</h1>
+    <p class="lede">桌面式与便携式两套系统，文档分开维护。直接描述问题，比翻侧栏快。</p>
+    <div class="field">
+      <span class="glass">⌕</span>
+      <span class="ph">搜索全部文档，例如「初始化」「SD 卡容量」「WebDAV 挂载」</span>
+      <kbd>Ctrl K</kbd>
+    </div>
+  </div>
+
+  <div class="label">按产品浏览</div>
+  <div class="rows">
+    <a class="prow desktop" href="/zh/desktop">
+      <div class="tile">D</div>
+      <div><div class="name">StationOS Pro</div>
+        <div class="meta">桌面式 NAS · DA400 / DA400 Air</div></div>
+      <div class="right"><span>38 篇</span><span class="arrow">→</span></div>
+    </a>
+    <a class="prow portable" href="/zh/portable">
+      <div class="tile">P</div>
+      <div><div class="name">PocketCloud（PA100）</div>
+        <div class="meta">便携式 NAS · PA100 / PA100 Pro / PA200</div></div>
+      <div class="right"><span>111 篇</span><span class="arrow">→</span></div>
+    </a>
+  </div>
+
+  <div class="label">按场景找<a class="more" href="/zh/portable">不知道选哪条线？→</a></div>
+  <div class="matrix">
+    <div class="mh"><span></span><span class="c desktop"><i></i>桌面式 · StationOS Pro</span><span class="c portable"><i></i>便携式 · PocketCloud</span></div>
+    <div class="mr"><span class="sc">备份手机里的照片</span>
+      <a href="/zh/desktop/app-guide/backup">备份与还原</a>
+      <a href="/zh/portable/video_tutorial/create-cloud-backup">云盘备份</a></div>
+    <div class="mr"><span class="sc">在家以外访问 NAS 文件</span>
+      <a href="/zh/desktop/app-guide/settings/remote-access">远程访问</a>
+      <a href="/zh/portable/remote-access">远程访问</a></div>
+    <div class="mr"><span class="sc">把 NAS 当电脑的共享盘</span>
+      <a href="/zh/desktop/app-guide/settings/file-sharing-protocol">共享协议</a>
+      <a href="/zh/portable/file-service">WebDAV / SMB</a></div>
+    <div class="mr"><span class="sc">跑 Docker 应用</span>
+      <a href="/zh/desktop/app-guide/docker">Docker 应用</a>
+      <a href="/zh/portable/docker">Docker</a></div>
+    <div class="mr"><span class="sc">两台设备之间自动同步文件夹</span>
+      <a href="/zh/desktop/app-guide/backup">备份与同步</a>
+      <a href="/zh/portable/backup/syncthing">Syncthing 同步</a></div>
+    <div class="mr"><span class="sc">给家人分账号、限制权限</span>
+      <a href="/zh/desktop/app-guide/settings/users">用户与权限</a>
+      <a href="/zh/portable/guides/create-user">创建子用户</a></div>
+  </div>
+
+  <div class="label">视频教程<a class="more" href="/zh/portable/video_tutorial">查看全部 10 个 →</a></div>
+  <div class="vids">
+    <a class="vid big" href="/zh/portable/video_tutorial/Binding_Settings">
+      <span class="badge">合集</span>
+      <img class="thumb" src="https://i.ytimg.com/vi/kHGx5_HkbJQ/mqdefault.jpg" alt="" loading="lazy" />
+      <span class="play">▶</span>
+      <span class="cap">软件安装与设备绑定</span>
+    </a>
+    <div class="vgrid">
+      <a class="vid" href="/zh/portable/video_tutorial/ap_mode">
+        <img class="thumb" src="https://i.ytimg.com/vi/LoRcy52atnk/mqdefault.jpg" alt="" loading="lazy" />
+        <span class="cap">如何在无网环境下使用？</span>
+      </a>
+      <a class="vid" href="/zh/portable/video_tutorial/create-cloud-backup">
+        <img class="thumb" src="https://i.ytimg.com/vi/YmWP-pGM1RU/mqdefault.jpg" alt="" loading="lazy" />
+        <span class="cap">如何创建网盘备份？</span>
+      </a>
+      <a class="vid" href="/zh/portable/video_tutorial/create-sd-backup">
+        <img class="thumb" src="https://i.ytimg.com/vi/o4tQ3K4-hus/mqdefault.jpg" alt="" loading="lazy" />
+        <span class="cap">如何创建 SD 卡备份？</span>
+      </a>
+      <a class="vid" href="/zh/portable/video_tutorial/guest_wifi">
+        <img class="thumb" src="https://i.ytimg.com/vi/lgGn_VM2A3w/mqdefault.jpg" alt="" loading="lazy" />
+        <span class="cap">如何连接酒店认证 WiFi？</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="label">常见问题<a class="more" href="/zh/portable/faq">查看全部 24 条 →</a></div>
+  <div class="faq">
+    <a href="#"><span class="q">如何提交功能问题 / 意见反馈？</span><span class="who">便携式</span><span class="tag hot">热门</span></a>
+    <a href="#"><span class="q">RAW 格式支持列表</span><span class="who">便携式</span><span class="tag">推荐</span></a>
+    <a href="#"><span class="q">同一个账号可以多设备同时登录吗？</span><span class="who">便携式</span><span class="tag">推荐</span></a>
+    <a href="#"><span class="q">恢复出厂设置会做哪些操作？</span><span class="who">便携式</span><span class="tag">推荐</span></a>
+    <a href="#"><span class="q">客户端无法连接设备怎么办？</span><span class="who">便携式</span><span class="tag">推荐</span></a>
+    <a href="#"><span class="q">DA400 Air 为什么不支持 Station AI？</span><span class="who">桌面式</span><span class="tag">推荐</span></a>
+  </div>
+
+  <div class="foot">
+    <div class="grp"><a href="#">法务与隐私</a><a href="#">联系我们</a><a href="#">更新日志</a><a href="#">兼容性列表</a></div>
+    <div class="lang">简体中文 · 8 种语言</div>
+  </div>
+</main>
+</body>
+</html>

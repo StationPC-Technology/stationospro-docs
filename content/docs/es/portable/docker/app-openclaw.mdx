@@ -1,0 +1,90 @@
+---
+sourceHash: 67bf12144a2d
+title: "Guía de instalación de OpenClaw"
+---
+
+## Introducción a la aplicación
+
+OpenClaw es un asistente personal de IA que se ejecuta en el dispositivo local y es compatible con diversas herramientas de comunicación habituales, lo que permite una experiencia de interacción inteligente.
+
+## Preparación previa
+
+Antes de empezar, asegúrese de disponer de:
+
+- ✅ Una API Key disponible (por ejemplo, [OpenAI](https://platform.openai.com/api-keys) / [Z.AI](https://bigmodel.cn/apikey/platform), etc.)
+
+## Proceso de instalación rápida
+
+1. Descargue OpenClaw en el Centro de aplicaciones
+
+<img src="/images/es/portable/docker/app-openclaw/1-1.png" width="100%" />
+
+2. Abra la consola del contenedor de OpenClaw
+
+<img src="/images/es/portable/docker/app-openclaw/1-2.png" width="100%" />
+
+3. Abra la terminal, introduzca el comando **su node** y pulse Intro
+
+<img src="/images/es/portable/docker/app-openclaw/1-3.png" width="100%" />
+
+4. Introduzca el comando **openclaw onboard** y pulse Intro
+
+<img src="/images/es/portable/docker/app-openclaw/1-4.png" width="100%" />
+
+5. Tras un momento, aparecerán las advertencias de seguridad de la configuración de OpenClaw. Seleccione **Yes** y pulse Intro para confirmar la selección
+
+<img src="/images/es/portable/docker/app-openclaw/1-5.png" width="100%" />
+
+6. Seleccione **QuickStart**; puede ajustar la opción con las teclas de flecha arriba y abajo
+
+<img src="/images/es/portable/docker/app-openclaw/1-6.png" width="100%" />
+
+7. Seleccione **Use existing values**
+
+<img src="/images/es/portable/docker/app-openclaw/1-7.png" width="100%" />
+
+8. Seleccione el modelo según el proveedor de la **API key** que haya preparado
+
+<img src="/images/es/portable/docker/app-openclaw/1-8.png" width="100%" />
+
+9. Aquí se muestra el ejemplo con Z.AI
+
+<img src="/images/es/portable/docker/app-openclaw/1-9.png" width="100%" />
+
+10. Seleccione **Paste API key now**
+
+<img src="/images/es/portable/docker/app-openclaw/1-10.png" width="100%" />
+
+11. Introduzca la **API key**
+
+<img src="/images/es/portable/docker/app-openclaw/1-11.png" width="100%" />
+
+12. Seleccione el modelo predeterminado; normalmente se elige ```Keep current```
+
+<img src="/images/es/portable/docker/app-openclaw/1-12.png" width="100%" />
+
+13. Seleccione el software de interacción; por ahora, seleccione **Skip for now**
+
+<img src="/images/es/portable/docker/app-openclaw/1-13.png" width="100%" />
+
+14. Con esto habrá terminado. En este momento la aplicación se reiniciará; vaya al **Centro de aplicaciones** y haga clic en **Abrir**
+
+<img src="/images/es/portable/docker/app-openclaw/1-15.png" width="100%" />
+
+15. Una vez abierta, ya puede chatear con **OpenClaw**
+
+<img src="/images/es/portable/docker/app-openclaw/1-16.png" width="100%" />
+
+## Preguntas frecuentes
+
+* P: ¿Por qué aparece un aviso de que no se puede conectar al actualizar?
+* R: El frontend y el backend de OpenClaw utilizan un mecanismo de autenticación de seguridad. Solución:
+> Abra la barra lateral: Control → Descripción general, introduzca el token de la puerta de enlace y haga clic en «Conectar» para restablecer el uso normal
+
+* P: ¿Qué archivos se pueden manejar?
+* R: El directorio montado de forma predeterminada es: /pocketcloud; puede pedir directamente a OpenClaw que ejecute, por ejemplo:
+> Enumera todos los archivos de imagen que hay en /pocketcloud
+
+* P: ¿No quiero escribir /pocketcloud cada vez?
+* R: Puede configurar un «alias» para expresarse de forma más natural, por ejemplo:
+> Llama a /pocketcloud «mis archivos»

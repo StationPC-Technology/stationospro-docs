@@ -1,0 +1,116 @@
+---
+sourceHash: b6d5ceeee92c
+title: "Comment accéder aux fichiers de PocketCloud via Samba ?"
+---
+
+Samba est un service de partage de fichiers basé sur le protocole SMB/CIFS (Server Message Block / Common Internet File System), largement utilisé pour le partage de fichiers et d'imprimantes entre les systèmes Linux, macOS et Windows.
+Grâce à Samba, les utilisateurs peuvent accéder aux répertoires partagés d'un serveur distant comme à des fichiers locaux, ce qui permet le partage et la collaboration de fichiers multiplateforme.
+
+**Il offre principalement les fonctions suivantes :**
+1. Partage de fichiers : permet aux utilisateurs d'accéder, de téléverser, de télécharger et de gérer des fichiers ou dossiers partagés sur le réseau.
+2. Partage d'imprimantes : prise en charge du partage d'imprimantes sur le réseau, pour que plusieurs appareils utilisent la même ressource d'impression.
+3. Contrôle des droits utilisateur : possibilité de définir des droits d'accès différents par utilisateur ou par groupe d'utilisateurs, afin de garantir la sécurité des données.
+4. Accès multiplateforme : compatible avec les principaux systèmes d'exploitation tels que Windows, Linux et macOS, et avec de nombreux clients.
+
+## Activer Samba
+
+Samba est désactivé par défaut et doit être activé manuellement. Suivez les étapes ci-dessous :
+
+1. Ouvrez la page **Protocoles de partage de fichiers** de l'application.<br />
+2. Cliquez sur **Service Samba**.<br />
+3. Activez le **bouton bascule** pour activer le **service Samba**.<br />
+
+<img src="/images/fr/portable/file-service/access-ftp-service/1-1.png" width="240" height="500" />
+<img src="/images/fr/portable/file-service/access-samba-service/5-2.png" width="240" height="500" />
+<img src="/images/fr/portable/file-service/access-samba-service/5-3.png" width="240" height="500" />
+
+## Accès sur Windows
+
+### Méthode 1
+
+1. Appuyez sur la combinaison **Win + R**.  
+2. Saisissez `\\NAS_IP_Address`, puis cliquez sur **OK**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/1-1.png" width="100%" height="100%" />
+3. Saisissez le nom d'utilisateur et le mot de passe, puis cliquez sur **OK**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/1-2.png" width="100%" height="100%" />
+4. Vous pouvez maintenant parcourir et gérer les fichiers du NAS comme un dossier local dans l'**Explorateur de fichiers**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/1-3.png" width="100%" height="100%" />
+
+### Méthode 2
+
+1. Ouvrez l'Explorateur de fichiers
+2. Faites un clic droit sur **Réseau**, puis sélectionnez **Connecter un lecteur réseau**
+   <img src="/images/fr/portable/file-service/access-nfs-service/5-1.png" width="100%" height="100%" />
+3. Saisissez `\\NAS_IP_Address\nom_administrateur`, puis cliquez sur **Terminer**.
+   <img src="/images/fr/portable/file-service/access-samba-service/9-2.png" width="100%" height="100%" />
+4. Saisissez le nom d'utilisateur et le mot de passe, puis cliquez sur **OK**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/9-3.png" width="100%" height="100%" />
+5. Vous pouvez maintenant parcourir et gérer les fichiers du NAS comme un dossier local dans l'**Explorateur de fichiers**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/9-4.png" width="100%" height="100%" />
+   
+---
+
+## Accès sur iOS
+
+1. Ouvrez l'application **Fichiers**.  
+2. Touchez l'icône **« ... »** en haut à droite, puis sélectionnez **Se connecter au serveur**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/2-1.png" width="240" height="500" />
+3. Saisissez `smb://NAS_IP_Address`, puis cliquez sur **Se connecter**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/2-2.png" width="240" height="500" />
+4. Saisissez le nom d'utilisateur et le mot de passe, puis cliquez sur **Suivant**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/2-3.png" width="240" height="500" />
+5. Vous pouvez maintenant parcourir et gérer les fichiers du NAS comme un dossier local dans l'application **Fichiers**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/2-4.png" width="240" height="500" />
+
+---
+
+## Accès sur macOS
+
+1. Faites un clic droit sur **Finder**, puis sélectionnez **Aller → Se connecter au serveur** dans la barre de menus.  
+   <img src="/images/fr/portable/file-service/access-ftp-service/4-0.png" width="100%" height="100%" />
+2. Saisissez `smb://NAS_IP_Address` dans le champ d'adresse du serveur, puis cliquez sur **Se connecter**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/3-2.png" width="100%" height="100%" />
+3. Saisissez le nom d'utilisateur et le mot de passe, puis cliquez sur **Se connecter**.  
+   <img src="/images/fr/portable/file-service/access-samba-service/3-3.png" width="100%" height="100%" />
+4. Vous pouvez maintenant parcourir et gérer les fichiers du NAS dans le Finder comme un dossier local.  
+   <img src="/images/fr/portable/file-service/access-samba-service/3-4.png" width="100%" height="100%" />
+
+---
+
+## Accès sur Linux
+
+Utilisez **cifs-utils** pour monter le partage Samba :
+
+```bash
+# Installer cifs-utils
+sudo apt-get install cifs-utils
+
+# Créer un point de montage
+# Exemple : utiliser /mnt/samba_share comme répertoire de montage
+sudo mkdir -p /mnt/samba_share
+
+# Monter le répertoire partagé Samba
+sudo mount -t cifs //NAS_IP_Address/nom_du_partage /mnt/samba_share -o username=nom_utilisateur,password=mot_de_passe
+
+# Une fois le montage réussi, vous pouvez accéder aux fichiers du NAS dans /mnt/samba_share et les gérer
+```
+
+---
+
+## Accès depuis d'autres clients
+- Informations de connexion
+    - IP : IP de l'appareil NAS
+    - Port : 445 par défaut
+    - Compte : nom d'utilisateur de connexion à l'appareil NAS
+    - Mot de passe : mot de passe de connexion à l'appareil NAS
+- Description du répertoire de montage
+    - SSD principal : `/nom_utilisateur`
+      - Exemple 1 : tous les répertoires. L'utilisateur actuel est test ; le répertoire de montage est `/test`
+      - Exemple 2 : répertoire spécifié. L'utilisateur actuel est test ; le répertoire de montage est `/test/Pictures`
+      - Autres : plusieurs utilisateurs sont pris en charge ; chaque utilisateur correspond à un répertoire de montage
+    - Stockage externe : `/nom_du_stockage_externe`
+      - Exemple 1 : tous les répertoires. Le nom de la carte SD externe est SD 60GB BA26 ; le répertoire de montage est `/SD_60GB_BA26`
+      - Exemple 2 : répertoire spécifié. Le nom de la carte SD externe est SD 60GB BA26 ; le répertoire de montage est `/SD_60GB_BA26/Pictures`
+    - ⚠️ Remarque :
+      - Certains clients ne permettent pas de saisir uniquement le répertoire racine `/` ; il faut indiquer le répertoire de montage spécifique correspondant ci-dessus
+      - Après la mise à jour du micrologiciel &lt;= 3.1.0.16 vers la dernière version, le répertoire de montage a été ajusté ; référez-vous à la méthode de montage de la nouvelle version

@@ -230,6 +230,35 @@ sudo grep -c '^FEEDBACK_API_' /etc/stationnas-docs.env
 
 如果旧容器里没有这两个变量（例如容器启动早于密钥配置），注意 GitHub Secrets 创建后无法回显，不能作为取值来源。请向反馈服务提供方重新获取，或在服务端轮换出新的 URL/TOKEN，再用编辑器写入 `/etc/stationnas-docs.env`；不要用 `echo` 把值留在 shell history。
 
+#### 帮助中心反馈接口契约
+
+`/api/feedback` 只做转发，真正落库的是 `stationpc_admin_pro`：
+
+- 地址：`https://api.spcnasos.com/open-api/v1/feedback/help-center`（`server/router/device/public_feedback.go`，`help-center` 子路由挂在 `/open-api/v1/feedback` 下）。
+- 请求体：`{path, locale, title, vote, comment?}`，`vote` 取 `helpful` / `not_helpful`。
+- 鉴权：`Authorization: Bearer <token>`，后端比对 `open-api.feedback-token`；该值为空时后端 fail-closed，对所有请求返回 `{"code":7,"msg":"反馈服务未启用"}`。
+- 后端业务失败也返回 HTTP 200（`response.Result` 统一 `c.JSON(http.StatusOK, …)`），所以 `/api/feedback` 必须再看 body 里的 `code`，非 0 记为失败，否则用户会看到"提交成功"而没有入库。
+- `docker run --env-file` 本身不校验值；空值由后端 fail-closed 和 `scripts/deploy-remote.sh` 的检查兜底（键或值缺失都直接拒绝部署）。
+
+两端共用同一枚 token：
+
+```bash
+TOKEN="$(openssl rand -hex 32)"
+
+# 后端：/var/www/docker/station_admin/config/config.prod.yaml
+#   open-api:
+#     feedback-token: "<TOKEN>"
+#     feedback-limit: 30
+sudo vi /var/www/docker/station_admin/config/config.prod.yaml
+
+# 帮助中心
+sudo vi /etc/stationnas-docs.env
+#   FEEDBACK_API_URL=https://api.spcnasos.com/open-api/v1/feedback/help-center
+#   FEEDBACK_API_TOKEN=<TOKEN>
+```
+
+后端 Viper 开启了 `WatchConfig`，一般会热加载新值；若仍返回"无权访问"，`docker restart station-admin-prod-us-server` 后再试。`--env-file` 的变量在容器创建时固化，改完 env 文件必须重建 `stationnas-docs` 容器（重跑一次部署，或按上一节手动 `docker run`）。
+
 ### 7. GHCR 镜像访问
 
 服务器执行 `docker pull ghcr.io/...` 需要认证，二选一：
