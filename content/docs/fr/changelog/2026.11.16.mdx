@@ -1,0 +1,104 @@
+---
+sourceHash: 27ebeaeed7d2
+title: 'Notes de mise à jour du système 2026.11.16'
+---
+
+## À lire avant la mise à jour
+
+### Produits concernés
+
+Cette mise à jour concerne les produits exécutant StationOS Pro. Avant la mise à niveau, vérifiez l’architecture du processeur correspondant à votre modèle.
+
+- Série DA : série DA400
+
+### Rappels de mise à niveau
+
+1. Pour utiliser les fonctions décrites ici, mettez le micrologiciel système, la suite d’applications ou le client à la version indiquée ou ultérieure.
+2. Certaines nouvelles fonctions de la suite d’applications nécessitent une version minimale précise du micrologiciel. Si celle-ci est inférieure à la version compatible minimale, vous risquez de ne pas recevoir les notifications de mise à jour des applications ou de ne pas pouvoir utiliser les fonctions concernées normalement.
+
+## Micrologiciel système et applications StationOS Pro
+### Informations de version
+
+Version du micrologiciel système : v1.3.0.10
+
+Cette mise à jour renforce principalement la stabilité du montage à distance, de la gestion du stockage, du transfert de fichiers, de Docker et du centre d’applications, tout en améliorant l’expérience d’utilisation de l’UPS, des mises à jour système et de l’AI.
+
+### Système et mises à jour
+
+- Optimisé : notifications de variation du niveau de batterie de l’UPS et actualisation de l’état dans le client ; les notifications ne sont envoyées qu’aux administrateurs et prennent en charge plusieurs langues ainsi que la navigation par clic.
+- Optimisé : confirmation de niveau de batterie faible de l’UPS, rapprochement de l’état au démarrage et protection du redéploiement du service, afin de réduire les extinctions injustifiées et les interruptions d’état.
+- Optimisé : les modes du ventilateur deviennent « Automatique » et « Pleine vitesse » ; le mode « Silencieux » est supprimé.
+- Optimisé : la tâche de configuration d’un nouvel appareil n’est marquée comme terminée qu’après la création réelle, afin d’éviter un état erroné de l’assistant.
+- Corrigé : arrêt des mises à jour planifiées DDNS après un saut de l’heure système.
+- Corrigé : impossibilité de recharger un micrologiciel après un téléversement manuel en raison d’une session non nettoyée, retour en arrière de la progression OTA et impossibilité de réessayer après un échec.
+
+### Réseau et accès à distance
+
+- Optimisé : état du cycle de vie des montages à distance ; vérification de la disponibilité et de la réponse du serveur distant avant le montage, attente de la fin du démontage et nettoyage de l’ancien cache de liste après un échec de chargement.
+- Optimisé : le montage SMB à distance réutilise la configuration rclone actuelle, ce qui améliore la stabilité des montages répétés.
+- Optimisé : mappage de la racine de partage NFS globale et du stockage externe ; les alias de partage sont automatiquement restaurés après un redémarrage et les noms d’affichage du stockage externe sont conservés.
+- Optimisé : expérience de bascule entre réseau local et réseau distant lors d’une connexion avec Station ID ; après un arrêt puis un redémarrage, le bureau rétablit automatiquement la connexion.
+
+### Stockage et disques
+
+- Optimisé : nettoyage des partitions et signatures résiduelles des disques membres avant la création d’un espace de stockage, afin de réduire l’impact des anciennes données sur la réussite de la création.
+- Optimisé : le montage des volumes de stockage intègre une exclusion mutuelle au niveau du volume et un traitement idempotent des volumes déjà montés ; le démontage attend maintenant une écriture précise sur le disque, éliminant les faux échecs de montage en double.
+- Optimisé : la carte du mode RAID précise les capacités d’extension des disques ; la disposition de la boîte de dialogue de détection des disques et la sélection par défaut sont plus claires.
+- Optimisé : affichage des textes longs, de l’état de santé et du numéro de série dans les détails d’un disque, afin d’éviter les contenus tronqués ou les espaces vides.
+- Corrigé : disques NVMe incorrectement considérés comme inactifs en présence d’une baie active, échec de vérification après une suppression réussie d’un cache SSD et absence d’affichage des états intermédiaires lors de la création d’un cache SSD.
+- Corrigé : message « système de fichiers non reconnu » affiché à tort pour les disques membres d’un pool de stockage et état de défaillance d’un disque affiché à tort comme une anomalie.
+
+### Fichiers et transfert
+
+- Optimisé : les informations détaillées d’un fichier affichent désormais la résolution des photos et des vidéos, la date de prise de vue et la durée ; l’accès aux favoris dans l’aperçu des images est complété.
+- Optimisé : validation des noms de dossier composés d’espaces ou vides lors de la création, affichage du tri, du filtrage et de la boîte de dialogue de désignation d’utilisateurs pour les partages par lien externe.
+- Optimisé : cohérence du tri et des notifications en temps réel des tâches de fichiers ; les tâches en pause ne sont plus marquées à tort comme échouées et les tâches en attente reprennent en priorité lors de la reprise.
+- Optimisé : fusion des autorisations des dossiers d’équipe et retour des autorisations finales, tri selon la date réelle de modification sur le disque et couverture de la recherche aux répertoires d’équipe accessibles.
+- Optimisé : la recherche de doublons ignore les fichiers illisibles, afin d’éviter qu’une erreur d’autorisation ponctuelle interrompe l’ensemble de l’analyse.
+- Corrigé : l’opération glisser-déposer avec Ctrl pour copier exécutait un déplacement ; le message du QR code de copie indiquait une réussite alors que le presse-papiers était vide ; les dossiers ne pouvaient pas être dépliés en mode recherche.
+- Corrigé : message trompeur indiquant que certains fichiers étaient copiés lors de l’annulation d’un fichier unique, impossibilité d’ouvrir un dossier après l’annulation d’un téléversement et affichage inexact du nombre de tâches multi-fichiers.
+
+### Médias et lecture
+
+- Optimisé : préchauffage des sous-titres intégrés au démarrage de la lecture ; le premier changement de sous-titre ne nécessite plus de démultiplexage de l’ensemble du disque.
+- Optimisé : les vignettes RAW utilisent désormais l’aperçu intégré à l’appareil photo et respectent le style colorimétrique de l’appareil.
+- Optimisé : chaîne d’affichage des images HDMI, pour améliorer la cohérence et la stabilité de leur rendu.
+
+### Centre d’applications et Docker
+
+- Nouveau : entrée intégrée à l’application « Synchronisation de fichiers » sur le bureau PC ; si elle n’est pas installée, une confirmation et un guide d’installation sont proposés, sinon elle peut être lancée directement.
+- Nouveau : le Gestionnaire de fichiers ainsi que les journaux Docker et les fenêtres de terminal prennent en charge l’ouverture multiple dans une même fenêtre, jusqu’à 5.
+- Optimisé : le magasin d’applications permet le filtrage par catégorie dès un démarrage à froid ; les catégories passent à la correspondance exacte et la sélection erronée d’autres catégories par sous-chaîne est corrigée.
+- Optimisé : la page de détails d’une application affiche le développeur, l’éditeur, le contrat de licence et les liens vers le code source et la documentation d’aide ; correction de la désynchronisation des icônes et des couvertures.
+- Optimisé : transmission des causes d’échec d’installation d’applications aux notifications, journaux et progression ; les causes telles que les conflits de ports sont directement consultables.
+- Optimisé : les répertoires accessibles aux applications prennent en charge l’interrupteur de déclaration du paquet et le chemin de montage par défaut ; l’affichage des autorisations des chemins gérés est plus explicite.
+- Optimisé : la création de conteneurs Docker prend en charge la recherche de mots-clés d’images ; le changement de chemin de projet ne vide plus la configuration et le choix de l’emplacement de stockage n’est plus écrasé par l’interrogation périodique.
+- Optimisé : le pool d’adresses Docker par défaut est complété automatiquement, afin d’éviter les échecs de création de réseau après l’installation de nombreuses applications.
+- Corrigé : le mappage de volumes d’un conteneur Docker pouvait monter des chemins système tels que la racine dans le conteneur ; une validation de chemin est ajoutée aux pages de création et de confirmation.
+
+### AI et base de connaissances
+
+- Optimisé : la liste déroulante de sélection des modèles locaux est regroupée par famille ; les modèles téléchargés peuvent être changés et un message clair s’affiche lorsqu’aucun modèle n’est configuré.
+- Optimisé : état de migration unifié pendant la migration du stockage des modèles locaux, afin d’éviter les actions erronées.
+- Optimisé : auto-réparation des dépendances manquantes de la base de connaissances et des vecteurs perdus ; la suppression d’une base de connaissances n’est plus bloquée par l’état de la base vectorielle.
+- Corrigé : après la perte des vecteurs d’une base de connaissances, les réponses restaient systématiquement en chinois.
+- Corrigé : impossible de redimensionner la fenêtre Station AI en la faisant glisser par ses bords.
+
+## Client
+### Client iOS et Android
+
+Version de l’application : v1.3.0
+
+- Nouveau : synchronisation différentielle de la bibliothèque multimédia Cinéma, état des tâches d’analyse et entrée d’arrêt, avec actualisation automatique après une mise à jour du contenu.
+- Nouveau : les paramètres AI prennent en charge l’interrupteur de reconnaissance vidéo et les niveaux du mode de reconnaissance ; les résultats de recherche à faible confiance invitent à reformuler l’invite.
+- Nouveau : la page de détails d’une application permet d’ouvrir les liens vers le développeur, l’éditeur et la conformité ; la présentation, le journal des modifications et les nouveautés se déplient après plus de trois lignes.
+- Optimisé : le widget Cinéma de l’accueil devient un défilement de cartes « Reprendre la lecture », affichant les informations de saison et d’épisode à reprendre ; gestion des versions de films et actions des administrateurs améliorées.
+- Optimisé : alignement de l’expérience des albums Bébé, des albums partagés et des partages par lien externe sur la version Web ; la suppression d’un album permet de le déplacer vers la corbeille ou de le supprimer définitivement.
+- Optimisé : couleurs de la carte de l’album, affichage par agrégats et performances de glissement et de zoom ; curseur de dates et dates d’album localisés selon la langue du système.
+- Optimisé : reconnexion et gestion des interruptions pour la sauvegarde de l’album ; l’établissement de la connexion n’est plus marqué à tort comme une pause et les nouvelles tentatives après interruption sont plus stables.
+- Optimisé : filtrage et tri des partages par lien externe ; affichage plus clair de la suppression de fichiers, des détails multimédias et de l’état des tâches de transfert.
+- Optimisé : sous iOS, vous pouvez choisir d’enregistrer une image ou une vidéo dans un dossier du téléphone ou dans la galerie du téléphone.
+- Optimisé : messages de restriction clairs lorsque les services Album ou Cinéma ne sont pas installés ou activés ; les services retrouvent automatiquement leur état après activation.
+- Optimisé : les paramètres réseau prennent en charge l’agrégation de liens et l’état Wi-Fi est actualisé périodiquement ; le mode d’arrêt de l’UPS est aligné sur la version PC et une entrée de désactivation est proposée lorsque la double vérification est activée.
+- Optimisé : nouvelle tentative automatique en cas d’échec d’API et journalisation consultable des erreurs ; délais d’attente de connexion et messages d’erreur plus pertinents.
+- Optimisé : traductions manquantes et textes de dates dans six langues ; correction du plantage au démarrage sous iOS 27 et de l’affichage des icônes adaptatives Android.
